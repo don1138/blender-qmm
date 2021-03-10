@@ -24,7 +24,7 @@ bl_info = {
     "blender"    : (2, 90, 0),
     "location"   : "3D Viewport > Sidebar > Create",
     "warning"    : "",
-    "wiki_url"   : "https://github.com/don1138/blender-qle",
+    "wiki_url"   : "https://github.com/don1138/blender-qmm",
     "support"    : "COMMUNITY",
     "category"   : "Material"
 }
@@ -50,7 +50,7 @@ class BQMPanel(bpy.types.Panel):
         row.operator("shader.gold_m_operator", text="Gold Metallic")
 
         row = layout.row()
-        row.operator("shader.silver_min_operator", text="Silver Flat")
+        row.operator("shader.silver_min_operator", text="Silver")
         row = layout.row()
         row.operator("shader.silver_min_operator", text="Silver Metallic Min")
         row = layout.row()
