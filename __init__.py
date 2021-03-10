@@ -24,7 +24,7 @@ bl_info = {
     "blender"    : (2, 90, 0),
     "location"   : "3D Viewport > Sidebar > Create",
     "warning"    : "",
-    "wiki_url"   : "https://github.com/don1138/blender-qle",
+    "wiki_url"   : "https://github.com/don1138/blender-qmm",
     "support"    : "COMMUNITY",
     "category"   : "Material"
 }
