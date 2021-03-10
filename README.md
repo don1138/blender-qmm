@@ -2,7 +2,7 @@
 
 **A Collection of Metal Materials**
 
-![Blender QLE Screenshot](https://github.com/don1138/blender-qmm/blob/master/blender-qmm.jpg)
+![Blender QLE Screenshot](https://github.com/don1138/blender-qmm/blob/main/blender-qmm.jpg)
 
 ## Installation
 
