@@ -1,7 +1,3 @@
-### 0.0.3
-- Add custom icons
-https://blender.stackexchange.com/questions/32335/how-to-implement-custom-icons-for-my-script-addon
-
 ### 0.0.2
 - Add error checking: Does the material already exist?
 
