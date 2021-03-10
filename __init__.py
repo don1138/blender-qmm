@@ -50,7 +50,7 @@ class BQMPanel(bpy.types.Panel):
         row.operator("shader.gold_m_operator", text="Gold Metallic")
 
         row = layout.row()
-        row.operator("shader.silver_min_operator", text="Silver Flat")
+        row.operator("shader.silver_min_operator", text="Silver")
         row = layout.row()
         row.operator("shader.silver_min_operator", text="Silver Metallic Min")
         row = layout.row()
