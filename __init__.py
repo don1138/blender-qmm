@@ -20,8 +20,8 @@ bl_info = {
     "name"       : "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
     "author"     : "Don Schnitzius",
-    "version"    : (0, 0, 2),
-    "blender"    : (2, 90, 0),
+    "version"    : (0, 0, 3),
+    "blender"    : (2, 83, 0),
     "location"   : "3D Viewport > Sidebar > Create",
     "warning"    : "",
     "wiki_url"   : "https://github.com/don1138/blender-qmm",
@@ -31,18 +31,29 @@ bl_info = {
 
 import bpy
 
-# PANEL
+# PARENT PANEL
 class BQMPanel(bpy.types.Panel):
     bl_idname = "BQM_PT_Panel"
     bl_label = "Quick Metal Materials"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "Create"
+    bl_category = "QMM"
 
     def draw(self, context):
         layout = self.layout
 
-        layout.label(text="NOBLE:")
+
+# NOBLE METALS PANEL
+class BQMPanelNoble(bpy.types.Panel):
+    bl_idname = "BQM_PT_Panel_Noble"
+    bl_label = "Noble Metals"
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category = "QMM"
+    bl_parent_id = 'BQM_PT_Panel'
+
+    def draw(self, context):
+        layout = self.layout
 
         row = layout.row()
         row.operator("shader.gold_operator", text="Gold")
@@ -57,7 +68,17 @@ class BQMPanel(bpy.types.Panel):
         row.operator("shader.silver_max_operator", text="Silver Metallic Max")
 
 
-        layout.label(text="BASE & ALLOYS:")
+# BASE METALS PANEL
+class BQMPanelBase(bpy.types.Panel):
+    bl_idname = "BQM_PT_Panel_Base"
+    bl_label = "Base Metals & Alloys"
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category = "QMM"
+    bl_parent_id = 'BQM_PT_Panel'
+
+    def draw(self, context):
+        layout = self.layout
 
         row = layout.row()
         row.operator("shader.aluminium_operator", text="Aluminium")
@@ -85,13 +106,24 @@ class BQMPanel(bpy.types.Panel):
         row.operator("shader.titanium_operator", text="Titanium")
 
 
-        layout.label(text="EXTRAS:")
+# EXTRAS PANEL
+class BQMPanelExtras(bpy.types.Panel):
+    bl_idname = "BQM_PT_Panel_Extras"
+    bl_label = "Extras"
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category = "QMM"
+    bl_parent_id = 'BQM_PT_Panel'
+
+    def draw(self, context):
+        layout = self.layout
 
         row = layout.row()
         row.operator("shader.mercury_operator", text="Liquid Mercury")
 
         row = layout.row()
         row.operator("shader.glass_operator", text="Glass Hack")
+
 
 from .Aluminium import *
 from .Brass import *
@@ -110,10 +142,14 @@ from .SilverMax import *
 from .Steel import *
 from .Titanium import *
 
+
 from bpy.utils import register_class, unregister_class
 
 _classes = [
     BQMPanel,
+    BQMPanelNoble,
+    BQMPanelBase,
+    BQMPanelExtras,
     Aluminium,
     Brass,
     Bronze,

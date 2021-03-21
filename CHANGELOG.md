@@ -1,3 +1,8 @@
+### 0.0.3
+- Move categories into sub-panels
+- Change Category to Material
+- Change Blender compatability to 2.83
+
 ### 0.0.2
 - Add error checking: Does the material already exist?
 
