@@ -3,7 +3,7 @@
 	- Pale Gold Metallic
 	- Pale Silver Metallic
 	- Rubber Cutting Mat
-- Add ``QMM`` prefix to classes to resolve naming conflict wth other shader addons
+- Add ``QMM`` prefix to classes to resolve naming conflict with other shader addons
 
 ### 0.0.3
 - Move categories into sub-panels
