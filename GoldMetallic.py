@@ -8,20 +8,20 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
     bpy.context.window_manager.popup_menu(draw, title = title, icon = icon)
 
 #GoldShaderOperator
-class GoldMetallic(bpy.types.Operator):
-    bl_label = "Gold Metallic Shader"
-    bl_idname = 'shader.gold_m_operator'
+class QMMGoldMetallic(bpy.types.Operator):
+    bl_label = "QMM Gold Metallic Shader"
+    bl_idname = 'shader.qmm_gold_m_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        material_gold_m = bpy.data.materials.get("Gold Metallic")
+        material_gold_m = bpy.data.materials.get("QMM Gold Metallic")
         if material_gold_m:
-            ShowMessageBox(message_text, "Gold Metallic")
-            print(f"Gold Metallic already exists")
+            ShowMessageBox(message_text, "QMM Gold Metallic")
+            print(f"QMM Gold Metallic already exists")
             bpy.context.object.active_material = material_gold_m
             return {'FINISHED'}
         else:
             #CreateShader
-            material_gold_m = bpy.data.materials.new(name = "Gold Metallic")
+            material_gold_m = bpy.data.materials.new(name = "QMM Gold Metallic")
             material_gold_m.use_nodes = True
             material_gold_m.diffuse_color = (0.658375, 0.428689, 0.038204, 1)
 

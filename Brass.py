@@ -8,20 +8,20 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
     bpy.context.window_manager.popup_menu(draw, title = title, icon = icon)
 
 #BrassShaderOperator
-class Brass(bpy.types.Operator):
-    bl_label = "Brass Metallic Shader"
-    bl_idname = 'shader.brass_operator'
+class QMMBrass(bpy.types.Operator):
+    bl_label = "QMM Brass Metallic Shader"
+    bl_idname = 'shader.qmm_brass_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        material_brass = bpy.data.materials.get("Brass Metallic")
+        material_brass = bpy.data.materials.get("QMM Brass Metallic")
         if material_brass:
-            ShowMessageBox(message_text, "Brass Metallic")
-            print(f"Brass Metallic already exists")
+            ShowMessageBox(message_text, "QMM Brass Metallic")
+            print(f"QMM Brass Metallic already exists")
             bpy.context.object.active_material = material_brass
             return {'FINISHED'}
         else:
             #CreateShader
-            material_brass = bpy.data.materials.new(name = "Brass Metallic")
+            material_brass = bpy.data.materials.new(name = "QMM Brass Metallic")
             material_brass.use_nodes = True
             material_brass.diffuse_color = (0.462077, 0.381326, 0.05448, 1)
 

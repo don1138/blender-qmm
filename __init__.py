@@ -20,9 +20,9 @@ bl_info = {
     "name"       : "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
     "author"     : "Don Schnitzius",
-    "version"    : (0, 0, 3),
+    "version"    : (0, 0, 4),
     "blender"    : (2, 83, 0),
-    "location"   : "3D Viewport > Sidebar > Create",
+    "location"   : "3D Viewport > Sidebar > QMM",
     "warning"    : "",
     "wiki_url"   : "https://github.com/don1138/blender-qmm",
     "support"    : "COMMUNITY",
@@ -51,21 +51,26 @@ class BQMPanelNoble(bpy.types.Panel):
     bl_region_type = "UI"
     bl_category = "QMM"
     bl_parent_id = 'BQM_PT_Panel'
+    bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
         layout = self.layout
 
         row = layout.row()
-        row.operator("shader.gold_operator", text="Gold")
+        row.operator("shader.qmm_gold_operator", text="Gold")
         row = layout.row()
-        row.operator("shader.gold_m_operator", text="Gold Metallic")
+        row.operator("shader.qmm_gold_m_operator", text="Gold Metallic")
+        row = layout.row()
+        row.operator("shader.qmm_pale_gold_m_operator", text="Pale Gold Metallic")
 
         row = layout.row()
-        row.operator("shader.silver_min_operator", text="Silver")
+        row.operator("shader.qmm_silver_operator", text="Silver")
         row = layout.row()
-        row.operator("shader.silver_min_operator", text="Silver Metallic Min")
+        row.operator("shader.qmm_silver_min_operator", text="Silver Metallic Min")
         row = layout.row()
-        row.operator("shader.silver_max_operator", text="Silver Metallic Max")
+        row.operator("shader.qmm_silver_max_operator", text="Silver Metallic Max")
+        row = layout.row()
+        row.operator("shader.qmm_pale_silver_m_operator", text="Pale Silver Metallic")
 
 
 # BASE METALS PANEL
@@ -76,34 +81,35 @@ class BQMPanelBase(bpy.types.Panel):
     bl_region_type = "UI"
     bl_category = "QMM"
     bl_parent_id = 'BQM_PT_Panel'
+    bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
         layout = self.layout
 
         row = layout.row()
-        row.operator("shader.aluminium_operator", text="Aluminium")
+        row.operator("shader.qmm_aluminium_operator", text="Aluminium")
 
         row = layout.row()
-        row.operator("shader.brass_operator", text="Brass")
+        row.operator("shader.qmm_brass_operator", text="Brass")
 
         row = layout.row()
-        row.operator("shader.bronze_operator", text="Bronze")
+        row.operator("shader.qmm_bronze_operator", text="Bronze")
 
         row = layout.row()
-        row.operator("shader.copper_operator", text="Copper")
+        row.operator("shader.qmm_copper_operator", text="Copper")
         row = layout.row()
-        row.operator("shader.copper_min_operator", text="Copper Metallic Min")
+        row.operator("shader.qmm_copper_min_operator", text="Copper Metallic Min")
         row = layout.row()
-        row.operator("shader.copper_max_operator", text="Copper Metallic Max")
+        row.operator("shader.qmm_copper_max_operator", text="Copper Metallic Max")
 
         row = layout.row()
-        row.operator("shader.iron_operator", text="Iron")
+        row.operator("shader.qmm_iron_operator", text="Iron")
 
         row = layout.row()
-        row.operator("shader.steel_operator", text="Steel")
+        row.operator("shader.qmm_steel_operator", text="Steel")
 
         row = layout.row()
-        row.operator("shader.titanium_operator", text="Titanium")
+        row.operator("shader.qmm_titanium_operator", text="Titanium")
 
 
 # EXTRAS PANEL
@@ -114,15 +120,19 @@ class BQMPanelExtras(bpy.types.Panel):
     bl_region_type = "UI"
     bl_category = "QMM"
     bl_parent_id = 'BQM_PT_Panel'
+    bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
         layout = self.layout
 
         row = layout.row()
-        row.operator("shader.mercury_operator", text="Liquid Mercury")
+        row.operator("shader.qmm_mercury_operator", text="Liquid Mercury")
 
         row = layout.row()
-        row.operator("shader.glass_operator", text="Glass Hack")
+        row.operator("shader.qmm_glass_operator", text="Glass Hack")
+
+        row = layout.row()
+        row.operator("shader.qmm_cutting_mat_operator", text="Rubber Cutting Mat")
 
 
 from .Aluminium import *
@@ -131,11 +141,14 @@ from .Bronze import *
 from .Copper import *
 from .CopperMin import *
 from .CopperMax import *
+from .CuttingMat import *
 from .GlassHack import *
 from .Gold import *
 from .GoldMetallic import *
 from .Iron import *
 from .Mercury import *
+from .PaleGoldMetallic import *
+from .PaleSilverMetallic import *
 from .Silver import *
 from .SilverMin import *
 from .SilverMax import *
@@ -150,22 +163,25 @@ _classes = [
     BQMPanelNoble,
     BQMPanelBase,
     BQMPanelExtras,
-    Aluminium,
-    Brass,
-    Bronze,
-    Copper,
-    CopperMin,
-    CopperMax,
-    Glass,
-    Gold,
-    GoldMetallic,
-    Iron,
-    Mercury,
-    Silver,
-    SilverMin,
-    SilverMax,
-    Steel,
-    Titanium,
+    QMMAluminium,
+    QMMBrass,
+    QMMBronze,
+    QMMCopper,
+    QMMCopperMin,
+    QMMCopperMax,
+    QMMCuttingMat,
+    QMMGlass,
+    QMMGold,
+    QMMGoldMetallic,
+    QMMIron,
+    QMMMercury,
+    QMMPaleGoldMetallic,
+    QMMPaleSilverMax,
+    QMMSilver,
+    QMMSilverMin,
+    QMMSilverMax,
+    QMMSteel,
+    QMMTitanium,
 ]
 
 def register():

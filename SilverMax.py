@@ -8,20 +8,20 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
     bpy.context.window_manager.popup_menu(draw, title = title, icon = icon)
 
 #SilverMaxShaderOperator
-class SilverMax(bpy.types.Operator):
-    bl_label = "Silver Metallic Max Shader"
-    bl_idname = 'shader.silver_max_operator'
+class QMMSilverMax(bpy.types.Operator):
+    bl_label = "QMM Silver Metallic Max Shader"
+    bl_idname = 'shader.qmm_silver_max_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        material_silver_max = bpy.data.materials.get("Silver Metallic Max")
+        material_silver_max = bpy.data.materials.get("QMM Silver Metallic Max")
         if material_silver_max:
-            ShowMessageBox(message_text, "Silver Metallic Max")
-            print(f"Silver Metallic Max already exists")
+            ShowMessageBox(message_text, "QMM Silver Metallic Max")
+            print(f"QMM Silver Metallic Max already exists")
             bpy.context.object.active_material = material_silver_max
             return {'FINISHED'}
         else:
             #CreateShader
-            material_silver_max = bpy.data.materials.new(name = "Silver Metallic Max")
+            material_silver_max = bpy.data.materials.new(name = "QMM Silver Metallic Max")
             material_silver_max.use_nodes = True
             material_silver_max.diffuse_color = (0.401978, 0.396755, 0.417885, 1)
 

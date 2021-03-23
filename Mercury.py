@@ -8,20 +8,20 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
     bpy.context.window_manager.popup_menu(draw, title = title, icon = icon)
 
 #MercuryShaderOperator
-class Mercury(bpy.types.Operator):
-    bl_label = "Mercury Liquid Shader"
-    bl_idname = 'shader.mercury_operator'
+class QMMMercury(bpy.types.Operator):
+    bl_label = "QMM Mercury Liquid Shader"
+    bl_idname = 'shader.qmm_mercury_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        material_mercury = bpy.data.materials.get("Mercury Liquid")
+        material_mercury = bpy.data.materials.get("QMM Mercury Liquid")
         if material_mercury:
-            ShowMessageBox(message_text, "Mercury Liquid")
-            print(f"Mercury Liquid already exists")
+            ShowMessageBox(message_text, "QMM Mercury Liquid")
+            print(f"QMM Mercury Liquid already exists")
             bpy.context.object.active_material = material_mercury
             return {'FINISHED'}
         else:
             #CreateShader
-            material_mercury = bpy.data.materials.new(name = "Mercury Liquid")
+            material_mercury = bpy.data.materials.new(name = "QMM Mercury Liquid")
             material_mercury.use_nodes = True
             material_mercury.diffuse_color = (0.174647, 0.198069, 0.219526, 1)
 

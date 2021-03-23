@@ -8,20 +8,20 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
     bpy.context.window_manager.popup_menu(draw, title = title, icon = icon)
 
 #SilverMinShaderOperator
-class SilverMin(bpy.types.Operator):
-    bl_label = "Silver Metallic Min Shader"
-    bl_idname = 'shader.silver_min_operator'
+class QMMSilverMin(bpy.types.Operator):
+    bl_label = "QMM Silver Metallic Min Shader"
+    bl_idname = 'shader.qmm_silver_min_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        material_silver_min = bpy.data.materials.get("Silver Metallic Min")
+        material_silver_min = bpy.data.materials.get("QMM Silver Metallic Min")
         if material_silver_min:
-            ShowMessageBox(message_text, "Silver Metallic Min")
-            print(f"Silver Metallic Min already exists")
+            ShowMessageBox(message_text, "QMM Silver Metallic Min")
+            print(f"QMM Silver Metallic Min already exists")
             bpy.context.object.active_material = material_silver_min
             return {'FINISHED'}
         else:
             #CreateShader
-            material_silver_min = bpy.data.materials.new(name = "Silver Metallic Min")
+            material_silver_min = bpy.data.materials.new(name = "QMM Silver Metallic Min")
             material_silver_min.use_nodes = True
             material_silver_min.diffuse_color = (0.401978, 0.396755, 0.417885, 1)
 

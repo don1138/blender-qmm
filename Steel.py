@@ -8,20 +8,20 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
     bpy.context.window_manager.popup_menu(draw, title = title, icon = icon)
 
 #SteelShaderOperator
-class Steel(bpy.types.Operator):
-    bl_label = "Steel Metallic Shader"
-    bl_idname = 'shader.steel_operator'
+class QMMSteel(bpy.types.Operator):
+    bl_label = "QMM Steel Metallic Shader"
+    bl_idname = 'shader.qmm_steel_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        material_steel = bpy.data.materials.get("Steel Metallic")
+        material_steel = bpy.data.materials.get("QMM Steel Metallic")
         if material_steel:
-            ShowMessageBox(message_text, "Steel Metallic")
-            print(f"Steel Metallic already exists")
+            ShowMessageBox(message_text, "QMM Steel Metallic")
+            print(f"QMM Steel Metallic already exists")
             bpy.context.object.active_material = material_steel
             return {'FINISHED'}
         else:
             #CreateShader
-            material_steel = bpy.data.materials.new(name = "Steel Metallic")
+            material_steel = bpy.data.materials.new(name = "QMM Steel Metallic")
             material_steel.use_nodes = True
             material_steel.diffuse_color = (0.42869, 0.527115, 0.590619, 1)
 

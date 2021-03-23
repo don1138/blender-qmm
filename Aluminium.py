@@ -8,20 +8,20 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
     bpy.context.window_manager.popup_menu(draw, title = title, icon = icon)
 
 #AluminiumShaderOperator
-class Aluminium(bpy.types.Operator):
-    bl_label = "Aluminium Metallic Shader"
-    bl_idname = 'shader.aluminium_operator'
+class QMMAluminium(bpy.types.Operator):
+    bl_label = "QMM Aluminium Metallic Shader"
+    bl_idname = 'shader.qmm_aluminium_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        material_aluminium = bpy.data.materials.get("Aluminium Metallic")
+        material_aluminium = bpy.data.materials.get("QMM Aluminium Metallic")
         if material_aluminium:
-            ShowMessageBox(message_text, "Aluminium Metallic")
-            print(f"Aluminium Metallic already exists")
+            ShowMessageBox(message_text, "QMM Aluminium Metallic")
+            print(f"QMM Aluminium Metallic already exists")
             bpy.context.object.active_material = material_aluminium
             return {'FINISHED'}
         else:
             #CreateShader
-            material_aluminium = bpy.data.materials.new(name = "Aluminium Metallic")
+            material_aluminium = bpy.data.materials.new(name = "QMM Aluminium Metallic")
             material_aluminium.use_nodes = True
             material_aluminium.diffuse_color = (0.23074, 0.242281, 0.250158, 1)
 

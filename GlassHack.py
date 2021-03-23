@@ -8,20 +8,20 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
     bpy.context.window_manager.popup_menu(draw, title = title, icon = icon)
 
 #GlassShaderOperator
-class Glass(bpy.types.Operator):
-    bl_label = "Glass Hack Shader"
-    bl_idname = 'shader.glass_operator'
+class QMMGlass(bpy.types.Operator):
+    bl_label = "QMM Glass Hack Shader"
+    bl_idname = 'shader.qmm_glass_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        material_glass = bpy.data.materials.get("Glass Hack")
+        material_glass = bpy.data.materials.get("QMM Glass Hack")
         if material_glass:
-            ShowMessageBox(message_text, "Glass Hack")
-            print(f"Glass Hack already exists")
+            ShowMessageBox(message_text, "QMM Glass Hack")
+            print(f"QMM Glass Hack already exists")
             bpy.context.object.active_material = material_glass
             return {'FINISHED'}
         else:
             #CreateShader
-            material_glass = bpy.data.materials.new(name = "Glass Hack")
+            material_glass = bpy.data.materials.new(name = "QMM Glass Hack")
             material_glass.use_nodes = True
             material_glass.diffuse_color = (0.737911, 0.737911, 1, 1)
 

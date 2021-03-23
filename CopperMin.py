@@ -8,20 +8,20 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
     bpy.context.window_manager.popup_menu(draw, title = title, icon = icon)
 
 #CopperMinShaderOperator
-class CopperMin(bpy.types.Operator):
-    bl_label = "Pale Copper Metallic Min Shader"
-    bl_idname = 'shader.copper_min_operator'
+class QMMCopperMin(bpy.types.Operator):
+    bl_label = "QMM Pale Copper Metallic Min Shader"
+    bl_idname = 'shader.qmm_copper_min_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        material_copper_min = bpy.data.materials.get("Pale Copper Metallic Min")
+        material_copper_min = bpy.data.materials.get("QMM Pale Copper Metallic Min")
         if material_copper_min:
-            ShowMessageBox(message_text, "Pale Copper Metallic Min")
-            print(f"Pale Copper Metallic Min already exists")
+            ShowMessageBox(message_text, "QMM Pale Copper Metallic Min")
+            print(f"QMM Pale Copper Metallic Min already exists")
             bpy.context.object.active_material = material_copper_min
             return {'FINISHED'}
         else:
             #CreateShader
-            material_copper_min = bpy.data.materials.new(name = "Pale Copper Metallic Min")
+            material_copper_min = bpy.data.materials.new(name = "QMM Pale Copper Metallic Min")
             material_copper_min.use_nodes = True
             material_copper_min.diffuse_color = (0.701102, 0.254152, 0.135633, 1)
 
