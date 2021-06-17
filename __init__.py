@@ -16,12 +16,13 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
+
 bl_info = {
     "name"       : "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
     "author"     : "Don Schnitzius",
-    "version"    : (0, 0, 4),
-    "blender"    : (2, 83, 0),
+    "version"    : (0, 5, 0),
+    "blender"    : (2, 80, 0),
     "location"   : "3D Viewport > Sidebar > QMM",
     "warning"    : "",
     "wiki_url"   : "https://github.com/don1138/blender-qmm",
@@ -29,7 +30,13 @@ bl_info = {
     "category"   : "Material"
 }
 
+
 import bpy
+
+
+# Updater ops import, all setup in this file.
+from . import addon_updater_ops
+
 
 # PARENT PANEL
 class BQMPanel(bpy.types.Panel):
@@ -135,6 +142,56 @@ class BQMPanelExtras(bpy.types.Panel):
         row.operator("shader.qmm_cutting_mat_operator", text="Rubber Cutting Mat")
 
 
+@addon_updater_ops.make_annotations
+class AutoUpdaterPreferences(bpy.types.AddonPreferences):
+	"""Demo bare-bones preferences"""
+	bl_idname = __package__
+
+	# Addon updater preferences.
+
+	auto_check_update = bpy.props.BoolProperty(
+		name="Auto-check for Update",
+		description="If enabled, auto-check for updates using an interval",
+		default=False)
+
+	updater_interval_months = bpy.props.IntProperty(
+		name='Months',
+		description="Number of months between checking for updates",
+		default=0,
+		min=0)
+
+	updater_interval_days = bpy.props.IntProperty(
+		name='Days',
+		description="Number of days between checking for updates",
+		default=7,
+		min=0,
+		max=31)
+
+	updater_interval_hours = bpy.props.IntProperty(
+		name='Hours',
+		description="Number of hours between checking for updates",
+		default=0,
+		min=0,
+		max=23)
+
+	updater_interval_minutes = bpy.props.IntProperty(
+		name='Minutes',
+		description="Number of minutes between checking for updates",
+		default=0,
+		min=0,
+		max=59)
+
+	def draw(self, context):
+		layout = self.layout
+
+		# Works best if a column, or even just self.layout.
+		mainrow = layout.row()
+		col = mainrow.column()
+
+		# Updater draw function, could also pass in col as third arg.
+		addon_updater_ops.update_settings_ui(self, context)
+
+
 from .Aluminium import *
 from .Brass import *
 from .Bronze import *
@@ -156,13 +213,12 @@ from .Steel import *
 from .Titanium import *
 
 
-from bpy.utils import register_class, unregister_class
-
-_classes = [
+classes = [
     BQMPanel,
     BQMPanelNoble,
     BQMPanelBase,
     BQMPanelExtras,
+    AutoUpdaterPreferences,
     QMMAluminium,
     QMMBrass,
     QMMBronze,
@@ -184,13 +240,25 @@ _classes = [
     QMMTitanium,
 ]
 
+
 def register():
-    for cls in _classes:
-        register_class(cls)
+	# Addon updater code and configurations.
+	# In case of a broken version, try to register the updater first so that
+	# users can revert back to a working version.
+	addon_updater_ops.register(bl_info)
+
+	# Register the example panel, to show updater buttons.
+	for cls in classes:
+		addon_updater_ops.make_annotations(cls)  # Avoid blender 2.8 warnings.
+		bpy.utils.register_class(cls)
+
 
 def unregister():
-    for cls in _classes:
-        unregister_class(cls)
+	# Addon updater unregister.
+	addon_updater_ops.unregister()
+	for cls in reversed(classes):
+		bpy.utils.unregister_class(cls)
+
 
 if __name__ == "__main__":
     register()
