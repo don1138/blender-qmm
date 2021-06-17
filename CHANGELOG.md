@@ -1,4 +1,4 @@
-### 0.5.0
+### 1.0.0
 - Added CG Cookie's Addon Updater system
 - Corrected version numbering system
 - Misc. code cleanup
