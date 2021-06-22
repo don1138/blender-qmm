@@ -21,7 +21,7 @@ bl_info = {
     "name"       : "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
     "author"     : "Don Schnitzius",
-    "version"    : (1, 0, 0),
+    "version"    : (1, 1, 0),
     "blender"    : (2, 80, 0),
     "location"   : "3D Viewport > Sidebar > QMM",
     "warning"    : "",
@@ -133,10 +133,13 @@ class BQMPanelExtras(bpy.types.Panel):
         layout = self.layout
 
         row = layout.row()
+        row.operator("shader.qmm_glass_operator", text="Glass Hack")
+
+        row = layout.row()
         row.operator("shader.qmm_mercury_operator", text="Liquid Mercury")
 
         row = layout.row()
-        row.operator("shader.qmm_glass_operator", text="Glass Hack")
+        row.operator("shader.qmm_plaster_operator", text="Plaster")
 
         row = layout.row()
         row.operator("shader.qmm_cutting_mat_operator", text="Rubber Cutting Mat")
@@ -144,7 +147,7 @@ class BQMPanelExtras(bpy.types.Panel):
 
 @addon_updater_ops.make_annotations
 class AutoUpdaterPreferences(bpy.types.AddonPreferences):
-	"""Demo bare-bones preferences"""
+	"""Blender QMM updater preferences"""
 	bl_idname = __package__
 
 	# Addon updater preferences.
@@ -206,6 +209,7 @@ from .Iron import *
 from .Mercury import *
 from .PaleGoldMetallic import *
 from .PaleSilverMetallic import *
+from .Plaster import *
 from .Silver import *
 from .SilverMin import *
 from .SilverMax import *
@@ -233,6 +237,7 @@ classes = [
     QMMMercury,
     QMMPaleGoldMetallic,
     QMMPaleSilverMax,
+    QMMPlaster,
     QMMSilver,
     QMMSilverMin,
     QMMSilverMax,

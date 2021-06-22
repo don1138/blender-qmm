@@ -1,3 +1,7 @@
+### 1.1.0
+- New Material
+	- Plaster
+
 ### 1.0.0
 - Added CG Cookie's Addon Updater system
 - Corrected version numbering system
