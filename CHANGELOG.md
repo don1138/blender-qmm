@@ -1,6 +1,6 @@
-### 1.1.0
+### 1.1.1
 - Added Tooltips to buttons
-- Set IOR value on Principled all BDSF nodes
+- Set IOR value on all Principled BDSF nodes
 - Added "IOR" label to Value node on chain connected to Principled BSDF Specular input
 
 ### 1.1.0
