@@ -9,6 +9,7 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 
 #GlassShaderOperator
 class QMMGlass(bpy.types.Operator):
+    """Add/Apply Glass Material to Selected Object (or Scene)"""
     bl_label = "QMM Glass Hack Shader"
     bl_idname = 'shader.qmm_glass_operator'
     def execute(self, context):

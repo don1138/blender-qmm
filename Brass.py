@@ -9,6 +9,7 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 
 #BrassShaderOperator
 class QMMBrass(bpy.types.Operator):
+    """Add/Apply Brass Material to Selected Object (or Scene)"""
     bl_label = "QMM Brass Metallic Shader"
     bl_idname = 'shader.qmm_brass_operator'
     def execute(self, context):
@@ -35,6 +36,9 @@ class QMMBrass(bpy.types.Operator):
             BSDF.inputs[0].default_value = (0.462077, 0.381326, 0.0544803, 1)
             BSDF.inputs[4].default_value = 1
             BSDF.inputs[7].default_value = 0.25
+            BSDF.inputs[14].default_value = 0.46
+            # BSDF.inputs[14].default_value = 1.10
+            # BSDF.inputs[14].default_value = 1.517
 
             #mathdivide
             m_divide = material_brass.node_tree.nodes.new('ShaderNodeMath')
@@ -69,6 +73,7 @@ class QMMBrass(bpy.types.Operator):
             m_value = material_brass.node_tree.nodes.new('ShaderNodeValue')
             m_value.location = (-1300,0)
             m_value.outputs[0].default_value = 0.46
+            m_value.label = "IOR"
 
             material_brass.node_tree.links.new(m_value.outputs[0], m_add.inputs[0])
             material_brass.node_tree.links.new(m_value.outputs[0], m_subtract.inputs[0])

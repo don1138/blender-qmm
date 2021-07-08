@@ -9,6 +9,7 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 
 #IronShaderOperator
 class QMMIron(bpy.types.Operator):
+    """Add/Apply Iron Material to Selected Object (or Scene)"""
     bl_label = "QMM Iron Metallic Shader"
     bl_idname = 'shader.qmm_iron_operator'
     def execute(self, context):
@@ -35,6 +36,7 @@ class QMMIron(bpy.types.Operator):
             BSDF.inputs[0].default_value = (0.3564, 0.337164, 0.296138, 1)
             BSDF.inputs[4].default_value = 1
             BSDF.inputs[7].default_value = 0.25
+            BSDF.inputs[14].default_value = 2.950
 
             #mathdivide
             m_divide = material_iron.node_tree.nodes.new('ShaderNodeMath')
@@ -69,6 +71,7 @@ class QMMIron(bpy.types.Operator):
             m_value = material_iron.node_tree.nodes.new('ShaderNodeValue')
             m_value.location = (-1300,0)
             m_value.outputs[0].default_value = 2.95
+            m_value.label = "IOR"
 
             material_iron.node_tree.links.new(m_value.outputs[0], m_add.inputs[0])
             material_iron.node_tree.links.new(m_value.outputs[0], m_subtract.inputs[0])

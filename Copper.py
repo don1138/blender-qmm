@@ -9,6 +9,7 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 
 #CopperShaderOperator
 class QMMCopper(bpy.types.Operator):
+    """Add/Apply Copper Material to Selected Object (or Scene)"""
     bl_label = "QMM Copper Shader"
     bl_idname = 'shader.qmm_copper_operator'
     def execute(self, context):

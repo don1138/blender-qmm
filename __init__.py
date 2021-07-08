@@ -21,7 +21,7 @@ bl_info = {
     "name"       : "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
     "author"     : "Don Schnitzius",
-    "version"    : (1, 1, 0),
+    "version"    : (1, 1, 1),
     "blender"    : (2, 80, 0),
     "location"   : "3D Viewport > Sidebar > QMM",
     "warning"    : "",
@@ -139,10 +139,10 @@ class BQMPanelExtras(bpy.types.Panel):
         row.operator("shader.qmm_mercury_operator", text="Liquid Mercury")
 
         row = layout.row()
-        row.operator("shader.qmm_plaster_operator", text="Plaster")
+        row.operator("shader.qmm_cutting_mat_operator", text="Rubber Cutting Mat")
 
         row = layout.row()
-        row.operator("shader.qmm_cutting_mat_operator", text="Rubber Cutting Mat")
+        row.operator("shader.qmm_plaster_operator", text="Tinted Plaster")
 
 
 @addon_updater_ops.make_annotations

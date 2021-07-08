@@ -9,6 +9,7 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 
 #CopperMinShaderOperator
 class QMMCopperMin(bpy.types.Operator):
+    """Add/Apply Pale Copper (Minimum) Material to Selected Object (or Scene)"""
     bl_label = "QMM Pale Copper Metallic Min Shader"
     bl_idname = 'shader.qmm_copper_min_operator'
     def execute(self, context):
@@ -35,6 +36,7 @@ class QMMCopperMin(bpy.types.Operator):
             BSDF.inputs[0].default_value = (0.701102, 0.254152, 0.135633, 1)
             BSDF.inputs[4].default_value = 1
             BSDF.inputs[7].default_value = 0.25
+            BSDF.inputs[14].default_value = 1.10
 
             #mathdivide
             m_divide = material_copper_min.node_tree.nodes.new('ShaderNodeMath')
@@ -69,6 +71,7 @@ class QMMCopperMin(bpy.types.Operator):
             m_value = material_copper_min.node_tree.nodes.new('ShaderNodeValue')
             m_value.location = (-1300,0)
             m_value.outputs[0].default_value = 1.1
+            m_value.label = "IOR"
 
             material_copper_min.node_tree.links.new(m_value.outputs[0], m_add.inputs[0])
             material_copper_min.node_tree.links.new(m_value.outputs[0], m_subtract.inputs[0])

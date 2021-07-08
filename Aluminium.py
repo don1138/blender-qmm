@@ -9,6 +9,7 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 
 #AluminiumShaderOperator
 class QMMAluminium(bpy.types.Operator):
+    """Add/Apply Aluminium Material to Selected Object (or Scene)"""
     bl_label = "QMM Aluminium Metallic Shader"
     bl_idname = 'shader.qmm_aluminium_operator'
     def execute(self, context):
@@ -35,6 +36,8 @@ class QMMAluminium(bpy.types.Operator):
             BSDF.inputs[0].default_value = (0.23074, 0.242281, 0.250158, 1)
             BSDF.inputs[4].default_value = 1
             BSDF.inputs[7].default_value = 0.25
+            BSDF.inputs[14].default_value = 1.390
+            # BSDF.inputs[14].default_value = 1.244
 
             #mathdivide
             m_divide = material_aluminium.node_tree.nodes.new('ShaderNodeMath')
@@ -69,6 +72,7 @@ class QMMAluminium(bpy.types.Operator):
             m_value = material_aluminium.node_tree.nodes.new('ShaderNodeValue')
             m_value.location = (-1300,0)
             m_value.outputs[0].default_value = 1.39
+            m_value.label = "IOR"
 
             material_aluminium.node_tree.links.new(m_value.outputs[0], m_add.inputs[0])
             material_aluminium.node_tree.links.new(m_value.outputs[0], m_subtract.inputs[0])

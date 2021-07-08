@@ -9,6 +9,7 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 
 #GoldShaderOperator
 class QMMGold(bpy.types.Operator):
+    """Add/Apply Gold Material to Selected Object (or Scene)"""
     bl_label = "QMM Gold Shader"
     bl_idname = 'shader.qmm_gold_operator'
     def execute(self, context):

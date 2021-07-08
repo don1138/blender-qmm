@@ -9,6 +9,7 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 
 #CuttingMatShaderOperator
 class QMMCuttingMat(bpy.types.Operator):
+    """Add/Apply Rubber Cutting Mat Material to Selected Object (or Scene)"""
     bl_label = "QMM Rubber Cutting Mat Shader"
     bl_idname = 'shader.qmm_cutting_mat_operator'
     def execute(self, context):

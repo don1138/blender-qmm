@@ -9,6 +9,7 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 
 #SilverShaderOperator
 class QMMSilver(bpy.types.Operator):
+    """Add/Apply Silver Material to Selected Object (or Scene)"""
     bl_label = "QMM Silver Shader"
     bl_idname = 'shader.qmm_silver_operator'
     def execute(self, context):

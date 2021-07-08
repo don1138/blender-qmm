@@ -9,6 +9,7 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 
 #MercuryShaderOperator
 class QMMMercury(bpy.types.Operator):
+    """Add/Apply Liquid Mercury Material to Selected Object (or Scene)"""
     bl_label = "QMM Mercury Liquid Shader"
     bl_idname = 'shader.qmm_mercury_operator'
     def execute(self, context):
@@ -35,6 +36,7 @@ class QMMMercury(bpy.types.Operator):
             BSDF.inputs[0].default_value = (0.174647, 0.198069, 0.219526, 1)
             BSDF.inputs[4].default_value = 1
             BSDF.inputs[7].default_value = 0
+            BSDF.inputs[14].default_value = 1.620
 
             #mathdivide
             m_divide = material_mercury.node_tree.nodes.new('ShaderNodeMath')
@@ -69,6 +71,7 @@ class QMMMercury(bpy.types.Operator):
             m_value = material_mercury.node_tree.nodes.new('ShaderNodeValue')
             m_value.location = (-1300,0)
             m_value.outputs[0].default_value = 1.62
+            m_value.label = "IOR"
 
             material_mercury.node_tree.links.new(m_value.outputs[0], m_add.inputs[0])
             material_mercury.node_tree.links.new(m_value.outputs[0], m_subtract.inputs[0])

@@ -9,6 +9,7 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 
 #MercuryShaderOperator
 class QMMPlaster(bpy.types.Operator):
+    """Add/Apply Tinted Plaster Material to Selected Object (or Scene)"""
     bl_label = "QMM Plaster Shader"
     bl_idname = 'shader.qmm_plaster_operator'
     def execute(self, context):
@@ -51,19 +52,15 @@ class QMMPlaster(bpy.types.Operator):
 
             #voronoishader
             m_voronoi = material_plaster.node_tree.nodes.new('ShaderNodeTexVoronoi')
-            m_voronoi.location = (-1100,0)
+            m_voronoi.location = (-1100,-100)
             m_voronoi.distance = 'MANHATTAN'
             m_voronoi.inputs[2].default_value = 30.0
 
             #noiseshader
             m_noise = material_plaster.node_tree.nodes.new('ShaderNodeTexNoise')
             m_noise.location = (-1300,0)
+            m_noise.inputs[2].default_value = 50.0
             m_noise.inputs[3].default_value = 5.0
-
-            #noiseshader2
-            m_noise2 = material_plaster.node_tree.nodes.new('ShaderNodeTexNoise')
-            m_noise2.location = (-1300,-400)
-            m_noise2.inputs[3].default_value = 5.0
 
             #mapping
             m_mapping = material_plaster.node_tree.nodes.new('ShaderNodeMapping')
@@ -76,32 +73,31 @@ class QMMPlaster(bpy.types.Operator):
 
             #bump
             m_bump = material_plaster.node_tree.nodes.new('ShaderNodeBump')
-            m_bump.location = (-700,-400)
+            m_bump.location = (-700,-300)
             m_bump.inputs[0].default_value = 0.5
 
             #bump2
             m_bump2 = material_plaster.node_tree.nodes.new('ShaderNodeBump')
-            m_bump2.location = (-500,-500)
-            m_bump2.inputs[0].default_value = 0.2
+            m_bump2.location = (-500,-400)
+            m_bump2.inputs[0].default_value = 0.25
 
             #colorramp2
             m_colorramp2 = material_plaster.node_tree.nodes.new('ShaderNodeValToRGB')
-            m_colorramp2.location = (-900,-300)
+            m_colorramp2.location = (-900,-200)
             m_colorramp2.color_ramp.elements[0].position = 0.4
             m_colorramp2.color_ramp.elements[1].position = 0.6
             m_colorramp2.width = 140
 
             material_plaster.node_tree.links.new(m_texcoords.outputs[3], m_mapping.inputs[0])
-            material_plaster.node_tree.links.new(m_mapping.outputs[0], m_noise2.inputs[0])
             material_plaster.node_tree.links.new(m_mapping.outputs[0], m_noise.inputs[0])
             material_plaster.node_tree.links.new(m_noise.outputs[0], m_voronoi.inputs[0])
             material_plaster.node_tree.links.new(m_voronoi.outputs[0], m_mix.inputs[1])
             material_plaster.node_tree.links.new(m_voronoi.outputs[0], m_colorramp2.inputs[0])
-            material_plaster.node_tree.links.new(m_noise2.outputs[0], m_mix.inputs[2])
+            material_plaster.node_tree.links.new(m_noise.outputs[0], m_mix.inputs[2])
             material_plaster.node_tree.links.new(m_mix.outputs[0], m_colorramp.inputs[0])
             material_plaster.node_tree.links.new(m_colorramp.outputs[0], BSDF.inputs[0])
             material_plaster.node_tree.links.new(m_colorramp2.outputs[0], m_bump.inputs[2])
-            material_plaster.node_tree.links.new(m_noise2.outputs[0], m_bump2.inputs[2])
+            material_plaster.node_tree.links.new(m_noise.outputs[0], m_bump2.inputs[2])
             material_plaster.node_tree.links.new(m_bump.outputs[0], m_bump2.inputs[5])
             material_plaster.node_tree.links.new(m_bump2.outputs[0], BSDF.inputs[20])
 

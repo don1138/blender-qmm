@@ -9,6 +9,7 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 
 #BronzeShaderOperator
 class QMMBronze(bpy.types.Operator):
+    """Add/Apply Bronze Material to Selected Object (or Scene)"""
     bl_label = "QMM Bronze Metallic Shader"
     bl_idname = 'shader.qmm_bronze_operator'
     def execute(self, context):
@@ -35,6 +36,7 @@ class QMMBronze(bpy.types.Operator):
             BSDF.inputs[0].default_value = (0.434154, 0.266356, 0.0953075, 1)
             BSDF.inputs[4].default_value = 1
             BSDF.inputs[7].default_value = 0.25
+            BSDF.inputs[14].default_value = 1.180
 
             #mathdivide
             m_divide = material_bronze.node_tree.nodes.new('ShaderNodeMath')
@@ -69,6 +71,7 @@ class QMMBronze(bpy.types.Operator):
             m_value = material_bronze.node_tree.nodes.new('ShaderNodeValue')
             m_value.location = (-1300,0)
             m_value.outputs[0].default_value = 1.18
+            m_value.label = "IOR"
 
             material_bronze.node_tree.links.new(m_value.outputs[0], m_add.inputs[0])
             material_bronze.node_tree.links.new(m_value.outputs[0], m_subtract.inputs[0])

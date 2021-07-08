@@ -1,6 +1,11 @@
 ### 1.1.0
+- Added Tooltips to buttons
+- Set IOR value on Principled all BDSF nodes
+- Added "IOR" label to Value node on chain connected to Principled BSDF Specular input
+
+### 1.1.0
 - New Material
-	- Plaster
+	- Tinted Plaster
 
 ### 1.0.0
 - Added CG Cookie's Addon Updater system

@@ -9,6 +9,7 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 
 #TitaniumShaderOperator
 class QMMTitanium(bpy.types.Operator):
+    """Add/Apply Titanium Material to Selected Object (or Scene)"""
     bl_label = "QMM Titanium Metallic Shader"
     bl_idname = 'shader.qmm_titanium_operator'
     def execute(self, context):
@@ -35,6 +36,7 @@ class QMMTitanium(bpy.types.Operator):
             BSDF.inputs[0].default_value = (0.242281, 0.238398, 0.219526, 1)
             BSDF.inputs[4].default_value = 1
             BSDF.inputs[7].default_value = 0.25
+            BSDF.inputs[14].default_value = 0.25
 
             #mathdivide
             m_divide = material_titanium.node_tree.nodes.new('ShaderNodeMath')
@@ -69,6 +71,7 @@ class QMMTitanium(bpy.types.Operator):
             m_value = material_titanium.node_tree.nodes.new('ShaderNodeValue')
             m_value.location = (-1300,0)
             m_value.outputs[0].default_value = 2.16
+            m_value.label = "IOR"
 
             material_titanium.node_tree.links.new(m_value.outputs[0], m_add.inputs[0])
             material_titanium.node_tree.links.new(m_value.outputs[0], m_subtract.inputs[0])

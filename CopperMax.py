@@ -9,6 +9,7 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 
 #CopperMaxShaderOperator
 class QMMCopperMax(bpy.types.Operator):
+    """Add/Apply Pale Copper (Maximum) Material to Selected Object (or Scene)"""
     bl_label = "QMM Pale Copper Metallic Max Shader"
     bl_idname = 'shader.qmm_copper_max_operator'
     def execute(self, context):
@@ -35,6 +36,7 @@ class QMMCopperMax(bpy.types.Operator):
             BSDF.inputs[0].default_value = (0.701102, 0.254152, 0.135633, 1)
             BSDF.inputs[4].default_value = 1
             BSDF.inputs[7].default_value = 0.25
+            BSDF.inputs[14].default_value = 2.430
 
             #mathdivide
             m_divide = material_copper_max.node_tree.nodes.new('ShaderNodeMath')
@@ -69,6 +71,7 @@ class QMMCopperMax(bpy.types.Operator):
             m_value = material_copper_max.node_tree.nodes.new('ShaderNodeValue')
             m_value.location = (-1300,0)
             m_value.outputs[0].default_value = 2.43
+            m_value.label = "IOR"
 
             material_copper_max.node_tree.links.new(m_value.outputs[0], m_add.inputs[0])
             material_copper_max.node_tree.links.new(m_value.outputs[0], m_subtract.inputs[0])

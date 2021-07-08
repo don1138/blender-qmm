@@ -9,6 +9,7 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 
 #SteelShaderOperator
 class QMMSteel(bpy.types.Operator):
+    """Add/Apply Steel Material to Selected Object (or Scene)"""
     bl_label = "QMM Steel Metallic Shader"
     bl_idname = 'shader.qmm_steel_operator'
     def execute(self, context):
@@ -35,6 +36,7 @@ class QMMSteel(bpy.types.Operator):
             BSDF.inputs[0].default_value = (0.42869, 0.527115, 0.590619, 1)
             BSDF.inputs[4].default_value = 1
             BSDF.inputs[7].default_value = 0.25
+            BSDF.inputs[14].default_value = 2.5
 
             #mathdivide
             m_divide = material_steel.node_tree.nodes.new('ShaderNodeMath')
@@ -69,6 +71,7 @@ class QMMSteel(bpy.types.Operator):
             m_value = material_steel.node_tree.nodes.new('ShaderNodeValue')
             m_value.location = (-1300,0)
             m_value.outputs[0].default_value = 2.5
+            m_value.label = "IOR"
 
             material_steel.node_tree.links.new(m_value.outputs[0], m_add.inputs[0])
             material_steel.node_tree.links.new(m_value.outputs[0], m_subtract.inputs[0])

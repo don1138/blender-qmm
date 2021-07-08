@@ -9,6 +9,7 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 
 #GoldShaderOperator
 class QMMGoldMetallic(bpy.types.Operator):
+    """Add/Apply Gold Metallic Material to Selected Object (or Scene)"""
     bl_label = "QMM Gold Metallic Shader"
     bl_idname = 'shader.qmm_gold_m_operator'
     def execute(self, context):
@@ -35,6 +36,7 @@ class QMMGoldMetallic(bpy.types.Operator):
             BSDF.inputs[0].default_value = (0.658375, 0.428689, 0.038204, 1)
             BSDF.inputs[4].default_value = 1
             BSDF.inputs[7].default_value = 0.25
+            BSDF.inputs[14].default_value = 0.47
 
             #mathdivide
             m_divide = material_gold_m.node_tree.nodes.new('ShaderNodeMath')
@@ -69,6 +71,7 @@ class QMMGoldMetallic(bpy.types.Operator):
             m_value = material_gold_m.node_tree.nodes.new('ShaderNodeValue')
             m_value.location = (-1300,0)
             m_value.outputs[0].default_value = 0.47
+            m_value.label = "IOR"
 
             material_gold_m.node_tree.links.new(m_value.outputs[0], m_add.inputs[0])
             material_gold_m.node_tree.links.new(m_value.outputs[0], m_subtract.inputs[0])
