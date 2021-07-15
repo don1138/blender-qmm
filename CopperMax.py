@@ -10,21 +10,23 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 #CopperMaxShaderOperator
 class QMMCopperMax(bpy.types.Operator):
     """Add/Apply Pale Copper (Maximum) Material to Selected Object (or Scene)"""
-    bl_label = "QMM Pale Copper Metallic Max Shader"
+    bl_label = "QMM Pale Copper Max Shader"
     bl_idname = 'shader.qmm_copper_max_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        material_copper_max = bpy.data.materials.get("QMM Pale Copper Metallic Max")
+        material_copper_max = bpy.data.materials.get("QMM Pale Copper Max")
         if material_copper_max:
-            ShowMessageBox(message_text, "QMM Pale Copper Metallic Max")
-            print(f"QMM Pale Copper Metallic Max already exists")
+            ShowMessageBox(message_text, "QMM Pale Copper Max")
+            # print(f"QMM Pale Copper Max already exists")
             bpy.context.object.active_material = material_copper_max
             return {'FINISHED'}
         else:
             #CreateShader
-            material_copper_max = bpy.data.materials.new(name = "QMM Pale Copper Metallic Max")
+            material_copper_max = bpy.data.materials.new(name = "QMM Pale Copper Max")
             material_copper_max.use_nodes = True
             material_copper_max.diffuse_color = (0.701102, 0.254152, 0.135633, 1)
+            material_copper_max.metallic = 1
+            material_copper_max.roughness = 0.25
 
             #materialoutput
             material_output = material_copper_max.node_tree.nodes.get('Material Output')

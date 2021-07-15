@@ -8,23 +8,24 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
     bpy.context.window_manager.popup_menu(draw, title = title, icon = icon)
 
 #CopperShaderOperator
-class QMMCopper(bpy.types.Operator):
+class QMMCopperFresnel(bpy.types.Operator):
     """Add/Apply Copper Material to Selected Object (or Scene)"""
-    bl_label = "QMM Copper Shader"
+    bl_label = "QMM Copper Fresnel Shader"
     bl_idname = 'shader.qmm_copper_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        material_copper = bpy.data.materials.get("QMM Copper")
+        material_copper = bpy.data.materials.get("QMM Copper Fresnel")
         if material_copper:
-            ShowMessageBox(message_text, "QMM Copper")
-            print(f"QMM Copper already exists")
+            ShowMessageBox(message_text, "QMM Copper Fresnel")
+            # print(f"QMM Copper Fresnel already exists")
             bpy.context.object.active_material = material_copper
             return {'FINISHED'}
         else:
             #CreateShader
-            material_copper = bpy.data.materials.new(name = "QMM Copper")
+            material_copper = bpy.data.materials.new(name = "QMM Copper Fresnel")
             material_copper.use_nodes = True
             material_copper.diffuse_color = (0.47932, 0.171441, 0.0331048, 1)
+            material_copper.metallic = 1
 
             #materialoutput
             material_output = material_copper.node_tree.nodes.get('Material Output')

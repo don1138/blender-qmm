@@ -10,21 +10,23 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 #SteelShaderOperator
 class QMMSteel(bpy.types.Operator):
     """Add/Apply Steel Material to Selected Object (or Scene)"""
-    bl_label = "QMM Steel Metallic Shader"
+    bl_label = "QMM Steel Shader"
     bl_idname = 'shader.qmm_steel_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        material_steel = bpy.data.materials.get("QMM Steel Metallic")
+        material_steel = bpy.data.materials.get("QMM Steel")
         if material_steel:
-            ShowMessageBox(message_text, "QMM Steel Metallic")
-            print(f"QMM Steel Metallic already exists")
+            ShowMessageBox(message_text, "QMM Steel")
+            # print(f"QMM Steel already exists")
             bpy.context.object.active_material = material_steel
             return {'FINISHED'}
         else:
             #CreateShader
-            material_steel = bpy.data.materials.new(name = "QMM Steel Metallic")
+            material_steel = bpy.data.materials.new(name = "QMM Steel")
             material_steel.use_nodes = True
             material_steel.diffuse_color = (0.42869, 0.527115, 0.590619, 1)
+            material_steel.metallic = 1
+            material_steel.roughness = 0.25
 
             #materialoutput
             material_output = material_steel.node_tree.nodes.get('Material Output')

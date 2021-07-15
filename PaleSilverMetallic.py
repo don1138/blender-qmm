@@ -10,21 +10,23 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 #SilverMaxShaderOperator
 class QMMPaleSilverMax(bpy.types.Operator):
     """Add/Apply Pale Silver Material to Selected Object (or Scene)"""
-    bl_label = "QMM Pale Silver Metallic Shader"
+    bl_label = "QMM Pale Silver Shader"
     bl_idname = 'shader.qmm_pale_silver_m_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        material_pale_silver_m = bpy.data.materials.get("QMM Pale Silver Metallic")
+        material_pale_silver_m = bpy.data.materials.get("QMM Pale Silver")
         if material_pale_silver_m:
-            ShowMessageBox(message_text, "QMM Pale Silver Metallic")
-            print(f"QMM Pale Silver Metallic already exists")
+            ShowMessageBox(message_text, "QMM Pale Silver")
+            # print(f"QMM Pale Silver already exists")
             bpy.context.object.active_material = material_pale_silver_m
             return {'FINISHED'}
         else:
             #CreateShader
-            material_pale_silver_m = bpy.data.materials.new(name = "QMM Pale Silver Metallic")
+            material_pale_silver_m = bpy.data.materials.new(name = "QMM Pale Silver")
             material_pale_silver_m.use_nodes = True
             material_pale_silver_m.diffuse_color = (0.972, 0.96, 0.915, 1)
+            material_pale_silver_m.metallic = 1
+            material_pale_silver_m.roughness = 0.25
 
             #materialoutput
             material_output = material_pale_silver_m.node_tree.nodes.get('Material Output')

@@ -8,23 +8,25 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
     bpy.context.window_manager.popup_menu(draw, title = title, icon = icon)
 
 #GoldShaderOperator
-class QMMPaleGoldMetallic(bpy.types.Operator):
+class QMMPaleGold(bpy.types.Operator):
     """Add/Apply Pale Gold Material to Selected Object (or Scene)"""
-    bl_label = "QMM Pale Gold Metallic Shader"
+    bl_label = "QMM Pale Gold Shader"
     bl_idname = 'shader.qmm_pale_gold_m_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        material_pale_gold_m = bpy.data.materials.get("QMM Pale Gold Metallic")
+        material_pale_gold_m = bpy.data.materials.get("QMM Pale Gold")
         if material_pale_gold_m:
-            ShowMessageBox(message_text, "QMM Pale Gold Metallic")
-            print(f"QMM Pale Gold Metallic already exists")
+            ShowMessageBox(message_text, "QMM Pale Gold")
+            # print(f"QMM Pale Gold already exists")
             bpy.context.object.active_material = material_pale_gold_m
             return {'FINISHED'}
         else:
             #CreateShader
-            material_pale_gold_m = bpy.data.materials.new(name = "QMM Pale Gold Metallic")
+            material_pale_gold_m = bpy.data.materials.new(name = "QMM Pale Gold")
             material_pale_gold_m.use_nodes = True
             material_pale_gold_m.diffuse_color = (1.0, 0.766, 0.336, 1)
+            material_pale_gold_m.metallic = 1
+            material_pale_gold_m.roughness = 0.25
 
             #materialoutput
             material_output = material_pale_gold_m.node_tree.nodes.get('Material Output')

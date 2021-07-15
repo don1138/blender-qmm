@@ -10,21 +10,23 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 #AluminiumShaderOperator
 class QMMAluminium(bpy.types.Operator):
     """Add/Apply Aluminium Material to Selected Object (or Scene)"""
-    bl_label = "QMM Aluminium Metallic Shader"
+    bl_label = "QMM Aluminium Shader"
     bl_idname = 'shader.qmm_aluminium_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        material_aluminium = bpy.data.materials.get("QMM Aluminium Metallic")
+        material_aluminium = bpy.data.materials.get("QMM Aluminium")
         if material_aluminium:
-            ShowMessageBox(message_text, "QMM Aluminium Metallic")
-            print(f"QMM Aluminium Metallic already exists")
+            ShowMessageBox(message_text, "QMM Aluminium")
+            # print(f"QMM Aluminium already exists")
             bpy.context.object.active_material = material_aluminium
             return {'FINISHED'}
         else:
             #CreateShader
-            material_aluminium = bpy.data.materials.new(name = "QMM Aluminium Metallic")
+            material_aluminium = bpy.data.materials.new(name = "QMM Aluminium")
             material_aluminium.use_nodes = True
             material_aluminium.diffuse_color = (0.23074, 0.242281, 0.250158, 1)
+            material_aluminium.metallic = 1
+            material_aluminium.roughness = 0.25
 
             #materialoutput
             material_output = material_aluminium.node_tree.nodes.get('Material Output')

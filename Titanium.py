@@ -10,21 +10,23 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 #TitaniumShaderOperator
 class QMMTitanium(bpy.types.Operator):
     """Add/Apply Titanium Material to Selected Object (or Scene)"""
-    bl_label = "QMM Titanium Metallic Shader"
+    bl_label = "QMM Titanium Shader"
     bl_idname = 'shader.qmm_titanium_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        material_titanium = bpy.data.materials.get("QMM Titanium Metallic")
+        material_titanium = bpy.data.materials.get("QMM Titanium")
         if material_titanium:
-            ShowMessageBox(message_text, "QMM Titanium Metallic")
-            print(f"QMM Titanium Metallic already exists")
+            ShowMessageBox(message_text, "QMM Titanium")
+            # print(f"QMM Titanium already exists")
             bpy.context.object.active_material = material_titanium
             return {'FINISHED'}
         else:
             #CreateShader
-            material_titanium = bpy.data.materials.new(name = "QMM Titanium Metallic")
+            material_titanium = bpy.data.materials.new(name = "QMM Titanium")
             material_titanium.use_nodes = True
             material_titanium.diffuse_color = (0.242281, 0.238398, 0.219526, 1)
+            material_titanium.metallic = 1
+            material_titanium.roughness = 0.25
 
             #materialoutput
             material_output = material_titanium.node_tree.nodes.get('Material Output')

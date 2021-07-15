@@ -1,3 +1,12 @@
+### 1.2.0
+- New Materials
+	- **Chrome**
+	- **Lead**
+	- **Lead Rough**
+- Split Base Metals & Alloys into 2 sub-menus
+- Set Metallic and Roughness on Viewport Display
+- Misc. Code Cleanup
+
 ### 1.1.1
 - Added Tooltips to buttons
 - Set IOR value on all Principled BDSF nodes
@@ -5,18 +14,18 @@
 
 ### 1.1.0
 - New Material
-	- Tinted Plaster
+	- **Tinted Plaster**
 
 ### 1.0.0
-- Added CG Cookie's Addon Updater system
+- Added [**CG Cookie's Addon Updater**](https://github.com/CGCookie/blender-addon-updater) system
 - Corrected version numbering system
 - Misc. code cleanup
 
 ### 0.0.4
 - New Materials
-	- Pale Gold Metallic
-	- Pale Silver Metallic
-	- Rubber Cutting Mat
+	- **Pale Gold Metallic**
+	- **Pale Silver Metallic**
+	- **Rubber Cutting Mat**
 - Add ``QMM`` prefix to classes to resolve naming conflict with other shader addons
 
 ### 0.0.3
@@ -29,19 +38,19 @@
 
 ### 0.0.1
 - Create Materials
-	- Aluminium Metallic
-	- Brass Metallic
-	- Bronze Metallic
-	- Copper
-	- Copper Metallic Min
-	- Copper Metallic Max
-	- Glass
-	- Gold
-	- Gold Metallic
-	- Iron Metallic
-	- Mercury Liquid
-	- Silver
-	- Silver Metallic Min
-	- Silver Metallic Max
-	- Steel Metallic
-	- Titanium Metallic
+	- **Aluminium Metallic**
+	- **Brass Metallic**
+	- **Bronze Metallic**
+	- **Copper**
+	- **Copper Metallic Min**
+	- **Copper Metallic Max**
+	- **Glass**
+	- **Gold**
+	- **Gold Metallic**
+	- **Iron Metallic**
+	- **Mercury Liquid**
+	- **Silver**
+	- **Silver Metallic Min**
+	- **Silver Metallic Max**
+	- **Steel Metallic**
+	- **Titanium Metallic**

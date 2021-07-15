@@ -10,21 +10,23 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 #BronzeShaderOperator
 class QMMBronze(bpy.types.Operator):
     """Add/Apply Bronze Material to Selected Object (or Scene)"""
-    bl_label = "QMM Bronze Metallic Shader"
+    bl_label = "QMM Bronze Shader"
     bl_idname = 'shader.qmm_bronze_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        material_bronze = bpy.data.materials.get("QMM Bronze Metallic")
+        material_bronze = bpy.data.materials.get("QMM Bronze")
         if material_bronze:
-            ShowMessageBox(message_text, "QMM Bronze Metallic")
-            print(f"QMM Bronze Metallic already exists")
+            ShowMessageBox(message_text, "QMM Bronze")
+            # print(f"QMM Bronze already exists")
             bpy.context.object.active_material = material_bronze
             return {'FINISHED'}
         else:
             #CreateShader
-            material_bronze = bpy.data.materials.new(name = "QMM Bronze Metallic")
+            material_bronze = bpy.data.materials.new(name = "QMM Bronze")
             material_bronze.use_nodes = True
             material_bronze.diffuse_color = (0.434154, 0.266356, 0.0953075, 1)
+            material_bronze.metallic = 1
+            material_bronze.roughness = 0.25
 
             #materialoutput
             material_output = material_bronze.node_tree.nodes.get('Material Output')

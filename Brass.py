@@ -17,7 +17,7 @@ class QMMBrass(bpy.types.Operator):
         material_brass = bpy.data.materials.get("QMM Brass Metallic")
         if material_brass:
             ShowMessageBox(message_text, "QMM Brass Metallic")
-            print(f"QMM Brass Metallic already exists")
+            # print(f"QMM Brass Metallic already exists")
             bpy.context.object.active_material = material_brass
             return {'FINISHED'}
         else:
@@ -25,6 +25,8 @@ class QMMBrass(bpy.types.Operator):
             material_brass = bpy.data.materials.new(name = "QMM Brass Metallic")
             material_brass.use_nodes = True
             material_brass.diffuse_color = (0.462077, 0.381326, 0.05448, 1)
+            material_brass.metallic = 1
+            material_brass.roughness = 0.25
 
             #materialoutput
             material_output = material_brass.node_tree.nodes.get('Material Output')

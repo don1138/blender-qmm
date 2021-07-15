@@ -8,23 +8,24 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
     bpy.context.window_manager.popup_menu(draw, title = title, icon = icon)
 
 #SilverShaderOperator
-class QMMSilver(bpy.types.Operator):
+class QMMSilverFresnel(bpy.types.Operator):
     """Add/Apply Silver Material to Selected Object (or Scene)"""
-    bl_label = "QMM Silver Shader"
+    bl_label = "QMM Silver Fresnel Shader"
     bl_idname = 'shader.qmm_silver_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        material_silver = bpy.data.materials.get("QMM Silver")
+        material_silver = bpy.data.materials.get("QMM Silver Fresnel")
         if material_silver:
-            ShowMessageBox(message_text, "QMM Silver")
-            print(f"QMM Silver already exists")
+            ShowMessageBox(message_text, "QMM Silver Fresnel")
+            # print(f"QMM Silver Fresnel already exists")
             bpy.context.object.active_material = material_silver
             return {'FINISHED'}
         else:
             #CreateShader
-            material_silver = bpy.data.materials.new(name = "QMM Silver")
+            material_silver = bpy.data.materials.new(name = "QMM Silver Fresnel")
             material_silver.use_nodes = True
             material_silver.diffuse_color = (0.401978, 0.396755, 0.417885, 1)
+            material_silver.metallic = 1
 
             #materialoutput
             material_output = material_silver.node_tree.nodes.get('Material Output')

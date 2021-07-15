@@ -10,21 +10,23 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 #CopperMinShaderOperator
 class QMMCopperMin(bpy.types.Operator):
     """Add/Apply Pale Copper (Minimum) Material to Selected Object (or Scene)"""
-    bl_label = "QMM Pale Copper Metallic Min Shader"
+    bl_label = "QMM Pale Copper Min Shader"
     bl_idname = 'shader.qmm_copper_min_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        material_copper_min = bpy.data.materials.get("QMM Pale Copper Metallic Min")
+        material_copper_min = bpy.data.materials.get("QMM Pale Copper Min")
         if material_copper_min:
-            ShowMessageBox(message_text, "QMM Pale Copper Metallic Min")
-            print(f"QMM Pale Copper Metallic Min already exists")
+            ShowMessageBox(message_text, "QMM Pale Copper Min")
+            # print(f"QMM Pale Copper Min already exists")
             bpy.context.object.active_material = material_copper_min
             return {'FINISHED'}
         else:
             #CreateShader
-            material_copper_min = bpy.data.materials.new(name = "QMM Pale Copper Metallic Min")
+            material_copper_min = bpy.data.materials.new(name = "QMM Pale Copper Min")
             material_copper_min.use_nodes = True
             material_copper_min.diffuse_color = (0.701102, 0.254152, 0.135633, 1)
+            material_copper_min.metallic = 1
+            material_copper_min.roughness = 0.25
 
             #materialoutput
             material_output = material_copper_min.node_tree.nodes.get('Material Output')

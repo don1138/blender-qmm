@@ -17,7 +17,7 @@ class QMMCuttingMat(bpy.types.Operator):
         material_cutting_mat = bpy.data.materials.get("QMM Rubber Cutting Mat")
         if material_cutting_mat:
             ShowMessageBox(message_text, "QMM Rubber Cutting Mat")
-            print(f"QMM Rubber Cutting Mat already exists")
+            # print(f"QMM Rubber Cutting Mat already exists")
             bpy.context.object.active_material = material_cutting_mat
             return {'FINISHED'}
         else:
@@ -25,6 +25,7 @@ class QMMCuttingMat(bpy.types.Operator):
             material_cutting_mat = bpy.data.materials.new(name = "QMM Rubber Cutting Mat")
             material_cutting_mat.use_nodes = True
             material_cutting_mat.diffuse_color = (0.045186, 0.141263, 0.144129, 1)
+            material_cutting_mat.roughness = 0.79
 
             #materialoutput
             material_output = material_cutting_mat.node_tree.nodes.get('Material Output')

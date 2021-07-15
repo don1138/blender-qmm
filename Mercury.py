@@ -17,7 +17,7 @@ class QMMMercury(bpy.types.Operator):
         material_mercury = bpy.data.materials.get("QMM Mercury Liquid")
         if material_mercury:
             ShowMessageBox(message_text, "QMM Mercury Liquid")
-            print(f"QMM Mercury Liquid already exists")
+            # print(f"QMM Mercury Liquid already exists")
             bpy.context.object.active_material = material_mercury
             return {'FINISHED'}
         else:
@@ -25,6 +25,8 @@ class QMMMercury(bpy.types.Operator):
             material_mercury = bpy.data.materials.new(name = "QMM Mercury Liquid")
             material_mercury.use_nodes = True
             material_mercury.diffuse_color = (0.174647, 0.198069, 0.219526, 1)
+            material_mercury.metallic = 1
+            material_mercury.roughness = 0.0
 
             #materialoutput
             material_output = material_mercury.node_tree.nodes.get('Material Output')
