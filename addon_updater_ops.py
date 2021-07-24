@@ -950,6 +950,61 @@ def update_settings_ui(self, context, element=None):
     # Element is a UI element, such as layout, a row, column, or box.
     if element is None:
         element = self.layout
+
+
+
+    box2 = element.box()
+
+    # Additional Resources
+    box2.label(text="Additional Resources")
+
+    row = box2.row()
+    col = row.column()
+    split = col.split()
+    split.label(text="979 Blender Materials:")
+    split.operator("wm.url_open", text="Blender Materials @ Github").url = "https://github.com/don1138/blender-materials"
+    row = box2.row()
+    row.scale_y = 0.5
+    row.label(text="A Repository of Found and Collected Blender Materials.")
+    row = box2.row()
+    row.scale_y = 0.5
+    row.label(text="")
+
+    row = box2.row()
+    col = row.column()
+    split = col.split()
+    split.label(text="Pantone Color of the Year & Mid-Century Modern Colors:")
+    split.operator("wm.url_open", text="Blender PCOY & MCMC @ Github").url = "https://github.com/don1138/blender-pcoy"
+    row = box2.row()
+    row.scale_y = 0.5
+    row.label(text="Blender Add-ons That Assign a Custom Color to a Principled BSDF's Base Color.")
+    row = box2.row()
+    row.scale_y = 0.5
+    row.label(text="")
+
+    row = box2.row()
+    col = row.column()
+    split = col.split()
+    split.label(text="Quick Lighting Environment:")
+    split.operator("wm.url_open", text="Blender QLE @ Github").url = "https://github.com/don1138/blender-qle"
+    row = box2.row()
+    row.scale_y = 0.5
+    row.label(text="Blender Add-on That Adds a Basic Lighting Environment to Your Blender Scene.")
+    row = box2.row()
+    row.scale_y = 0.5
+    row.label(text="")
+
+    row = box2.row()
+    col = row.column()
+    split = col.split()
+    split.label(text="Quick Resize Nodes:")
+    split.operator("wm.url_open", text="Blender QRN @Github").url = "https://github.com/don1138/blender-qrn"
+    row = box2.row()
+    row.scale_y = 0.5
+    row.label(text="Blender Add-on That Assigna a Fixed Width to Selected Nodes.")
+
+
+
     box = element.box()
 
     # In case of error importing updater.

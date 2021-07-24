@@ -1,3 +1,6 @@
+### 1.2.1
+- Added links to Additional Resources to preferences panel
+
 ### 1.2.0
 - New Materials
 	- **Chrome**
