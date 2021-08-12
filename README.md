@@ -6,7 +6,7 @@ Blender Addon to Add Metal Materials to Your Scene
 
 ## Installation
 
-Download the latest ZIP from **Releases** – or just download the repository – and install addon.
+Download the latest ZIP from **Releases**.
 
 ## Usage
 
