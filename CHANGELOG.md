@@ -1,3 +1,7 @@
+### 1.2.2
+- UILayout tweaks to QMM panel
+- UILayout tweaks to Additional Resources in preferences panel
+
 ### 1.2.1
 - Added links to Additional Resources to preferences panel
 

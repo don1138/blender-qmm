@@ -951,60 +951,6 @@ def update_settings_ui(self, context, element=None):
     if element is None:
         element = self.layout
 
-
-
-    box2 = element.box()
-
-    # Additional Resources
-    box2.label(text="Additional Resources")
-
-    row = box2.row()
-    col = row.column()
-    split = col.split()
-    split.label(text="979 Blender Materials:")
-    split.operator("wm.url_open", text="Blender Materials @ Github").url = "https://github.com/don1138/blender-materials"
-    row = box2.row()
-    row.scale_y = 0.5
-    row.label(text="A Repository of Found and Collected Blender Materials.")
-    row = box2.row()
-    row.scale_y = 0.5
-    row.label(text="")
-
-    row = box2.row()
-    col = row.column()
-    split = col.split()
-    split.label(text="Pantone Color of the Year & Mid-Century Modern Colors:")
-    split.operator("wm.url_open", text="Blender PCOY & MCMC @ Github").url = "https://github.com/don1138/blender-pcoy"
-    row = box2.row()
-    row.scale_y = 0.5
-    row.label(text="Blender Add-ons That Assign a Custom Color to a Principled BSDF's Base Color.")
-    row = box2.row()
-    row.scale_y = 0.5
-    row.label(text="")
-
-    row = box2.row()
-    col = row.column()
-    split = col.split()
-    split.label(text="Quick Lighting Environment:")
-    split.operator("wm.url_open", text="Blender QLE @ Github").url = "https://github.com/don1138/blender-qle"
-    row = box2.row()
-    row.scale_y = 0.5
-    row.label(text="Blender Add-on That Adds a Basic Lighting Environment to Your Blender Scene.")
-    row = box2.row()
-    row.scale_y = 0.5
-    row.label(text="")
-
-    row = box2.row()
-    col = row.column()
-    split = col.split()
-    split.label(text="Quick Resize Nodes:")
-    split.operator("wm.url_open", text="Blender QRN @Github").url = "https://github.com/don1138/blender-qrn"
-    row = box2.row()
-    row.scale_y = 0.5
-    row.label(text="Blender Add-on That Assigna a Fixed Width to Selected Nodes.")
-
-
-
     box = element.box()
 
     # In case of error importing updater.
@@ -1162,6 +1108,47 @@ def update_settings_ui(self, context, element=None):
         row.label(text="Last update check: " + last_check)
     else:
         row.label(text="Last update check: Never")
+
+
+
+    # PREFERENCES - ADDITIONAL LINKS
+
+    box = element.box()
+
+    # Additional Resources
+    box.label(text="Additional Resources")
+
+    # Github Links
+
+    linkcol = box.column(align=True)
+
+    gitbox = linkcol.box()
+
+    github = gitbox.row()
+    github.ui_units_y = 0.8
+    github.alignment="CENTER"
+    github.label(text="Github")
+
+    gitrow = gitbox.row()
+    gitrow.scale_y = 1.6
+    gitrow.operator("wm.url_open", text="979 Blender Materials").url = "https://github.com/don1138/blender-materials"
+    gitrow.operator("wm.url_open", text="Blender PCOY & MCMC").url = "https://github.com/don1138/blender-pcoy"
+
+    # Gumroad Links
+
+    gumbox = linkcol.box()
+
+    gumroad = gumbox.row()
+    gumroad.alignment="CENTER"
+    gumroad.ui_units_y = 0.8
+    gumroad.label(text="Gumroad")
+
+    gumrow = gumbox.row()
+    gumrow.scale_y = 1.6
+    gumrow.operator("wm.url_open", text="Blender Quick Lighting Environment").url = "https://don1138.gumroad.com/l/blender-qle"
+    gumrow.operator("wm.url_open", text="Blender Quick Resize Nodes").url = "https://don1138.gumroad.com/l/blender-qrn"
+
+
 
 
 def update_settings_ui_condensed(self, context, element=None):
