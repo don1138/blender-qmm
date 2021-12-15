@@ -38,9 +38,9 @@ class QMMGold(bpy.types.Operator):
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
             BSDF.inputs[0].default_value = (0.658375, 0.428689, 0.038204, 1)
-            BSDF.inputs[4].default_value = 1
-            BSDF.inputs[7].default_value = 0.25
-            BSDF.inputs[14].default_value = 0.47
+            BSDF.inputs[6].default_value = 1
+            BSDF.inputs[9].default_value = 0.25
+            BSDF.inputs[16].default_value = 0.47
 
             #mathdivide
             m_divide = nodes.new('ShaderNodeMath')
@@ -85,7 +85,8 @@ class QMMGold(bpy.types.Operator):
             links.new(m_subtract.outputs[0], m_divide2.inputs[0])
             links.new(m_divide2.outputs[0], m_power.inputs[0])
             links.new(m_power.outputs[0], m_divide.inputs[0])
-            links.new(m_divide.outputs[0], BSDF.inputs[5])
+            links.new(m_divide.outputs[0], BSDF.inputs[7])
+            links.new(m_value.outputs[0], BSDF.inputs[16])
 
             bpy.context.object.active_material = m_gold_m
 

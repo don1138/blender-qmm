@@ -1,3 +1,12 @@
+### 1.3.0
+- Blender 3.0 compatability
+- Update node input IDs to new settings
+- Connect IOR Value node to Principled BSDF IOR input
+
+### 1.2.3
+- Shorten material var names ( material_aluminium > m_aluminium)
+- Change `bl_category` from **QMM** to **MAT**
+
 ### 1.2.2
 - UILayout tweaks to QMM panel
 - UILayout tweaks to Additional Resources in preferences panel

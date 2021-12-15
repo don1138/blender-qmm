@@ -21,9 +21,9 @@ bl_info = {
     "name"       : "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
     "author"     : "Don Schnitzius",
-    "version"    : (1, 2, 2),
-    "blender"    : (2, 80, 0),
-    "location"   : "3D Viewport > Sidebar > QMM",
+    "version"    : (1, 3, 0),
+    "blender"    : (3, 0, 0),
+    "location"   : "3D Viewport > Sidebar > MAT > Quick Metal Materials",
     "warning"    : "",
     "wiki_url"   : "https://github.com/don1138/blender-qmm",
     "support"    : "COMMUNITY",
@@ -44,7 +44,7 @@ class BQMPanel(bpy.types.Panel):
     bl_label = "Quick Metal Materials"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "QMM"
+    bl_category = "MAT"
 
     def draw(self, context):
         layout = self.layout
@@ -56,7 +56,7 @@ class BQMPanelNoble(bpy.types.Panel):
     bl_label = "Noble Metals"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "QMM"
+    bl_category = "MAT"
     bl_parent_id = 'BQM_PT_Panel'
     bl_options = {'DEFAULT_CLOSED'}
 
@@ -86,7 +86,7 @@ class BQMPanelBase(bpy.types.Panel):
     bl_label = "Base Metals"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "QMM"
+    bl_category = "MAT"
     bl_parent_id = 'BQM_PT_Panel'
     bl_options = {'DEFAULT_CLOSED'}
 
@@ -121,7 +121,7 @@ class BQMPanelAlloy(bpy.types.Panel):
     bl_label = "Alloys"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "QMM"
+    bl_category = "MAT"
     bl_parent_id = 'BQM_PT_Panel'
     bl_options = {'DEFAULT_CLOSED'}
 
@@ -147,7 +147,7 @@ class BQMPanelExtras(bpy.types.Panel):
     bl_label = "Extras"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "QMM"
+    bl_category = "MAT"
     bl_parent_id = 'BQM_PT_Panel'
     bl_options = {'DEFAULT_CLOSED'}
 

@@ -103,7 +103,7 @@ class QMMPlaster(bpy.types.Operator):
             links.new(m_maprange.outputs[0], m_bump.inputs[2])
             links.new(m_noise.outputs[0], m_bump2.inputs[2])
             links.new(m_bump.outputs[0], m_bump2.inputs[5])
-            links.new(m_bump2.outputs[0], BSDF.inputs[20])
+            links.new(m_bump2.outputs[0], BSDF.inputs[22])
 
             bpy.context.object.active_material = m_plaster
 

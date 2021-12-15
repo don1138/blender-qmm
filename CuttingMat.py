@@ -38,7 +38,7 @@ class QMMCuttingMat(bpy.types.Operator):
             BSDF.location = (-300,0)
             BSDF.inputs[0].default_value = (0.045186, 0.141263, 0.144129, 1)
             BSDF.inputs[5].default_value = 0.425
-            BSDF.inputs[7].default_value = 0.79
+            BSDF.inputs[9].default_value = 0.79
 
             #rgbmix
             m_mix = nodes.new('ShaderNodeMixRGB')

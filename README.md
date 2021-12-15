@@ -10,7 +10,7 @@ Download the latest ZIP from **Releases**.
 
 ## Usage
 
-This addon creates a panel named **Quick Metal Materials** under ``3D Viewport > Sidebar > QMM``.
+This addon creates a panel named **Quick Metal Materials** under ``3D Viewport > Sidebar > MAT``.
 
 Select an object in your view, and click a button to assign that material to it.
 
