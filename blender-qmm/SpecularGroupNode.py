@@ -1,6 +1,6 @@
 import bpy
 
-class Specular_Group(bpy.types.Operator):
+class SpecularGroup(bpy.types.Operator):
     """Add/Get Specular Group Node"""
     bl_label = "Specular Node Group"
     bl_idname = 'node.specular_group_operator'
