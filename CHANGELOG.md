@@ -1,3 +1,6 @@
+### 1.3.1
+- Combine IOR/Specular math nodes into Specular Group
+
 ### 1.3.0
 - Blender 3.0 compatability
 - Update node input IDs to new settings

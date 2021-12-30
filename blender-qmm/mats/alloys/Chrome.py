@@ -42,65 +42,18 @@ class QMMChrome(bpy.types.Operator):
             BSDF.inputs[9].default_value = 0.012
             BSDF.inputs[16].default_value = 2.30
 
-            #mathdivide
-            m_divide = nodes.new('ShaderNodeMath')
-            m_divide.operation = 'DIVIDE'
-            m_divide.location = (-500,0)
-            m_divide.inputs[1].default_value = 0.08
-
-            #mathpower
-            m_power = nodes.new('ShaderNodeMath')
-            m_power.operation = 'POWER'
-            m_power.location = (-700,0)
-            m_power.inputs[1].default_value = 2
-
-            #mathdivide2
-            m_divide2 = nodes.new('ShaderNodeMath')
-            m_divide2.operation = 'DIVIDE'
-            m_divide2.location = (-900,0)
-
-            #mathsubtract
-            m_subtract = nodes.new('ShaderNodeMath')
-            m_subtract.operation = 'SUBTRACT'
-            m_subtract.location = (-1100,0)
-            m_subtract.inputs[1].default_value = 1
-
-            #mathadd
-            m_add = nodes.new('ShaderNodeMath')
-            m_add.operation = 'ADD'
-            m_add.location = (-1100,-200)
-            m_add.inputs[1].default_value = 1
-
-            #value
-            m_value = nodes.new('ShaderNodeValue')
-            m_value.location = (-1300,0)
-            m_value.outputs[0].default_value = 2.30
-            m_value.label = "IOR"
-
-            #valuepolished
-            m_value_polished = nodes.new('ShaderNodeValue')
-            m_value_polished.location = (-500,-200)
-            m_value_polished.outputs[0].default_value = 0.012
-            m_value_polished.label = "Polished"
-
-            #valuematte
-            m_value_matte = nodes.new('ShaderNodeValue')
-            m_value_matte.location = (-500,-300)
-            m_value_matte.outputs[0].default_value = 0.588
-            m_value_matte.label = "Matte"
-
-            links = m_chrome.node_tree.links
-
-            links.new(m_value.outputs[0], m_add.inputs[0])
-            links.new(m_value.outputs[0], m_subtract.inputs[0])
-            links.new(m_add.outputs[0], m_divide2.inputs[1])
-            links.new(m_subtract.outputs[0], m_divide2.inputs[0])
-            links.new(m_divide2.outputs[0], m_power.inputs[0])
-            links.new(m_power.outputs[0], m_divide.inputs[0])
-            links.new(m_divide.outputs[0], BSDF.inputs[7])
-            links.new(m_value.outputs[0], BSDF.inputs[16])
-            links.new(m_value_polished.outputs[0], BSDF.inputs[7])
-
+            #LOAD THE MATERIAL
             bpy.context.object.active_material = m_chrome
+
+            #SpecularGroup
+            bpy.ops.node.specular_group_operator()
+            nodes = m_chrome.node_tree.nodes
+            specular_group = nodes.new("ShaderNodeGroup")
+            specular_group.node_tree = bpy.data.node_groups['Specular']
+            specular_group.location = (-500, -300)
+            specular_group.inputs[0].default_value = 2.30
+            links = m_chrome.node_tree.links.new
+            links(specular_group.outputs[0], BSDF.inputs[7])
+            links(specular_group.outputs[1], BSDF.inputs[16])
 
             return {'FINISHED'}

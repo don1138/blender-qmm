@@ -1,6 +1,6 @@
 import bpy
 
-class SPECULAR_GROUP(bpy.types.Operator):
+class Specular_Group(bpy.types.Operator):
     """Add/Get Specular Group Node"""
     bl_label = "Specular Node Group"
     bl_idname = 'node.specular_group_operator'
@@ -13,6 +13,8 @@ class SPECULAR_GROUP(bpy.types.Operator):
             nodes = node_tree.nodes
             specular_group = nodes.new("ShaderNodeGroup")
             specular_group.node_tree = bpy.data.node_groups['Specular']
+            specular_group.location = (-500, -300)
+            # specular_group.inputs[0].default_value = 0.46
 
             return {'FINISHED'}
         else:
@@ -59,15 +61,15 @@ class SPECULAR_GROUP(bpy.types.Operator):
             m_add.location = (-800,-100)
             m_add.inputs[1].default_value = 1
 
-            link = specular_group.links.new
+            links = specular_group.links.new
 
-            link(group_in.outputs[0], m_add.inputs[0])
-            link(group_in.outputs[0], m_subtract.inputs[0])
-            link(group_in.outputs[0], group_out.inputs[1])
-            link(m_add.outputs[0], m_divide2.inputs[1])
-            link(m_subtract.outputs[0], m_divide2.inputs[0])
-            link(m_divide2.outputs[0], m_power.inputs[0])
-            link(m_power.outputs[0], m_divide.inputs[0])
-            link(m_divide.outputs[0], group_out.inputs[0])
+            links(group_in.outputs[0], m_subtract.inputs[0])
+            links(group_in.outputs[0], m_add.inputs[0])
+            links(m_add.outputs[0], m_divide2.inputs[1])
+            links(m_subtract.outputs[0], m_divide2.inputs[0])
+            links(m_divide2.outputs[0], m_power.inputs[0])
+            links(m_power.outputs[0], m_divide.inputs[0])
+            links(m_divide.outputs[0], group_out.inputs[0])
+            links(group_in.outputs[0], group_out.inputs[1])
 
             return {'FINISHED'}
