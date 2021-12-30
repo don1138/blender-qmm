@@ -1,6 +1,6 @@
 ### 1.3.2 <!-- 12/30/21 -->
 - Bugfix: Specular Group was being added twice
-- Added Copper Color node Group with 5 color choices <!-- https://en.wikipedia.org/wiki/Copper_(color) -->
+- Added Copper Color Node Group with 5 color choices [Affects **Copper Min**, **Copper Max**, and **Copper (Fresnel)**] <!-- https://en.wikipedia.org/wiki/Copper_(color) -->
 	- **Copper** <!-- #B87333 -->
 	- **Pale Copper** <!-- #DA8A67 -->
 	- **Copper Red** <!-- #CB6D51 -->
