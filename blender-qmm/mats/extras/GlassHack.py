@@ -88,4 +88,4 @@ class QMMGlass(bpy.types.Operator):
 
             bpy.context.object.active_material = m_glass
 
-            return {'FINISHED'}
+        return {'FINISHED'}

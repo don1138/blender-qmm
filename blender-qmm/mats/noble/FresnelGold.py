@@ -85,4 +85,4 @@ class QMMGoldFresnel(bpy.types.Operator):
 
             bpy.context.object.active_material = m_gold
 
-            return {'FINISHED'}
+        return {'FINISHED'}

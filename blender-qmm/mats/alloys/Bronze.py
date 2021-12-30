@@ -56,4 +56,4 @@ class QMMBronze(bpy.types.Operator):
             links(specular_group.outputs[0], BSDF.inputs[7])
             links(specular_group.outputs[1], BSDF.inputs[16])
 
-            return {'FINISHED'}
+        return {'FINISHED'}

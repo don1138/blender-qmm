@@ -8,16 +8,7 @@ class SpecularGroup(bpy.types.Operator):
         # DOES THE MATERIAL ALREADY EXIST?
         ng_specular = bpy.data.node_groups.get("Specular")
 
-        if ng_specular:
-            node_tree = bpy.context.object.active_material.node_tree
-            nodes = node_tree.nodes
-            specular_group = nodes.new("ShaderNodeGroup")
-            specular_group.node_tree = bpy.data.node_groups['Specular']
-            specular_group.location = (-500, -300)
-            # specular_group.inputs[0].default_value = 0.46
-
-            return {'FINISHED'}
-        else:
+        if not ng_specular:
             #newnodegroup
             specular_group = bpy.data.node_groups.new('Specular', 'ShaderNodeTree')
 
@@ -72,4 +63,4 @@ class SpecularGroup(bpy.types.Operator):
             links(m_divide.outputs[0], group_out.inputs[0])
             links(group_in.outputs[0], group_out.inputs[1])
 
-            return {'FINISHED'}
+        return {'FINISHED'}

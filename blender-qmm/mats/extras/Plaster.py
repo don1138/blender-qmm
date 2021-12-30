@@ -107,4 +107,4 @@ class QMMPlaster(bpy.types.Operator):
 
             bpy.context.object.active_material = m_plaster
 
-            return {'FINISHED'}
+        return {'FINISHED'}

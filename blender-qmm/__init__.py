@@ -21,7 +21,7 @@ bl_info = {
     "name"       : "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
     "author"     : "Don Schnitzius",
-    "version"    : (1, 3, 2),
+    "version"    : (1, 3, 3),
     "blender"    : (3, 0, 0),
     "location"   : "3D Viewport > Sidebar > MAT > Quick Metal Materials",
     "warning"    : "",
@@ -240,7 +240,8 @@ from .mats.noble.PaleGoldMetallic import *
 from .mats.noble.PaleSilverMetallic import *
 from .mats.noble.SilverMin import *
 from .mats.noble.SilverMax import *
-from .SpecularGroupNode import *
+from .mats.SpecularGroupNode import *
+from .mats.CopperColors import *
 
 
 classes = [
@@ -274,6 +275,7 @@ classes = [
     QMMSteel,
     QMMTitanium,
     SpecularGroup,
+    CopperColorsGroup,
 ]
 
 
