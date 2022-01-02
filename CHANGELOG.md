@@ -7,7 +7,7 @@
   - **Old Gold** <!-- #CFB53B -->
   - **Golden Yellow** <!-- #FFDF00 -->
   - **Golden Poppy** <!-- #FCC200 -->
-  - **Crayola Gold ** <!-- #E6BE8A -->
+  - **Crayola Gold** <!-- #E6BE8A -->
   - **Vegas Gold** <!-- #C5B358 -->
   - **Satin Sheen Gold** <!-- #CBA135 -->
 - Added Silver Color Node Group with 10 color choices. This affects **Silver Min**, **Silver Max**, **Pale Silver**, and **Silver (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Silver_(color) -->
