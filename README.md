@@ -2,7 +2,7 @@
 
 Blender Addon to Add Metal Materials to Your Scene
 
-![Blender QLE Screenshot](https://github.com/don1138/blender-qmm/blob/main/blender-qmm.jpg)
+![Blender QMM Screenshot](https://github.com/don1138/blender-qmm/blob/main/blender-qmm.jpg)
 
 ## Installation
 
