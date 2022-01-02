@@ -1,5 +1,6 @@
 import bpy
 
+# https://en.wikipedia.org/wiki/Copper_(color)
 
 # HEX TO RGB CALCS
 
@@ -34,41 +35,41 @@ class CopperColorsGroup(bpy.types.Operator):
             #groupoutput
             group_out = copper_colors_group.nodes.new('NodeGroupOutput')
             group_out.location = (0, 0)
-            copper_colors_group.outputs.new('NodeSocketFloat', 'Copper')
-            copper_colors_group.outputs.new('NodeSocketFloat', 'Pale Copper')
-            copper_colors_group.outputs.new('NodeSocketFloat', 'Copper Red')
-            copper_colors_group.outputs.new('NodeSocketFloat', 'Copper Penny')
-            copper_colors_group.outputs.new('NodeSocketFloat', 'Copper Rose')
+            copper_colors_group.outputs.new('NodeSocketColor', 'Copper')
+            copper_colors_group.outputs.new('NodeSocketColor', 'Pale Copper')
+            copper_colors_group.outputs.new('NodeSocketColor', 'Copper Red')
+            copper_colors_group.outputs.new('NodeSocketColor', 'Copper Penny')
+            copper_colors_group.outputs.new('NodeSocketColor', 'Copper Rose')
 
             #Copper
             cc_c = copper_colors_group.nodes.new('ShaderNodeRGB')
             cc_c.label = "Copper"
             cc_c.location = (-200, 400)
-            cc_c.outputs[0].default_value = hex_to_rgb("0xB87333")
+            cc_c.outputs[0].default_value = hex_to_rgb(0xB87333)
 
             #Pale Copper
             cc_pc = copper_colors_group.nodes.new('ShaderNodeRGB')
             cc_pc.label = "PaleCopper"
             cc_pc.location = (-200, 200)
-            cc_pc.outputs[0].default_value = hex_to_rgb("0xDA8A67")
+            cc_pc.outputs[0].default_value = hex_to_rgb(0xDA8A67)
 
             #Copper Red
             cc_cr = copper_colors_group.nodes.new('ShaderNodeRGB')
             cc_cr.label = "Copper Red"
             cc_cr.location = (-200, 0)
-            cc_cr.outputs[0].default_value = hex_to_rgb("0xCB6D51")
+            cc_cr.outputs[0].default_value = hex_to_rgb(0xCB6D51)
 
             #Copper Penny
             cc_cp = copper_colors_group.nodes.new('ShaderNodeRGB')
             cc_cp.label = "Copper Penny"
             cc_cp.location = (-200, -200)
-            cc_cp.outputs[0].default_value = hex_to_rgb("0xAD6F69")
+            cc_cp.outputs[0].default_value = hex_to_rgb(0xAD6F69)
 
             #Copper Rose
             cc_cro = copper_colors_group.nodes.new('ShaderNodeRGB')
             cc_cro.label = "Copper Rose"
             cc_cro.location = (-200, -400)
-            cc_cro.outputs[0].default_value = hex_to_rgb("0x996666")
+            cc_cro.outputs[0].default_value = hex_to_rgb(0x996666)
 
             links = copper_colors_group.links.new
 

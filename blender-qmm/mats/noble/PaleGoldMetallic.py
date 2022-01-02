@@ -56,4 +56,13 @@ class QMMPaleGold(bpy.types.Operator):
             links(specular_group.outputs[0], BSDF.inputs[7])
             links(specular_group.outputs[1], BSDF.inputs[16])
 
+            #GoldColorsGroup
+            bpy.ops.node.gold_colors_group_operator()
+            nodes = m_pale_gold_m.node_tree.nodes
+            gold_colors_group = nodes.new("ShaderNodeGroup")
+            gold_colors_group.node_tree = bpy.data.node_groups['Gold Colors']
+            gold_colors_group.location = (-500, 0)
+            links = m_pale_gold_m.node_tree.links.new
+            links(gold_colors_group.outputs[1], BSDF.inputs[0])
+
         return {'FINISHED'}

@@ -67,4 +67,14 @@ class QMMSilverFresnel(bpy.types.Operator):
 
             bpy.context.object.active_material = m_silver
 
+            #SilverColorsGroup
+            bpy.ops.node.silver_colors_group_operator()
+            nodes = m_silver.node_tree.nodes
+            silver_colors_group = nodes.new("ShaderNodeGroup")
+            silver_colors_group.node_tree = bpy.data.node_groups['Silver Colors']
+            silver_colors_group.location = (-600, 0)
+            links = m_silver.node_tree.links.new
+            links(silver_colors_group.outputs[0], m_glossy.inputs[0])
+            links(silver_colors_group.outputs[0], m_glossy2.inputs[0])
+
         return {'FINISHED'}
