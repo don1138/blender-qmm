@@ -15,7 +15,7 @@
   - **Pale Silver** <!--#FCFAF5 -->
   - **Basic Silver** <!--#C0C0C0 -->
   - **Crayola Silver** <!--#C9C0BB -->
-  - **Silver** <!--C4AEAD -->
+  - **Silver Pink** <!--C4AEAD -->
   - **Silver Sand** <!--#BFC1C2 -->
   - **Silver Chalice** <!--#ACACAC -->
   - **Roman Silver** <!--#838996 -->
