@@ -2,7 +2,7 @@
 
 ### 1.3.4 <!-- 1/02/22 -->
 - Bugfix: Change Node Group Output type from `Float` to `Color`
-- Added Gold Color Node Group with 9 color choices. This affects **Gold**, **Pale Gold**, and **Gold (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Gold_(color) -->
+- Add Gold Color Node Group with 9 color choices. This affects **Gold**, **Pale Gold**, and **Gold (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Gold_(color) -->
   - **Gold** <!-- #D4AF37 -->
   - **Pale Gold** <!-- #FFE39D -->
   - **Golden Gold** <!-- #FFD700 -->
@@ -12,7 +12,7 @@
   - **Crayola Gold** <!-- #E6BE8A -->
   - **Vegas Gold** <!-- #C5B358 -->
   - **Satin Sheen Gold** <!-- #CBA135 -->
-- Added Silver Color Node Group with 10 color choices. This affects **Silver Min**, **Silver Max**, **Pale Silver**, and **Silver (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Silver_(color) -->
+- Add Silver Color Node Group with 10 color choices. This affects **Silver Min**, **Silver Max**, **Pale Silver**, and **Silver (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Silver_(color) -->
   - **Silver** <!--#AAA9AD -->
   - **Pale Silver** <!--#FCFAF5 -->
   - **Basic Silver** <!--#C0C0C0 -->
@@ -26,7 +26,7 @@
 
 ### 1.3.3 <!-- 12/30/21 -->
 - Bugfix: Specular Group was being added twice
-- Added Copper Color Node Group with 5 color choices. This affects **Copper Min**, **Copper Max**, and **Copper (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Copper_(color) -->
+- Add Copper Color Node Group with 5 color choices. This affects **Copper Min**, **Copper Max**, and **Copper (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Copper_(color) -->
 	- **Copper** <!-- #B87333 -->
 	- **Pale Copper** <!-- #DA8A67 -->
 	- **Copper Red** <!-- #CB6D51 -->
