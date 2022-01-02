@@ -1,7 +1,7 @@
 ![Blender QMM Extended Color Groups](https://github.com/don1138/blender-qmm/blob/main/qmm-extended-color-groups.png)
 
 ### 1.3.4 <!-- 1/02/22 -->
-- Bugfix: Change Node Group Output type from `Float` to `Color`
+- **Bugfix:** Change Node Group Output type from `Float` to `Color`
 - Add Gold Color Node Group with 9 color choices. This affects **Gold**, **Pale Gold**, and **Gold (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Gold_(color) -->
   - **Gold** <!-- #D4AF37 -->
   - **Pale Gold** <!-- #FFE39D -->
@@ -25,7 +25,7 @@
   - **Sonic Silver** <!--#757575 -->
 
 ### 1.3.3 <!-- 12/30/21 -->
-- Bugfix: Specular Group was being added twice
+- **Bugfix:** Specular Group was being added twice
 - Add Copper Color Node Group with 5 color choices. This affects **Copper Min**, **Copper Max**, and **Copper (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Copper_(color) -->
 	- **Copper** <!-- #B87333 -->
 	- **Pale Copper** <!-- #DA8A67 -->
@@ -53,10 +53,10 @@
 - UILayout tweaks to Additional Resources in preferences panel
 
 ### 1.2.1 <!-- 7/24/21 -->
-- Added links to Additional Resources to preferences panel
+- Add links to Additional Resources to preferences panel
 
 ### 1.2.0 <!-- 7/14/21 -->
-- New Materials
+- Add New Materials
 	- **Chrome**
 	- **Lead**
 	- **Lead Rough**
@@ -65,17 +65,17 @@
 - Misc. Code Cleanup
 
 ### 1.1.1 <!-- 7/8/21 -->
-- Added Tooltips to buttons
+- Add Tooltips to buttons
 - Set IOR value on all Principled BDSF nodes
-- Added "IOR" label to Value node on chain connected to Principled BSDF Specular input
+- Add "IOR" label to Value node on chain connected to Principled BSDF Specular input
 
 ### 1.1.0 <!-- 6/17/21 -->
-- New Material
+- Add New Material
 	- **Tinted Plaster**
 
 ### 1.0.0
-- Added [**CG Cookie's Addon Updater**](https://github.com/CGCookie/blender-addon-updater) system
-- Corrected version numbering system
+- Add [**CG Cookie's Addon Updater**](https://github.com/CGCookie/blender-addon-updater) system
+- Correct version numbering system
 - Misc. code cleanup
 
 ### 0.0.4 <!-- 3/22/21 -->
