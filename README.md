@@ -20,6 +20,7 @@ Select an object in your view, and click a button to assign that material to it.
 - [Blender Addons](https://blender-addons.org/quick-metal-materials/)
 - [Blender Artists Thread](https://blenderartists.org/t/blender-qmm-quick-metal-materials-free-addon/1290433)
 - [Gumroad](https://gumroad.com/l/blender-qmm)
+- [Model Happy](https://modelinghappy.com/archives/42400)
 
 <br><br>
 
