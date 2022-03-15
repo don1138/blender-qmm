@@ -1,5 +1,3 @@
-![Blender QMM Extended Color Groups](https://github.com/don1138/blender-qmm/blob/main/qmm-extended-color-groups.png)
-
 ### 1.3.5 <!-- 3/14/22 -->
 - Updated `Roughness` values
 
