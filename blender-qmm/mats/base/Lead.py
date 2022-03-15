@@ -26,7 +26,7 @@ class QMMLead(bpy.types.Operator):
             m_lead.use_nodes = True
             m_lead.diffuse_color = (0.380, 0.384, 0.4, 1.0)
             m_lead.metallic = 1
-            m_lead.roughness = 0.706
+            m_lead.roughness = 0.7
 
             nodes = m_lead.node_tree.nodes
 
@@ -39,7 +39,7 @@ class QMMLead(bpy.types.Operator):
             BSDF.location = (-300,0)
             BSDF.inputs[0].default_value = (0.380, 0.384, 0.4, 1.0)
             BSDF.inputs[6].default_value = 1
-            BSDF.inputs[9].default_value = 0.706
+            BSDF.inputs[9].default_value = 0.7
             # BSDF.inputs[16].default_value = 2.010
 
             #LOAD THE MATERIAL

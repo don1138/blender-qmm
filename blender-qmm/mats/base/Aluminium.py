@@ -26,7 +26,7 @@ class QMMAluminium(bpy.types.Operator):
             m_aluminium.use_nodes = True
             m_aluminium.diffuse_color = (0.23074, 0.242281, 0.250158, 1)
             m_aluminium.metallic = 1
-            m_aluminium.roughness = 0.25
+            m_aluminium.roughness = 0.3
 
             nodes = m_aluminium.node_tree.nodes
 
@@ -39,7 +39,7 @@ class QMMAluminium(bpy.types.Operator):
             BSDF.location = (-300,0)
             BSDF.inputs[0].default_value = (0.23074, 0.242281, 0.250158, 1)
             BSDF.inputs[6].default_value = 1
-            BSDF.inputs[9].default_value = 0.25
+            BSDF.inputs[9].default_value = 0.3
             BSDF.inputs[16].default_value = 1.390
             # BSDF.inputs[16].default_value = 1.244
 

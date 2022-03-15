@@ -26,7 +26,7 @@ class QMMIron(bpy.types.Operator):
             m_iron.use_nodes = True
             m_iron.diffuse_color = (0.3564, 0.337164, 0.296138, 1)
             m_iron.metallic = 1
-            m_iron.roughness = 0.25
+            m_iron.roughness = 0.4
 
             nodes = m_iron.node_tree.nodes
 
@@ -39,7 +39,7 @@ class QMMIron(bpy.types.Operator):
             BSDF.location = (-300,0)
             BSDF.inputs[0].default_value = (0.3564, 0.337164, 0.296138, 1)
             BSDF.inputs[6].default_value = 1
-            BSDF.inputs[9].default_value = 0.25
+            BSDF.inputs[9].default_value = 0.4
             # BSDF.inputs[16].default_value = 2.950
 
             #LOAD THE MATERIAL

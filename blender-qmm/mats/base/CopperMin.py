@@ -26,7 +26,7 @@ class QMMCopperMin(bpy.types.Operator):
             m_copper_min.use_nodes = True
             m_copper_min.diffuse_color = (0.701102, 0.254152, 0.135633, 1)
             m_copper_min.metallic = 1
-            m_copper_min.roughness = 0.25
+            m_copper_min.roughness = 0.4
 
             nodes = m_copper_min.node_tree.nodes
 
@@ -39,7 +39,7 @@ class QMMCopperMin(bpy.types.Operator):
             BSDF.location = (-300,0)
             BSDF.inputs[0].default_value = (0.701102, 0.254152, 0.135633, 1)
             BSDF.inputs[6].default_value = 1
-            BSDF.inputs[9].default_value = 0.25
+            BSDF.inputs[9].default_value = 0.4
             # BSDF.inputs[16].default_value = 1.10
 
             #LOAD THE MATERIAL

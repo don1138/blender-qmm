@@ -26,7 +26,7 @@ class QMMTitanium(bpy.types.Operator):
             m_titanium.use_nodes = True
             m_titanium.diffuse_color = (0.242281, 0.238398, 0.219526, 1)
             m_titanium.metallic = 1
-            m_titanium.roughness = 0.25
+            m_titanium.roughness = 0.055
 
             nodes = m_titanium.node_tree.nodes
 
@@ -39,7 +39,7 @@ class QMMTitanium(bpy.types.Operator):
             BSDF.location = (-300,0)
             BSDF.inputs[0].default_value = (0.242281, 0.238398, 0.219526, 1)
             BSDF.inputs[6].default_value = 1
-            BSDF.inputs[9].default_value = 0.25
+            BSDF.inputs[9].default_value = 0.055
             # BSDF.inputs[16].default_value = 0.25
 
             #LOAD THE MATERIAL

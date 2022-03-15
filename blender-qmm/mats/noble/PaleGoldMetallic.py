@@ -26,7 +26,7 @@ class QMMPaleGold(bpy.types.Operator):
             m_pale_gold_m.use_nodes = True
             m_pale_gold_m.diffuse_color = (1.0, 0.766, 0.336, 1)
             m_pale_gold_m.metallic = 1
-            m_pale_gold_m.roughness = 0.25
+            m_pale_gold_m.roughness = 0.175
 
             nodes = m_pale_gold_m.node_tree.nodes
 
@@ -39,7 +39,7 @@ class QMMPaleGold(bpy.types.Operator):
             BSDF.location = (-300,0)
             BSDF.inputs[0].default_value = (1.0, 0.766, 0.336, 1)
             BSDF.inputs[6].default_value = 1
-            BSDF.inputs[9].default_value = 0.25
+            BSDF.inputs[9].default_value = 0.175
             # BSDF.inputs[16].default_value = 0.47
 
             #LOAD THE MATERIAL

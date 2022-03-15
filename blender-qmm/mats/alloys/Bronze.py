@@ -26,7 +26,7 @@ class QMMBronze(bpy.types.Operator):
             m_bronze.use_nodes = True
             m_bronze.diffuse_color = (0.434154, 0.266356, 0.0953075, 1)
             m_bronze.metallic = 1
-            m_bronze.roughness = 0.25
+            m_bronze.roughness = 0.35
 
             nodes = m_bronze.node_tree.nodes
 
@@ -39,7 +39,7 @@ class QMMBronze(bpy.types.Operator):
             BSDF.location = (-300,0)
             BSDF.inputs[0].default_value = (0.434154, 0.266356, 0.0953075, 1)
             BSDF.inputs[6].default_value = 1
-            BSDF.inputs[9].default_value = 0.25
+            BSDF.inputs[9].default_value = 0.35
             # BSDF.inputs[16].default_value = 1.180
 
             #LOAD THE MATERIAL

@@ -26,7 +26,7 @@ class QMMBrass(bpy.types.Operator):
             m_brass.use_nodes = True
             m_brass.diffuse_color = (0.462077, 0.381326, 0.05448, 1)
             m_brass.metallic = 1
-            m_brass.roughness = 0.25
+            m_brass.roughness = 0.2
 
             nodes = m_brass.node_tree.nodes
 
@@ -39,7 +39,7 @@ class QMMBrass(bpy.types.Operator):
             BSDF.location = (-300,0)
             BSDF.inputs[0].default_value = (0.462077, 0.381326, 0.0544803, 1)
             BSDF.inputs[6].default_value = 1
-            BSDF.inputs[9].default_value = 0.25
+            BSDF.inputs[9].default_value = 0.2
             BSDF.inputs[16].default_value = 0.46
             # BSDF.inputs[16].default_value = 1.10
             # BSDF.inputs[16].default_value = 1.517

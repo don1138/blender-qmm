@@ -26,7 +26,7 @@ class QMMSteel(bpy.types.Operator):
             m_steel.use_nodes = True
             m_steel.diffuse_color = (0.42869, 0.527115, 0.590619, 1)
             m_steel.metallic = 1
-            m_steel.roughness = 0.25
+            m_steel.roughness = 0.3
 
             nodes = m_steel.node_tree.nodes
 
@@ -39,7 +39,7 @@ class QMMSteel(bpy.types.Operator):
             BSDF.location = (-300,0)
             BSDF.inputs[0].default_value = (0.42869, 0.527115, 0.590619, 1)
             BSDF.inputs[6].default_value = 1
-            BSDF.inputs[9].default_value = 0.25
+            BSDF.inputs[9].default_value = 0.3
             # BSDF.inputs[16].default_value = 2.5
 
             #LOAD THE MATERIAL
