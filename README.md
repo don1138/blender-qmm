@@ -25,6 +25,7 @@ Select an object in your view, and click a button to assign that material to it.
 - [Blender Addons](https://blender-addons.org/quick-metal-materials/)
 - [Model Happy](https://modelinghappy.com/archives/42400)
 - [Python Awesome](https://pythonawesome.com/blender-add-on-to-add-metal-materials-to-your-scene/)
+- [Steven Scott](https://www.youtube.com/watch?v=XWM4W_Cnies)
 
 <br><br>
 
