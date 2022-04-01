@@ -17,9 +17,15 @@ Select an object in your view, and click a button to assign that material to it.
 ## Online Presence
 
 - [Artstation](https://www.artstation.com/marketplace/p/p88LG/blender-qmm-quick-metal-materials)
-- [Blender Addons](https://blender-addons.org/quick-metal-materials/)
 - [Blender Artists Thread](https://blenderartists.org/t/blender-qmm-quick-metal-materials-free-addon/1290433)
 - [Gumroad](https://gumroad.com/l/blender-qmm)
+
+## Mentions
+
+- [Blender Addons](https://blender-addons.org/quick-metal-materials/)
+- [Model Happy](https://modelinghappy.com/archives/42400)
+- [Python Awesome](https://pythonawesome.com/blender-add-on-to-add-metal-materials-to-your-scene/)
+- [Steven Scott](https://www.youtube.com/watch?v=XWM4W_Cnies)
 
 <br><br>
 
