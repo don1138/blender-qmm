@@ -51,7 +51,7 @@ class QMMIron(bpy.types.Operator):
             specular_group = nodes.new("ShaderNodeGroup")
             specular_group.node_tree = bpy.data.node_groups['Specular']
             specular_group.location = (-500, -300)
-            specular_group.inputs[0].default_value = 2.950
+            specular_group.inputs[0].default_value = 1.51
             links = m_iron.node_tree.links.new
             links(specular_group.outputs[0], BSDF.inputs[7])
             links(specular_group.outputs[1], BSDF.inputs[16])
