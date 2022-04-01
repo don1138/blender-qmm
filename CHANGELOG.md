@@ -16,6 +16,7 @@
   - **Aluminium**
   - **Brass**
   - **Bronze**
+  - **Chrome**
   - **Copper (Fresnel)**
   - **Copper Min**
   - **Copper Max**
