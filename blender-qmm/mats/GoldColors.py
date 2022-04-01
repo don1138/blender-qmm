@@ -44,6 +44,7 @@ class GoldColorsGroup(bpy.types.Operator):
             gold_colors_group.outputs.new('NodeSocketColor', 'Crayola Gold')
             gold_colors_group.outputs.new('NodeSocketColor', 'Vegas Gold')
             gold_colors_group.outputs.new('NodeSocketColor', 'Satin Sheen Gold')
+            gold_colors_group.outputs.new('NodeSocketColor', 'Pirate Gold')
 
             #Gold
             gc_g = gold_colors_group.nodes.new('ShaderNodeRGB')
@@ -99,6 +100,12 @@ class GoldColorsGroup(bpy.types.Operator):
             gc_ssg.location = (-200, -800)
             gc_ssg.outputs[0].default_value = hex_to_rgb(0xCBA135)
 
+            #Pirate Gold
+            gc_prtg = gold_colors_group.nodes.new('ShaderNodeRGB')
+            gc_prtg.label = "Pirate Gold"
+            gc_prtg.location = (-200, -1000)
+            gc_prtg.outputs[0].default_value = hex_to_rgb(0xAE8403)
+
             links = gold_colors_group.links.new
 
             links(gc_g.outputs[0], group_out.inputs[0])
@@ -110,6 +117,7 @@ class GoldColorsGroup(bpy.types.Operator):
             links(gc_cg.outputs[0], group_out.inputs[6])
             links(gc_vg.outputs[0], group_out.inputs[7])
             links(gc_ssg.outputs[0], group_out.inputs[8])
+            links(gc_prtg.outputs[0], group_out.inputs[9])
 
         return {'FINISHED'}
 
