@@ -30,9 +30,9 @@
   - **Steel**
   - **Titanium**
 
-![Blender QMM Extended Color Groups](https://github.com/don1138/blender-qmm/blob/main/qmm-extended-color-groups.png)
-
 ### 1.3.4 <!-- 1/02/22 -->
+
+![Blender QMM Extended Color Groups](https://github.com/don1138/blender-qmm/blob/main/qmm-extended-color-groups.png)
 
 - **Bugfix:** Change Node Group Output type from `Float` to `Color`
 - Add **Gold Color Node Group** with 9 color choices. This affects **Gold**, **Pale Gold**, and **Gold (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Gold_(color) -->
