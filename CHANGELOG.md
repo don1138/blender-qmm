@@ -12,7 +12,7 @@
   - **Titanium White** <!--#F3F4F7 -->
   - **Titanium Frost** <!--#B0AFA9 -->
   - **Titanium Blue** <!--#5B798E -->
-- Add **Texurizer Node Group** with `Color` and `Normal` outputs. This affects **Titanium**.
+- Add **Texturizer Node Group** with `Color` and `Normal` outputs. This affects **Titanium**.
 
 ### 1.3.7 <!-- 4/01/22 -->
 
