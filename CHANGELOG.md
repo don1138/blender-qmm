@@ -1,5 +1,7 @@
 ### 1.3.8 <!-- 4/14/22 -->
 
+![Blender QMM Extended Color Groups](https://github.com/don1138/blender-qmm/blob/main/qmm-color-groups.png)
+
 - Add new color to **Copper Color Node Group**
   - **Dontnod Copper** <!-- #FAD0C0 -->
 - Add **Titanium Color Node Group** with 7 color choices. This affects **Titanium**. <!-- https://www.color-name.com/search/titanium -->
