@@ -70,7 +70,7 @@ class QMMTitanium(bpy.types.Operator):
             links = m_titanium.node_tree.links.new
 
             links(texturizer_group.outputs[0], BSDF.inputs[0])
-            links(texturizer_group.outputs[0], BSDF.inputs[23])
+            links(texturizer_group.outputs[1], BSDF.inputs[22])
             links(specular_group.outputs[0], BSDF.inputs[7])
             links(specular_group.outputs[1], BSDF.inputs[16])
             links(titanium_colors_group.outputs[0], texturizer_group.inputs[0])
