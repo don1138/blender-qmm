@@ -1,18 +1,34 @@
+### 1.3.8 <!-- 4/14/22 -->
+
+- Add new color to **Copper Color Node Group**
+  - **Dontnod Copper** <!-- #FAD0C0 -->
+- Update  `Roughness` values
+  - **Titanium**
+- Add **Titanium Color Node Group** with 7 color choices. This affects **Titanium**. <!-- https://www.color-name.com/search/titanium -->
+  - **Titanium** <!--#C1BAB1 -->
+  - **Pale Titanium** <!--#CEC8C2 -->
+  - **Dark Titanium** <!--#878681 -->
+  - **Metallic Titanium** <!--#7A7772 -->
+  - **Titanium White** <!--#F3F4F7 -->
+  - **Titanium Frost** <!--#B0AFA9 -->
+  - **Titanium Blue** <!--#5B798E -->
+- Add **Texurizer Node Group** with `Color` and `Normal` outputs. This affects **Titanium**.
+
 ### 1.3.7 <!-- 4/01/22 -->
 
-- Updated IOR values
+- Update IOR values
   - **Aluminium**
   - **Iron**
   - **Titanium**
 
 ### 1.3.6 <!-- 3/23/22 -->
 
-- New color added to **Gold Color Node Group**
+- Add new color to **Gold Color Node Group**
   - **Pirate Gold** <!-- #AE8403 -->
 
 ### 1.3.5 <!-- 3/14/22 -->
 
-- Updated `Roughness` values
+- Update `Roughness` values
   - **Aluminium**
   - **Brass**
   - **Bronze**
