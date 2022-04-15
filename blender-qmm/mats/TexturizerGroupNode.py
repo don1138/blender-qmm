@@ -27,13 +27,13 @@ class TexturizerGroup(bpy.types.Operator):
 
             #mixrgb-overlay
             n_mix_rgb = texturizer_group.nodes.new('ShaderNodeMixRGB')
-            n_mix_rgb.location = (-200,-100)
+            n_mix_rgb.location = (-200,100)
             n_mix_rgb.blend_type = 'OVERLAY'
             n_mix_rgb.inputs[0].default_value = 0.5
 
             #bump
             n_bump = texturizer_group.nodes.new('ShaderNodeBump')
-            n_bump.location = (-200,200)
+            n_bump.location = (-200,-100)
             n_bump.inputs[0].default_value = 0.1
 
             #hsl
@@ -43,13 +43,13 @@ class TexturizerGroup(bpy.types.Operator):
 
             #maprange
             n_mr = texturizer_group.nodes.new('ShaderNodeMapRange')
-            n_mr.location = (-400,200)
+            n_mr.location = (-400,-200)
             n_mr.inputs[1].default_value = 0.5
             n_mr.inputs[2].default_value = 0.6
 
             #noisetexture
             n_tex = texturizer_group.nodes.new('ShaderNodeTexNoise')
-            n_tex.location = (-600,100)
+            n_tex.location = (-600,-100)
             n_tex.inputs[2].default_value = 512
             n_tex.inputs[3].default_value = 0
             n_tex.inputs[4].default_value = 0

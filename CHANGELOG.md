@@ -2,8 +2,6 @@
 
 - Add new color to **Copper Color Node Group**
   - **Dontnod Copper** <!-- #FAD0C0 -->
-- Update  `Roughness` values
-  - **Titanium**
 - Add **Titanium Color Node Group** with 7 color choices. This affects **Titanium**. <!-- https://www.color-name.com/search/titanium -->
   - **Titanium** <!--#C1BAB1 -->
   - **Pale Titanium** <!--#CEC8C2 -->
@@ -13,6 +11,8 @@
   - **Titanium Frost** <!--#B0AFA9 -->
   - **Titanium Blue** <!--#5B798E -->
 - Add **Texturizer Node Group** with `Color` and `Normal` outputs. This affects **Titanium**.
+- Update  `Roughness` values
+  - **Titanium**
 
 ### 1.3.7 <!-- 4/01/22 -->
 
