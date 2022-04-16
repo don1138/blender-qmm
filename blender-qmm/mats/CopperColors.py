@@ -40,6 +40,7 @@ class CopperColorsGroup(bpy.types.Operator):
             copper_colors_group.outputs.new('NodeSocketColor', 'Copper Red')
             copper_colors_group.outputs.new('NodeSocketColor', 'Copper Penny')
             copper_colors_group.outputs.new('NodeSocketColor', 'Copper Rose')
+            copper_colors_group.outputs.new('NodeSocketColor', 'Dontnod Copper')
 
             #Copper
             cc_c = copper_colors_group.nodes.new('ShaderNodeRGB')
@@ -71,6 +72,12 @@ class CopperColorsGroup(bpy.types.Operator):
             cc_cro.location = (-200, -400)
             cc_cro.outputs[0].default_value = hex_to_rgb(0x996666)
 
+            #Dontnod Copper
+            cc_dc = copper_colors_group.nodes.new('ShaderNodeRGB')
+            cc_dc.label = "Dontnod Copper"
+            cc_dc.location = (-200, -600)
+            cc_dc.outputs[0].default_value = hex_to_rgb(0xFAD0C0)
+
             links = copper_colors_group.links.new
 
             links(cc_c.outputs[0], group_out.inputs[0])
@@ -78,6 +85,6 @@ class CopperColorsGroup(bpy.types.Operator):
             links(cc_cr.outputs[0], group_out.inputs[2])
             links(cc_cp.outputs[0], group_out.inputs[3])
             links(cc_cro.outputs[0], group_out.inputs[4])
+            links(cc_dc.outputs[0], group_out.inputs[5])
 
         return {'FINISHED'}
-
