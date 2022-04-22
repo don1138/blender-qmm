@@ -8,6 +8,8 @@ Blender Addon to Add Metal Materials to Your Scene
 
 ![Blender QMM Color Groups](https://github.com/don1138/blender-qmm/blob/main/imx/qmm-color-groups-render.jpg)
 
+![Blender QMM Color Group Swatches](https://github.com/don1138/blender-qmm/blob/main/imx/qmm-color-groups.png)
+
 ## Installation
 
 Download the latest ZIP from **Releases**.
