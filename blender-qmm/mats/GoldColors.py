@@ -36,7 +36,7 @@ class GoldColorsGroup(bpy.types.Operator):
             group_out = gold_colors_group.nodes.new('NodeGroupOutput')
             group_out.location = (0, 0)
             gold_colors_group.outputs.new('NodeSocketColor', 'Gold')
-            gold_colors_group.outputs.new('NodeSocketColor', 'Pale Gold')
+            gold_colors_group.outputs.new('NodeSocketColor', 'White Gold')
             gold_colors_group.outputs.new('NodeSocketColor', 'Golden Gold')
             gold_colors_group.outputs.new('NodeSocketColor', 'Old Gold')
             gold_colors_group.outputs.new('NodeSocketColor', 'Golden Yellow')
@@ -54,7 +54,7 @@ class GoldColorsGroup(bpy.types.Operator):
 
             #Pale Gold
             gc_pg = gold_colors_group.nodes.new('ShaderNodeRGB')
-            gc_pg.label = "Pale Gold"
+            gc_pg.label = "White Gold"
             gc_pg.location = (-200, 600)
             gc_pg.outputs[0].default_value = hex_to_rgb(0xFFE39D)
 

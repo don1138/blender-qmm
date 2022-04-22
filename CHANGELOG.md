@@ -1,3 +1,23 @@
+### 1.4.0 <!-- 4/22/22 -->
+- Added materials:
+  - **Asphalt**
+  - **Asphalt Bleached**
+  - **Platinum**
+  - **Palladium**
+  - **Titanium Polished**
+- Removed redundant materials:
+  - **Copper Max**
+  - **Pale Gold**
+  - **Pale Silver**
+  - **Silver Max**
+- Renamed materials:
+  - **Brass Metallic** > **Brass**
+  - **Copper Min** > **Copper**
+  - **Silver Min** > **Silver**
+  - **Titanium** > **Titanium Textured**
+- Revised materials:
+  - **Plaster** - Material color can now be changed by **PCOY**, **MCMC**, **HG71**, and **F58** add-ons.
+
 ### 1.3.8 <!-- 4/14/22 -->
 
 ![Blender QMM Extended Color Groups](https://github.com/don1138/blender-qmm/blob/main/qmm-color-groups.png)

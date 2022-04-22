@@ -10,19 +10,19 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 #TitaniumShaderOperator
 class QMMTitanium(bpy.types.Operator):
     """Add/Apply Titanium Material to Selected Object (or Scene)"""
-    bl_label = "QMM Titanium Shader"
+    bl_label = "QMM Titanium Textured Shader"
     bl_idname = 'shader.qmm_titanium_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        m_titanium = bpy.data.materials.get("QMM Titanium")
+        m_titanium = bpy.data.materials.get("QMM Titanium Textured")
         if m_titanium:
-            ShowMessageBox(message_text, "QMM Titanium")
-            # print(f"QMM Titanium already exists")
+            ShowMessageBox(message_text, "QMM Titanium Textured")
+            # print(f"QMM Titanium Textured already exists")
             bpy.context.object.active_material = m_titanium
             return {'FINISHED'}
         else:
             #CreateShader
-            m_titanium = bpy.data.materials.new(name = "QMM Titanium")
+            m_titanium = bpy.data.materials.new(name = "QMM Titanium Textured")
             m_titanium.use_nodes = True
             m_titanium.diffuse_color = (0.533276, 0.491021, 0.439657, 1)
             m_titanium.metallic = 1
@@ -50,7 +50,7 @@ class QMMTitanium(bpy.types.Operator):
             tx_nodes = m_titanium.node_tree.nodes
             texturizer_group = tx_nodes.new("ShaderNodeGroup")
             texturizer_group.node_tree = bpy.data.node_groups['Texturizer']
-            texturizer_group.location = (-600, -200)
+            texturizer_group.location = (-600, -100)
 
             #SpecularGroup
             bpy.ops.node.specular_group_operator()

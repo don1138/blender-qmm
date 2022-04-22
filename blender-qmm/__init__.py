@@ -21,7 +21,7 @@ bl_info = {
     "name"       : "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
     "author"     : "Don Schnitzius",
-    "version"    : (1, 3, 8),
+    "version"    : (1, 4, 0),
     "blender"    : (3, 0, 0),
     "location"   : "3D Viewport > Sidebar > MAT > Quick Metal Materials",
     "warning"    : "",
@@ -66,16 +66,15 @@ class BQMPanelNoble(bpy.types.Panel):
         row = layout.row()
         row.operator("shader.qmm_gold_m_operator", text="Gold")
         row = layout.row()
-        row.operator("shader.qmm_pale_gold_m_operator", text="Pale Gold")
-        row = layout.row()
         row.operator("shader.qmm_gold_operator", text="Gold (Fresnel)")
 
         row = layout.row()
-        row.operator("shader.qmm_silver_min_operator", text="Silver Min")
+        row.operator("shader.qmm_platinum_m_operator", text="Platinum")
         row = layout.row()
-        row.operator("shader.qmm_silver_max_operator", text="Silver Max")
+        row.operator("shader.qmm_palladium_m_operator", text="Palladium")
+
         row = layout.row()
-        row.operator("shader.qmm_pale_silver_m_operator", text="Pale Silver")
+        row.operator("shader.qmm_silver_m_operator", text="Silver")
         row = layout.row()
         row.operator("shader.qmm_silver_operator", text="Silver (Fresnel)")
 
@@ -97,9 +96,7 @@ class BQMPanelBase(bpy.types.Panel):
         row.operator("shader.qmm_aluminium_operator", text="Aluminium")
 
         row = layout.row()
-        row.operator("shader.qmm_copper_min_operator", text="Copper Min")
-        row = layout.row()
-        row.operator("shader.qmm_copper_max_operator", text="Copper Max")
+        row.operator("shader.qmm_copper_m_operator", text="Copper")
         row = layout.row()
         row.operator("shader.qmm_copper_operator", text="Copper (Fresnel)")
 
@@ -112,7 +109,9 @@ class BQMPanelBase(bpy.types.Panel):
         row.operator("shader.qmm_lead_rough_operator", text="Lead Rough")
 
         row = layout.row()
-        row.operator("shader.qmm_titanium_operator", text="Titanium")
+        row.operator("shader.qmm_titanium_p_operator", text="Titanium Polished")
+        row = layout.row()
+        row.operator("shader.qmm_titanium_operator", text="Titanium Textured")
 
 
 # ALLOY METALS PANEL
@@ -153,6 +152,12 @@ class BQMPanelExtras(bpy.types.Panel):
 
     def draw(self, context):
         layout = self.layout
+
+        row = layout.row()
+        row.operator("shader.qmm_asphalt_operator", text="Asphalt")
+
+        row = layout.row()
+        row.operator("shader.qmm_asphalt_b_operator", text="Asphalt Bleached")
 
         row = layout.row()
         row.operator("shader.qmm_glass_operator", text="Glass Hack")
@@ -222,13 +227,15 @@ from .mats.alloys.Bronze import *
 from .mats.alloys.Chrome import *
 from .mats.alloys.Steel import *
 from .mats.base.Aluminium import *
-from .mats.base.CopperMin import *
-from .mats.base.CopperMax import *
+from .mats.base.Copper import *
 from .mats.base.FresnelCopper import *
 from .mats.base.Iron import *
 from .mats.base.Lead import *
 from .mats.base.LeadRough import *
 from .mats.base.Titanium import *
+from .mats.base.TitaniumPolished import *
+from .mats.extras.Asphalt import *
+from .mats.extras.AsphaltBleached import *
 from .mats.extras.CuttingMat import *
 from .mats.extras.GlassHack import *
 from .mats.extras.Mercury import *
@@ -236,10 +243,9 @@ from .mats.extras.Plaster import *
 from .mats.noble.FresnelGold import *
 from .mats.noble.FresnelSilver import *
 from .mats.noble.Gold import *
-from .mats.noble.PaleGoldMetallic import *
-from .mats.noble.PaleSilverMetallic import *
-from .mats.noble.SilverMin import *
-from .mats.noble.SilverMax import *
+from .mats.noble.Palladium import *
+from .mats.noble.Platinum import *
+from .mats.noble.Silver import *
 from .mats.SpecularGroupNode import *
 from .mats.TexturizerGroupNode import *
 from .mats.CopperColors import *
@@ -256,12 +262,13 @@ classes = [
     BQMPanelExtras,
     AutoUpdaterPreferences,
     QMMAluminium,
+    QMMAsphalt,
+    QMMAsphaltBleached,
     QMMBrass,
     QMMBronze,
     QMMChrome,
+    QMMCopper,
     QMMCopperFresnel,
-    QMMCopperMin,
-    QMMCopperMax,
     QMMCuttingMat,
     QMMGlass,
     QMMGold,
@@ -270,14 +277,14 @@ classes = [
     QMMLead,
     QMMLeadRough,
     QMMMercury,
-    QMMPaleGold,
-    QMMPaleSilverMax,
+    QMMPalladium,
+    QMMPlatinum,
     QMMPlaster,
     QMMSilverFresnel,
-    QMMSilverMin,
-    QMMSilverMax,
+    QMMSilver,
     QMMSteel,
     QMMTitanium,
+    QMMTitaniumPolished,
     SpecularGroup,
     TexturizerGroup,
     CopperColorsGroup,

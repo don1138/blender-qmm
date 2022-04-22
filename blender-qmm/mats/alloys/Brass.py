@@ -10,19 +10,19 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 #BrassShaderOperator
 class QMMBrass(bpy.types.Operator):
     """Add/Apply Brass Material to Selected Object (or Scene)"""
-    bl_label = "QMM Brass Metallic Shader"
+    bl_label = "QMM Brass Shader"
     bl_idname = 'shader.qmm_brass_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        m_brass = bpy.data.materials.get("QMM Brass Metallic")
+        m_brass = bpy.data.materials.get("QMM Brass")
         if m_brass:
-            ShowMessageBox(message_text, "QMM Brass Metallic")
-            # print(f"QMM Brass Metallic already exists")
+            ShowMessageBox(message_text, "QMM Brass")
+            # print(f"QMM Brass already exists")
             bpy.context.object.active_material = m_brass
             return {'FINISHED'}
         else:
             #CreateShader
-            m_brass = bpy.data.materials.new(name = "QMM Brass Metallic")
+            m_brass = bpy.data.materials.new(name = "QMM Brass")
             m_brass.use_nodes = True
             m_brass.diffuse_color = (0.462077, 0.381326, 0.05448, 1)
             m_brass.metallic = 1
