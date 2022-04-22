@@ -79,7 +79,7 @@ class QMMAsphaltBleached(bpy.types.Operator):
             #maprange3
             m_maprange3 = nodes.new('ShaderNodeMapRange')
             m_maprange3.location = (-1600,0)
-            m_maprange2.inputs[1].default_value = 0.4
+            m_maprange3.inputs[1].default_value = 0.4
 
             #voronoishader
             m_voronoi = nodes.new('ShaderNodeTexVoronoi')
