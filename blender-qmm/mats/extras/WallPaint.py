@@ -35,7 +35,7 @@ class QMMWallPaint(bpy.types.Operator):
             #princibledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
-            BSDF.inputs[3].default_value = (0.504859, 0.483713, 0.674328, 1.0)
+            BSDF.inputs[0].default_value = (0.504859, 0.483713, 0.674328, 1.0)
 
             #bump
             m_bump = nodes.new('ShaderNodeBump')
