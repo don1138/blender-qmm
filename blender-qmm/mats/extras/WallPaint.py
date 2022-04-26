@@ -35,12 +35,13 @@ class QMMWallPaint(bpy.types.Operator):
             #princibledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
-            BSDF.inputs[3].default_value = (0.504859, 0.483713, 0.674328, 1.0)
+            BSDF.inputs[0].default_value = (0.504859, 0.483713, 0.674328, 1.0)
 
             #bump
             m_bump = nodes.new('ShaderNodeBump')
             m_bump.location = (-500,-400)
-            m_bump.inputs[0].default_value = 0.3
+            m_bump.inputs[0].default_value = 0.2
+            m_bump.invert = True
 
             #colorramp
             m_colorramp = nodes.new('ShaderNodeValToRGB')
@@ -54,6 +55,7 @@ class QMMWallPaint(bpy.types.Operator):
             m_colorramp2 = nodes.new('ShaderNodeValToRGB')
             m_colorramp2.location = (-800,-300)
             m_colorramp2.color_ramp.elements[0].position = 0.4
+            m_colorramp.color_ramp.elements[1].position = 0.9
 
             #noiseshader
             m_noise = nodes.new('ShaderNodeTexNoise')
@@ -62,9 +64,9 @@ class QMMWallPaint(bpy.types.Operator):
             m_noise.inputs[3].default_value = 3.0
 
             #noiseshader2
-            m_noise2 = nodes.new('ShaderNodeTexNoise')
-            m_noise2.location = (-1000,-300)
-            m_noise2.inputs[2].default_value = 300.0
+            m_voronoi = nodes.new('ShaderNodeTexVoronoi')
+            m_voronoi.location = (-1000,-300)
+            m_voronoi.inputs[2].default_value = 128.0
 
             #mapping
             m_mapping = nodes.new('ShaderNodeMapping')
@@ -84,9 +86,9 @@ class QMMWallPaint(bpy.types.Operator):
 
             links.new(m_value.outputs[0], m_mapping.inputs[3])
             links.new(m_texcoords.outputs[3], m_mapping.inputs[0])
-            links.new(m_mapping.outputs[0], m_noise2.inputs[0])
+            links.new(m_mapping.outputs[0], m_voronoi.inputs[0])
             links.new(m_mapping.outputs[0], m_noise.inputs[0])
-            links.new(m_noise2.outputs[0], m_colorramp2.inputs[0])
+            links.new(m_voronoi.outputs[0], m_colorramp2.inputs[0])
             links.new(m_noise.outputs[0], m_colorramp.inputs[0])
             links.new(m_colorramp2.outputs[0], m_bump.inputs[2])
             links.new(m_colorramp.outputs[0], BSDF.inputs[9])
