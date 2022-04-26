@@ -950,7 +950,6 @@ def update_settings_ui(self, context, element=None):
     # Element is a UI element, such as layout, a row, column, or box.
     if element is None:
         element = self.layout
-
     box = element.box()
 
     # In case of error importing updater.
@@ -1110,45 +1109,42 @@ def update_settings_ui(self, context, element=None):
         row.label(text="Last update check: Never")
 
 
-
     # PREFERENCES - ADDITIONAL LINKS
 
     box = element.box()
 
     # Additional Resources
-    box.label(text="Additional Resources")
-
-    # Github Links
+    box.label(text="Additional Resources:")
 
     linkcol = box.column(align=True)
-
-    gitbox = linkcol.box()
-
-    github = gitbox.row()
-    github.ui_units_y = 0.8
-    github.alignment="CENTER"
-    github.label(text="Github")
-
-    gitrow = gitbox.row()
-    gitrow.scale_y = 1.6
-    gitrow.operator("wm.url_open", text="979 Blender Materials").url = "https://github.com/don1138/blender-materials"
-    gitrow.operator("wm.url_open", text="Blender PCOY & MCMC").url = "https://github.com/don1138/blender-pcoy"
 
     # Gumroad Links
 
     gumbox = linkcol.box()
 
     gumroad = gumbox.row()
-    gumroad.alignment="CENTER"
+    # gumroad.alignment="CENTER"
     gumroad.ui_units_y = 0.8
-    gumroad.label(text="Gumroad")
+    gumroad.label(text="Gumroad:")
 
     gumrow = gumbox.row()
     gumrow.scale_y = 1.6
     gumrow.operator("wm.url_open", text="Blender Quick Lighting Environment").url = "https://don1138.gumroad.com/l/blender-qle"
     gumrow.operator("wm.url_open", text="Blender Quick Resize Nodes").url = "https://don1138.gumroad.com/l/blender-qrn"
 
+    # Github Links
 
+    gitbox = linkcol.box()
+
+    github = gitbox.row()
+    github.ui_units_y = 0.8
+    # github.alignment="CENTER"
+    github.label(text="Github:")
+
+    gitrow = gitbox.row()
+    gitrow.scale_y = 1.6
+    gitrow.operator("wm.url_open", text="Blender Materials").url = "https://github.com/don1138/blender-materials"
+    gitrow.operator("wm.url_open", text="Blender Quick Material Colors").url = "https://github.com/don1138/blender-pcoy"
 
 
 def update_settings_ui_condensed(self, context, element=None):
@@ -1409,7 +1405,7 @@ def register(bl_info):
     # Addon subfolder path.
     # "sample/path/to/addon"
     # default is "" or None, meaning root
-    updater.subfolder_path = "https://github.com/don1138/blender-qmm/tree/main/blender-qmm"
+    updater.subfolder_path = "tree/main/blender-qmm"
 
     # Used to check/compare versions.
     updater.current_version = bl_info["version"]
