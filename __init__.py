@@ -21,7 +21,7 @@ bl_info = {
     "name"       : "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
     "author"     : "Don Schnitzius",
-    "version"    : (1, 4, 0),
+    "version"    : (1, 4, 1),
     "blender"    : (3, 0, 0),
     "location"   : "3D Viewport > Sidebar > MAT > Quick Metal Materials",
     "warning"    : "",
@@ -171,6 +171,9 @@ class BQMPanelExtras(bpy.types.Panel):
         row = layout.row()
         row.operator("shader.qmm_plaster_operator", text="Tinted Plaster")
 
+        row = layout.row()
+        row.operator("shader.qmm_wall_paint_operator", text="Wall Paint")
+
 
 @addon_updater_ops.make_annotations
 class AutoUpdaterPreferences(bpy.types.AddonPreferences):
@@ -240,6 +243,7 @@ from .mats.extras.CuttingMat import *
 from .mats.extras.GlassHack import *
 from .mats.extras.Mercury import *
 from .mats.extras.Plaster import *
+from .mats.extras.WallPaint import *
 from .mats.noble.FresnelGold import *
 from .mats.noble.FresnelSilver import *
 from .mats.noble.Gold import *
@@ -285,6 +289,7 @@ classes = [
     QMMSteel,
     QMMTitanium,
     QMMTitaniumPolished,
+    QMMWallPaint,
     SpecularGroup,
     TexturizerGroup,
     CopperColorsGroup,

@@ -1,3 +1,9 @@
+### 1.4.1 <!-- 4/26/22 -->
+- Added materials:
+  - **Wall Paint**
+- Addon Updater Fix
+  - Rearranged files in repo to fix addon updater error
+
 ### 1.4.0 <!-- 4/22/22 -->
 - Added materials:
   - **Asphalt**
