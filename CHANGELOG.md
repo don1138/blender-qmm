@@ -1,8 +1,8 @@
 ### 1.4.1 <!-- 4/26/22 -->
 - Added materials:
   - **Wall Paint**
-- Addon Updater Fix
-  - Rearranged files in repo to fix addon updater error
+- Tweaked layout of links in add-on preferences
+- Tried to un-f*ck addon updater install. Failed.
 
 ### 1.4.0 <!-- 4/22/22 -->
 - Added materials:
