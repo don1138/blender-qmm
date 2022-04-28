@@ -40,7 +40,7 @@ class QMMChrome(bpy.types.Operator):
             BSDF.inputs[0].default_value = (1.0, 1.0, 1.0,1.0)
             BSDF.inputs[6].default_value = 1
             BSDF.inputs[9].default_value = 0.012
-            BSDF.inputs[16].default_value = 2.30
+            BSDF.inputs[16].default_value = 2.37
 
             #LOAD THE MATERIAL
             bpy.context.object.active_material = m_chrome
@@ -51,7 +51,7 @@ class QMMChrome(bpy.types.Operator):
             specular_group = nodes.new("ShaderNodeGroup")
             specular_group.node_tree = bpy.data.node_groups['Specular']
             specular_group.location = (-500, -300)
-            specular_group.inputs[0].default_value = 2.30
+            specular_group.inputs[0].default_value = 2.37
             links = m_chrome.node_tree.links.new
             links(specular_group.outputs[0], BSDF.inputs[7])
             links(specular_group.outputs[1], BSDF.inputs[16])
