@@ -1,3 +1,14 @@
+### 1.4.2 <!-- 4/30/22 -->
+- Update **Texturizer** node group
+  - Change color/noise color mix from `OVERLAY` to `MULTIPLY`
+  - 1 new input:
+    - **Roughness**
+  - 4 new outputs:
+    - **Rough Ceiling** - Map Range from min (roughness - 0.1) to max (roughness)
+    - **Roughness** - Noise (green channel) mixed (overlay) with roughness value
+    - **Rough Floor** - Map Range from min (roughness) to max (roughness + 0.1)
+    - **Height**
+
 ### 1.4.1 <!-- 4/26/22 -->
 - Added materials:
   - **Wall Paint**
@@ -5,23 +16,23 @@
 - Tried to un-f*ck addon updater install. Failed.
 
 ### 1.4.0 <!-- 4/22/22 -->
-- Added materials:
+- Add materials:
   - **Asphalt**
   - **Asphalt Bleached**
   - **Platinum**
   - **Palladium**
   - **Titanium Polished**
-- Removed redundant materials:
+- Remove redundant materials:
   - **Copper Max**
   - **Pale Gold**
   - **Pale Silver**
   - **Silver Max**
-- Renamed materials:
+- Rename materials:
   - **Brass Metallic** > **Brass**
   - **Copper Min** > **Copper**
   - **Silver Min** > **Silver**
   - **Titanium** > **Titanium Textured**
-- Revised materials:
+- Revise materials:
   - **Plaster** - Material color can now be changed by **PCOY**, **MCMC**, **HG71**, and **F58** add-ons.
 
 ### 1.3.8 <!-- 4/14/22 -->

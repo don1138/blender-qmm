@@ -50,7 +50,8 @@ class QMMTitanium(bpy.types.Operator):
             tx_nodes = m_titanium.node_tree.nodes
             texturizer_group = tx_nodes.new("ShaderNodeGroup")
             texturizer_group.node_tree = bpy.data.node_groups['Texturizer']
-            texturizer_group.location = (-600, -100)
+            texturizer_group.location = (-600, 0)
+            texturizer_group.inputs[1].default_value = 0.55
 
             #SpecularGroup
             bpy.ops.node.specular_group_operator()
@@ -70,7 +71,8 @@ class QMMTitanium(bpy.types.Operator):
             links = m_titanium.node_tree.links.new
 
             links(texturizer_group.outputs[0], BSDF.inputs[0])
-            links(texturizer_group.outputs[1], BSDF.inputs[22])
+            links(texturizer_group.outputs[2], BSDF.inputs[9])
+            links(texturizer_group.outputs[5], BSDF.inputs[22])
             links(specular_group.outputs[0], BSDF.inputs[7])
             links(specular_group.outputs[1], BSDF.inputs[16])
             links(titanium_colors_group.outputs[0], texturizer_group.inputs[0])
