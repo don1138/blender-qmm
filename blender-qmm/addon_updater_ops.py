@@ -1416,7 +1416,7 @@ def register(bl_info):
 
     # Optional, consider turning off for production or allow as an option
     # This will print out additional debugging info to the console
-    updater.verbose = True  # make False for production default
+    updater.verbose = False  # make False for production default
 
     # Optional, customize where the addon updater processing subfolder is,
     # essentially a staging folder used by the updater on its own
@@ -1443,8 +1443,8 @@ def register(bl_info):
     # update. If a pattern file is not found in new update, no action is taken
     # NOTE: This does NOT delete anything proactively, rather only defines what
     # is allowed to be overwritten during an update execution.
-    updater.overwrite_patterns = ["*.png", "*.jpg", "README.md", "LICENSE.txt"]
-    # updater.overwrite_patterns = []
+    # updater.overwrite_patterns = ["*.png", "*.jpg", "README.md", "LICENSE.txt"]
+    updater.overwrite_patterns = []
     # other examples:
     # ["*"] means ALL files/folders will be overwritten by update, was the
     #    behavior pre updater v1.0.4.
@@ -1466,7 +1466,8 @@ def register(bl_info):
     # file name removed exists in the update, then it acts as if pattern
     # is placed in the overwrite_patterns property. Note this is effectively
     # ignored if clean=True in the run_update method.
-    updater.remove_pre_update_patterns = ["*.py", "*.pyc"]
+    # updater.remove_pre_update_patterns = ["*.py", "*.pyc"]
+    updater.remove_pre_update_patterns = ["*"]
     # Note setting ["*"] here is equivalent to always running updates with
     # clean = True in the run_update method, ie the equivalent of a fresh,
     # new install. This would also delete any resources or user-made/modified
@@ -1481,7 +1482,7 @@ def register(bl_info):
     # but the user has the option from user preferences to directly
     # update to the master branch or any other branches specified using
     # the "install {branch}/older version" operator.
-    updater.include_branches = True
+    updater.include_branches = False
 
     # (GitHub only) This options allows using "releases" instead of "tags",
     # which enables pulling down release logs/notes, as well as installs update
@@ -1504,7 +1505,7 @@ def register(bl_info):
     # the addon's web page to download, specifically: updater.website
     # Useful if only wanting to get notification of updates but not
     # directly install.
-    updater.manual_only = False
+    updater.manual_only = True
 
     # Used for development only, "pretend" to install an update to test
     # reloading conditions.
