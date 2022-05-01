@@ -1,3 +1,6 @@
+### 1.4.3 <!-- 5/01/22 -->
+- Changed **Addon Updater** to Manual Install
+
 ### 1.4.2 <!-- 4/30/22 -->
 - Update **Texturizer** node group
   - Change color/noise color mix from `OVERLAY` to `MULTIPLY`
