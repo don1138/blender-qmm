@@ -40,7 +40,7 @@ class QMMCinnabar(bpy.types.Operator):
             BSDF.inputs[0].default_value = (0.768151, 0.054480, 0.034340, 1.0)
             BSDF.inputs[6].default_value = 1
             BSDF.inputs[9].default_value = 0.4
-            BSDF.inputs[16].default_value = 2.905
+            BSDF.inputs[16].default_value = 3.2
 
             #colorramp
             m_colorramp = nodes.new('ShaderNodeValToRGB')
@@ -67,7 +67,7 @@ class QMMCinnabar(bpy.types.Operator):
             specular_group.node_tree = bpy.data.node_groups['Specular']
             specular_group.location = (-600, -400)
             specular_group.width = 240
-            specular_group.inputs[0].default_value = 2.905
+            specular_group.inputs[0].default_value = 3.2
 
             #Links
             links = m_cinnabar.node_tree.links.new
