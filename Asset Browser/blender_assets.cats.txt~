@@ -1,0 +1,13 @@
+# This is an Asset Catalog Definition file for Blender.
+#
+# Empty lines and lines starting with `#` will be ignored.
+# The first non-ignored line should be the version indicator.
+# Other lines are of the format "UUID:catalog/path/for/assets:simple catalog name"
+
+VERSION 1
+
+9e3b74d5-9124-46e4-979e-90890a7a03ed:Quick Metal Materials:Quick Metal Materials
+4ec1a166-207c-4646-9ee9-cdb7234da4d6:Quick Metal Materials/A Noble:Quick Metal Materials-A Noble
+c70303e6-c35a-4243-bcf1-e02432dfdc27:Quick Metal Materials/B Base:Quick Metal Materials-B Base
+b9b4ee22-193f-40df-b1ca-a6262a0c3443:Quick Metal Materials/C Alloys:Quick Metal Materials-C Alloys
+d8bbddfc-c6c8-4562-adc1-bd1a5000c97b:Quick Metal Materials/X Extras:Quick Metal Materials-X Extras

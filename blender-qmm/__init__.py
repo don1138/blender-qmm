@@ -166,7 +166,7 @@ class BQMPanelExtras(bpy.types.Panel):
         row.operator("shader.qmm_glass_operator", text="Glass Hack")
 
         row = layout.row()
-        row.operator("shader.qmm_mercury_operator", text="Liquid Mercury")
+        row.operator("shader.qmm_mercury_operator", text="Mercury")
 
         row = layout.row()
         row.operator("shader.qmm_cutting_mat_operator", text="Rubber Cutting Mat")

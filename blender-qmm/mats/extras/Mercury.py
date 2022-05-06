@@ -9,20 +9,20 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 
 #MercuryShaderOperator
 class QMMMercury(bpy.types.Operator):
-    """Add/Apply Liquid Mercury Material to Selected Object (or Scene)"""
-    bl_label = "QMM Mercury Liquid Shader"
+    """Add/Apply Mercury Material to Selected Object (or Scene)"""
+    bl_label = "QMM Mercury Shader"
     bl_idname = 'shader.qmm_mercury_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        m_mercury = bpy.data.materials.get("QMM Mercury Liquid")
+        m_mercury = bpy.data.materials.get("QMM Mercury")
         if m_mercury:
-            ShowMessageBox(message_text, "QMM Mercury Liquid")
-            # print(f"QMM Mercury Liquid already exists")
+            ShowMessageBox(message_text, "QMM Mercury")
+            # print(f"QMM Mercury already exists")
             bpy.context.object.active_material = m_mercury
             return {'FINISHED'}
         else:
             #CreateShader
-            m_mercury = bpy.data.materials.new(name = "QMM Mercury Liquid")
+            m_mercury = bpy.data.materials.new(name = "QMM Mercury")
             m_mercury.use_nodes = True
             m_mercury.diffuse_color = (0.174647, 0.198069, 0.219526, 1)
             m_mercury.metallic = 1
