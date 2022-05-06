@@ -1,5 +1,9 @@
+### 1.4.4 <!-- 5/05/22 -->
+- Added materials:
+  - **Cinnabar**
+
 ### 1.4.3 <!-- 5/01/22 -->
-- Changed **Addon Updater** to Manual Install
+- Changed **Addon Updater** to manual install
 
 ### 1.4.2 <!-- 4/30/22 -->
 - Update **Texturizer** node group
