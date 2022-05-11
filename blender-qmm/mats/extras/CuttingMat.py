@@ -118,3 +118,5 @@ class QMMCuttingMat(bpy.types.Operator):
             bpy.context.object.active_material = m_cutting_mat
 
         return {'FINISHED'}
+
+# Source: Chris P Youtube (https://www.youtube.com/watch?v=fJyNCTXAdrQ)

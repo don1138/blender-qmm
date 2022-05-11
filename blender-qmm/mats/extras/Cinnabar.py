@@ -59,7 +59,7 @@ class QMMCinnabar(bpy.types.Operator):
             texturizer_group.width = 240
             texturizer_group.inputs[0].default_value = (0.768151, 0.054480, 0.034340, 1.0)
             texturizer_group.inputs[1].default_value = 0.4
-            texturizer_group.inputs[4].default_value = 0.05
+            texturizer_group.inputs[4].default_value = 0.0125
 
             #SpecularGroup
             bpy.ops.node.specular_group_operator()
@@ -72,7 +72,7 @@ class QMMCinnabar(bpy.types.Operator):
             #Links
             links = m_cinnabar.node_tree.links.new
             links(m_colorramp.outputs[0], BSDF.inputs[0])
-            links(texturizer_group.outputs[2], m_colorramp.inputs[0])
+            links(texturizer_group.outputs[3], m_colorramp.inputs[0])
             links(texturizer_group.outputs[3], BSDF.inputs[9])
             links(texturizer_group.outputs[5], BSDF.inputs[22])
             links(specular_group.outputs[0], BSDF.inputs[7])

@@ -1,9 +1,9 @@
 ### 1.4.4 <!-- 5/05/22 -->
-- Added materials:
+- Add materials:
   - **Cinnabar**
 
 ### 1.4.3 <!-- 5/01/22 -->
-- Changed **Addon Updater** to manual install
+- Chang **Add-On Updater** to manual install
 
 ### 1.4.2 <!-- 4/30/22 -->
 - Update **Texturizer** node group
@@ -17,10 +17,10 @@
     - **Height**
 
 ### 1.4.1 <!-- 4/26/22 -->
-- Added materials:
+- Add materials:
   - **Wall Paint**
 - Tweaked layout of links in add-on preferences
-- Tried to un-f*ck addon updater install. Failed.
+- Tried to un-f*ck **Add-On Updater** install. Failed.
 
 ### 1.4.0 <!-- 4/22/22 -->
 - Add materials:
