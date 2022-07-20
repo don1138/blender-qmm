@@ -3,7 +3,7 @@
   - **Cinnabar**
 
 ### 1.4.3 <!-- 5/01/22 -->
-- Chang **Add-On Updater** to manual install
+- Change **Add-On Updater** to manual install
 
 ### 1.4.2 <!-- 4/30/22 -->
 - Update **Texturizer** node group
