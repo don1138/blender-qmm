@@ -49,6 +49,13 @@ class QMMCinnabar(bpy.types.Operator):
             m_colorramp.color_ramp.elements[0].color = (0.283149, 0.039546, 0.031896, 1.0)
             m_colorramp.color_ramp.elements[1].color = (0.768151, 0.054480, 0.034340, 1.0)
 
+            #colorrampvermillion
+            m_colorramp2 = nodes.new('ShaderNodeValToRGB')
+            m_colorramp2.label = "Vermillion"
+            m_colorramp2.location = (-600,300)
+            m_colorramp2.color_ramp.elements[0].color = (0.473532, 0.152926, 0.001518, 1.0)
+            m_colorramp2.color_ramp.elements[1].color = (0.964687, 0.066626, 0.002428, 1.0)
+
             nodes = m_cinnabar.node_tree.nodes
 
             #TexturizerGroup

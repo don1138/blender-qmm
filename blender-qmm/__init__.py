@@ -21,7 +21,7 @@ bl_info = {
     "name"       : "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
     "author"     : "Don Schnitzius",
-    "version"    : (1, 4, 4),
+    "version"    : (1, 4, 5),
     "blender"    : (3, 0, 0),
     "location"   : "3D Viewport > Sidebar > MAT > Quick Metal Materials",
     "warning"    : "",
@@ -69,9 +69,9 @@ class BQMPanelNoble(bpy.types.Panel):
         row.operator("shader.qmm_gold_operator", text="Gold (Fresnel)")
 
         row = layout.row()
-        row.operator("shader.qmm_platinum_m_operator", text="Platinum")
-        row = layout.row()
         row.operator("shader.qmm_palladium_m_operator", text="Palladium")
+        row = layout.row()
+        row.operator("shader.qmm_platinum_m_operator", text="Platinum")
 
         row = layout.row()
         row.operator("shader.qmm_silver_m_operator", text="Silver")
