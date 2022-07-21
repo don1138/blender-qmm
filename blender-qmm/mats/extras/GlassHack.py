@@ -70,7 +70,7 @@ class QMMGlass(bpy.types.Operator):
 
             #lightpath
             m_light_path = nodes.new('ShaderNodeLightPath')
-            m_light_path.location = (-800,20)
+            m_light_path.location = (-800,200)
 
             links = m_glass.node_tree.links
 
