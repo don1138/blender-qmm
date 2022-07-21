@@ -24,7 +24,7 @@ class QMMGlass(bpy.types.Operator):
             #CreateShader
             m_glass = bpy.data.materials.new(name = "QMM Glass Hack")
             m_glass.use_nodes = True
-            m_glass.diffuse_color = (0.737911, 0.737911, 1, 1)
+            m_glass.diffuse_color = (1, 1, 1, 0.5)
 
             nodes = m_glass.node_tree.nodes
 
@@ -66,7 +66,7 @@ class QMMGlass(bpy.types.Operator):
             #transparentshader
             m_transparent = nodes.new('ShaderNodeBsdfTransparent')
             m_transparent.location = (-600,-300)
-            m_transparent.inputs[0].default_value = (0.737911, 0.737911, 1, 1)
+            m_transparent.inputs[0].default_value = (0.9, 0.9, 1, 1)
 
             #lightpath
             m_light_path = nodes.new('ShaderNodeLightPath')
