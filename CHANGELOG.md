@@ -1,3 +1,16 @@
+### 1.4.5 <!-- 7/20/22 -->
+- Rename material:
+  - **QMM Mercury Liquid** to **QMM Mercury**
+- Update materials:
+  - **Cinnabar** - Add **Vermillion** Color Ramp
+  - **Glass Hack** - Change `Transparent Shader > Color` to `F3F3FF`
+- Reorder **Noble Metals** submenu:
+  - Alphabetize **Palladium** and **Platinum**
+- Bugfix (Bump Node input assignment):
+  - **Asphalt**
+  - **Asphalt Bleached**
+  - **Plaster**
+
 ### 1.4.4 <!-- 5/05/22 -->
 - Add materials:
   - **Cinnabar**
@@ -26,8 +39,8 @@
 - Add materials:
   - **Asphalt**
   - **Asphalt Bleached**
-  - **Platinum**
   - **Palladium**
+  - **Platinum**
   - **Titanium Polished**
 - Remove redundant materials:
   - **Copper Max**
