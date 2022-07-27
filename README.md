@@ -32,7 +32,7 @@ Select an object in your view, and click a button to assign that material to it.
 <br><br>
 
 <p align="center">
-  ![don113s github trophy](https://github-profile-trophy.vercel.app/?username=don1138&row=1)
+  <img alt="don113s github trophy" src="https://github-profile-trophy.vercel.app/?username=don1138&row=1">
 </p>
 
 ![Alt](https://repobeats.axiom.co/api/embed/1e2de9818de3228b86792d2cfc1bb0cd9fe9d5e4.svg "Repobeats analytics image")
