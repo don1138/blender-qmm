@@ -32,7 +32,9 @@ Select an object in your view, and click a button to assign that material to it.
 <br><br>
 
 <p align="center">
+  <img alt="GitHub latest commit" src="https://img.shields.io/github/last-commit/don1138/blender-qmm">
+  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/don1138/blender-qmm">
+  <img alt="Github all releases" src="https://img.shields.io/github/downloads/don1138/blender-qmm/total.svg"><br>
   <img src="https://repobeats.axiom.co/api/embed/1e2de9818de3228b86792d2cfc1bb0cd9fe9d5e4.svg" alt="Repobeats analytics image">
 </p>
-
 
