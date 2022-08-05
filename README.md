@@ -2,19 +2,20 @@
 
 Blender Addon to Add Metal Materials to Your Scene
 
-![Blender QMM Screenshot](https://github.com/don1138/blender-qmm/blob/main/blender-qmm.jpg)
+![Blender QMM Screenshot](https://github.com/don1138/blender-qmm/blob/main/imx/blender-qmm.jpg)
 
 For details, [check out the wiki](https://github.com/don1138/blender-qmm/wiki).
 
 ## Installation
 
-Download the latest ZIP from **Releases**.
+- Download the latest ZIP from **Releases**.
+- Install  via ``Edit > Preferences > Add-ons > Install…``.
+
+Once activated, a panel named **Quick Metal Materials** will appear in the **MAT** tab in the 3D viewport sidebar.
 
 ## Usage
 
-This addon creates a panel named **Quick Metal Materials** under ``3D Viewport > Sidebar > MAT``.
-
-Select an object in your view, and click a button to assign that material to it.
+- Select an object in your view, and click a button to assign that material to it.
 
 ## Online Presence
 
