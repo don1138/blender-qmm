@@ -37,7 +37,8 @@ class QMMPlatinum(bpy.types.Operator):
             #princibledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
-            BSDF.inputs[0].default_value = (0.665387, 0.630757, 0.577580, 1)
+            # BSDF.inputs[0].default_value = (0.665387, 0.630757, 0.577580, 1)
+            BSDF.inputs[0].default_value = (0.679, 0.642, 0.588, 1.0)
             BSDF.inputs[6].default_value = 1
             BSDF.inputs[9].default_value = 0.2
             # BSDF.inputs[16].default_value = 2.084700

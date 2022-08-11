@@ -37,7 +37,8 @@ class QMMTitaniumPolished(bpy.types.Operator):
             #princibledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
-            BSDF.inputs[0].default_value = (0.242281, 0.238398, 0.219526, 1)
+            # BSDF.inputs[0].default_value = (0.242281, 0.238398, 0.219526, 1)
+            BSDF.inputs[0].default_value = (0.616, 0.582, 0.544, 1.0)
             BSDF.inputs[6].default_value = 1
             BSDF.inputs[9].default_value = 0.055
             # BSDF.inputs[16].default_value = 0.25

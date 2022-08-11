@@ -37,7 +37,8 @@ class QMMMercury(bpy.types.Operator):
             #princibledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
-            BSDF.inputs[0].default_value = (0.174647, 0.198069, 0.219526, 1)
+            # BSDF.inputs[0].default_value = (0.174647, 0.198069, 0.219526, 1)
+            BSDF.inputs[0].default_value = (0.781, 0.779, 0.779, 1.0)
             BSDF.inputs[6].default_value = 1
             BSDF.inputs[9].default_value = 0
             BSDF.inputs[16].default_value = 1.620

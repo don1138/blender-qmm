@@ -37,13 +37,14 @@ class SilverColorsGroup(bpy.types.Operator):
             group_out.location = (0, 0)
             silver_colors_group.outputs.new('NodeSocketColor', 'Silver')
             silver_colors_group.outputs.new('NodeSocketColor', 'Pale Silver')
-            silver_colors_group.outputs.new('NodeSocketColor', 'Basic Silver')
+            silver_colors_group.outputs.new('NodeSocketColor', 'PBM Silver')
             silver_colors_group.outputs.new('NodeSocketColor', 'Crayola Silver')
             silver_colors_group.outputs.new('NodeSocketColor', 'Silver Pink')
+            silver_colors_group.outputs.new('NodeSocketColor', 'Basic Silver')
             silver_colors_group.outputs.new('NodeSocketColor', 'Silver Sand')
             silver_colors_group.outputs.new('NodeSocketColor', 'Silver Chalice')
-            silver_colors_group.outputs.new('NodeSocketColor', 'Roman Silver')
             silver_colors_group.outputs.new('NodeSocketColor', 'Old Silver')
+            silver_colors_group.outputs.new('NodeSocketColor', 'Roman Silver')
             silver_colors_group.outputs.new('NodeSocketColor', 'Sonic Silver')
 
             #Silver
@@ -58,11 +59,11 @@ class SilverColorsGroup(bpy.types.Operator):
             sc_ps.location = (-200, 800)
             sc_ps.outputs[0].default_value = hex_to_rgb(0xFCFAF5)
 
-            #Basic Silver
-            sc_bs = silver_colors_group.nodes.new('ShaderNodeRGB')
-            sc_bs.label = "Basic Silver"
-            sc_bs.location = (-200, 600)
-            sc_bs.outputs[0].default_value = hex_to_rgb(0xC0C0C0)
+            #PBM Silver
+            sc_pbms = silver_colors_group.nodes.new('ShaderNodeRGB')
+            sc_pbms.label = "PBM Silver"
+            sc_pbms.location = (-200, 600)
+            sc_pbms.outputs[0].default_value = hex_to_rgb(0xFBF9F6)
 
             #Crayola Silver
             sc_cs = silver_colors_group.nodes.new('ShaderNodeRGB')
@@ -76,23 +77,23 @@ class SilverColorsGroup(bpy.types.Operator):
             sc_sp.location = (-200, 200)
             sc_sp.outputs[0].default_value = hex_to_rgb(0xC4AEAD)
 
+            #Basic Silver
+            sc_bs = silver_colors_group.nodes.new('ShaderNodeRGB')
+            sc_bs.label = "Basic Silver"
+            sc_bs.location = (-200, 0)
+            sc_bs.outputs[0].default_value = hex_to_rgb(0xC0C0C0)
+
             #Silver Sand
             sc_ss = silver_colors_group.nodes.new('ShaderNodeRGB')
             sc_ss.label = "Silver Sand"
-            sc_ss.location = (-200, 0)
+            sc_ss.location = (-200, -200)
             sc_ss.outputs[0].default_value = hex_to_rgb(0xBFC1C2)
 
             #Silver Chalice
             sc_sc = silver_colors_group.nodes.new('ShaderNodeRGB')
             sc_sc.label = "Silver Chalice"
-            sc_sc.location = (-200, -200)
+            sc_sc.location = (-200, -400)
             sc_sc.outputs[0].default_value = hex_to_rgb(0xACACAC)
-
-            #Roman Silver
-            sc_rs = silver_colors_group.nodes.new('ShaderNodeRGB')
-            sc_rs.label = "Roman Silver"
-            sc_rs.location = (-200, -400)
-            sc_rs.outputs[0].default_value = hex_to_rgb(0x838996)
 
             #Old Silver
             sc_os = silver_colors_group.nodes.new('ShaderNodeRGB')
@@ -100,24 +101,31 @@ class SilverColorsGroup(bpy.types.Operator):
             sc_os.location = (-200, -600)
             sc_os.outputs[0].default_value = hex_to_rgb(0x848482)
 
+            #Roman Silver
+            sc_rs = silver_colors_group.nodes.new('ShaderNodeRGB')
+            sc_rs.label = "Roman Silver"
+            sc_rs.location = (-200, -800)
+            sc_rs.outputs[0].default_value = hex_to_rgb(0x838996)
+
             #Sonic Silver
-            sc_so = silver_colors_group.nodes.new('ShaderNodeRGB')
-            sc_so.label = "Sonic Silver"
-            sc_so.location = (-200, -800)
-            sc_so.outputs[0].default_value = hex_to_rgb(0x757575)
+            sc_sos = silver_colors_group.nodes.new('ShaderNodeRGB')
+            sc_sos.label = "Sonic Silver"
+            sc_sos.location = (-200, -1000)
+            sc_sos.outputs[0].default_value = hex_to_rgb(0x757575)
 
 
             links = silver_colors_group.links.new
 
             links(sc_s.outputs[0], group_out.inputs[0])
             links(sc_ps.outputs[0], group_out.inputs[1])
-            links(sc_bs.outputs[0], group_out.inputs[2])
+            links(sc_pbms.outputs[0], group_out.inputs[2])
             links(sc_cs.outputs[0], group_out.inputs[3])
             links(sc_sp.outputs[0], group_out.inputs[4])
-            links(sc_ss.outputs[0], group_out.inputs[5])
-            links(sc_sc.outputs[0], group_out.inputs[6])
-            links(sc_rs.outputs[0], group_out.inputs[7])
+            links(sc_bs.outputs[0], group_out.inputs[5])
+            links(sc_ss.outputs[0], group_out.inputs[6])
+            links(sc_sc.outputs[0], group_out.inputs[7])
             links(sc_os.outputs[0], group_out.inputs[8])
-            links(sc_so.outputs[0], group_out.inputs[9])
+            links(sc_rs.outputs[0], group_out.inputs[9])
+            links(sc_sos.outputs[0], group_out.inputs[10])
 
         return {'FINISHED'}

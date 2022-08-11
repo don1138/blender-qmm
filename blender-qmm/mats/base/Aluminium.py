@@ -37,7 +37,8 @@ class QMMAluminium(bpy.types.Operator):
             #princibledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
-            BSDF.inputs[0].default_value = (0.23074, 0.242281, 0.250158, 1)
+            # BSDF.inputs[0].default_value = (0.23074, 0.242281, 0.250158, 1)
+            BSDF.inputs[0].default_value = (0.912, 0.914, 0.920, 1.0)
             BSDF.inputs[6].default_value = 1
             BSDF.inputs[9].default_value = 0.3
             # BSDF.inputs[16].default_value = 1.390

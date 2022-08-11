@@ -37,7 +37,8 @@ class QMMBrass(bpy.types.Operator):
             #princibledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
-            BSDF.inputs[0].default_value = (0.462077, 0.381326, 0.0544803, 1)
+            # BSDF.inputs[0].default_value = (0.462077, 0.381326, 0.0544803, 1)
+            BSDF.inputs[0].default_value = (0.887, 0.789, 0.434, 1.0)
             BSDF.inputs[6].default_value = 1
             BSDF.inputs[9].default_value = 0.2
             BSDF.inputs[16].default_value = 0.46

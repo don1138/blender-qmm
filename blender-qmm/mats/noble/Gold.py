@@ -37,7 +37,8 @@ class QMMGold(bpy.types.Operator):
             #princibledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
-            BSDF.inputs[0].default_value = (1, 0.564711, 0.155927, 1)
+            # BSDF.inputs[0].default_value = (1, 0.564711, 0.155927, 1)
+            BSDF.inputs[0].default_value = (0.944, 0.776, 0.373, 1.0)
             BSDF.inputs[6].default_value = 1
             BSDF.inputs[9].default_value = 0.175
             # BSDF.inputs[16].default_value = 0.47
@@ -58,7 +59,7 @@ class QMMGold(bpy.types.Operator):
             nodes = m_gold_m.node_tree.nodes
             gold_colors_group = nodes.new("ShaderNodeGroup")
             gold_colors_group.node_tree = bpy.data.node_groups['Gold Colors']
-            gold_colors_group.location = (-500, 0)
+            gold_colors_group.location = (-700, 0)
             links = m_gold_m.node_tree.links.new
             links(gold_colors_group.outputs[0], BSDF.inputs[0])
 
