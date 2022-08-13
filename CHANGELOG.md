@@ -10,7 +10,7 @@
     - **Platinum**
     - **Silver**
     - **Titanium**
-  - Add new color to **Color Group** nodes
+  - Add new colors to **Color Group** nodes
     - **Copper Colors**
       - **PBM Copper**
     - **Gold Colors**
