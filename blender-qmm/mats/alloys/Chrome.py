@@ -37,7 +37,7 @@ class QMMChrome(bpy.types.Operator):
             #princibledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
-            BSDF.inputs[0].default_value = (1.0, 1.0, 1.0,1.0)
+            BSDF.inputs[0].default_value = (0.552011, 0.558340, 0.552011, 1.0)
             BSDF.inputs[6].default_value = 1
             BSDF.inputs[9].default_value = 0.012
             BSDF.inputs[16].default_value = 2.37
