@@ -1,3 +1,26 @@
+### 1.4.6 <!-- 8/10/22 -->
+- New color values from [physicallybased.info](https://physicallybased.info/)
+  - Set `Base Color` to new values
+    - **Aluminium**
+    - **Copper**
+    - **Gold**
+    - **Iron**
+    - **Lead**
+    - **Mercury**
+    - **Platinum**
+    - **Silver**
+    - **Titanium**
+  - Add new color to **Color Group** nodes
+    - **Copper Colors**
+      - **PBM Copper**
+    - **Gold Colors**
+      - **Harvest Gold**
+      - **PBM Gold**
+    - **Silver Colors**
+      - **PBM Silver**
+  - Sort colors in **Color Groups**
+    - All colors after **Base Name** color sorted from lightest to darkest
+
 ### 1.4.5 <!-- 7/20/22 -->
 - Rename material:
   - **QMM Mercury Liquid** to **QMM Mercury**
