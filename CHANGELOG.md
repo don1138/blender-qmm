@@ -20,6 +20,11 @@
       - **PBM Silver**
   - Sort colors in **Color Groups**
     - All colors after **Base Name** color sorted from lightest to darkest
+  - Add **Color Group** nodes to Asset Browser file
+    - **Colors Copper**
+    - **Colors Gold**
+    - **Colors Silver**
+    - **Colors Titanium**
 
 ### 1.4.5 <!-- 7/20/22 -->
 - Rename material:
