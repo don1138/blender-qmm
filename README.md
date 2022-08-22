@@ -4,8 +4,6 @@ Blender Addon to Add Metal Materials to Your Scene
 
 ![Blender QMM Screenshot](https://github.com/don1138/blender-qmm/blob/main/imx/blender-qmm.jpg)
 
-For details, [check out the wiki](https://github.com/don1138/blender-qmm/wiki).
-
 ## Installation
 
 - Download the latest ZIP from **Releases**.
@@ -16,6 +14,9 @@ Once activated, a panel named **Quick Metal Materials** will appear in the **MAT
 ## Usage
 
 - Select an object in your view, and click a button to assign that material to it.
+
+## Swatches
+For swatches and notes, [refer to the Wiki](https://github.com/don1138/blender-qmm/wiki).
 
 ## Online Presence
 
