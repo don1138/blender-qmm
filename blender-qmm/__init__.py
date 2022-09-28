@@ -21,7 +21,7 @@ bl_info = {
     "name"       : "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
     "author"     : "Don Schnitzius",
-    "version"    : (1, 4, 6),
+    "version"    : (1, 4, 7),
     "blender"    : (3, 0, 0),
     "location"   : "3D Viewport > Sidebar > MAT > Quick Metal Materials",
     "warning"    : "",
@@ -69,9 +69,9 @@ class BQMPanelNoble(bpy.types.Panel):
         row.operator("shader.qmm_gold_operator", text="Gold (Fresnel)")
 
         row = layout.row()
-        row.operator("shader.qmm_palladium_m_operator", text="Palladium")
+        row.operator("shader.qmm_palladium_operator", text="Palladium")
         row = layout.row()
-        row.operator("shader.qmm_platinum_m_operator", text="Platinum")
+        row.operator("shader.qmm_platinum_operator", text="Platinum")
 
         row = layout.row()
         row.operator("shader.qmm_silver_m_operator", text="Silver")
@@ -112,6 +112,9 @@ class BQMPanelBase(bpy.types.Panel):
         row.operator("shader.qmm_titanium_p_operator", text="Titanium Polished")
         row = layout.row()
         row.operator("shader.qmm_titanium_operator", text="Titanium Textured")
+
+        row = layout.row()
+        row.operator("shader.qmm_zinc_operator", text="Zinc")
 
 
 # ALLOY METALS PANEL
@@ -240,6 +243,7 @@ from .mats.base.Lead import *
 from .mats.base.LeadRough import *
 from .mats.base.Titanium import *
 from .mats.base.TitaniumPolished import *
+from .mats.base.Zinc import *
 from .mats.extras.Asphalt import *
 from .mats.extras.AsphaltBleached import *
 from .mats.extras.Cinnabar import *
@@ -254,6 +258,7 @@ from .mats.noble.Gold import *
 from .mats.noble.Palladium import *
 from .mats.noble.Platinum import *
 from .mats.noble.Silver import *
+from .mats.EnergyConservationGroupNode import *
 from .mats.SpecularGroupNode import *
 from .mats.TexturizerGroupNode import *
 from .mats.CopperColors import *
@@ -294,7 +299,9 @@ classes = [
     QMMSteel,
     QMMTitanium,
     QMMTitaniumPolished,
+    QMMZinc,
     QMMWallPaint,
+    EnergyConservationGroup,
     SpecularGroup,
     TexturizerGroup,
     CopperColorsGroup,

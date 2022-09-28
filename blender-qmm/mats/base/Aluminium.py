@@ -38,24 +38,28 @@ class QMMAluminium(bpy.types.Operator):
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
             # BSDF.inputs[0].default_value = (0.23074, 0.242281, 0.250158, 1)
-            BSDF.inputs[0].default_value = (0.912, 0.914, 0.920, 1.0)
+            BSDF.inputs[0].default_value = (0.912, 0.914, 0.920, 1)
             BSDF.inputs[6].default_value = 1
             BSDF.inputs[9].default_value = 0.3
             # BSDF.inputs[16].default_value = 1.390
             # BSDF.inputs[16].default_value = 1.244
 
+            #EnergyConservationGroup
+            bpy.ops.node.ec_group_operator()
+            ec_group = nodes.new("ShaderNodeGroup")
+            ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
+            ec_group.location = (-500, -200)
+            ec_group.inputs[0].default_value = 1.44
+            ec_group.inputs[1].default_value = (0.912, 0.914, 0.920, 1)
+            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
+
+            links = m_aluminium.node_tree.links.new
+
+            links(ec_group.outputs[0], BSDF.inputs[0])
+            links(ec_group.outputs[1], BSDF.inputs[7])
+            links(ec_group.outputs[3], BSDF.inputs[16])
+
             #LOAD THE MATERIAL
             bpy.context.object.active_material = m_aluminium
-
-            #SpecularGroup
-            bpy.ops.node.specular_group_operator()
-            nodes = m_aluminium.node_tree.nodes
-            specular_group = nodes.new("ShaderNodeGroup")
-            specular_group.node_tree = bpy.data.node_groups['Specular']
-            specular_group.location = (-500, -300)
-            specular_group.inputs[0].default_value = 1.44
-            links = m_aluminium.node_tree.links.new
-            links(specular_group.outputs[0], BSDF.inputs[7])
-            links(specular_group.outputs[1], BSDF.inputs[16])
 
         return {'FINISHED'}

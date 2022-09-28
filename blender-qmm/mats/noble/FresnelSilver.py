@@ -59,12 +59,12 @@ class QMMSilverFresnel(bpy.types.Operator):
             m_glossy2.inputs[0].default_value = (0.401978, 0.396755, 0.417885, 1)
             m_glossy2.inputs[1].default_value = 0.5
 
-            links = m_silver.node_tree.links
+            links = m_silver.node_tree.links.new
 
-            links.new(m_glossy2.outputs[0], m_mix.inputs[2])
-            links.new(m_glossy.outputs[0], m_mix.inputs[1])
-            links.new(m_layer_weight.outputs[1], m_mix.inputs[0])
-            links.new(m_mix.outputs[0], material_output.inputs[0])
+            links(m_glossy2.outputs[0], m_mix.inputs[2])
+            links(m_glossy.outputs[0], m_mix.inputs[1])
+            links(m_layer_weight.outputs[1], m_mix.inputs[0])
+            links(m_mix.outputs[0], material_output.inputs[0])
 
             bpy.context.object.active_material = m_silver
 
@@ -74,7 +74,7 @@ class QMMSilverFresnel(bpy.types.Operator):
             silver_colors_group = nodes.new("ShaderNodeGroup")
             silver_colors_group.node_tree = bpy.data.node_groups['Silver Colors']
             silver_colors_group.location = (-600, 0)
-            links = m_silver.node_tree.links.new
+            links = m_silver.node_tree.links
             links(silver_colors_group.outputs[0], m_glossy.inputs[0])
             links(silver_colors_group.outputs[0], m_glossy2.inputs[0])
 

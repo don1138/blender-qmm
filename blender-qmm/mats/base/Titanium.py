@@ -38,45 +38,45 @@ class QMMTitanium(bpy.types.Operator):
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
             # BSDF.inputs[0].default_value = (0.533276, 0.491021, 0.439657, 1)
-            BSDF.inputs[0].default_value = (0.616, 0.582, 0.544, 1.0)
+            BSDF.inputs[0].default_value = (0.616, 0.582, 0.544, 1)
             BSDF.inputs[6].default_value = 1
             BSDF.inputs[9].default_value = 0.55
             # BSDF.inputs[16].default_value = 0.25
 
-            #LOAD THE MATERIAL
-            bpy.context.object.active_material = m_titanium
+            #EnergyConservationGroup
+            bpy.ops.node.ec_group_operator()
+            ec_group = nodes.new("ShaderNodeGroup")
+            ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
+            ec_group.location = (-500, -200)
+            ec_group.inputs[0].default_value = 2.16
+            ec_group.inputs[1].default_value = (0.616, 0.582, 0.544, 1)
+            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
 
             #TexturizerGroup
             bpy.ops.node.texturizer_group_operator()
-            tx_nodes = m_titanium.node_tree.nodes
-            texturizer_group = tx_nodes.new("ShaderNodeGroup")
+            texturizer_group = nodes.new("ShaderNodeGroup")
             texturizer_group.node_tree = bpy.data.node_groups['Texturizer']
-            texturizer_group.location = (-600, 0)
-            texturizer_group.inputs[0].default_value = (0.617206, 0.584078, 0.545725, 1.000000)
+            texturizer_group.location = (-700, -300)
+            texturizer_group.inputs[0].default_value = (0.617206, 0.584078, 0.545725, 1)
             texturizer_group.inputs[1].default_value = 0.55
-
-            #SpecularGroup
-            bpy.ops.node.specular_group_operator()
-            s_nodes = m_titanium.node_tree.nodes
-            specular_group = s_nodes.new("ShaderNodeGroup")
-            specular_group.node_tree = bpy.data.node_groups['Specular']
-            specular_group.location = (-600, -400)
-            specular_group.inputs[0].default_value = 2.16
 
             #TitaniumColorsGroup
             bpy.ops.node.titanium_colors_group_operator()
-            tc_nodes = m_titanium.node_tree.nodes
-            titanium_colors_group = tc_nodes.new("ShaderNodeGroup")
+            titanium_colors_group = nodes.new("ShaderNodeGroup")
             titanium_colors_group.node_tree = bpy.data.node_groups['Titanium Colors']
-            titanium_colors_group.location = (-800, -200)
+            titanium_colors_group.location = (-900, -400)
 
             links = m_titanium.node_tree.links.new
 
-            links(texturizer_group.outputs[0], BSDF.inputs[0])
+            links(titanium_colors_group.outputs[0], texturizer_group.inputs[0])
+            links(texturizer_group.outputs[0], ec_group.inputs[1])
             links(texturizer_group.outputs[2], BSDF.inputs[9])
             links(texturizer_group.outputs[5], BSDF.inputs[22])
-            links(specular_group.outputs[0], BSDF.inputs[7])
-            links(specular_group.outputs[1], BSDF.inputs[16])
-            links(titanium_colors_group.outputs[0], texturizer_group.inputs[0])
+            links(ec_group.outputs[0], BSDF.inputs[0])
+            links(ec_group.outputs[1], BSDF.inputs[7])
+            links(ec_group.outputs[3], BSDF.inputs[16])
+
+            #LOAD THE MATERIAL
+            bpy.context.object.active_material = m_titanium
 
         return {'FINISHED'}

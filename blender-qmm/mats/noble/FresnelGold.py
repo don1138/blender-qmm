@@ -73,16 +73,16 @@ class QMMGoldFresnel(bpy.types.Operator):
             m_value.location = (-800,-200)
             m_value.outputs[0].default_value = 0.175
 
-            links = m_gold.node_tree.links
+            links = m_gold.node_tree.links.new
 
-            links.new(m_value.outputs[0], m_glossy.inputs[1])
-            links.new(m_value.outputs[0], m_glossy2.inputs[1])
-            links.new(m_diffuse.outputs[0], m_mix2.inputs[2])
-            links.new(m_glossy2.outputs[0], m_mix2.inputs[1])
-            links.new(m_glossy.outputs[0], m_mix.inputs[2])
-            links.new(m_mix2.outputs[0], m_mix.inputs[1])
-            links.new(m_layer_weight.outputs[1], m_mix.inputs[0])
-            links.new(m_mix.outputs[0], material_output.inputs[0])
+            links(m_value.outputs[0], m_glossy.inputs[1])
+            links(m_value.outputs[0], m_glossy2.inputs[1])
+            links(m_diffuse.outputs[0], m_mix2.inputs[2])
+            links(m_glossy2.outputs[0], m_mix2.inputs[1])
+            links(m_glossy.outputs[0], m_mix.inputs[2])
+            links(m_mix2.outputs[0], m_mix.inputs[1])
+            links(m_layer_weight.outputs[1], m_mix.inputs[0])
+            links(m_mix.outputs[0], material_output.inputs[0])
 
             bpy.context.object.active_material = m_gold
 
@@ -92,7 +92,7 @@ class QMMGoldFresnel(bpy.types.Operator):
             gold_colors_group = nodes.new("ShaderNodeGroup")
             gold_colors_group.node_tree = bpy.data.node_groups['Gold Colors']
             gold_colors_group.location = (-1000, 0)
-            links = m_gold.node_tree.links.new
+            links = m_gold.node_tree.links
             links(gold_colors_group.outputs[0], m_diffuse.inputs[0])
             links(gold_colors_group.outputs[0], m_glossy.inputs[0])
             links(gold_colors_group.outputs[0], m_glossy2.inputs[0])

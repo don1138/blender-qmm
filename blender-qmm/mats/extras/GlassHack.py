@@ -72,19 +72,19 @@ class QMMGlass(bpy.types.Operator):
             m_light_path = nodes.new('ShaderNodeLightPath')
             m_light_path.location = (-800,200)
 
-            links = m_glass.node_tree.links
+            links = m_glass.node_tree.links.new
 
-            links.new(m_transparent.outputs[0], m_mix2.inputs[2])
-            links.new(m_glossy.outputs[0], m_mix2.inputs[1])
-            links.new(m_fresnel.outputs[0], m_mix2.inputs[0])
-            links.new(m_light_path.outputs[2], m_add2.inputs[1])
-            links.new(m_light_path.outputs[1], m_add2.inputs[0])
-            links.new(m_light_path.outputs[3], m_add.inputs[1])
-            links.new(m_add2.outputs[0], m_add.inputs[0])
-            links.new(m_transparent.outputs[0], m_mix.inputs[2])
-            links.new(m_mix2.outputs[0], m_mix.inputs[1])
-            links.new(m_add.outputs[0], m_mix.inputs[0])
-            links.new(m_mix.outputs[0], material_output.inputs[0])
+            links(m_transparent.outputs[0], m_mix2.inputs[2])
+            links(m_glossy.outputs[0], m_mix2.inputs[1])
+            links(m_fresnel.outputs[0], m_mix2.inputs[0])
+            links(m_light_path.outputs[2], m_add2.inputs[1])
+            links(m_light_path.outputs[1], m_add2.inputs[0])
+            links(m_light_path.outputs[3], m_add.inputs[1])
+            links(m_add2.outputs[0], m_add.inputs[0])
+            links(m_transparent.outputs[0], m_mix.inputs[2])
+            links(m_mix2.outputs[0], m_mix.inputs[1])
+            links(m_add.outputs[0], m_mix.inputs[0])
+            links(m_mix.outputs[0], material_output.inputs[0])
 
             bpy.context.object.active_material = m_glass
 

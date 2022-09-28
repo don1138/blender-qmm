@@ -38,13 +38,16 @@ class QMMSilver(bpy.types.Operator):
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
             # BSDF.inputs[0].default_value = (0.401978, 0.396755, 0.417885, 1)
-            BSDF.inputs[0].default_value = (0.962, 0.949, 0.922, 1.0)
+            BSDF.inputs[0].default_value = (0.962, 0.949, 0.922, 1)
             BSDF.inputs[6].default_value = 1
             BSDF.inputs[9].default_value = 0.25
-            BSDF.inputs[16].default_value = 0.180
+            BSDF.inputs[16].default_value = 0.18
+            # BSDF.inputs[16].default_value = 1.350
 
             #LOAD THE MATERIAL
             bpy.context.object.active_material = m_silver_m
+
+            links = m_silver_m.node_tree.links.new
 
             #SpecularGroup
             bpy.ops.node.specular_group_operator()
@@ -52,8 +55,8 @@ class QMMSilver(bpy.types.Operator):
             specular_group = nodes.new("ShaderNodeGroup")
             specular_group.node_tree = bpy.data.node_groups['Specular']
             specular_group.location = (-500, -300)
-            specular_group.inputs[0].default_value = 0.180
-            links = m_silver_m.node_tree.links.new
+            specular_group.inputs[0].default_value = 0.18
+            # specular_group.inputs[0].default_value = 1.350
             links(specular_group.outputs[0], BSDF.inputs[7])
             links(specular_group.outputs[1], BSDF.inputs[16])
 
@@ -63,7 +66,6 @@ class QMMSilver(bpy.types.Operator):
             silver_colors_group = nodes.new("ShaderNodeGroup")
             silver_colors_group.node_tree = bpy.data.node_groups['Silver Colors']
             silver_colors_group.location = (-500, 0)
-            links = m_silver_m.node_tree.links.new
             links(silver_colors_group.outputs[0], BSDF.inputs[0])
 
         return {'FINISHED'}

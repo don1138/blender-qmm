@@ -1,5 +1,15 @@
+### 1.4.7 <!-- 9/27/22 -->
+- Add new material
+  - **Zinc**
+- Replace **Specular Group** with **Energy Conservation Group** (via [Christopher 3D](https://www.youtube.com/watch?v=kgORQ5tMe2I)). This affects ALL materials, both metal and dialectric, except:
+    - **Gold** and **Silver** because: IOR value is too low
+    - **Gold (Fresnel)**, **Silver (Fresnel)**, and **Copper (Fresnel)** because: not compatable with node setup
+    - **Glass Hack** because: not relevant
+- Add **Displacement** to **Asphalt** and **Asphalt Bleached**
+- Code cleanup
+
 ### 1.4.6 <!-- 8/10/22 -->
-- New color values from [physicallybased.info](https://physicallybased.info/)
+- new color values from [physicallybased.info](https://physicallybased.info/)
   - Set `Base Color` to new values
     - **Aluminium**
     - **Copper**
@@ -27,20 +37,20 @@
     - **Colors Titanium**
 
 ### 1.4.5 <!-- 7/20/22 -->
-- Rename material:
+- Rename material
   - **QMM Mercury Liquid** to **QMM Mercury**
-- Update materials:
+- Update materials
   - **Cinnabar** - Add **Vermillion** Color Ramp
   - **Glass Hack** - Change `Transparent Shader > Color` to `F3F3FF`
-- Reorder **Noble Metals** submenu:
+- Reorder **Noble Metals** submenu
   - Alphabetize **Palladium** and **Platinum**
-- Bugfix (Bump Node input assignment):
+- Bugfix (Bump Node input assignment)
   - **Asphalt**
   - **Asphalt Bleached**
   - **Plaster**
 
 ### 1.4.4 <!-- 5/05/22 -->
-- Add materials:
+- Add new material
   - **Cinnabar**
 
 ### 1.4.3 <!-- 5/01/22 -->
@@ -49,39 +59,39 @@
 ### 1.4.2 <!-- 4/30/22 -->
 - Update **Texturizer** node group
   - Change color/noise color mix from `OVERLAY` to `MULTIPLY`
-  - 1 new input:
+  - 1 new input
     - **Roughness**
-  - 4 new outputs:
+  - 4 new outputs
     - **Rough Ceiling** - Map Range from min (roughness - 0.1) to max (roughness)
     - **Roughness** - Noise (green channel) mixed (overlay) with roughness value
     - **Rough Floor** - Map Range from min (roughness) to max (roughness + 0.1)
     - **Height**
 
 ### 1.4.1 <!-- 4/26/22 -->
-- Add materials:
+- Add new material
   - **Wall Paint**
 - Tweaked layout of links in add-on preferences
 - Tried to un-f*ck **Add-On Updater** install. Failed.
 
 ### 1.4.0 <!-- 4/22/22 -->
-- Add materials:
+- Add new materials
   - **Asphalt**
   - **Asphalt Bleached**
   - **Palladium**
   - **Platinum**
   - **Titanium Polished**
-- Remove redundant materials:
+- Remove redundant materials
   - **Copper Max**
   - **Pale Gold**
   - **Pale Silver**
   - **Silver Max**
-- Rename materials:
+- Rename materials
   - **Brass Metallic** > **Brass**
   - **Copper Min** > **Copper**
   - **Silver Min** > **Silver**
   - **Titanium** > **Titanium Textured**
-- Revise materials:
-  - **Plaster** - Material color can now be changed by **PCOY**, **MCMC**, **HG71**, and **F58** add-ons.
+- Revise material
+  - **Plaster** - material color can now be changed by **PCOY**, **MCMC**, **HG71**, and **F58** add-ons.
 
 ### 1.3.8 <!-- 4/14/22 -->
 
@@ -138,8 +148,8 @@
 
 ![Blender QMM Extended Color Groups](https://github.com/don1138/blender-qmm/blob/main/qmm-extended-color-groups.png)
 
-- **Bugfix:** Change Node Group Output type from `Float` to `Color`
-- Add **Gold Color Node Group** with 9 color choices. This affects **Gold**, **Pale Gold**, and **Gold (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Gold_(color) -->
+- **Bugfix:** Change node group output type from `Float` to `Color`
+- Add **Gold Color Group** with 9 color choices. This affects **Gold**, **Pale Gold**, and **Gold (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Gold_(color) -->
   - **Gold** <!-- #D4AF37 -->
   - **Pale Gold** <!-- #FFE39D -->
   - **Golden Gold** <!-- #FFD700 -->
@@ -149,7 +159,7 @@
   - **Crayola Gold** <!-- #E6BE8A -->
   - **Vegas Gold** <!-- #C5B358 -->
   - **Satin Sheen Gold** <!-- #CBA135 -->
-- Add **Silver Color Node Group** with 10 color choices. This affects **Silver Min**, **Silver Max**, **Pale Silver**, and **Silver (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Silver_(color) -->
+- Add **Silver Color Group** with 10 color choices. This affects **Silver Min**, **Silver Max**, **Pale Silver**, and **Silver (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Silver_(color) -->
   - **Silver** <!--#AAA9AD -->
   - **Pale Silver** <!--#FCFAF5 -->
   - **Basic Silver** <!--#C0C0C0 -->
@@ -163,8 +173,8 @@
 
 ### 1.3.3 <!-- 12/30/21 -->
 
-- **Bugfix:** Specular Group was being added twice
-- Add **Copper Color Node Group** with 5 color choices. This affects **Copper Min**, **Copper Max**, and **Copper (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Copper_(color) -->
+- **Bugfix: Specular Group** was being added twice
+- Add **Copper Color Group** with 5 color choices. This affects **Copper Min**, **Copper Max**, and **Copper (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Copper_(color) -->
   - **Copper** <!-- #B87333 -->
   - **Pale Copper** <!-- #DA8A67 -->
   - **Copper Red** <!-- #CB6D51 -->
@@ -173,7 +183,7 @@
 
 ### 1.3.2 <!-- 12/29/21 -->
 
-- Combine IOR/Specular math nodes into Specular Group
+- Combine `IOR/Specular` math nodes into **Specular Group**
 
 ### 1.3.1 <!-- 12/21/21 -->
 
@@ -183,7 +193,7 @@
 
 - Blender 3.0 compatability
 - Update node input IDs to new settings
-- Connect IOR Value node to Principled BSDF IOR input
+- Connect `IOR` value node to **Principled BSDF** `IOR` input
 
 ### 1.2.3 <!-- 12/15/21 -->
 
@@ -201,7 +211,7 @@
 
 ### 1.2.0 <!-- 7/14/21 -->
 
-- Add New Materials
+- Add new materials
   - **Chrome**
   - **Lead**
   - **Lead Rough**
@@ -217,7 +227,7 @@
 
 ### 1.1.0 <!-- 6/17/21 -->
 
-- Add New Material
+- Add new material
   - **Tinted Plaster**
 
 ### 1.0.0
@@ -228,7 +238,7 @@
 
 ### 0.0.4 <!-- 3/22/21 -->
 
-- New Materials
+- Add new materials
   - **Pale Gold Metallic**
   - **Pale Silver Metallic**
   - **Rubber Cutting Mat**
@@ -237,7 +247,7 @@
 ### 0.0.3 <!-- 3/21/21 -->
 
 - Move categories into sub-panels
-- Change Category to Material
+- Change **Category** to `Material`
 - Change Blender compatability to 2.83
 
 ### 0.0.2 <!-- 3/10/21 -->
@@ -246,7 +256,7 @@
 
 ### 0.0.1 <!-- 3/9/21 -->
 
-- Create Materials
+- Create materials
   - **Aluminium Metallic**
   - **Brass Metallic**
   - **Bronze Metallic**

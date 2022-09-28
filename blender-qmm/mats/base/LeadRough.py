@@ -24,7 +24,7 @@ class QMMLeadRough(bpy.types.Operator):
             #CreateShader
             m_lead_rough = bpy.data.materials.new(name = "QMM Lead Rough")
             m_lead_rough.use_nodes = True
-            m_lead_rough.diffuse_color = (0.186, 0.188, 0.196, 1.0)
+            m_lead_rough.diffuse_color = (0.186, 0.188, 0.196, 1)
             m_lead_rough.metallic = 1
             m_lead_rough.roughness = 0.565
 
@@ -37,23 +37,27 @@ class QMMLeadRough(bpy.types.Operator):
             #princibledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
-            BSDF.inputs[0].default_value = (0.186, 0.188, 0.196, 1.0)
+            BSDF.inputs[0].default_value = (0.186, 0.188, 0.196, 1)
             BSDF.inputs[6].default_value = 1
             BSDF.inputs[9].default_value = 0.565
             # BSDF.inputs[16].default_value = 2.010
 
+            #EnergyConservationGroup
+            bpy.ops.node.ec_group_operator()
+            ec_group = nodes.new("ShaderNodeGroup")
+            ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
+            ec_group.location = (-500, -200)
+            ec_group.inputs[0].default_value = 2.01
+            ec_group.inputs[1].default_value = (0.186, 0.188, 0.196, 1)
+            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
+
+            links = m_lead_rough.node_tree.links.new
+
+            links(ec_group.outputs[0], BSDF.inputs[0])
+            links(ec_group.outputs[1], BSDF.inputs[7])
+            links(ec_group.outputs[3], BSDF.inputs[16])
+
             #LOAD THE MATERIAL
             bpy.context.object.active_material = m_lead_rough
-
-            #SpecularGroup
-            bpy.ops.node.specular_group_operator()
-            nodes = m_lead_rough.node_tree.nodes
-            specular_group = nodes.new("ShaderNodeGroup")
-            specular_group.node_tree = bpy.data.node_groups['Specular']
-            specular_group.location = (-500, -300)
-            specular_group.inputs[0].default_value = 2.010
-            links = m_lead_rough.node_tree.links.new
-            links(specular_group.outputs[0], BSDF.inputs[7])
-            links(specular_group.outputs[1], BSDF.inputs[16])
 
         return {'FINISHED'}
