@@ -4,7 +4,7 @@
   - **Zinc**
 - Add **Displacement** to **Asphalt** and **Asphalt Bleached**
 - Add **Canisotrophy Group** with `To Roughness` output. This affects **Tin**.
-- Replace **Specular Group** with **Energy Conservation Group** (via [Christopher 3D](https://www.youtube.com/watch?v=kgORQ5tMe2I)). This affects ALL materials, both metal and dialectric, except:
+- Replace **Specular Group** with **Energy Conservation Group** (via [Christopher 3D](https://www.youtube.com/watch?v=kgORQ5tMe2I)). This affects ALL materials, both metal and dialectic, except:
     - **Gold** and **Silver** because: IOR value is too low
     - **Gold (Fresnel)**, **Silver (Fresnel)**, and **Copper (Fresnel)** because: not compatable with node setup
     - **Glass Hack** because: not relevant
