@@ -109,6 +109,9 @@ class BQMPanelBase(bpy.types.Panel):
         row.operator("shader.qmm_lead_rough_operator", text="Lead Rough")
 
         row = layout.row()
+        row.operator("shader.qmm_tin_operator", text="Tin")
+
+        row = layout.row()
         row.operator("shader.qmm_titanium_p_operator", text="Titanium Polished")
         row = layout.row()
         row.operator("shader.qmm_titanium_operator", text="Titanium Textured")
@@ -242,6 +245,7 @@ from .mats.base.Iron import *
 from .mats.base.Lead import *
 from .mats.base.LeadRough import *
 from .mats.base.Titanium import *
+from .mats.base.Tin import *
 from .mats.base.TitaniumPolished import *
 from .mats.base.Zinc import *
 from .mats.extras.Asphalt import *
@@ -258,6 +262,7 @@ from .mats.noble.Gold import *
 from .mats.noble.Palladium import *
 from .mats.noble.Platinum import *
 from .mats.noble.Silver import *
+from .mats.Canisotrophy import *
 from .mats.EnergyConservationGroupNode import *
 from .mats.SpecularGroupNode import *
 from .mats.TexturizerGroupNode import *
@@ -297,10 +302,12 @@ classes = [
     QMMSilverFresnel,
     QMMSilver,
     QMMSteel,
+    QMMTin,
     QMMTitanium,
     QMMTitaniumPolished,
     QMMZinc,
     QMMWallPaint,
+    CanisotrophyGroup,
     EnergyConservationGroup,
     SpecularGroup,
     TexturizerGroup,
