@@ -32,7 +32,7 @@ class QMMGlass(bpy.types.Operator):
             material_output = nodes.get('Material Output')
             material_output.location = (0,0)
 
-            #princibledbsdf
+            #principledbsdf
             BSDF = nodes.get('Principled BSDF')
             nodes.remove(BSDF)
 

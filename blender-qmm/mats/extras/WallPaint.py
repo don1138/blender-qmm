@@ -32,7 +32,7 @@ class QMMWallPaint(bpy.types.Operator):
             material_output = nodes.get('Material Output')
             material_output.location = (0,0)
 
-            #princibledbsdf
+            #principledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
             BSDF.inputs[0].default_value = (0.504859, 0.483713, 0.674328, 1)

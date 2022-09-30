@@ -45,12 +45,12 @@ class QMMAsphalt(bpy.types.Operator):
             m_lessthan.operation = 'LESS_THAN'
             m_lessthan.location = (-400,-200)
 
-            #princibledbsdf - stone
+            #principledbsdf - stone
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-700,300)
             BSDF.select = True
 
-            #princibledbsdf - cracks
+            #principledbsdf - cracks
             BSDF2 = nodes.new('ShaderNodeBsdfPrincipled')
             BSDF2.location = (-700,-400)
             BSDF2.inputs[0].default_value = (0.025, 0.01875, 0.01875, 1)

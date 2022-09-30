@@ -34,7 +34,7 @@ class QMMLead(bpy.types.Operator):
             material_output = nodes.get('Material Output')
             material_output.location = (0,0)
 
-            #princibledbsdf
+            #principledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
             # BSDF.inputs[0].default_value = (0.380, 0.384, 0.4, 1)
