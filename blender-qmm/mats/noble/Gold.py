@@ -61,7 +61,7 @@ class QMMGold(bpy.types.Operator):
             gold_colors_group = nodes.new("ShaderNodeGroup")
             gold_colors_group.node_tree = bpy.data.node_groups['Gold Colors']
             gold_colors_group.location = (-700, 0)
-            links(gold_colors_group.outputs[0], BSDF.inputs[0])
+            links(gold_colors_group.outputs[1], BSDF.inputs[0])
 
             #LOAD THE MATERIAL
             bpy.context.object.active_material = m_gold_m

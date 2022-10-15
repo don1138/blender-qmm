@@ -1,3 +1,18 @@
+### 1.4.8 <!-- 10/15/22 -->
+- Update `Base Color`
+    - **Copper**
+    - **Gold**
+    - **Silver**
+- Update `IOR`
+    - **Iron**
+- Update `Base Color` and `IOR`
+    - **Platinum**
+    - **Zinc**
+- Bugfix: **Color Group** not connecting in Fresnel materials
+    - **Copper (Fresnel)**
+    - **Gold (Fresnel)**
+    - **Silver (Fresnel)**
+
 ### 1.4.7 <!-- 9/27/22 -->
 - Add new materials
   - **Tin**
@@ -42,8 +57,10 @@
 - Rename material
   - **QMM Mercury Liquid** to **QMM Mercury**
 - Update materials
-  - **Cinnabar** - Add **Vermillion** Color Ramp
-  - **Glass Hack** - Change `Transparent Shader > Color` to `F3F3FF`
+  - **Cinnabar**
+    - Add **Vermillion** Color Ramp
+  - **Glass Hack**
+    - Change `Transparent Shader > Color` to `F3F3FF`
 - Reorder **Noble Metals** submenu
   - Alphabetize **Palladium** and **Platinum**
 - Bugfix (Bump Node input assignment)

@@ -41,14 +41,15 @@ class QMMIron(bpy.types.Operator):
             BSDF.inputs[0].default_value = (0.531, 0.512, 0.496, 1)
             BSDF.inputs[6].default_value = 1
             BSDF.inputs[9].default_value = 0.4
-            # BSDF.inputs[16].default_value = 2.950
+            BSDF.inputs[16].default_value = 2.950
+            # BSDF.inputs[16].default_value = 1.51
 
             #EnergyConservationGroup
             bpy.ops.node.ec_group_operator()
             ec_group = nodes.new("ShaderNodeGroup")
             ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
             ec_group.location = (-500, -200)
-            ec_group.inputs[0].default_value = 1.51
+            ec_group.inputs[0].default_value = 2.95
             ec_group.inputs[1].default_value = (0.531, 0.512, 0.496, 1)
             ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
 

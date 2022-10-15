@@ -61,7 +61,7 @@ class QMMCopper(bpy.types.Operator):
 
             links = m_copper_m.node_tree.links.new
 
-            links(copper_colors_group.outputs[0], ec_group.inputs[1])
+            links(copper_colors_group.outputs[1], ec_group.inputs[1])
             links(ec_group.outputs[0], BSDF.inputs[0])
             links(ec_group.outputs[1], BSDF.inputs[7])
             links(ec_group.outputs[3], BSDF.inputs[16])

@@ -38,9 +38,11 @@ class QMMPlatinum(bpy.types.Operator):
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
             # BSDF.inputs[0].default_value = (0.665387, 0.630757, 0.577580, 1)
-            BSDF.inputs[0].default_value = (0.679, 0.642, 0.588, 1)
+            # BSDF.inputs[0].default_value = (0.679, 0.642, 0.588, 1)
+            BSDF.inputs[0].default_value = (0.783537, 0.775822, 0.760525, 1)
             BSDF.inputs[6].default_value = 1
             BSDF.inputs[9].default_value = 0.2
+            BSDF.inputs[16].default_value = 2.33
             # BSDF.inputs[16].default_value = 2.084700
 
             #EnergyConservationGroup
@@ -48,8 +50,8 @@ class QMMPlatinum(bpy.types.Operator):
             ec_group = nodes.new("ShaderNodeGroup")
             ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
             ec_group.location = (-500, -200)
-            ec_group.inputs[0].default_value = 2.084700
-            ec_group.inputs[1].default_value = (0.679, 0.642, 0.588, 1)
+            ec_group.inputs[0].default_value = 2.33
+            ec_group.inputs[1].default_value = (0.783537, 0.775822, 0.760525, 1)
             ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
 
             links = m_platinum.node_tree.links.new
