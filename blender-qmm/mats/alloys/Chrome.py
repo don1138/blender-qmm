@@ -26,7 +26,7 @@ class QMMChrome(bpy.types.Operator):
             m_chrome.use_nodes = True
             m_chrome.diffuse_color = (1.0, 1.0, 1.0,1.0)
             m_chrome.metallic = 1
-            m_chrome.roughness = 0.012
+            m_chrome.roughness = 0.02
 
             nodes = m_chrome.node_tree.nodes
 
@@ -34,20 +34,20 @@ class QMMChrome(bpy.types.Operator):
             material_output = nodes.get('Material Output')
             material_output.location = (0,0)
 
-            #principledbsdf
+            #princibledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
             BSDF.inputs[0].default_value = (0.552011, 0.558340, 0.552011, 1)
             BSDF.inputs[6].default_value = 1
-            BSDF.inputs[9].default_value = 0.012
-            BSDF.inputs[16].default_value = 2.37
+            BSDF.inputs[9].default_value = 0.02
+            BSDF.inputs[16].default_value = 2.3
 
             #EnergyConservationGroup
             bpy.ops.node.ec_group_operator()
             ec_group = nodes.new("ShaderNodeGroup")
             ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
             ec_group.location = (-500, -200)
-            ec_group.inputs[0].default_value = 2.37
+            ec_group.inputs[0].default_value = 2.3
             ec_group.inputs[1].default_value = (0.552011, 0.558340, 0.552011, 1)
             ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
 

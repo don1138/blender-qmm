@@ -26,7 +26,7 @@ class QMMPalladium(bpy.types.Operator):
             m_palladium.use_nodes = True
             m_palladium.diffuse_color = (0.783537, 0.775822, 0.760524, 1)
             m_palladium.metallic = 1
-            m_palladium.roughness = 0.2
+            m_palladium.roughness = 0.11
 
             nodes = m_palladium.node_tree.nodes
 
@@ -34,13 +34,13 @@ class QMMPalladium(bpy.types.Operator):
             material_output = nodes.get('Material Output')
             material_output.location = (0,0)
 
-            #principledbsdf
+            #princibledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
             BSDF.inputs[0].default_value = (0.783537, 0.775822, 0.760524, 1)
             BSDF.inputs[6].default_value = 1
-            BSDF.inputs[9].default_value = 0.2
-            # BSDF.inputs[16].default_value = 1.6381
+            BSDF.inputs[9].default_value = 0.11
+            BSDF.inputs[16].default_value = 1.6381
 
             #EnergyConservationGroup
             bpy.ops.node.ec_group_operator()

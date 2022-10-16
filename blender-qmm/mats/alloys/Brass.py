@@ -26,7 +26,7 @@ class QMMBrass(bpy.types.Operator):
             m_brass.use_nodes = True
             m_brass.diffuse_color = (0.462077, 0.381326, 0.05448, 1)
             m_brass.metallic = 1
-            m_brass.roughness = 0.2
+            m_brass.roughness = 0.38
 
             nodes = m_brass.node_tree.nodes
 
@@ -34,22 +34,20 @@ class QMMBrass(bpy.types.Operator):
             material_output = nodes.get('Material Output')
             material_output.location = (0,0)
 
-            #principledbsdf
+            #princibledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
-            # BSDF.inputs[0].default_value = (0.462077, 0.381326, 0.0544803, 1)
             BSDF.inputs[0].default_value = (0.887, 0.789, 0.434, 1)
             BSDF.inputs[6].default_value = 1
-            BSDF.inputs[9].default_value = 0.2
-            BSDF.inputs[16].default_value = 2.43
-            # BSDF.inputs[16].default_value = 1.10
+            BSDF.inputs[9].default_value = 0.38
+            BSDF.inputs[16].default_value = 1.225
 
             #EnergyConservationGroup
             bpy.ops.node.ec_group_operator()
             ec_group = nodes.new("ShaderNodeGroup")
             ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
             ec_group.location = (-500, -200)
-            ec_group.inputs[0].default_value = 2.43
+            ec_group.inputs[0].default_value = 1.225
             ec_group.inputs[1].default_value = (0.887, 0.789, 0.434, 1)
             ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
 

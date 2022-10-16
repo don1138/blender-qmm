@@ -26,7 +26,7 @@ class QMMCopperFresnel(bpy.types.Operator):
             m_copper.use_nodes = True
             m_copper.diffuse_color = (0.47932, 0.171441, 0.0331048, 1)
             m_copper.metallic = 1
-            m_copper.roughness = 0.4
+            m_copper.roughness = 0.35
 
             nodes = m_copper.node_tree.nodes
 
@@ -34,7 +34,7 @@ class QMMCopperFresnel(bpy.types.Operator):
             material_output = nodes.get('Material Output')
             material_output.location = (0,0)
 
-            #principledbsdf
+            #princibledbsdf
             BSDF = nodes.get('Principled BSDF')
             nodes.remove(BSDF)
 
@@ -71,7 +71,7 @@ class QMMCopperFresnel(bpy.types.Operator):
             #value
             m_value = nodes.new('ShaderNodeValue')
             m_value.location = (-800,-200)
-            m_value.outputs[0].default_value = 0.4
+            m_value.outputs[0].default_value = 0.35
 
             links = m_copper.node_tree.links.new
 

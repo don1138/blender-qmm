@@ -34,13 +34,13 @@ class QMMLeadRough(bpy.types.Operator):
             material_output = nodes.get('Material Output')
             material_output.location = (0,0)
 
-            #principledbsdf
+            #princibledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
             BSDF.inputs[0].default_value = (0.186, 0.188, 0.196, 1)
             BSDF.inputs[6].default_value = 1
             BSDF.inputs[9].default_value = 0.565
-            # BSDF.inputs[16].default_value = 2.010
+            BSDF.inputs[16].default_value = 2.01
 
             #EnergyConservationGroup
             bpy.ops.node.ec_group_operator()

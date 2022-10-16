@@ -25,6 +25,7 @@ class QMMPlaster(bpy.types.Operator):
             m_plaster = bpy.data.materials.new(name = "QMM Plaster")
             m_plaster.use_nodes = True
             m_plaster.diffuse_color = (0.9, 0.7, 0.9, 1)
+            m_plaster.roughness = 0.86
 
             nodes = m_plaster.node_tree.nodes
 
@@ -32,11 +33,13 @@ class QMMPlaster(bpy.types.Operator):
             material_output = nodes.get('Material Output')
             material_output.location = (0,0)
 
-            #principledbsdf
+            #princibledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
             BSDF.inputs[1].default_value = 0.02
             BSDF.inputs[3].default_value = (0.708857, 0.392564, 0.708857, 1)
+            BSDF.inputs[9].default_value = 0.86
+
 
             #colorramp
             m_colorramp = nodes.new('ShaderNodeValToRGB')

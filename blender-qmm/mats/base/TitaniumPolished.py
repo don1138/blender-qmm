@@ -26,7 +26,7 @@ class QMMTitaniumPolished(bpy.types.Operator):
             m_titanium_p.use_nodes = True
             m_titanium_p.diffuse_color = (0.242281, 0.238398, 0.219526, 1)
             m_titanium_p.metallic = 1
-            m_titanium_p.roughness = 0.055
+            m_titanium_p.roughness = 0.35
 
             nodes = m_titanium_p.node_tree.nodes
 
@@ -34,14 +34,13 @@ class QMMTitaniumPolished(bpy.types.Operator):
             material_output = nodes.get('Material Output')
             material_output.location = (0,0)
 
-            #principledbsdf
+            #princibledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
-            # BSDF.inputs[0].default_value = (0.242281, 0.238398, 0.219526, 1)
             BSDF.inputs[0].default_value = (0.616, 0.582, 0.544, 1)
             BSDF.inputs[6].default_value = 1
-            BSDF.inputs[9].default_value = 0.055
-            # BSDF.inputs[16].default_value = 0.25
+            BSDF.inputs[9].default_value = 0.35
+            BSDF.inputs[16].default_value = 2.16
 
             #EnergyConservationGroup
             bpy.ops.node.ec_group_operator()
@@ -50,7 +49,7 @@ class QMMTitaniumPolished(bpy.types.Operator):
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 2.16
             ec_group.inputs[1].default_value = (0.616, 0.582, 0.544, 1)
-            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
+            ec_group.inputs[2].default_value = (0.896269, 0.904661, 0.930111, 1)
 
             links = m_titanium_p.node_tree.links.new
 

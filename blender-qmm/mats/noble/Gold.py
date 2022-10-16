@@ -26,7 +26,7 @@ class QMMGold(bpy.types.Operator):
             m_gold_m.use_nodes = True
             m_gold_m.diffuse_color = (0.658375, 0.428689, 0.038204, 1)
             m_gold_m.metallic = 1
-            m_gold_m.roughness = 0.175
+            m_gold_m.roughness = 0.14
 
             nodes = m_gold_m.node_tree.nodes
 
@@ -40,28 +40,31 @@ class QMMGold(bpy.types.Operator):
             # BSDF.inputs[0].default_value = (1, 0.564711, 0.155927, 1)
             BSDF.inputs[0].default_value = (0.944, 0.776, 0.373, 1)
             BSDF.inputs[6].default_value = 1
-            BSDF.inputs[9].default_value = 0.175
-            # BSDF.inputs[16].default_value = 0.47
+            BSDF.inputs[9].default_value = 0.14
+            BSDF.inputs[16].default_value = 1.35
 
             links = m_gold_m.node_tree.links.new
 
-            #SpecularGroup
-            bpy.ops.node.specular_group_operator()
-            nodes = m_gold_m.node_tree.nodes
-            specular_group = nodes.new("ShaderNodeGroup")
-            specular_group.node_tree = bpy.data.node_groups['Specular']
-            specular_group.location = (-500, -300)
-            specular_group.inputs[0].default_value = 0.47
-            links(specular_group.outputs[0], BSDF.inputs[7])
-            links(specular_group.outputs[1], BSDF.inputs[16])
+            #EnergyConservationGroup
+            bpy.ops.node.ec_group_operator()
+            ec_group = nodes.new("ShaderNodeGroup")
+            ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
+            ec_group.location = (-500, -200)
+            ec_group.inputs[0].default_value = 1.35
+            ec_group.inputs[1].default_value = (0.947307, 0.775822, 0.371238, 10)
+            ec_group.inputs[2].default_value = (1.000000, 0.768151, 0.337164, 1)
+            links(ec_group.outputs[0], BSDF.inputs[0])
+            links(ec_group.outputs[1], BSDF.inputs[7])
+            links(ec_group.outputs[3], BSDF.inputs[16])
 
             #GoldColorsGroup
             bpy.ops.node.gold_colors_group_operator()
             nodes = m_gold_m.node_tree.nodes
             gold_colors_group = nodes.new("ShaderNodeGroup")
             gold_colors_group.node_tree = bpy.data.node_groups['Gold Colors']
-            gold_colors_group.location = (-700, 0)
-            links(gold_colors_group.outputs[1], BSDF.inputs[0])
+            gold_colors_group.location = (-700, -300)
+            links(gold_colors_group.outputs[1], ec_group.inputs[1])
+            links(gold_colors_group.outputs[2], ec_group.inputs[2])
 
             #LOAD THE MATERIAL
             bpy.context.object.active_material = m_gold_m

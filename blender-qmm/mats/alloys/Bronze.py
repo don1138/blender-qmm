@@ -26,7 +26,7 @@ class QMMBronze(bpy.types.Operator):
             m_bronze.use_nodes = True
             m_bronze.diffuse_color = (0.434154, 0.266356, 0.0953075, 1)
             m_bronze.metallic = 1
-            m_bronze.roughness = 0.35
+            m_bronze.roughness = 0.38
 
             nodes = m_bronze.node_tree.nodes
 
@@ -34,20 +34,20 @@ class QMMBronze(bpy.types.Operator):
             material_output = nodes.get('Material Output')
             material_output.location = (0,0)
 
-            #principledbsdf
+            #princibledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
             BSDF.inputs[0].default_value = (0.434154, 0.266356, 0.0953075, 1)
             BSDF.inputs[6].default_value = 1
-            BSDF.inputs[9].default_value = 0.35
-            # BSDF.inputs[16].default_value = 1.180
+            BSDF.inputs[9].default_value = 0.38
+            BSDF.inputs[16].default_value = 1.517
 
             #EnergyConservationGroup
             bpy.ops.node.ec_group_operator()
             ec_group = nodes.new("ShaderNodeGroup")
             ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
             ec_group.location = (-500, -200)
-            ec_group.inputs[0].default_value = 1.18
+            ec_group.inputs[0].default_value = 1.517
             ec_group.inputs[1].default_value = (0.434154, 0.266356, 0.0953075, 1)
             ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
 

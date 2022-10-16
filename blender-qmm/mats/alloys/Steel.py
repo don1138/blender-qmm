@@ -34,13 +34,13 @@ class QMMSteel(bpy.types.Operator):
             material_output = nodes.get('Material Output')
             material_output.location = (0,0)
 
-            #principledbsdf
+            #princibledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
             BSDF.inputs[0].default_value = (0.42869, 0.527115, 0.590619, 1)
             BSDF.inputs[6].default_value = 1
             BSDF.inputs[9].default_value = 0.3
-            # BSDF.inputs[16].default_value = 2.5
+            BSDF.inputs[16].default_value = 2.5
 
             #EnergyConservationGroup
             bpy.ops.node.ec_group_operator()
@@ -49,7 +49,7 @@ class QMMSteel(bpy.types.Operator):
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 2.5
             ec_group.inputs[1].default_value = (0.42869, 0.527115, 0.590619, 1)
-            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
+            ec_group.inputs[2].default_value = (0.552011, 0.571124, 0.571125, 1)
 
             links = m_steel.node_tree.links.new
 

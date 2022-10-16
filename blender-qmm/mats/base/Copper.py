@@ -26,7 +26,7 @@ class QMMCopper(bpy.types.Operator):
             m_copper_m.use_nodes = True
             m_copper_m.diffuse_color = (0.701102, 0.254152, 0.135633, 1)
             m_copper_m.metallic = 1
-            m_copper_m.roughness = 0.4
+            m_copper_m.roughness = 0.35
 
             nodes = m_copper_m.node_tree.nodes
 
@@ -34,14 +34,13 @@ class QMMCopper(bpy.types.Operator):
             material_output = nodes.get('Material Output')
             material_output.location = (0,0)
 
-            #principledbsdf
+            #princibledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
-            # BSDF.inputs[0].default_value = (0.701102, 0.254152, 0.135633, 1)
             BSDF.inputs[0].default_value = (0.926, 0.721, 0.504, 1)
             BSDF.inputs[6].default_value = 1
-            BSDF.inputs[9].default_value = 0.4
-            # BSDF.inputs[16].default_value = 1.10
+            BSDF.inputs[9].default_value = 0.35
+            BSDF.inputs[16].default_value = 1.10
 
             #EnergyConservationGroup
             bpy.ops.node.ec_group_operator()
@@ -50,7 +49,7 @@ class QMMCopper(bpy.types.Operator):
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 1.10
             ec_group.inputs[1].default_value = (0.926, 0.721, 0.504, 1)
-            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
+            ec_group.inputs[2].default_value = (0.955973, 0.630757, 0.527115, 1)
 
             #CopperColorsGroup
             bpy.ops.node.copper_colors_group_operator()

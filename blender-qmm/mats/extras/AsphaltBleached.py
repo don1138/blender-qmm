@@ -45,12 +45,13 @@ class QMMAsphaltBleached(bpy.types.Operator):
             m_lessthan.operation = 'LESS_THAN'
             m_lessthan.location = (-400,-200)
 
-            #principledbsdf - stone
+            #princibledbsdf - stone
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-700,300)
-            BSDF.select = True
+            BSDF.inputs[9].default_value = 0.56
+            # BSDF.select = True
 
-            #principledbsdf - cracks
+            #princibledbsdf - cracks
             BSDF2 = nodes.new('ShaderNodeBsdfPrincipled')
             BSDF2.location = (-700,-400)
             BSDF2.inputs[0].default_value = (0.025, 0.01875, 0.01875, 1)
@@ -156,7 +157,7 @@ class QMMAsphaltBleached(bpy.types.Operator):
             ec_group = nodes.new("ShaderNodeGroup")
             ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
             ec_group.location = (-900, 100)
-            ec_group.inputs[0].default_value = 1.52
+            ec_group.inputs[0].default_value = 1.635
             ec_group.inputs[1].default_value = (0.2, 0.2, 0.2, 1)
             ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
 

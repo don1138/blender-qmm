@@ -26,7 +26,7 @@ class QMMTitanium(bpy.types.Operator):
             m_titanium.use_nodes = True
             m_titanium.diffuse_color = (0.533276, 0.491021, 0.439657, 1)
             m_titanium.metallic = 1
-            m_titanium.roughness = 0.55
+            m_titanium.roughness = 0.155
 
             nodes = m_titanium.node_tree.nodes
 
@@ -34,14 +34,13 @@ class QMMTitanium(bpy.types.Operator):
             material_output = nodes.get('Material Output')
             material_output.location = (0,0)
 
-            #principledbsdf
+            #princibledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
-            # BSDF.inputs[0].default_value = (0.533276, 0.491021, 0.439657, 1)
             BSDF.inputs[0].default_value = (0.616, 0.582, 0.544, 1)
             BSDF.inputs[6].default_value = 1
             BSDF.inputs[9].default_value = 0.55
-            # BSDF.inputs[16].default_value = 0.25
+            BSDF.inputs[16].default_value = 2.16
 
             #EnergyConservationGroup
             bpy.ops.node.ec_group_operator()
@@ -58,7 +57,7 @@ class QMMTitanium(bpy.types.Operator):
             texturizer_group.node_tree = bpy.data.node_groups['Texturizer']
             texturizer_group.location = (-700, -300)
             texturizer_group.inputs[0].default_value = (0.617206, 0.584078, 0.545725, 1)
-            texturizer_group.inputs[1].default_value = 0.55
+            texturizer_group.inputs[1].default_value = 0.155
 
             #TitaniumColorsGroup
             bpy.ops.node.titanium_colors_group_operator()
@@ -70,6 +69,7 @@ class QMMTitanium(bpy.types.Operator):
 
             links(titanium_colors_group.outputs[0], texturizer_group.inputs[0])
             links(texturizer_group.outputs[0], ec_group.inputs[1])
+            links(texturizer_group.outputs[1], ec_group.inputs[2])
             links(texturizer_group.outputs[2], BSDF.inputs[9])
             links(texturizer_group.outputs[5], BSDF.inputs[22])
             links(ec_group.outputs[0], BSDF.inputs[0])

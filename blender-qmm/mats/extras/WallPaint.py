@@ -25,6 +25,7 @@ class QMMWallPaint(bpy.types.Operator):
             m_wall_paint = bpy.data.materials.new(name = "QMM Wall Paint")
             m_wall_paint.use_nodes = True
             m_wall_paint.diffuse_color = (0.504859, 0.483713, 0.674328, 1)
+            m_wall_paint.roughness = 0.52
 
             nodes = m_wall_paint.node_tree.nodes
 
@@ -32,7 +33,7 @@ class QMMWallPaint(bpy.types.Operator):
             material_output = nodes.get('Material Output')
             material_output.location = (0,0)
 
-            #principledbsdf
+            #princibledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
             BSDF.inputs[0].default_value = (0.504859, 0.483713, 0.674328, 1)
@@ -48,8 +49,8 @@ class QMMWallPaint(bpy.types.Operator):
             m_maprange.location = (-700,-200)
             m_maprange.inputs[1].default_value = 0.4
             m_maprange.inputs[2].default_value = 0.9
-            m_maprange.inputs[3].default_value = 0.25
-            m_maprange.inputs[4].default_value = 1
+            m_maprange.inputs[3].default_value = 0.52
+            m_maprange.inputs[4].default_value = 0.7
 
             #colorramp2
             m_maprange2 = nodes.new('ShaderNodeMapRange')
@@ -89,7 +90,7 @@ class QMMWallPaint(bpy.types.Operator):
             ec_group = nodes.new("ShaderNodeGroup")
             ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
             ec_group.location = (-500, -200)
-            ec_group.inputs[0].default_value = 1.52
+            ec_group.inputs[0].default_value = 1.495
             ec_group.inputs[1].default_value = (0.504859, 0.483713, 0.674328, 1)
             ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
 
