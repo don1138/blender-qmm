@@ -1,3 +1,9 @@
+### 1.4.9 <!-- 10/16/22 -->
+- Tweaks to `Base Color`, `Roughness`, and `IOR`. This affects ALL materials except:
+  - **Cinnibar**
+  - **Glass Hack**
+  - **Rubber Cutting Mat**
+
 ### 1.4.8 <!-- 10/15/22 -->
 - Update `Base Color`
     - **Copper**
