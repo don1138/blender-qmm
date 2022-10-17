@@ -49,7 +49,7 @@ class QMMTitaniumPolished(bpy.types.Operator):
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 2.16
             ec_group.inputs[1].default_value = (0.616, 0.582, 0.544, 1)
-            ec_group.inputs[2].default_value = (0.896269, 0.904661, 0.930111, 1)
+            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
 
             links = m_titanium_p.node_tree.links.new
 

@@ -49,7 +49,7 @@ class QMMCopper(bpy.types.Operator):
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 1.10
             ec_group.inputs[1].default_value = (0.926, 0.721, 0.504, 1)
-            ec_group.inputs[2].default_value = (0.955973, 0.630757, 0.527115, 1)
+            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
 
             #CopperColorsGroup
             bpy.ops.node.copper_colors_group_operator()

@@ -52,7 +52,7 @@ class QMMGold(bpy.types.Operator):
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 1.35
             ec_group.inputs[1].default_value = (0.947307, 0.775822, 0.371238, 10)
-            ec_group.inputs[2].default_value = (1.000000, 0.768151, 0.337164, 1)
+            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
             links(ec_group.outputs[0], BSDF.inputs[0])
             links(ec_group.outputs[1], BSDF.inputs[7])
             links(ec_group.outputs[3], BSDF.inputs[16])
@@ -64,7 +64,6 @@ class QMMGold(bpy.types.Operator):
             gold_colors_group.node_tree = bpy.data.node_groups['Gold Colors']
             gold_colors_group.location = (-700, -300)
             links(gold_colors_group.outputs[1], ec_group.inputs[1])
-            links(gold_colors_group.outputs[2], ec_group.inputs[2])
 
             #LOAD THE MATERIAL
             bpy.context.object.active_material = m_gold_m

@@ -55,7 +55,7 @@ class QMMSilver(bpy.types.Operator):
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 1.082
             ec_group.inputs[1].default_value = (0.964686, 0.947307, 0.921582, 1)
-            ec_group.inputs[2].default_value = (0.973445, 0.955973, 0.913099, 1)
+            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
             links(ec_group.outputs[0], BSDF.inputs[0])
             links(ec_group.outputs[1], BSDF.inputs[7])
             links(ec_group.outputs[3], BSDF.inputs[16])
@@ -67,6 +67,5 @@ class QMMSilver(bpy.types.Operator):
             silver_colors_group.node_tree = bpy.data.node_groups['Silver Colors']
             silver_colors_group.location = (-700, -200)
             links(silver_colors_group.outputs[2], ec_group.inputs[1])
-            links(silver_colors_group.outputs[1], ec_group.inputs[2])
 
         return {'FINISHED'}

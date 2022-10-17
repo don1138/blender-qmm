@@ -49,7 +49,7 @@ class QMMSteel(bpy.types.Operator):
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 2.5
             ec_group.inputs[1].default_value = (0.42869, 0.527115, 0.590619, 1)
-            ec_group.inputs[2].default_value = (0.552011, 0.571124, 0.571125, 1)
+            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
 
             links = m_steel.node_tree.links.new
 

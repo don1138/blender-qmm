@@ -115,7 +115,7 @@ class BQMPanelBase(bpy.types.Panel):
         row = layout.row()
         row.operator("shader.qmm_titanium_p_operator", text=loc_str('titanium_polished'))
         row = layout.row()
-        row.operator("shader.qmm_titanium_operator", text=loc_str('titanium)textured'))
+        row.operator("shader.qmm_titanium_operator", text=loc_str('titanium_textured'))
 
         row = layout.row()
         row.operator("shader.qmm_zinc_operator", text=loc_str('zinc'))

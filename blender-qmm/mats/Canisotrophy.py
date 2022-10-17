@@ -12,9 +12,14 @@ class CanisotrophyGroup(bpy.types.Operator):
             #newnodegroup
             canisotrophy_group = bpy.data.node_groups.new('Canisotrophy', 'ShaderNodeTree')
 
-            #groupinput
+            #groupinputs
             group_in = canisotrophy_group.nodes.new('NodeGroupInput')
-            group_in.location = (-1600,200)
+            group_in_a = canisotrophy_group.nodes.new('NodeGroupInput')
+            group_in_b = canisotrophy_group.nodes.new('NodeGroupInput')
+            group_in.location = (-1600,-300)
+            group_in_a.location = (-800,100)
+            group_in_b.location = (-800,-300)
+
             canisotrophy_group.inputs.new('NodeSocketFloat', 'Noise Scale')
             # canisotrophy_group.inputs.new('NodeSocketFloat', 'Voronoi Scale')
             canisotrophy_group.inputs.new('NodeSocketFloat', 'XY Scale')
@@ -63,16 +68,16 @@ class CanisotrophyGroup(bpy.types.Operator):
 
             #mapping
             m_mapping = canisotrophy_group.nodes.new('ShaderNodeMapping')
-            m_mapping.location = (-800,200)
+            m_mapping.location = (-1000,200)
             m_mapping.width = 140
 
             #separatexyz
             m_separatexyz = canisotrophy_group.nodes.new('ShaderNodeSeparateXYZ')
-            m_separatexyz.location = (-1000,0)
+            m_separatexyz.location = (-600,-40)
 
             #geometry
-            m_geometry = canisotrophy_group.nodes.new('ShaderNodeNewGeometry')
-            m_geometry.location = (-1200,0)
+            # m_geometry = canisotrophy_group.nodes.new('ShaderNodeNewGeometry')
+            # m_geometry.location = (-1200,0)
 
             #texturecoordinates
             m_texcoords = canisotrophy_group.nodes.new('ShaderNodeTexCoord')
@@ -96,35 +101,35 @@ class CanisotrophyGroup(bpy.types.Operator):
 
             #mapping2
             m_mapping2 = canisotrophy_group.nodes.new('ShaderNodeMapping')
-            m_mapping2.location = (-800,-200)
+            m_mapping2.location = (-1000,-200)
             m_mapping2.width = 140
 
             #vectormath
             m_vectormath = canisotrophy_group.nodes.new('ShaderNodeVectorMath')
-            m_vectormath.location = (-1000,-200)
+            m_vectormath.location = (-1200,-200)
             m_vectormath.operation = 'DISTANCE'
 
             #combinexyz
             m_combinexyz = canisotrophy_group.nodes.new('ShaderNodeCombineXYZ')
-            m_combinexyz.location = (-1200,-300)
+            m_combinexyz.location = (-1400,-300)
             m_combinexyz.inputs[0].default_value = 0.5
             m_combinexyz.inputs[1].default_value = 0.5
             m_combinexyz.inputs[2].default_value = 24
 
             links = canisotrophy_group.links.new
 
-            links(group_in.outputs[0], m_noise.inputs[2])
-            links(group_in.outputs[0], m_noise2.inputs[2])
+            links(group_in_a.outputs[0], m_noise.inputs[2])
+            links(group_in_b.outputs[0], m_noise2.inputs[2])
             links(group_in.outputs[1], m_combinexyz.inputs[0])
             links(group_in.outputs[1], m_combinexyz.inputs[1])
             links(group_in.outputs[2], m_combinexyz.inputs[2])
-            links(group_in.outputs[3], m_maprange.inputs[3])
-            links(group_in.outputs[4], m_maprange.inputs[4])
-            links(group_in.outputs[5], m_maprange2.inputs[3])
-            links(group_in.outputs[6], m_maprange2.inputs[4])
+            links(group_in_a.outputs[3], m_maprange.inputs[3])
+            links(group_in_a.outputs[4], m_maprange.inputs[4])
+            links(group_in_b.outputs[5], m_maprange2.inputs[3])
+            links(group_in_b.outputs[6], m_maprange2.inputs[4])
             links(m_texcoords.outputs[3], m_mapping.inputs[0])
             links(m_texcoords.outputs[3], m_vectormath.inputs[0])
-            links(m_geometry.outputs[1], m_separatexyz.inputs[0])
+            links(m_texcoords.outputs[1], m_separatexyz.inputs[0])
             links(m_combinexyz.outputs[0], m_mapping.inputs[3])
             links(m_combinexyz.outputs[0], m_mapping2.inputs[3])
             links(m_separatexyz.outputs[2], m_mixrgb.inputs[0])

@@ -49,7 +49,7 @@ class QMMAluminium(bpy.types.Operator):
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 1.244
             ec_group.inputs[1].default_value = (0.912, 0.914, 0.920, 1)
-            ec_group.inputs[2].default_value = (0.913098, 0.921581, 0.921582, 1)
+            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
 
             links = m_aluminium.node_tree.links.new
 
