@@ -24,7 +24,7 @@ class QMMPlatinum(bpy.types.Operator):
             #CreateShader
             m_platinum = bpy.data.materials.new(name = "QMM Platinum")
             m_platinum.use_nodes = True
-            m_platinum.diffuse_color = (0.665387, 0.630757, 0.577580, 1)
+            m_platinum.diffuse_color = (0.679, 0.642, 0.588, 1)
             m_platinum.metallic = 1
             m_platinum.roughness = 0.11
 
@@ -37,7 +37,7 @@ class QMMPlatinum(bpy.types.Operator):
             #principledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
-            BSDF.inputs[0].default_value = (0.783537, 0.775822, 0.760525, 1)
+            BSDF.inputs[0].default_value = (0.679, 0.642, 0.588, 1)
             BSDF.inputs[6].default_value = 1
             BSDF.inputs[9].default_value = 0.11
             BSDF.inputs[16].default_value = 2.33
@@ -48,8 +48,8 @@ class QMMPlatinum(bpy.types.Operator):
             ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 2.33
-            ec_group.inputs[1].default_value = (0.783537, 0.775822, 0.760525, 1)
-            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
+            ec_group.inputs[1].default_value = (0.679, 0.642, 0.588, 1)
+            ec_group.inputs[2].default_value = (0.785, 0.789, 0.784, 1)
 
             links = m_platinum.node_tree.links.new
 

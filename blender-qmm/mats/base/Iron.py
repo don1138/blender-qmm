@@ -24,7 +24,7 @@ class QMMIron(bpy.types.Operator):
             #CreateShader
             m_iron = bpy.data.materials.new(name = "QMM Iron")
             m_iron.use_nodes = True
-            m_iron.diffuse_color = (0.3564, 0.337164, 0.296138, 1)
+            m_iron.diffuse_color = (0.531, 0.512, 0.496, 1)
             m_iron.metallic = 1
             m_iron.roughness = 0.3
 
@@ -49,7 +49,7 @@ class QMMIron(bpy.types.Operator):
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 2.95
             ec_group.inputs[1].default_value = (0.531, 0.512, 0.496, 1)
-            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
+            ec_group.inputs[2].default_value = (0.571, 0.540, 0.586, 1)
 
             links = m_iron.node_tree.links.new
 

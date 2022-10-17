@@ -24,7 +24,7 @@ class QMMSilver(bpy.types.Operator):
             #CreateShader
             m_silver_m = bpy.data.materials.new(name = "QMM Silver")
             m_silver_m.use_nodes = True
-            m_silver_m.diffuse_color = (0.401978, 0.396755, 0.417885, 1)
+            m_silver_m.diffuse_color = (0.962, 0.949, 0.922, 1)
             m_silver_m.metallic = 1
             m_silver_m.roughness = 0.115
 
@@ -55,7 +55,7 @@ class QMMSilver(bpy.types.Operator):
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 1.082
             ec_group.inputs[1].default_value = (0.964686, 0.947307, 0.921582, 1)
-            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
+            ec_group.inputs[2].default_value = (0.999, 0.998, 0.998, 1)
             links(ec_group.outputs[0], BSDF.inputs[0])
             links(ec_group.outputs[1], BSDF.inputs[7])
             links(ec_group.outputs[3], BSDF.inputs[16])

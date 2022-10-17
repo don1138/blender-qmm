@@ -110,6 +110,9 @@ class BQMPanelBase(bpy.types.Panel):
         row.operator("shader.qmm_lead_rough_operator", text=loc_str('lead_rough'))
 
         row = layout.row()
+        row.operator("shader.qmm_nickel_operator", text=loc_str('nickel'))
+
+        row = layout.row()
         row.operator("shader.qmm_tin_operator", text=loc_str('tin'))
 
         row = layout.row()
@@ -245,6 +248,7 @@ from .mats.base.FresnelCopper import *
 from .mats.base.Iron import *
 from .mats.base.Lead import *
 from .mats.base.LeadRough import *
+from .mats.base.Nickel import *
 from .mats.base.Titanium import *
 from .mats.base.Tin import *
 from .mats.base.TitaniumPolished import *
@@ -297,6 +301,7 @@ classes = [
     QMMLead,
     QMMLeadRough,
     QMMMercury,
+    QMMNickel,
     QMMPalladium,
     QMMPlatinum,
     QMMPlaster,

@@ -49,7 +49,7 @@ class QMMBronze(bpy.types.Operator):
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 1.517
             ec_group.inputs[1].default_value = (0.434154, 0.266356, 0.0953075, 1)
-            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
+            ec_group.inputs[2].default_value = (0.651405, 0.577580, 0.514918, 1)
 
             links = m_bronze.node_tree.links.new
 

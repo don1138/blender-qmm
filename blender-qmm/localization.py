@@ -62,6 +62,10 @@ langs = {
         'en': 'Lead Rough',
         'zh': '粗糙铅'
     },
+    'nickel': {
+        'en': 'Nickel',
+        'zh': '镍'
+    },
     'tin': {
         'en': 'Tin',
         'zh': '锡'

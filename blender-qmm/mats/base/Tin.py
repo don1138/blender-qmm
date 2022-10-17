@@ -49,7 +49,7 @@ class QMMTin(bpy.types.Operator):
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 2.16
             ec_group.inputs[1].default_value = (0.8, 0.8, 0.8, 1)
-            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
+            ec_group.inputs[2].default_value = (0.99, 0.99, 0.99, 1)
 
             #CanisotrophyGroup
             bpy.ops.node.canisotrophy_group_operator()

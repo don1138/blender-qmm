@@ -24,7 +24,7 @@ class QMMMercury(bpy.types.Operator):
             #CreateShader
             m_mercury = bpy.data.materials.new(name = "QMM Mercury")
             m_mercury.use_nodes = True
-            m_mercury.diffuse_color = (0.174647, 0.198069, 0.219526, 1)
+            m_mercury.diffuse_color = (0.781, 0.779, 0.779, 1)
             m_mercury.metallic = 1
             m_mercury.roughness = 0.0
 
@@ -50,7 +50,7 @@ class QMMMercury(bpy.types.Operator):
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 1.62
             ec_group.inputs[1].default_value = (0.781, 0.779, 0.779, 1)
-            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
+            ec_group.inputs[2].default_value = (0.879, 0.910, 0.941, 1)
 
             links = m_mercury.node_tree.links.new
 

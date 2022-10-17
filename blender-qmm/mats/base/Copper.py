@@ -24,7 +24,7 @@ class QMMCopper(bpy.types.Operator):
             #CreateShader
             m_copper_m = bpy.data.materials.new(name = "QMM Copper")
             m_copper_m.use_nodes = True
-            m_copper_m.diffuse_color = (0.701102, 0.254152, 0.135633, 1)
+            m_copper_m.diffuse_color = (0.926, 0.721, 0.504, 1)
             m_copper_m.metallic = 1
             m_copper_m.roughness = 0.35
 
@@ -49,7 +49,7 @@ class QMMCopper(bpy.types.Operator):
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 1.10
             ec_group.inputs[1].default_value = (0.926, 0.721, 0.504, 1)
-            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
+            ec_group.inputs[2].default_value = (0.996, 0.957, 0.823, 1)
 
             #CopperColorsGroup
             bpy.ops.node.copper_colors_group_operator()

@@ -24,7 +24,7 @@ class QMMAluminium(bpy.types.Operator):
             #CreateShader
             m_aluminium = bpy.data.materials.new(name = "QMM Aluminium")
             m_aluminium.use_nodes = True
-            m_aluminium.diffuse_color = (0.23074, 0.242281, 0.250158, 1)
+            m_aluminium.diffuse_color = (0.912, 0.914, 0.920, 1)
             m_aluminium.metallic = 1
             m_aluminium.roughness = 0.4
 
@@ -49,7 +49,7 @@ class QMMAluminium(bpy.types.Operator):
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 1.244
             ec_group.inputs[1].default_value = (0.912, 0.914, 0.920, 1)
-            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
+            ec_group.inputs[2].default_value = (0.970, 0.979, 0.988, 1)
 
             links = m_aluminium.node_tree.links.new
 

@@ -37,7 +37,7 @@ class QMMZinc(bpy.types.Operator):
             #principledbsdf
             BSDF = nodes.get('Principled BSDF')
             BSDF.location = (-300,0)
-            BSDF.inputs[0].default_value = (0.491020, 0.552011, 0.577580, 1)
+            BSDF.inputs[0].default_value = (0.737911, 0.723055, 0.701102, 1)
             BSDF.inputs[6].default_value = 1
             BSDF.inputs[9].default_value = 0.3
             BSDF.inputs[16].default_value = 1.918
@@ -48,8 +48,8 @@ class QMMZinc(bpy.types.Operator):
             ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 1.918
-            ec_group.inputs[1].default_value = (0.491020, 0.552011, 0.577580, 1)
-            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
+            ec_group.inputs[1].default_value = (0.737911, 0.723055, 0.701102, 1)
+            ec_group.inputs[2].default_value = (0.913098, 0.930110, 0.947306, 1)
 
             links = m_zinc.node_tree.links.new
 

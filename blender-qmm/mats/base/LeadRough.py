@@ -49,7 +49,7 @@ class QMMLeadRough(bpy.types.Operator):
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 2.01
             ec_group.inputs[1].default_value = (0.186, 0.188, 0.196, 1)
-            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
+            ec_group.inputs[2].default_value = (0.99, 0.99, 0.99, 1)
 
             links = m_lead_rough.node_tree.links.new
 

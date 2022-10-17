@@ -39,6 +39,7 @@ class TitaniumColorsGroup(bpy.types.Operator):
             titanium_colors_group.outputs.new('NodeSocketColor', 'Titanium Frost')
             titanium_colors_group.outputs.new('NodeSocketColor', 'Dark Titanium')
             titanium_colors_group.outputs.new('NodeSocketColor', 'Metallic Titanium')
+            titanium_colors_group.outputs.new('NodeSocketColor', 'PBM Titanium')
             titanium_colors_group.outputs.new('NodeSocketColor', 'Titanium Blue')
 
             #Titanium
@@ -77,10 +78,16 @@ class TitaniumColorsGroup(bpy.types.Operator):
             tc_mt.location = (-200, -400)
             tc_mt.outputs[0].default_value = hex_to_rgb(0x7A7772)
 
+            #PBM Titanium
+            tc_pbm = titanium_colors_group.nodes.new('ShaderNodeRGB')
+            tc_pbm.label = "PBM Titanium"
+            tc_pbm.location = (-200, -600)
+            tc_pbm.outputs[0].default_value = hex_to_rgb(0x9D948B)
+
             #Titanium Blue
             tc_tb = titanium_colors_group.nodes.new('ShaderNodeRGB')
             tc_tb.label = "Titanium Blue"
-            tc_tb.location = (-200, -600)
+            tc_tb.location = (-200, -800)
             tc_tb.outputs[0].default_value = hex_to_rgb(0x5B798E)
 
             links = titanium_colors_group.links.new
@@ -91,7 +98,8 @@ class TitaniumColorsGroup(bpy.types.Operator):
             links(tc_tf.outputs[0], group_out.inputs[3])
             links(tc_dt.outputs[0], group_out.inputs[4])
             links(tc_mt.outputs[0], group_out.inputs[5])
-            links(tc_tb.outputs[0], group_out.inputs[6])
+            links(tc_pbm.outputs[0], group_out.inputs[6])
+            links(tc_tb.outputs[0], group_out.inputs[7])
 
         return {'FINISHED'}
 
