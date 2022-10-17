@@ -1,4 +1,6 @@
 ### 1.4.9 <!-- 10/16/22 -->
+- UI localized/internationalized
+  - Add `zh` (Simplified Chinese)
 - Tweaks to `Base Color`, `Roughness`, and `IOR`. This affects ALL materials except:
   - **Cinnibar**
   - **Glass Hack**

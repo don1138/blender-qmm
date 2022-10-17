@@ -36,12 +36,13 @@ import bpy
 
 # Updater ops import, all setup in this file.
 from . import addon_updater_ops
+from .localization import *
 
 
 # PARENT PANEL
 class BQMPanel(bpy.types.Panel):
     bl_idname = "BQM_PT_Panel"
-    bl_label = "Quick Metal Materials"
+    bl_label = loc_str('quick_metal_materials')
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "MAT"
@@ -53,7 +54,7 @@ class BQMPanel(bpy.types.Panel):
 # NOBLE METALS PANEL
 class BQMPanelNoble(bpy.types.Panel):
     bl_idname = "BQM_PT_Panel_Noble"
-    bl_label = "Noble Metals"
+    bl_label = loc_str('noble_metals')
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "MAT"
@@ -64,25 +65,25 @@ class BQMPanelNoble(bpy.types.Panel):
         layout = self.layout
 
         row = layout.row()
-        row.operator("shader.qmm_gold_m_operator", text="Gold")
+        row.operator("shader.qmm_gold_m_operator", text=loc_str('gold'))
         row = layout.row()
-        row.operator("shader.qmm_gold_operator", text="Gold (Fresnel)")
+        row.operator("shader.qmm_gold_operator", text=loc_str('gold_fresnel'))
 
         row = layout.row()
-        row.operator("shader.qmm_palladium_operator", text="Palladium")
+        row.operator("shader.qmm_palladium_operator", text=loc_str('palladium'))
         row = layout.row()
-        row.operator("shader.qmm_platinum_operator", text="Platinum")
+        row.operator("shader.qmm_platinum_operator", text=loc_str('platinum'))
 
         row = layout.row()
-        row.operator("shader.qmm_silver_m_operator", text="Silver")
+        row.operator("shader.qmm_silver_m_operator", text=loc_str('silver'))
         row = layout.row()
-        row.operator("shader.qmm_silver_operator", text="Silver (Fresnel)")
+        row.operator("shader.qmm_silver_operator", text=loc_str('silver_fresnel'))
 
 
 # BASE METALS PANEL
 class BQMPanelBase(bpy.types.Panel):
     bl_idname = "BQM_PT_Panel_Base"
-    bl_label = "Base Metals"
+    bl_label = loc_str('base_metals')
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "MAT"
@@ -93,37 +94,37 @@ class BQMPanelBase(bpy.types.Panel):
         layout = self.layout
 
         row = layout.row()
-        row.operator("shader.qmm_aluminium_operator", text="Aluminium")
+        row.operator("shader.qmm_aluminium_operator", text=loc_str('aluminium'))
 
         row = layout.row()
-        row.operator("shader.qmm_copper_m_operator", text="Copper")
+        row.operator("shader.qmm_copper_m_operator", text=loc_str('copper'))
         row = layout.row()
-        row.operator("shader.qmm_copper_operator", text="Copper (Fresnel)")
+        row.operator("shader.qmm_copper_operator", text=loc_str('copper_fresnel'))
 
         row = layout.row()
-        row.operator("shader.qmm_iron_operator", text="Iron")
+        row.operator("shader.qmm_iron_operator", text=loc_str('iron'))
 
         row = layout.row()
-        row.operator("shader.qmm_lead_operator", text="Lead")
+        row.operator("shader.qmm_lead_operator", text=loc_str('lead'))
         row = layout.row()
-        row.operator("shader.qmm_lead_rough_operator", text="Lead Rough")
+        row.operator("shader.qmm_lead_rough_operator", text=loc_str('lead_rough'))
 
         row = layout.row()
-        row.operator("shader.qmm_tin_operator", text="Tin")
+        row.operator("shader.qmm_tin_operator", text=loc_str('tin'))
 
         row = layout.row()
-        row.operator("shader.qmm_titanium_p_operator", text="Titanium Polished")
+        row.operator("shader.qmm_titanium_p_operator", text=loc_str('titanium_polished'))
         row = layout.row()
-        row.operator("shader.qmm_titanium_operator", text="Titanium Textured")
+        row.operator("shader.qmm_titanium_operator", text=loc_str('titanium)textured'))
 
         row = layout.row()
-        row.operator("shader.qmm_zinc_operator", text="Zinc")
+        row.operator("shader.qmm_zinc_operator", text=loc_str('zinc'))
 
 
 # ALLOY METALS PANEL
 class BQMPanelAlloy(bpy.types.Panel):
     bl_idname = "BQM_PT_Panel_Alloy"
-    bl_label = "Alloys"
+    bl_label = loc_str('alloys')
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "MAT"
@@ -134,22 +135,22 @@ class BQMPanelAlloy(bpy.types.Panel):
         layout = self.layout
 
         row = layout.row()
-        row.operator("shader.qmm_brass_operator", text="Brass")
+        row.operator("shader.qmm_brass_operator", text=loc_str('brass'))
 
         row = layout.row()
-        row.operator("shader.qmm_bronze_operator", text="Bronze")
+        row.operator("shader.qmm_bronze_operator", text=loc_str('bronze'))
 
         row = layout.row()
-        row.operator("shader.qmm_chrome_operator", text="Chrome")
+        row.operator("shader.qmm_chrome_operator", text=loc_str('chrome'))
 
         row = layout.row()
-        row.operator("shader.qmm_steel_operator", text="Steel")
+        row.operator("shader.qmm_steel_operator", text=loc_str('steel'))
 
 
 # EXTRAS PANEL
 class BQMPanelExtras(bpy.types.Panel):
     bl_idname = "BQM_PT_Panel_Extras"
-    bl_label = "Extras"
+    bl_label = loc_str('extras')
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "MAT"
@@ -160,28 +161,28 @@ class BQMPanelExtras(bpy.types.Panel):
         layout = self.layout
 
         row = layout.row()
-        row.operator("shader.qmm_asphalt_operator", text="Asphalt")
+        row.operator("shader.qmm_asphalt_operator", text=loc_str('asphalt'))
 
         row = layout.row()
-        row.operator("shader.qmm_asphalt_b_operator", text="Asphalt Bleached")
+        row.operator("shader.qmm_asphalt_b_operator", text=loc_str('asphalt_bleached'))
 
         row = layout.row()
-        row.operator("shader.qmm_cinnabar_operator", text="Cinnabar")
+        row.operator("shader.qmm_cinnabar_operator", text=loc_str('cinnabar'))
 
         row = layout.row()
-        row.operator("shader.qmm_glass_operator", text="Glass Hack")
+        row.operator("shader.qmm_glass_operator", text=loc_str('glass_hack'))
 
         row = layout.row()
-        row.operator("shader.qmm_mercury_operator", text="Mercury")
+        row.operator("shader.qmm_mercury_operator", text=loc_str('mercury'))
 
         row = layout.row()
-        row.operator("shader.qmm_cutting_mat_operator", text="Rubber Cutting Mat")
+        row.operator("shader.qmm_cutting_mat_operator", text=loc_str('rubber_cutting_mat'))
 
         row = layout.row()
-        row.operator("shader.qmm_plaster_operator", text="Tinted Plaster")
+        row.operator("shader.qmm_plaster_operator", text=loc_str('tinted_plaster'))
 
         row = layout.row()
-        row.operator("shader.qmm_wall_paint_operator", text="Wall Paint")
+        row.operator("shader.qmm_wall_paint_operator", text=loc_str('wall_paint'))
 
 
 @addon_updater_ops.make_annotations
