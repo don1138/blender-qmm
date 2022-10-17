@@ -1,6 +1,8 @@
 ### 1.4.9 <!-- 10/16/22 -->
 - UI localized/internationalized
   - Add `zh` (Simplified Chinese)
+- Add new material
+  - **Nickel**
 - Edit **Canistrophy** Group
   - Fix effect to object orientation
   - Add `XYZ` and `XY Only` output options

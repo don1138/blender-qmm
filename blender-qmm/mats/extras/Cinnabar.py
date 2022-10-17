@@ -40,7 +40,7 @@ class QMMCinnabar(bpy.types.Operator):
             BSDF.inputs[0].default_value = (0.768151, 0.054480, 0.034340, 1)
             BSDF.inputs[6].default_value = 1
             BSDF.inputs[9].default_value = 0.4
-            BSDF.inputs[16].default_value = 3.02
+            BSDF.inputs[16].default_value = 3.08
 
             #colorramp
             m_colorramp = nodes.new('ShaderNodeValToRGB')
@@ -67,7 +67,7 @@ class QMMCinnabar(bpy.types.Operator):
             ec_group = nodes.new("ShaderNodeGroup")
             ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
             ec_group.location = (-500, -200)
-            ec_group.inputs[0].default_value = 3.02
+            ec_group.inputs[0].default_value = 3.08
             ec_group.inputs[1].default_value = (0.768151, 0.054480, 0.034340, 1)
             ec_group.inputs[2].default_value = (0.868151, 0.314870, 0.299256, 1)
 
