@@ -77,7 +77,7 @@ class QMMTin(bpy.types.Operator):
             links(ec_group.outputs[0], BSDF.inputs[0])
             links(ec_group.outputs[1], BSDF.inputs[7])
             links(ec_group.outputs[3], BSDF.inputs[16])
-            links(canisotrophy_group.outputs[0], m_bump.inputs[2])
+            links(canisotrophy_group.outputs[1], m_bump.inputs[2])
 
             #LOAD THE MATERIAL
             bpy.context.object.active_material = m_tin

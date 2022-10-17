@@ -21,13 +21,20 @@ class CanisotrophyGroup(bpy.types.Operator):
             group_in_b.location = (-800,-300)
 
             canisotrophy_group.inputs.new('NodeSocketFloat', 'Noise Scale')
-            # canisotrophy_group.inputs.new('NodeSocketFloat', 'Voronoi Scale')
             canisotrophy_group.inputs.new('NodeSocketFloat', 'XY Scale')
             canisotrophy_group.inputs.new('NodeSocketFloat', 'Z Scale')
             canisotrophy_group.inputs.new('NodeSocketFloat', 'XY Min Value')
             canisotrophy_group.inputs.new('NodeSocketFloat', 'XY Max Value')
             canisotrophy_group.inputs.new('NodeSocketFloat', 'Z Min Value')
             canisotrophy_group.inputs.new('NodeSocketFloat', 'Z Max Value')
+
+            canisotrophy_group.inputs[0].default_value = 16
+            canisotrophy_group.inputs[1].default_value = 0.5
+            canisotrophy_group.inputs[2].default_value = 24
+            canisotrophy_group.inputs[3].default_value = 0.1
+            canisotrophy_group.inputs[4].default_value = 0.3
+            canisotrophy_group.inputs[5].default_value = 0.1
+            canisotrophy_group.inputs[6].default_value = 0.3
 
             canisotrophy_group.inputs[0].min_value = 0
             canisotrophy_group.inputs[1].max_value = 0
@@ -44,7 +51,10 @@ class CanisotrophyGroup(bpy.types.Operator):
             #groupoutput
             group_out = canisotrophy_group.nodes.new('NodeGroupOutput')
             group_out.location = (0,0)
-            canisotrophy_group.outputs.new('NodeSocketFloat', 'To Roughness')
+            canisotrophy_group.outputs.new('NodeSocketFloat', '- To Roughness & Bump -')
+            canisotrophy_group.outputs[0].hide_value = True
+            canisotrophy_group.outputs.new('NodeSocketFloat', 'XYZ')
+            canisotrophy_group.outputs.new('NodeSocketFloat', 'XY Only')
 
             # mixrbg
             m_mixrgb = canisotrophy_group.nodes.new('ShaderNodeMixRGB')
@@ -75,10 +85,6 @@ class CanisotrophyGroup(bpy.types.Operator):
             m_separatexyz = canisotrophy_group.nodes.new('ShaderNodeSeparateXYZ')
             m_separatexyz.location = (-600,-40)
 
-            #geometry
-            # m_geometry = canisotrophy_group.nodes.new('ShaderNodeNewGeometry')
-            # m_geometry.location = (-1200,0)
-
             #texturecoordinates
             m_texcoords = canisotrophy_group.nodes.new('ShaderNodeTexCoord')
             m_texcoords.location = (-1400,0)
@@ -93,11 +99,6 @@ class CanisotrophyGroup(bpy.types.Operator):
             m_noise2 = canisotrophy_group.nodes.new('ShaderNodeTexNoise')
             m_noise2.location = (-600,-200)
             m_noise2.inputs[3].default_value = 16
-
-            #voronoi2
-            # m_voronoi2 = canisotrophy_group.nodes.new('ShaderNodeTexVoronoi')
-            # m_voronoi2.location = (-600,-200)
-            # m_voronoi2.inputs[2].default_value = 20
 
             #mapping2
             m_mapping2 = canisotrophy_group.nodes.new('ShaderNodeMapping')
@@ -140,6 +141,7 @@ class CanisotrophyGroup(bpy.types.Operator):
             links(m_noise2.outputs[0], m_maprange2.inputs[0])
             links(m_maprange.outputs[0], m_mixrgb.inputs[1])
             links(m_maprange2.outputs[0], m_mixrgb.inputs[2])
-            links(m_mixrgb.outputs[0], group_out.inputs[0])
+            links(m_mixrgb.outputs[0], group_out.inputs[1])
+            links(m_maprange.outputs[0], group_out.inputs[2])
 
         return {'FINISHED'}

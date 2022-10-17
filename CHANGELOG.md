@@ -1,9 +1,10 @@
 ### 1.4.9 <!-- 10/16/22 -->
 - UI localized/internationalized
   - Add `zh` (Simplified Chinese)
-- Fix **Canistrophy** to object orientation
-- Tweaks to `Base Color`, `Roughness`, and `IOR`. This affects ALL materials except:
-  - **Cinnibar**
+- Edit **Canistrophy** Group
+  - Fix effect to object orientation
+  - Add `XYZ` and `XY Only` output options
+- Tweaks to ALL materials except:
   - **Glass Hack**
   - **Rubber Cutting Mat**
 
