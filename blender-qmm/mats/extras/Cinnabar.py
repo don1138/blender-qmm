@@ -69,7 +69,7 @@ class QMMCinnabar(bpy.types.Operator):
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 3.02
             ec_group.inputs[1].default_value = (0.768151, 0.054480, 0.034340, 1)
-            ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
+            ec_group.inputs[2].default_value = (0.868151, 0.314870, 0.299256, 1)
 
             #TexturizerGroup
             bpy.ops.node.texturizer_group_operator()
