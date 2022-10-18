@@ -116,10 +116,6 @@ langs = {
         'en': 'Asphalt Bleached',
         'zh': '白沥青'
     },
-    'cinnabar': {
-        'en': 'Cinnabar',
-        'zh': '朱砂'
-    },
     'glass_hack': {
         'en': 'Glass Hack',
         'zh': '玻璃投影'
@@ -127,6 +123,10 @@ langs = {
     'mercury': {
         'en': 'Mercury',
         'zh': '水银'
+    },
+    'red_metal': {
+        'en': 'Red Metal',
+        'zh': '红金属'
     },
     'rubber_cutting_mat': {
         'en': 'Rubber Cutting Mat',
