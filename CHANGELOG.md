@@ -1,6 +1,25 @@
-### 1.4.9 <!-- 10/16/22 -->
+### 1.5.0 <!-- 10/17/22 -->
 - UI localized/internationalized
-  - Add `zh` (Simplified Chinese)
+  - Portuguese (Brazilian)
+  - Chinese
+  - Danish
+  - Dutch
+  - Finnish
+  - French
+  - German
+  - Hungarian
+  - Indonesian
+  - Italian
+  - Japanese
+  - Polish
+  - Portuguese
+  - Russian
+  - Slovak
+  - Spanish
+  - Swedish
+  - Ukrainian
+
+### 1.4.9 <!-- 10/16/22 -->
 - Add new material
   - **Nickel**
 - Edit **Canistrophy** Group
