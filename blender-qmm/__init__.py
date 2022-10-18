@@ -18,16 +18,16 @@
 
 
 bl_info = {
-    "name"       : "QMM (Quick Metal Materials)",
-    "description": "A Collection of Metal Materials",
-    "author"     : "Don Schnitzius",
-    "version"    : (1, 4, 9),
-    "blender"    : (3, 0, 0),
-    "location"   : "3D Viewport > Sidebar > MAT > Quick Metal Materials",
-    "warning"    : "",
-    "wiki_url"   : "https://github.com/don1138/blender-qmm",
-    "support"    : "COMMUNITY",
-    "category"   : "Material"
+  "name"       : "QMM (Quick Metal Materials)",
+  "description": "A Collection of Metal Materials",
+  "author"     : "Don Schnitzius",
+  "version"    : (1, 4, 9),
+  "blender"    : (3, 0, 0),
+  "location"   : "3D Viewport > Sidebar > MAT > Quick Metal Materials",
+  "warning"    : "",
+  "wiki_url"   : "https://github.com/don1138/blender-qmm",
+  "support"    : "COMMUNITY",
+  "category"   : "Material"
 }
 
 
@@ -41,201 +41,201 @@ from .localization import *
 
 # PARENT PANEL
 class BQMPanel(bpy.types.Panel):
-    bl_idname = "BQM_PT_Panel"
-    bl_label = loc_str('quick_metal_materials')
-    bl_space_type = "VIEW_3D"
-    bl_region_type = "UI"
-    bl_category = "MAT"
+  bl_idname = "BQM_PT_Panel"
+  bl_label = 'Quick Metal Materials'
+  bl_space_type = "VIEW_3D"
+  bl_region_type = "UI"
+  bl_category = "MAT"
 
-    def draw(self, context):
-        layout = self.layout
+  def draw(self, context):
+    layout = self.layout
 
 
 # NOBLE METALS PANEL
 class BQMPanelNoble(bpy.types.Panel):
-    bl_idname = "BQM_PT_Panel_Noble"
-    bl_label = loc_str('noble_metals')
-    bl_space_type = "VIEW_3D"
-    bl_region_type = "UI"
-    bl_category = "MAT"
-    bl_parent_id = 'BQM_PT_Panel'
-    bl_options = {'DEFAULT_CLOSED'}
+  bl_idname = "BQM_PT_Panel_Noble"
+  bl_label = 'Noble Metals'
+  bl_space_type = "VIEW_3D"
+  bl_region_type = "UI"
+  bl_category = "MAT"
+  bl_parent_id = 'BQM_PT_Panel'
+  bl_options = {'DEFAULT_CLOSED'}
 
-    def draw(self, context):
-        layout = self.layout
+  def draw(self, context):
+    layout = self.layout
 
-        row = layout.row()
-        row.operator("shader.qmm_gold_m_operator", text=loc_str('gold'))
-        row = layout.row()
-        row.operator("shader.qmm_gold_operator", text=loc_str('gold_fresnel'))
+    row = layout.row()
+    row.operator("shader.qmm_gold_m_operator", text='Gold')
+    row = layout.row()
+    row.operator("shader.qmm_gold_operator", text='Gold Fresnel')
 
-        row = layout.row()
-        row.operator("shader.qmm_palladium_operator", text=loc_str('palladium'))
-        row = layout.row()
-        row.operator("shader.qmm_platinum_operator", text=loc_str('platinum'))
+    row = layout.row()
+    row.operator("shader.qmm_palladium_operator", text='Palladium')
+    row = layout.row()
+    row.operator("shader.qmm_platinum_operator", text='Platinum')
 
-        row = layout.row()
-        row.operator("shader.qmm_silver_m_operator", text=loc_str('silver'))
-        row = layout.row()
-        row.operator("shader.qmm_silver_operator", text=loc_str('silver_fresnel'))
+    row = layout.row()
+    row.operator("shader.qmm_silver_m_operator", text='Silver')
+    row = layout.row()
+    row.operator("shader.qmm_silver_operator", text='Silver Fresnel')
 
 
 # BASE METALS PANEL
 class BQMPanelBase(bpy.types.Panel):
-    bl_idname = "BQM_PT_Panel_Base"
-    bl_label = loc_str('base_metals')
-    bl_space_type = "VIEW_3D"
-    bl_region_type = "UI"
-    bl_category = "MAT"
-    bl_parent_id = 'BQM_PT_Panel'
-    bl_options = {'DEFAULT_CLOSED'}
+  bl_idname = "BQM_PT_Panel_Base"
+  bl_label = 'Base Metals'
+  bl_space_type = "VIEW_3D"
+  bl_region_type = "UI"
+  bl_category = "MAT"
+  bl_parent_id = 'BQM_PT_Panel'
+  bl_options = {'DEFAULT_CLOSED'}
 
-    def draw(self, context):
-        layout = self.layout
+  def draw(self, context):
+    layout = self.layout
 
-        row = layout.row()
-        row.operator("shader.qmm_aluminium_operator", text=loc_str('aluminium'))
+    row = layout.row()
+    row.operator("shader.qmm_aluminium_operator", text='Aluminium')
 
-        row = layout.row()
-        row.operator("shader.qmm_copper_m_operator", text=loc_str('copper'))
-        row = layout.row()
-        row.operator("shader.qmm_copper_operator", text=loc_str('copper_fresnel'))
+    row = layout.row()
+    row.operator("shader.qmm_copper_m_operator", text='Copper')
+    row = layout.row()
+    row.operator("shader.qmm_copper_operator", text='Copper Fresnel')
 
-        row = layout.row()
-        row.operator("shader.qmm_iron_operator", text=loc_str('iron'))
+    row = layout.row()
+    row.operator("shader.qmm_iron_operator", text='Iron')
 
-        row = layout.row()
-        row.operator("shader.qmm_lead_operator", text=loc_str('lead'))
-        row = layout.row()
-        row.operator("shader.qmm_lead_rough_operator", text=loc_str('lead_rough'))
+    row = layout.row()
+    row.operator("shader.qmm_lead_operator", text='Lead')
+    row = layout.row()
+    row.operator("shader.qmm_lead_rough_operator", text='Lead Rough')
 
-        row = layout.row()
-        row.operator("shader.qmm_nickel_operator", text=loc_str('nickel'))
+    row = layout.row()
+    row.operator("shader.qmm_nickel_operator", text='Nickel')
 
-        row = layout.row()
-        row.operator("shader.qmm_tin_operator", text=loc_str('tin'))
+    row = layout.row()
+    row.operator("shader.qmm_tin_operator", text='Tin')
 
-        row = layout.row()
-        row.operator("shader.qmm_titanium_p_operator", text=loc_str('titanium_polished'))
-        row = layout.row()
-        row.operator("shader.qmm_titanium_operator", text=loc_str('titanium_textured'))
+    row = layout.row()
+    row.operator("shader.qmm_titanium_p_operator", text='Titanium Polished')
+    row = layout.row()
+    row.operator("shader.qmm_titanium_operator", text='Titanium Textured')
 
-        row = layout.row()
-        row.operator("shader.qmm_zinc_operator", text=loc_str('zinc'))
+    row = layout.row()
+    row.operator("shader.qmm_zinc_operator", text='Zinc')
 
 
 # ALLOY METALS PANEL
 class BQMPanelAlloy(bpy.types.Panel):
-    bl_idname = "BQM_PT_Panel_Alloy"
-    bl_label = loc_str('alloys')
-    bl_space_type = "VIEW_3D"
-    bl_region_type = "UI"
-    bl_category = "MAT"
-    bl_parent_id = 'BQM_PT_Panel'
-    bl_options = {'DEFAULT_CLOSED'}
+  bl_idname = "BQM_PT_Panel_Alloy"
+  bl_label = 'Alloys'
+  bl_space_type = "VIEW_3D"
+  bl_region_type = "UI"
+  bl_category = "MAT"
+  bl_parent_id = 'BQM_PT_Panel'
+  bl_options = {'DEFAULT_CLOSED'}
 
-    def draw(self, context):
-        layout = self.layout
+  def draw(self, context):
+    layout = self.layout
 
-        row = layout.row()
-        row.operator("shader.qmm_brass_operator", text=loc_str('brass'))
+    row = layout.row()
+    row.operator("shader.qmm_brass_operator", text='Brass')
 
-        row = layout.row()
-        row.operator("shader.qmm_bronze_operator", text=loc_str('bronze'))
+    row = layout.row()
+    row.operator("shader.qmm_bronze_operator", text='Bronze')
 
-        row = layout.row()
-        row.operator("shader.qmm_chrome_operator", text=loc_str('chrome'))
+    row = layout.row()
+    row.operator("shader.qmm_chrome_operator", text='Chrome')
 
-        row = layout.row()
-        row.operator("shader.qmm_steel_operator", text=loc_str('steel'))
+    row = layout.row()
+    row.operator("shader.qmm_steel_operator", text='Steel')
 
 
 # EXTRAS PANEL
 class BQMPanelExtras(bpy.types.Panel):
-    bl_idname = "BQM_PT_Panel_Extras"
-    bl_label = loc_str('extras')
-    bl_space_type = "VIEW_3D"
-    bl_region_type = "UI"
-    bl_category = "MAT"
-    bl_parent_id = 'BQM_PT_Panel'
-    bl_options = {'DEFAULT_CLOSED'}
+  bl_idname = "BQM_PT_Panel_Extras"
+  bl_label = 'Extras'
+  bl_space_type = "VIEW_3D"
+  bl_region_type = "UI"
+  bl_category = "MAT"
+  bl_parent_id = 'BQM_PT_Panel'
+  bl_options = {'DEFAULT_CLOSED'}
 
-    def draw(self, context):
-        layout = self.layout
+  def draw(self, context):
+    layout = self.layout
 
-        row = layout.row()
-        row.operator("shader.qmm_asphalt_operator", text=loc_str('asphalt'))
+    row = layout.row()
+    row.operator("shader.qmm_asphalt_operator", text='Asphalt')
 
-        row = layout.row()
-        row.operator("shader.qmm_asphalt_b_operator", text=loc_str('asphalt_bleached'))
+    row = layout.row()
+    row.operator("shader.qmm_asphalt_b_operator", text='Asphalt Bleached')
 
-        row = layout.row()
-        row.operator("shader.qmm_glass_operator", text=loc_str('glass_hack'))
+    row = layout.row()
+    row.operator("shader.qmm_glass_operator", text='Glass Hack')
 
-        row = layout.row()
-        row.operator("shader.qmm_mercury_operator", text=loc_str('mercury'))
+    row = layout.row()
+    row.operator("shader.qmm_mercury_operator", text='Mercury')
 
-        row = layout.row()
-        row.operator("shader.qmm_red_metal_operator", text=loc_str('red_metal'))
+    row = layout.row()
+    row.operator("shader.qmm_red_metal_operator", text='Red Metal')
 
-        row = layout.row()
-        row.operator("shader.qmm_cutting_mat_operator", text=loc_str('rubber_cutting_mat'))
+    row = layout.row()
+    row.operator("shader.qmm_cutting_mat_operator", text='Rubber Cutting Mat')
 
-        row = layout.row()
-        row.operator("shader.qmm_plaster_operator", text=loc_str('tinted_plaster'))
+    row = layout.row()
+    row.operator("shader.qmm_plaster_operator", text='Tinted Plaster')
 
-        row = layout.row()
-        row.operator("shader.qmm_wall_paint_operator", text=loc_str('wall_paint'))
+    row = layout.row()
+    row.operator("shader.qmm_wall_paint_operator", text='Wall Paint')
 
 
 @addon_updater_ops.make_annotations
 class AutoUpdaterPreferences(bpy.types.AddonPreferences):
-	"""Blender QMM updater preferences"""
-	bl_idname = __package__
+  """Blender QMM updater preferences"""
+  bl_idname = __package__
 
-	# Addon updater preferences.
+  # Addon updater preferences.
 
-	auto_check_update = bpy.props.BoolProperty(
-		name="Auto-check for Update",
-		description="If enabled, auto-check for updates using an interval",
-		default=False)
+  auto_check_update = bpy.props.BoolProperty(
+    name="Auto-check for Update",
+    description="If enabled, auto-check for updates using an interval",
+    default=False)
 
-	updater_interval_months = bpy.props.IntProperty(
-		name='Months',
-		description="Number of months between checking for updates",
-		default=0,
-		min=0)
+  updater_interval_months = bpy.props.IntProperty(
+    name='Months',
+    description="Number of months between checking for updates",
+    default=0,
+    min=0)
 
-	updater_interval_days = bpy.props.IntProperty(
-		name='Days',
-		description="Number of days between checking for updates",
-		default=7,
-		min=0,
-		max=31)
+  updater_interval_days = bpy.props.IntProperty(
+    name='Days',
+    description="Number of days between checking for updates",
+    default=7,
+    min=0,
+    max=31)
 
-	updater_interval_hours = bpy.props.IntProperty(
-		name='Hours',
-		description="Number of hours between checking for updates",
-		default=0,
-		min=0,
-		max=23)
+  updater_interval_hours = bpy.props.IntProperty(
+    name='Hours',
+    description="Number of hours between checking for updates",
+    default=0,
+    min=0,
+    max=23)
 
-	updater_interval_minutes = bpy.props.IntProperty(
-		name='Minutes',
-		description="Number of minutes between checking for updates",
-		default=0,
-		min=0,
-		max=59)
+  updater_interval_minutes = bpy.props.IntProperty(
+    name='Minutes',
+    description="Number of minutes between checking for updates",
+    default=0,
+    min=0,
+    max=59)
 
-	def draw(self, context):
-		layout = self.layout
+  def draw(self, context):
+    layout = self.layout
 
-		# Works best if a column, or even just self.layout.
-		mainrow = layout.row()
-		col = mainrow.column()
+    # Works best if a column, or even just self.layout.
+    mainrow = layout.row()
+    col = mainrow.column()
 
-		# Updater draw function, could also pass in col as third arg.
-		addon_updater_ops.update_settings_ui(self, context)
+    # Updater draw function, could also pass in col as third arg.
+    addon_updater_ops.update_settings_ui(self, context)
 
 
 from .mats.alloys.Brass import *
@@ -278,70 +278,74 @@ from .mats.TitaniumColors import *
 
 
 classes = [
-    BQMPanel,
-    BQMPanelNoble,
-    BQMPanelBase,
-    BQMPanelAlloy,
-    BQMPanelExtras,
-    AutoUpdaterPreferences,
-    QMMAluminium,
-    QMMAsphalt,
-    QMMAsphaltBleached,
-    QMMBrass,
-    QMMBronze,
-    QMMChrome,
-    QMMCopper,
-    QMMCopperFresnel,
-    QMMCuttingMat,
-    QMMGlass,
-    QMMGold,
-    QMMGoldFresnel,
-    QMMIron,
-    QMMLead,
-    QMMLeadRough,
-    QMMMercury,
-    QMMNickel,
-    QMMPalladium,
-    QMMPlatinum,
-    QMMPlaster,
-    QMMRedMetal,
-    QMMSilverFresnel,
-    QMMSilver,
-    QMMSteel,
-    QMMTin,
-    QMMTitanium,
-    QMMTitaniumPolished,
-    QMMZinc,
-    QMMWallPaint,
-    CanisotrophyGroup,
-    EnergyConservationGroup,
-    SpecularGroup,
-    TexturizerGroup,
-    CopperColorsGroup,
-    GoldColorsGroup,
-    SilverColorsGroup,
-    TitaniumColorsGroup,
+  BQMPanel,
+  BQMPanelNoble,
+  BQMPanelBase,
+  BQMPanelAlloy,
+  BQMPanelExtras,
+  AutoUpdaterPreferences,
+  QMMAluminium,
+  QMMAsphalt,
+  QMMAsphaltBleached,
+  QMMBrass,
+  QMMBronze,
+  QMMChrome,
+  QMMCopper,
+  QMMCopperFresnel,
+  QMMCuttingMat,
+  QMMGlass,
+  QMMGold,
+  QMMGoldFresnel,
+  QMMIron,
+  QMMLead,
+  QMMLeadRough,
+  QMMMercury,
+  QMMNickel,
+  QMMPalladium,
+  QMMPlatinum,
+  QMMPlaster,
+  QMMRedMetal,
+  QMMSilverFresnel,
+  QMMSilver,
+  QMMSteel,
+  QMMTin,
+  QMMTitanium,
+  QMMTitaniumPolished,
+  QMMZinc,
+  QMMWallPaint,
+  CanisotrophyGroup,
+  EnergyConservationGroup,
+  SpecularGroup,
+  TexturizerGroup,
+  CopperColorsGroup,
+  GoldColorsGroup,
+  SilverColorsGroup,
+  TitaniumColorsGroup,
 ]
 
 
 def register():
-	# Addon updater code and configurations.
-	# In case of a broken version, try to register the updater first so that
-	# users can revert back to a working version.
-	addon_updater_ops.register(bl_info)
+  # Addon updater code and configurations.
+  # In case of a broken version, try to register the updater first so that
+  # users can revert back to a working version.
+  addon_updater_ops.register(bl_info)
+  bpy.app.translations.register(__name__, langs)
 
-	# Register the example panel, to show updater buttons.
-	for cls in classes:
-		addon_updater_ops.make_annotations(cls)  # Avoid blender 2.8 warnings.
-		bpy.utils.register_class(cls)
+
+  # Register the example panel, to show updater buttons.
+  for cls in classes:
+    addon_updater_ops.make_annotations(cls)  # Avoid blender 2.8 warnings.
+    bpy.utils.register_class(cls)
 
 
 def unregister():
-	# Addon updater unregister.
-	addon_updater_ops.unregister()
-	for cls in reversed(classes):
-		bpy.utils.unregister_class(cls)
+  # Addon updater unregister.
+  addon_updater_ops.unregister()
+  for cls in reversed(classes):
+    bpy.utils.unregister_class(cls)
 
+  # Unregister translation
+  bpy.app.translations.unregister(__name__)
 
 if __name__ == "__main__":
-    register()
+  register()
