@@ -1,23 +1,29 @@
 ### 1.5.0 <!-- 10/17/22 -->
 - UI localized/internationalized
-  - Portuguese (Brazilian)
-  - Chinese
-  - Danish
-  - Dutch
-  - Finnish
-  - French
-  - German
-  - Hungarian
-  - Indonesian
-  - Italian
-  - Japanese
-  - Polish
-  - Portuguese
-  - Russian
-  - Slovak
-  - Spanish
-  - Swedish
-  - Ukrainian
+  - **Chinese**
+  - **Danish**
+  - **Dutch**
+  - **Finnish**
+  - **French**
+  - **German**
+  - **Hungarian**
+  - **Indonesian**
+  - **Italian**
+  - **Japanese**
+  - **Polish**
+  - **Portuguese**
+  - **Portuguese (Brazilian)**
+  - **Russian**
+  - **Slovak**
+  - **Spanish**
+  - **Swedish**
+  - **Ukrainian**
+- Add new colors to **Color Group** nodes
+  - **Gold Colors**
+    - **Chaos Harvest**
+  - **Titanium Colors**
+    - **Chaos Titanium**
+
 
 ### 1.4.9 <!-- 10/16/22 -->
 - Add new material

@@ -34,8 +34,8 @@ class TitaniumColorsGroup(bpy.types.Operator):
             group_out = titanium_colors_group.nodes.new('NodeGroupOutput')
             group_out.location = (0, 0)
             titanium_colors_group.outputs.new('NodeSocketColor', 'Titanium')
-            titanium_colors_group.outputs.new('NodeSocketColor', 'Titanium White')
             titanium_colors_group.outputs.new('NodeSocketColor', 'Chaos Titanium')
+            titanium_colors_group.outputs.new('NodeSocketColor', 'Titanium White')
             titanium_colors_group.outputs.new('NodeSocketColor', 'Titanium Pale')
             titanium_colors_group.outputs.new('NodeSocketColor', 'Titanium Frost')
             titanium_colors_group.outputs.new('NodeSocketColor', 'PBM Titanium')
@@ -49,17 +49,17 @@ class TitaniumColorsGroup(bpy.types.Operator):
             tc_t.location = (-800, 800)
             tc_t.outputs[0].default_value = hex_to_rgb(0xC1BAB1)
 
-            #Titanium White
-            tc_tw = titanium_colors_group.nodes.new('ShaderNodeRGB')
-            tc_tw.label = "Titanium White"
-            tc_tw.location = (-800, 600)
-            tc_tw.outputs[0].default_value = hex_to_rgb(0xF3F4F7)
-
             #Chaos Titanium
             tc_ct = titanium_colors_group.nodes.new('ShaderNodeRGB')
             tc_ct.label = "Chaos Titanium"
-            tc_ct.location = (-800, 400)
+            tc_ct.location = (-800, 600)
             tc_ct.outputs[0].default_value = hex_to_rgb(0xfcf9ea)
+
+            #Titanium White
+            tc_tw = titanium_colors_group.nodes.new('ShaderNodeRGB')
+            tc_tw.label = "Titanium White"
+            tc_tw.location = (-800, 400)
+            tc_tw.outputs[0].default_value = hex_to_rgb(0xF3F4F7)
 
             #Pale Titanium
             tc_pt = titanium_colors_group.nodes.new('ShaderNodeRGB')
@@ -104,9 +104,9 @@ class TitaniumColorsGroup(bpy.types.Operator):
             links(tc_ct.outputs[0], group_out.inputs[2])
             links(tc_pt.outputs[0], group_out.inputs[3])
             links(tc_tf.outputs[0], group_out.inputs[4])
-            links(tc_dt.outputs[0], group_out.inputs[5])
-            links(tc_mt.outputs[0], group_out.inputs[6])
-            links(tc_pbm.outputs[0], group_out.inputs[7])
+            links(tc_pbm.outputs[0], group_out.inputs[5])
+            links(tc_dt.outputs[0], group_out.inputs[6])
+            links(tc_mt.outputs[0], group_out.inputs[7])
             links(tc_tb.outputs[0], group_out.inputs[8])
 
         return {'FINISHED'}
