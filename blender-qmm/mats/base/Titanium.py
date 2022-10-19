@@ -26,7 +26,7 @@ class QMMTitanium(bpy.types.Operator):
             m_titanium.use_nodes = True
             m_titanium.diffuse_color = (0.616, 0.582, 0.544, 1)
             m_titanium.metallic = 1
-            m_titanium.roughness = 0.155
+            m_titanium.roughness = 0.55
 
             nodes = m_titanium.node_tree.nodes
 
@@ -57,7 +57,7 @@ class QMMTitanium(bpy.types.Operator):
             texturizer_group.node_tree = bpy.data.node_groups['Texturizer']
             texturizer_group.location = (-700, -300)
             texturizer_group.inputs[0].default_value = (0.533276, 0.491020, 0.439657, 1)
-            texturizer_group.inputs[1].default_value = 0.155
+            texturizer_group.inputs[1].default_value = 0.55
 
             #TitaniumColorsGroup
             bpy.ops.node.titanium_colors_group_operator()
