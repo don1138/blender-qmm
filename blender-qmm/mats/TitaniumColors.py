@@ -34,6 +34,7 @@ class TitaniumColorsGroup(bpy.types.Operator):
             group_out = titanium_colors_group.nodes.new('NodeGroupOutput')
             group_out.location = (0, 0)
             titanium_colors_group.outputs.new('NodeSocketColor', 'Titanium')
+            titanium_colors_group.outputs[0].default_value = (0.533276, 0.491021, 0.439657, 1)
             titanium_colors_group.outputs.new('NodeSocketColor', 'Chaos Titanium')
             titanium_colors_group.outputs.new('NodeSocketColor', 'Titanium White')
             titanium_colors_group.outputs.new('NodeSocketColor', 'Titanium Pale')
@@ -76,19 +77,19 @@ class TitaniumColorsGroup(bpy.types.Operator):
             #PBM Titanium
             tc_pbm = titanium_colors_group.nodes.new('ShaderNodeRGB')
             tc_pbm.label = "PBM Titanium"
-            tc_pbm.location = (-800, -600)
+            tc_pbm.location = (-800, -200)
             tc_pbm.outputs[0].default_value = hex_to_rgb(0x9D948B)
 
             #Dark Titanium
             tc_dt = titanium_colors_group.nodes.new('ShaderNodeRGB')
             tc_dt.label = "Titanium Dark"
-            tc_dt.location = (-800, -200)
+            tc_dt.location = (-800, -400)
             tc_dt.outputs[0].default_value = hex_to_rgb(0x878681)
 
             #Metallic Titanium
             tc_mt = titanium_colors_group.nodes.new('ShaderNodeRGB')
             tc_mt.label = "Titanium Metallic"
-            tc_mt.location = (-800, -400)
+            tc_mt.location = (-800, -600)
             tc_mt.outputs[0].default_value = hex_to_rgb(0x7A7772)
 
             #Titanium Blue
@@ -100,8 +101,8 @@ class TitaniumColorsGroup(bpy.types.Operator):
             links = titanium_colors_group.links.new
 
             links(tc_t.outputs[0], group_out.inputs[0])
-            links(tc_tw.outputs[0], group_out.inputs[1])
-            links(tc_ct.outputs[0], group_out.inputs[2])
+            links(tc_ct.outputs[0], group_out.inputs[1])
+            links(tc_tw.outputs[0], group_out.inputs[2])
             links(tc_pt.outputs[0], group_out.inputs[3])
             links(tc_tf.outputs[0], group_out.inputs[4])
             links(tc_pbm.outputs[0], group_out.inputs[5])
