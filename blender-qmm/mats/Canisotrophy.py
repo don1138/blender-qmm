@@ -20,6 +20,7 @@ class CanisotrophyGroup(bpy.types.Operator):
             group_in_a.location = (-800,100)
             group_in_b.location = (-800,-300)
 
+            canisotrophy_group.inputs.new('NodeSocketFloat', 'Master Scale')
             canisotrophy_group.inputs.new('NodeSocketFloat', 'Noise Scale')
             canisotrophy_group.inputs.new('NodeSocketFloat', 'XY Scale')
             canisotrophy_group.inputs.new('NodeSocketFloat', 'Z Scale')
@@ -28,25 +29,28 @@ class CanisotrophyGroup(bpy.types.Operator):
             canisotrophy_group.inputs.new('NodeSocketFloat', 'Z Min Value')
             canisotrophy_group.inputs.new('NodeSocketFloat', 'Z Max Value')
 
-            canisotrophy_group.inputs[0].default_value = 16
-            canisotrophy_group.inputs[1].default_value = 0.5
-            canisotrophy_group.inputs[2].default_value = 24
-            canisotrophy_group.inputs[3].default_value = 0.1
-            canisotrophy_group.inputs[4].default_value = 0.3
-            canisotrophy_group.inputs[5].default_value = 0.1
-            canisotrophy_group.inputs[6].default_value = 0.3
+            canisotrophy_group.inputs[0].default_value = 1
+            canisotrophy_group.inputs[1].default_value = 16
+            canisotrophy_group.inputs[2].default_value = 0.5
+            canisotrophy_group.inputs[3].default_value = 24
+            canisotrophy_group.inputs[4].default_value = 0.1
+            canisotrophy_group.inputs[5].default_value = 0.3
+            canisotrophy_group.inputs[6].default_value = 0.1
+            canisotrophy_group.inputs[7].default_value = 0.3
 
             canisotrophy_group.inputs[0].min_value = 0
-            canisotrophy_group.inputs[1].max_value = 0
-            canisotrophy_group.inputs[2].min_value = 0
+            canisotrophy_group.inputs[0].max_value = 10
+            canisotrophy_group.inputs[1].min_value = 0
+            canisotrophy_group.inputs[2].max_value = 0
             canisotrophy_group.inputs[3].min_value = 0
-            canisotrophy_group.inputs[3].max_value = 1
             canisotrophy_group.inputs[4].min_value = 0
             canisotrophy_group.inputs[4].max_value = 1
             canisotrophy_group.inputs[5].min_value = 0
             canisotrophy_group.inputs[5].max_value = 1
             canisotrophy_group.inputs[6].min_value = 0
             canisotrophy_group.inputs[6].max_value = 1
+            canisotrophy_group.inputs[7].min_value = 0
+            canisotrophy_group.inputs[7].max_value = 1
 
             #groupoutput
             group_out = canisotrophy_group.nodes.new('NodeGroupOutput')
@@ -87,7 +91,7 @@ class CanisotrophyGroup(bpy.types.Operator):
 
             #texturecoordinates
             m_texcoords = canisotrophy_group.nodes.new('ShaderNodeTexCoord')
-            m_texcoords.location = (-1400,0)
+            m_texcoords.location = (-1600,0)
 
             #maprange2
             m_maprange2 = canisotrophy_group.nodes.new('ShaderNodeMapRange')
@@ -110,6 +114,11 @@ class CanisotrophyGroup(bpy.types.Operator):
             m_vectormath.location = (-1200,-200)
             m_vectormath.operation = 'DISTANCE'
 
+            #vectormath2
+            m_vectormath2 = canisotrophy_group.nodes.new('ShaderNodeVectorMath')
+            m_vectormath2.location = (-1400,-100)
+            m_vectormath2.operation = 'SCALE'
+
             #combinexyz
             m_combinexyz = canisotrophy_group.nodes.new('ShaderNodeCombineXYZ')
             m_combinexyz.location = (-1400,-300)
@@ -119,17 +128,19 @@ class CanisotrophyGroup(bpy.types.Operator):
 
             links = canisotrophy_group.links.new
 
-            links(group_in_a.outputs[0], m_noise.inputs[2])
-            links(group_in_b.outputs[0], m_noise2.inputs[2])
-            links(group_in.outputs[1], m_combinexyz.inputs[0])
-            links(group_in.outputs[1], m_combinexyz.inputs[1])
-            links(group_in.outputs[2], m_combinexyz.inputs[2])
-            links(group_in_a.outputs[3], m_maprange.inputs[3])
-            links(group_in_a.outputs[4], m_maprange.inputs[4])
-            links(group_in_b.outputs[5], m_maprange2.inputs[3])
-            links(group_in_b.outputs[6], m_maprange2.inputs[4])
-            links(m_texcoords.outputs[3], m_mapping.inputs[0])
-            links(m_texcoords.outputs[3], m_vectormath.inputs[0])
+            links(group_in.outputs[0], m_vectormath2.inputs[3])
+            links(group_in_a.outputs[1], m_noise.inputs[2])
+            links(group_in_b.outputs[1], m_noise2.inputs[2])
+            links(group_in.outputs[2], m_combinexyz.inputs[0])
+            links(group_in.outputs[2], m_combinexyz.inputs[1])
+            links(group_in.outputs[3], m_combinexyz.inputs[2])
+            links(group_in_a.outputs[4], m_maprange.inputs[3])
+            links(group_in_a.outputs[5], m_maprange.inputs[4])
+            links(group_in_b.outputs[6], m_maprange2.inputs[3])
+            links(group_in_b.outputs[7], m_maprange2.inputs[4])
+            links(m_vectormath2.outputs[0], m_mapping.inputs[0])
+            links(m_vectormath2.outputs[0], m_vectormath.inputs[0])
+            links(m_texcoords.outputs[3], m_vectormath2.inputs[0])
             links(m_texcoords.outputs[1], m_separatexyz.inputs[0])
             links(m_combinexyz.outputs[0], m_mapping.inputs[3])
             links(m_combinexyz.outputs[0], m_mapping2.inputs[3])

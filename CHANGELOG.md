@@ -23,11 +23,13 @@
     - **Chaos Harvest**
   - **Titanium Colors**
     - **Chaos Titanium**
-
+- Edit **Canistrophy** Group
+  - Add **Master Scale** input
 
 ### 1.4.9 <!-- 10/16/22 -->
 - Add new material
   - **Nickel**
+- Rename **Cinnabar** to **Red Metal** since Cinnabar isn't a metal.
 - Edit **Canistrophy** Group
   - Fix effect to object orientation
   - Add `XYZ` and `XY Only` output options
