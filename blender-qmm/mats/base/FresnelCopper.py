@@ -88,6 +88,7 @@ class QMMCopperFresnel(bpy.types.Operator):
             bpy.ops.node.copper_colors_group_operator()
             nodes = m_copper.node_tree.nodes
             copper_colors_group = nodes.new("ShaderNodeGroup")
+            copper_colors_group.name = "Copper Colors"
             copper_colors_group.node_tree = bpy.data.node_groups['Copper Colors']
             copper_colors_group.location = (-1000, 0)
             links(copper_colors_group.outputs[0], m_diffuse.inputs[0])

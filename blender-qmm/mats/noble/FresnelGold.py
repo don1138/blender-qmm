@@ -90,6 +90,7 @@ class QMMGoldFresnel(bpy.types.Operator):
             bpy.ops.node.gold_colors_group_operator()
             nodes = m_gold.node_tree.nodes
             gold_colors_group = nodes.new("ShaderNodeGroup")
+            gold_colors_group.name = "Gold Colors"
             gold_colors_group.node_tree = bpy.data.node_groups['Gold Colors']
             gold_colors_group.location = (-1000, 0)
             links(gold_colors_group.outputs[0], m_diffuse.inputs[0])

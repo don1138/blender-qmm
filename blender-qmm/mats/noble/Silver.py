@@ -51,6 +51,7 @@ class QMMSilver(bpy.types.Operator):
             #EnergyConservationGroup
             bpy.ops.node.ec_group_operator()
             ec_group = nodes.new("ShaderNodeGroup")
+            ec_group.name = "Energy Conservation"
             ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 1.082
@@ -64,6 +65,7 @@ class QMMSilver(bpy.types.Operator):
             bpy.ops.node.silver_colors_group_operator()
             nodes = m_silver_m.node_tree.nodes
             silver_colors_group = nodes.new("ShaderNodeGroup")
+            silver_colors_group.name = "Silver Colors"
             silver_colors_group.node_tree = bpy.data.node_groups['Silver Colors']
             silver_colors_group.location = (-700, -200)
             links(silver_colors_group.outputs[2], ec_group.inputs[1])

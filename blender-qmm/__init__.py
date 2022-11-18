@@ -21,7 +21,7 @@ bl_info = {
   "name"        : "QMM (Quick Metal Materials)",
   "description" : "A Collection of Metal Materials",
   "author"      : "Don Schnitzius",
-  "version"     : (1, 5, 0),
+  "version"     : (1, 5, 1),
   "blender"     : (3, 0, 0),
   "location"    : "3D Viewport > Sidebar > MAT > Quick Metal Materials",
   "warning"     : "",
@@ -171,7 +171,7 @@ class BQMPanelExtras(bpy.types.Panel):
     row.operator("shader.qmm_asphalt_b_operator", text='Asphalt Bleached')
 
     row = layout.row()
-    row.operator("shader.qmm_glass_operator", text='Glass Hack')
+    row.operator("shader.qmm_glass_operator", text='Glass')
 
     row = layout.row()
     row.operator("shader.qmm_mercury_operator", text='Mercury')
@@ -257,7 +257,7 @@ from .mats.base.Zinc import *
 from .mats.extras.Asphalt import *
 from .mats.extras.AsphaltBleached import *
 from .mats.extras.CuttingMat import *
-from .mats.extras.GlassHack import *
+from .mats.extras.Glass import *
 from .mats.extras.Mercury import *
 from .mats.extras.Plaster import *
 from .mats.extras.RedMetal import *

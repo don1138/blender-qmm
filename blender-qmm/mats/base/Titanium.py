@@ -45,6 +45,7 @@ class QMMTitanium(bpy.types.Operator):
             #EnergyConservationGroup
             bpy.ops.node.ec_group_operator()
             ec_group = nodes.new("ShaderNodeGroup")
+            ec_group.name = "Energy Conservation"
             ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 2.16
@@ -54,6 +55,7 @@ class QMMTitanium(bpy.types.Operator):
             #TexturizerGroup
             bpy.ops.node.texturizer_group_operator()
             texturizer_group = nodes.new("ShaderNodeGroup")
+            texturizer_group.name = "Texturizer"
             texturizer_group.node_tree = bpy.data.node_groups['Texturizer']
             texturizer_group.location = (-700, -300)
             texturizer_group.inputs[0].default_value = (0.533276, 0.491020, 0.439657, 1)
@@ -62,6 +64,7 @@ class QMMTitanium(bpy.types.Operator):
             #TitaniumColorsGroup
             bpy.ops.node.titanium_colors_group_operator()
             titanium_colors_group = nodes.new("ShaderNodeGroup")
+            titanium_colors_group.name = "Titanium Colors"
             titanium_colors_group.node_tree = bpy.data.node_groups['Titanium Colors']
             titanium_colors_group.location = (-900, -400)
 

@@ -1,3 +1,14 @@
+### 1.5.1 <!-- 11/14/22 -->
+- Rename **QMM Glass Hack** to **QMM Glass** and revise node structure
+- Add names to node groups
+  - **Copper Colors**
+  - **Gold Colors**
+  - **Silver Colors**
+  - **Titanium Colors**
+  - **Canistrophy**
+  - **Energy Conservation**
+  - **Texturizer**
+
 ### 1.5.0 <!-- 10/17/22 -->
 - UI localized/internationalized
   - **Chinese**
@@ -29,7 +40,7 @@
 ### 1.4.9 <!-- 10/16/22 -->
 - Add new material
   - **Nickel**
-- Rename **Cinnabar** to **Red Metal** since Cinnabar isn't a metal.
+- Rename **Cinnabar** to **Red Metal** since Cinnabar isn't a metal
 - Edit **Canistrophy** Group
   - Fix effect to object orientation
   - Add `XYZ` and `XY Only` output options

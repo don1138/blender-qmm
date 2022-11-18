@@ -45,6 +45,7 @@ class QMMCopper(bpy.types.Operator):
             #EnergyConservationGroup
             bpy.ops.node.ec_group_operator()
             ec_group = nodes.new("ShaderNodeGroup")
+            ec_group.name = "Energy Conservation"
             ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 1.10
@@ -55,6 +56,7 @@ class QMMCopper(bpy.types.Operator):
             bpy.ops.node.copper_colors_group_operator()
             nodes = m_copper_m.node_tree.nodes
             copper_colors_group = nodes.new("ShaderNodeGroup")
+            copper_colors_group.name = "Copper Colors"
             copper_colors_group.node_tree = bpy.data.node_groups['Copper Colors']
             copper_colors_group.location = (-700, -300)
 

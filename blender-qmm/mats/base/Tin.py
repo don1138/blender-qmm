@@ -45,6 +45,7 @@ class QMMTin(bpy.types.Operator):
             #EnergyConservationGroup
             bpy.ops.node.ec_group_operator()
             ec_group = nodes.new("ShaderNodeGroup")
+            ec_group.name = "Energy Conservation"
             ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 2.16
@@ -54,6 +55,7 @@ class QMMTin(bpy.types.Operator):
             #CanisotrophyGroup
             bpy.ops.node.canisotrophy_group_operator()
             canisotrophy_group = nodes.new("ShaderNodeGroup")
+            canisotrophy_group.name = "Canisotrophy"
             canisotrophy_group.node_tree = bpy.data.node_groups['Canisotrophy']
             canisotrophy_group.location = (-800, -500)
             canisotrophy_group.width = 240

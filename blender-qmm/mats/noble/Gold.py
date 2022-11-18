@@ -47,6 +47,7 @@ class QMMGold(bpy.types.Operator):
             #EnergyConservationGroup
             bpy.ops.node.ec_group_operator()
             ec_group = nodes.new("ShaderNodeGroup")
+            ec_group.name = "Energy Conservation"
             ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 1.35
@@ -60,6 +61,7 @@ class QMMGold(bpy.types.Operator):
             bpy.ops.node.gold_colors_group_operator()
             nodes = m_gold_m.node_tree.nodes
             gold_colors_group = nodes.new("ShaderNodeGroup")
+            gold_colors_group.name = "Gold Colors"
             gold_colors_group.node_tree = bpy.data.node_groups['Gold Colors']
             gold_colors_group.location = (-700, -300)
             links(gold_colors_group.outputs[1], ec_group.inputs[1])
