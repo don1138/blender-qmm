@@ -14,8 +14,7 @@ class QMMZinc(bpy.types.Operator):
     bl_idname = 'shader.qmm_zinc_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        m_zinc = bpy.data.materials.get("QMM Zinc")
-        if m_zinc:
+        if m_zinc := bpy.data.materials.get("QMM Zinc"):
             ShowMessageBox(message_text, "QMM Zinc")
             # print(f"QMM Zinc already exists")
             bpy.context.object.active_material = m_zinc

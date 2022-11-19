@@ -14,8 +14,7 @@ class QMMGoldFresnel(bpy.types.Operator):
     bl_idname = 'shader.qmm_gold_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        m_gold = bpy.data.materials.get("QMM Gold Fresnel")
-        if m_gold:
+        if m_gold := bpy.data.materials.get("QMM Gold Fresnel"):
             ShowMessageBox(message_text, "QMM Gold Fresnel")
             # print(f"QMM Gold Fresnel already exists")
             bpy.context.object.active_material = m_gold

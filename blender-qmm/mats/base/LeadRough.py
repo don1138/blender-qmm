@@ -14,8 +14,7 @@ class QMMLeadRough(bpy.types.Operator):
     bl_idname = 'shader.qmm_lead_rough_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        m_lead_rough = bpy.data.materials.get("QMM Lead Rough")
-        if m_lead_rough:
+        if m_lead_rough := bpy.data.materials.get("QMM Lead Rough"):
             ShowMessageBox(message_text, "QMM Lead Rough")
             # print(f"QMM Lead Rough already exists")
             bpy.context.object.active_material = m_lead_rough

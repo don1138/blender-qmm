@@ -14,8 +14,7 @@ class QMMWallPaint(bpy.types.Operator):
     bl_idname = 'shader.qmm_wall_paint_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        m_wall_paint = bpy.data.materials.get("QMM Wall Paint")
-        if m_wall_paint:
+        if m_wall_paint := bpy.data.materials.get("QMM Wall Paint"):
             ShowMessageBox(message_text, "QMM Wall Paint")
             # print(f"QMM Wall Paint already exists")
             bpy.context.object.active_material = m_wall_paint

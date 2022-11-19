@@ -14,8 +14,7 @@ class QMMSilver(bpy.types.Operator):
     bl_idname = 'shader.qmm_silver_m_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        m_silver_m = bpy.data.materials.get("QMM Silver")
-        if m_silver_m:
+        if m_silver_m := bpy.data.materials.get("QMM Silver"):
             ShowMessageBox(message_text, "QMM Silver")
             # print(f"QMM Silver already exists")
             bpy.context.object.active_material = m_silver_m

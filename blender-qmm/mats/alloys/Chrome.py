@@ -14,8 +14,7 @@ class QMMChrome(bpy.types.Operator):
     bl_idname = 'shader.qmm_chrome_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        m_chrome = bpy.data.materials.get("QMM Chrome")
-        if m_chrome:
+        if m_chrome := bpy.data.materials.get("QMM Chrome"):
             ShowMessageBox(message_text, "QMM Chrome")
             # print(f"QMM Chrome already exists")
             bpy.context.object.active_material = m_chrome

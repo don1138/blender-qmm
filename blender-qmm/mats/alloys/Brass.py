@@ -14,8 +14,7 @@ class QMMBrass(bpy.types.Operator):
     bl_idname = 'shader.qmm_brass_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        m_brass = bpy.data.materials.get("QMM Brass")
-        if m_brass:
+        if m_brass := bpy.data.materials.get("QMM Brass"):
             ShowMessageBox(message_text, "QMM Brass")
             # print(f"QMM Brass already exists")
             bpy.context.object.active_material = m_brass

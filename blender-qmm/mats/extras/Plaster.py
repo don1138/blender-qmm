@@ -14,8 +14,7 @@ class QMMPlaster(bpy.types.Operator):
     bl_idname = 'shader.qmm_plaster_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        m_plaster = bpy.data.materials.get("QMM Plaster")
-        if m_plaster:
+        if m_plaster := bpy.data.materials.get("QMM Plaster"):
             ShowMessageBox(message_text, "QMM Plaster")
             # print(f"QMM Plaster already exists")
             bpy.context.object.active_material = m_plaster

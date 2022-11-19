@@ -14,8 +14,7 @@ class QMMCinnabar(bpy.types.Operator):
     bl_idname = 'shader.qmm_cinnabar_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        m_cinnabar = bpy.data.materials.get("QMM Cinnabar")
-        if m_cinnabar:
+        if m_cinnabar := bpy.data.materials.get("QMM Cinnabar"):
             ShowMessageBox(message_text, "QMM Cinnabar")
             # print(f"QMM Cinnabar already exists")
             bpy.context.object.active_material = m_cinnabar

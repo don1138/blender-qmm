@@ -14,8 +14,7 @@ class QMMAsphaltBleached(bpy.types.Operator):
     bl_idname = 'shader.qmm_asphalt_b_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        m_asphalt_b = bpy.data.materials.get("QMM Asphalt Bleached")
-        if m_asphalt_b:
+        if m_asphalt_b := bpy.data.materials.get("QMM Asphalt Bleached"):
             ShowMessageBox(message_text, "QMM Asphalt Bleached")
             # print(f"QMM Asphalt Bleached already exists")
             bpy.context.object.active_material = m_asphalt_b

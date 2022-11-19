@@ -14,8 +14,7 @@ class QMMNickel(bpy.types.Operator):
     bl_idname = 'shader.qmm_nickel_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        m_nickel = bpy.data.materials.get("QMM Nickel")
-        if m_nickel:
+        if m_nickel := bpy.data.materials.get("QMM Nickel"):
             ShowMessageBox(message_text, "QMM Nickel")
             # print(f"QMM Nickel already exists")
             bpy.context.object.active_material = m_nickel

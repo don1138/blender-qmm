@@ -14,8 +14,7 @@ class QMMTin(bpy.types.Operator):
     bl_idname = 'shader.qmm_tin_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        m_tin = bpy.data.materials.get("QMM Tin")
-        if m_tin:
+        if m_tin := bpy.data.materials.get("QMM Tin"):
             ShowMessageBox(message_text, "QMM Tin")
             # print(f"QMM Tin already exists")
             bpy.context.object.active_material = m_tin

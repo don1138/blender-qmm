@@ -8,6 +8,7 @@
   - **Canistrophy**
   - **Energy Conservation**
   - **Texturizer**
+- Code refactoring
 
 ### 1.5.0 <!-- 10/17/22 -->
 - UI localized/internationalized

@@ -14,8 +14,7 @@ class QMMGlass(bpy.types.Operator):
     bl_idname = 'shader.qmm_glass_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        m_glass = bpy.data.materials.get("QMM Glass")
-        if m_glass:
+        if m_glass := bpy.data.materials.get("QMM Glass"):
             ShowMessageBox(message_text, "QMM Glass")
             # print(f"QMM Glass already exists")
             bpy.context.object.active_material = m_glass

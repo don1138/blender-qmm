@@ -14,8 +14,7 @@ class QMMCuttingMat(bpy.types.Operator):
     bl_idname = 'shader.qmm_cutting_mat_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        m_cutting_mat = bpy.data.materials.get("QMM Rubber Cutting Mat")
-        if m_cutting_mat:
+        if m_cutting_mat := bpy.data.materials.get("QMM Rubber Cutting Mat"):
             ShowMessageBox(message_text, "QMM Rubber Cutting Mat")
             # print(f"QMM Rubber Cutting Mat already exists")
             bpy.context.object.active_material = m_cutting_mat

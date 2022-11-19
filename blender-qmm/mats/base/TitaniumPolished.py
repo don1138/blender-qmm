@@ -14,8 +14,7 @@ class QMMTitaniumPolished(bpy.types.Operator):
     bl_idname = 'shader.qmm_titanium_p_operator'
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        m_titanium_p = bpy.data.materials.get("QMM Titanium Polished")
-        if m_titanium_p:
+        if m_titanium_p := bpy.data.materials.get("QMM Titanium Polished"):
             ShowMessageBox(message_text, "QMM Titanium Polished")
             # print(f"QMM Titanium Polished already exists")
             bpy.context.object.active_material = m_titanium_p
