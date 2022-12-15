@@ -1,14 +1,4 @@
 ### 1.5.1 <!-- 12/14/22 -->
-- Add **Energy Conservation Group**. Replaces **Specular Group**
-  - Inputs
-    - `IOR`
-    - `Diffuse (Base)` Color
-    - `Specular` Color
-  - Outputs
-    - `Color` - **Fresnel** mix of all inputs
-    - `Specular`
-    - `Clearcoat` - `Specular` value x10
-    - `IOR`
 - Add names to node groups
   - **Copper Colors**
   - **Gold Colors**
@@ -22,8 +12,10 @@
   - **Energy Conservation**
   - **Specular**
   - **Texturizer**
-- Rename **QMM Glass Hack** to **QMM Glass** and revise nodes
-- Revise **Rubber Cutting Mat** nodes
+- Rename **QMM Glass Hack** to **QMM Glass**
+- Tweaks to
+  - **QMM Glass**
+  - **QMM Rubber Cutting Mat**
 - Code refactoring
 
 ### 1.5.0 <!-- 10/17/22 -->
@@ -57,10 +49,13 @@
 ### 1.4.9 <!-- 10/16/22 -->
 - Add new material
   - **Nickel**
-- Rename **Cinnabar** to **Red Metal** since Cinnabar isn't a metal
+- Update `IOR`
+    - **Gold**
+    - **Silver**
 - Edit **Canistrophy** Group
   - Fix effect to object orientation
   - Add `XYZ` and `XY Only` output options
+- Rename **Cinnabar** to **Red Metal** since Cinnabar isn't a metal
 - Tweaks to ALL materials except:
   - **Glass Hack**
   - **Rubber Cutting Mat**
@@ -86,7 +81,17 @@
   - **Zinc**
 - Add **Displacement** to **Asphalt** and **Asphalt Bleached**
 - Add **Canisotrophy Group** with `To Roughness` output. This affects **Tin**.
-- Replace **Specular Group** with **Energy Conservation Group** (via [Christopher 3D](https://www.youtube.com/watch?v=kgORQ5tMe2I)). This affects ALL materials, both metal and dialectic, except:
+- Replace **Specular Group** with **Energy Conservation Group** (via [Christopher 3D](https://www.youtube.com/watch?v=kgORQ5tMe2I))
+  - Inputs
+    - `IOR`
+    - `Diffuse (Base)` Color
+    - `Specular` Color
+  - Outputs
+    - `Color` - **Fresnel** mix of all inputs
+    - `Specular`
+    - `Clearcoat` - `Specular` value x10
+    - `IOR`
+  - This affects ALL materials, both metal and dialectic, except:
     - **Gold** and **Silver** because: IOR value is too low
     - **Gold (Fresnel)**, **Silver (Fresnel)**, and **Copper (Fresnel)** because: not compatable with node setup
     - **Glass Hack** because: not relevant
