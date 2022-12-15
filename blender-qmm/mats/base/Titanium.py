@@ -49,7 +49,7 @@ class QMMTitanium(bpy.types.Operator):
             ec_group.location = (-500, -200)
             ec_group.inputs[0].default_value = 2.16
             ec_group.inputs[1].default_value = (0.533276, 0.491020, 0.439657, 1)
-            ec_group.inputs[2].default_value = (0.434153, 0.423267, 0.434154, 1)
+            ec_group.inputs[2].default_value = (0.689, 0.683, 0.689, 1)
 
             #TexturizerGroup
             bpy.ops.node.texturizer_group_operator()

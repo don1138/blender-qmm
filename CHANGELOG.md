@@ -1,5 +1,14 @@
-### 1.5.1 <!-- 11/14/22 -->
-- Rename **QMM Glass Hack** to **QMM Glass** and revise node structure
+### 1.5.1 <!-- 12/14/22 -->
+- Add **Energy Conservation Group**. Replaces **Specular Group**
+  - Inputs
+    - `IOR`
+    - `Diffuse (Base)` Color
+    - `Specular` Color
+  - Outputs
+    - `Color` - **Fresnel** mix of all inputs
+    - `Specular`
+    - `Clearcoat` - `Specular` value x10
+    - `IOR`
 - Add names to node groups
   - **Copper Colors**
   - **Gold Colors**
@@ -8,6 +17,13 @@
   - **Canistrophy**
   - **Energy Conservation**
   - **Texturizer**
+- Add node groups to asset browser file
+  - **Canistrophy**
+  - **Energy Conservation**
+  - **Specular**
+  - **Texturizer**
+- Rename **QMM Glass Hack** to **QMM Glass** and revise nodes
+- Revise **Rubber Cutting Mat** nodes
 - Code refactoring
 
 ### 1.5.0 <!-- 10/17/22 -->
