@@ -10,13 +10,12 @@ def ShowMessageBox(message = "", title = "", icon = 'INFO'):
 #GlassShaderOperator
 class QMMGlass(bpy.types.Operator):
     """Add/Apply Glass Material to Selected Object (or Scene)"""
-    bl_label = "QMM Glass Shader"
+    bl_label = "QMM Glass Hack Shader"
     bl_idname = 'shader.qmm_glass_operator'
     def execute(self, context):
-        # DOES THE MATERIAL ALREADY EXIST?
-        if m_glass := bpy.data.materials.get("QMM Glass"):
-            ShowMessageBox(message_text, "QMM Glass")
-            # print(f"QMM Glass already exists")
+        if m_glass := bpy.data.materials.get("QMM Glass Hack"):
+            ShowMessageBox(message_text, "QMM Glass Hack")
+            # print(f"QMM Glass Hack already exists")
             bpy.context.object.active_material = m_glass
             return {'FINISHED'}
         else:
@@ -25,7 +24,7 @@ class QMMGlass(bpy.types.Operator):
 
     def make_shader(self):
         #CreateShader
-        m_glass = bpy.data.materials.new(name = "QMM Glass")
+        m_glass = bpy.data.materials.new(name = "QMM Glass Hack")
         m_glass.use_nodes = True
         m_glass.diffuse_color = (1, 1, 1, 0.5)
 
@@ -62,36 +61,21 @@ class QMMGlass(bpy.types.Operator):
         m_fresnel.location = (-600,0)
         m_fresnel.inputs[0].default_value = 40
 
-        m_glossy = self.make_node(
-            nodes, 'ShaderNodeBsdfGlossy', -120
-        )
-        m_glossy.inputs[1].default_value = 0
+        #glossyshader
+        m_glossy = nodes.new('ShaderNodeBsdfGlossy')
+        m_glossy.location = (-600,-120)
 
-        m_glossy.distribution = 'SHARP'
-        m_transparent = self.make_node(
-            nodes, 'ShaderNodeBsdfTransparent', -300
-        )
+        #transparentshader
+        m_transparent = nodes.new('ShaderNodeBsdfTransparent')
+        m_transparent.location = (-600,-300)
+        m_transparent.inputs[0].default_value = (0.9, 0.9, 1, 1)
+
         #lightpath
         m_light_path = nodes.new('ShaderNodeLightPath')
         m_light_path.location = (-800,200)
 
-        #mixrgb
-        m_mixrgb = nodes.new('ShaderNodeMixRGB')
-        m_mixrgb.location = (-800,-300)
-        m_mixrgb.inputs[0].default_value = 0.38196
-        m_mixrgb.inputs[1].default_value = (1.61804, 1.61804, 1.61804, 1)
-
-        #noise
-        m_noise = nodes.new('ShaderNodeTexNoise')
-        m_noise.location = (-1000,-300)
-        m_noise.inputs[2].default_value = 3.14159
-        m_noise.inputs[3].default_value = 0
-        m_noise.inputs[4].default_value = 1
-
         links = m_glass.node_tree.links.new
 
-        links(m_noise.outputs[0], m_mixrgb.inputs[2])
-        links(m_mixrgb.outputs[0], m_transparent.inputs[0])
         links(m_transparent.outputs[0], m_mix2.inputs[2])
         links(m_glossy.outputs[0], m_mix2.inputs[1])
         links(m_fresnel.outputs[0], m_mix2.inputs[0])
@@ -105,12 +89,3 @@ class QMMGlass(bpy.types.Operator):
         links(m_mix.outputs[0], material_output.inputs[0])
 
         bpy.context.object.active_material = m_glass
-        bpy.context.object.active_material.blend_method = 'BLEND'
-        bpy.context.object.active_material.shadow_method = 'NONE'
-
-    def make_node(self, nodes, arg1, arg2):
-        #glossyshader
-        result = nodes.new(arg1)
-        result.location = -600, arg2
-        result.inputs[0].default_value = (1, 1, 1, 1)
-        return result

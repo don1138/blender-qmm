@@ -20,44 +20,46 @@ class QMMPalladium(bpy.types.Operator):
             bpy.context.object.active_material = m_palladium
             return {'FINISHED'}
         else:
-            #CreateShader
-            m_palladium = bpy.data.materials.new(name = "QMM Palladium")
-            m_palladium.use_nodes = True
-            m_palladium.diffuse_color = (0.783537, 0.775822, 0.760524, 1)
-            m_palladium.metallic = 1
-            m_palladium.roughness = 0.11
-
-            nodes = m_palladium.node_tree.nodes
-
-            #materialoutput
-            material_output = nodes.get('Material Output')
-            material_output.location = (0,0)
-
-            #princibledbsdf
-            BSDF = nodes.get('Principled BSDF')
-            BSDF.location = (-300,0)
-            BSDF.inputs[0].default_value = (0.783537, 0.775822, 0.760524, 1)
-            BSDF.inputs[6].default_value = 1
-            BSDF.inputs[9].default_value = 0.11
-            BSDF.inputs[16].default_value = 1.6381
-
-            #EnergyConservationGroup
-            bpy.ops.node.ec_group_operator()
-            ec_group = nodes.new("ShaderNodeGroup")
-            ec_group.name = "Energy Conservation"
-            ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
-            ec_group.location = (-500, -200)
-            ec_group.inputs[0].default_value = 1.6381
-            ec_group.inputs[1].default_value = (0.783537, 0.775822, 0.760524, 1)
-            ec_group.inputs[2].default_value = (0.99, 0.99, 0.99, 1)
-
-            links = m_palladium.node_tree.links.new
-
-            links(ec_group.outputs[0], BSDF.inputs[0])
-            links(ec_group.outputs[1], BSDF.inputs[7])
-            links(ec_group.outputs[3], BSDF.inputs[16])
-
-            #LOAD THE MATERIAL
-            bpy.context.object.active_material = m_palladium
-
+            self.make_shader()
         return {'FINISHED'}
+
+    def make_shader(self):
+        #CreateShader
+        m_palladium = bpy.data.materials.new(name = "QMM Palladium")
+        m_palladium.use_nodes = True
+        m_palladium.diffuse_color = (0.783537, 0.775822, 0.760524, 1)
+        m_palladium.metallic = 1
+        m_palladium.roughness = 0.11
+
+        nodes = m_palladium.node_tree.nodes
+
+        #materialoutput
+        material_output = nodes.get('Material Output')
+        material_output.location = (0,0)
+
+        #princibledbsdf
+        BSDF = nodes.get('Principled BSDF')
+        BSDF.location = (-300,0)
+        BSDF.inputs[0].default_value = (0.783537, 0.775822, 0.760524, 1)
+        BSDF.inputs[6].default_value = 1
+        BSDF.inputs[9].default_value = 0.11
+        BSDF.inputs[16].default_value = 1.6381
+
+        #EnergyConservationGroup
+        bpy.ops.node.ec_group_operator()
+        ec_group = nodes.new("ShaderNodeGroup")
+        ec_group.name = "Energy Conservation"
+        ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
+        ec_group.location = (-500, -200)
+        ec_group.inputs[0].default_value = 1.6381
+        ec_group.inputs[1].default_value = (0.783537, 0.775822, 0.760524, 1)
+        ec_group.inputs[2].default_value = (0.99, 0.99, 0.99, 1)
+
+        links = m_palladium.node_tree.links.new
+
+        links(ec_group.outputs[0], BSDF.inputs[0])
+        links(ec_group.outputs[1], BSDF.inputs[7])
+        links(ec_group.outputs[3], BSDF.inputs[16])
+
+        #LOAD THE MATERIAL
+        bpy.context.object.active_material = m_palladium

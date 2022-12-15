@@ -18,17 +18,16 @@
 
 
 bl_info = {
-  "name"        : "QMM (Quick Metal Materials)",
-  "description" : "A Collection of Metal Materials",
-  "author"      : "Don Schnitzius",
-  "version"     : (1, 5, 1),
-  "blender"     : (3, 0, 0),
-  "location"    : "3D Viewport > Sidebar > MAT > Quick Metal Materials",
-  "warning"     : "",
-  "doc_url"     : "https://github.com/don1138/blender-qmm",
-  "tracker_url" : "",
-  "support"     : "COMMUNITY",
-  "category"    : "Material"
+  "name"       : "QMM (Quick Metal Materials)",
+  "description": "A Collection of Metal Materials",
+  "author"     : "Don Schnitzius",
+  "version"    : (1, 5, 2),
+  "blender"    : (3, 0, 0),
+  "location"   : "3D Viewport > Sidebar > MAT > Quick Metal Materials",
+  "warning"    : "",
+  "wiki_url"   : "https://github.com/don1138/blender-qmm",
+  "support"    : "COMMUNITY",
+  "category"   : "Material"
 }
 
 
@@ -42,11 +41,11 @@ from .localization import *
 
 # PARENT PANEL
 class BQMPanel(bpy.types.Panel):
-  bl_idname      = "BQM_PT_Panel"
-  bl_label       = 'Quick Metal Materials'
-  bl_space_type  = "VIEW_3D"
+  bl_idname = "BQM_PT_Panel"
+  bl_label = 'Quick Metal Materials'
+  bl_space_type = "VIEW_3D"
   bl_region_type = "UI"
-  bl_category    = "MAT"
+  bl_category = "MAT"
 
   def draw(self, context):
     layout = self.layout
@@ -54,13 +53,13 @@ class BQMPanel(bpy.types.Panel):
 
 # NOBLE METALS PANEL
 class BQMPanelNoble(bpy.types.Panel):
-  bl_idname      = "BQM_PT_Panel_Noble"
-  bl_label       = 'Noble Metals'
-  bl_space_type  = "VIEW_3D"
+  bl_idname = "BQM_PT_Panel_Noble"
+  bl_label = 'Noble Metals'
+  bl_space_type = "VIEW_3D"
   bl_region_type = "UI"
-  bl_category    = "MAT"
-  bl_parent_id   = 'BQM_PT_Panel'
-  bl_options     = {'DEFAULT_CLOSED'}
+  bl_category = "MAT"
+  bl_parent_id = 'BQM_PT_Panel'
+  bl_options = {'DEFAULT_CLOSED'}
 
   def draw(self, context):
     layout = self.layout
@@ -83,13 +82,13 @@ class BQMPanelNoble(bpy.types.Panel):
 
 # BASE METALS PANEL
 class BQMPanelBase(bpy.types.Panel):
-  bl_idname      = "BQM_PT_Panel_Base"
-  bl_label       = 'Base Metals'
-  bl_space_type  = "VIEW_3D"
+  bl_idname = "BQM_PT_Panel_Base"
+  bl_label = 'Base Metals'
+  bl_space_type = "VIEW_3D"
   bl_region_type = "UI"
-  bl_category    = "MAT"
-  bl_parent_id   = 'BQM_PT_Panel'
-  bl_options     = {'DEFAULT_CLOSED'}
+  bl_category = "MAT"
+  bl_parent_id = 'BQM_PT_Panel'
+  bl_options = {'DEFAULT_CLOSED'}
 
   def draw(self, context):
     layout = self.layout
@@ -127,13 +126,13 @@ class BQMPanelBase(bpy.types.Panel):
 
 # ALLOY METALS PANEL
 class BQMPanelAlloy(bpy.types.Panel):
-  bl_idname      = "BQM_PT_Panel_Alloy"
-  bl_label       = 'Alloys'
-  bl_space_type  = "VIEW_3D"
+  bl_idname = "BQM_PT_Panel_Alloy"
+  bl_label = 'Alloys'
+  bl_space_type = "VIEW_3D"
   bl_region_type = "UI"
-  bl_category    = "MAT"
-  bl_parent_id   = 'BQM_PT_Panel'
-  bl_options     = {'DEFAULT_CLOSED'}
+  bl_category = "MAT"
+  bl_parent_id = 'BQM_PT_Panel'
+  bl_options = {'DEFAULT_CLOSED'}
 
   def draw(self, context):
     layout = self.layout
@@ -153,13 +152,13 @@ class BQMPanelAlloy(bpy.types.Panel):
 
 # EXTRAS PANEL
 class BQMPanelExtras(bpy.types.Panel):
-  bl_idname      = "BQM_PT_Panel_Extras"
-  bl_label       = 'Extras'
-  bl_space_type  = "VIEW_3D"
+  bl_idname = "BQM_PT_Panel_Extras"
+  bl_label = 'Extras'
+  bl_space_type = "VIEW_3D"
   bl_region_type = "UI"
-  bl_category    = "MAT"
-  bl_parent_id   = 'BQM_PT_Panel'
-  bl_options     = {'DEFAULT_CLOSED'}
+  bl_category = "MAT"
+  bl_parent_id = 'BQM_PT_Panel'
+  bl_options = {'DEFAULT_CLOSED'}
 
   def draw(self, context):
     layout = self.layout
