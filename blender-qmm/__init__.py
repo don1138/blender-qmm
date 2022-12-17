@@ -18,16 +18,16 @@
 
 
 bl_info = {
-    "name": "QMM (Quick Metal Materials)",
+    "name"       : "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
-    "author": "Don Schnitzius",
-    "version": (1, 5, 2),
-    "blender": (3, 0, 0),
-    "location": "3D Viewport > Sidebar > MAT > Quick Metal Materials",
-    "warning": "",
-    "wiki_url": "https://github.com/don1138/blender-qmm",
-    "support": "COMMUNITY",
-    "category": "Material"
+    "author"     : "Don Schnitzius",
+    "version"    : (1, 5, 2),
+    "blender"    : (3, 0, 0),
+    "location"   : "3D Viewport > Sidebar > MAT > Quick Metal Materials",
+    "warning"    : "",
+    "doc_url"    : "https://github.com/don1138/blender-qmm",
+    "support"    : "COMMUNITY",
+    "category"   : "Material"
 }
 
 
