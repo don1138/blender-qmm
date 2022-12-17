@@ -2,16 +2,21 @@ import bpy
 
 # MESSAGE BOX
 message_text = "This material already exists"
-def ShowMessageBox(message = "", title = "", icon = 'INFO'):
+
+
+def ShowMessageBox(message="", title="", icon='INFO'):
     def draw(self, context):
         self.layout.label(text=message)
-    bpy.context.window_manager.popup_menu(draw, title = title, icon = icon)
+    bpy.context.window_manager.popup_menu(draw, title=title, icon=icon)
 
-#SteelShaderOperator
+# SteelShaderOperator
+
+
 class QMMSteel(bpy.types.Operator):
     """Add/Apply Steel Material to Selected Object (or Scene)"""
     bl_label = "QMM Steel Shader"
     bl_idname = 'shader.qmm_steel_operator'
+
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         if m_steel := bpy.data.materials.get("QMM Steel"):
@@ -23,10 +28,9 @@ class QMMSteel(bpy.types.Operator):
             self.make_shader()
         return {'FINISHED'}
 
-    # TODO Rename this here and in `execute`
     def make_shader(self):
-        #CreateShader
-        m_steel = bpy.data.materials.new(name = "QMM Steel")
+        # CreateShader
+        m_steel = bpy.data.materials.new(name="QMM Steel")
         m_steel.use_nodes = True
         m_steel.diffuse_color = (0.42869, 0.527115, 0.590619, 1)
         m_steel.metallic = 1
@@ -34,19 +38,19 @@ class QMMSteel(bpy.types.Operator):
 
         nodes = m_steel.node_tree.nodes
 
-        #materialoutput
+        # materialoutput
         material_output = nodes.get('Material Output')
-        material_output.location = (0,0)
+        material_output.location = (0, 0)
 
-        #princibledbsdf
+        # princibledbsdf
         BSDF = nodes.get('Principled BSDF')
-        BSDF.location = (-300,0)
+        BSDF.location = (-300, 0)
         BSDF.inputs[0].default_value = (0.42869, 0.527115, 0.590619, 1)
         BSDF.inputs[6].default_value = 1
         BSDF.inputs[9].default_value = 0.3
         BSDF.inputs[16].default_value = 2.5
 
-        #EnergyConservationGroup
+        # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
         ec_group = nodes.new("ShaderNodeGroup")
         ec_group.name = "Energy Conservation"
@@ -62,5 +66,5 @@ class QMMSteel(bpy.types.Operator):
         links(ec_group.outputs[1], BSDF.inputs[7])
         links(ec_group.outputs[3], BSDF.inputs[16])
 
-        #LOAD THE MATERIAL
+        # LOAD THE MATERIAL
         bpy.context.object.active_material = m_steel

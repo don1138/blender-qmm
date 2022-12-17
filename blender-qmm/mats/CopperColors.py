@@ -4,22 +4,28 @@ import bpy
 
 # HEX TO RGB CALCS
 
-def srgb_to_linearrgb(c):
-    if   c < 0:       return 0
-    elif c < 0.04045: return c/12.92
-    else:             return ((c+0.055)/1.055)**2.4
 
-def hex_to_rgb(h,alpha=1):
+def srgb_to_linearrgb(c):
+    if c < 0:
+        return 0
+    elif c < 0.04045:
+        return c/12.92
+    else:
+        return ((c+0.055)/1.055)**2.4
+
+
+def hex_to_rgb(h, alpha=1):
     r = (h & 0xff0000) >> 16
     g = (h & 0x00ff00) >> 8
     b = (h & 0x0000ff)
-    return tuple([srgb_to_linearrgb(c/0xff) for c in (r,g,b)] + [alpha])
+    return tuple([srgb_to_linearrgb(c/0xff) for c in (r, g, b)] + [alpha])
 
 
 class CopperColorsGroup(bpy.types.Operator):
     """Add/Get Copper Colors Group Node"""
     bl_label = "Copper Colors Node Group"
     bl_idname = 'node.copper_colors_group_operator'
+
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         ng_ccg = bpy.data.node_groups.get("Copper Colors")
@@ -29,14 +35,15 @@ class CopperColorsGroup(bpy.types.Operator):
         return {'FINISHED'}
 
     def make_group(self):
-        #newnodegroup
-        copper_colors_group = bpy.data.node_groups.new('Copper Colors', 'ShaderNodeTree')
+        # newnodegroup
+        copper_colors_group = bpy.data.node_groups.new(
+            'Copper Colors', 'ShaderNodeTree')
 
-        #groupinput
+        # groupinput
         # group_in = copper_colors_group.nodes.new('NodeGroupInput')
         # group_in.location = (-400, 0)
 
-        #groupoutput
+        # groupoutput
         group_out = copper_colors_group.nodes.new('NodeGroupOutput')
         group_out.location = (0, 0)
         copper_colors_group.outputs.new('NodeSocketColor', 'Copper')
@@ -79,7 +86,7 @@ class CopperColorsGroup(bpy.types.Operator):
         links(cc_cro.outputs[0], group_out.inputs[6])
 
     def define_color(self, copper_colors_group, arg1, arg2, arg3):
-        #Copper
+        # Copper
         result = copper_colors_group.nodes.new('ShaderNodeRGB')
         result.label = arg1
         result.location = -800, arg2

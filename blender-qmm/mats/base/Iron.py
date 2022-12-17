@@ -2,16 +2,21 @@ import bpy
 
 # MESSAGE BOX
 message_text = "This material already exists"
-def ShowMessageBox(message = "", title = "", icon = 'INFO'):
+
+
+def ShowMessageBox(message="", title="", icon='INFO'):
     def draw(self, context):
         self.layout.label(text=message)
-    bpy.context.window_manager.popup_menu(draw, title = title, icon = icon)
+    bpy.context.window_manager.popup_menu(draw, title=title, icon=icon)
 
-#IronShaderOperator
+# IronShaderOperator
+
+
 class QMMIron(bpy.types.Operator):
     """Add/Apply Iron Material to Selected Object (or Scene)"""
     bl_label = "QMM Iron Shader"
     bl_idname = 'shader.qmm_iron_operator'
+
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         if m_iron := bpy.data.materials.get("QMM Iron"):
@@ -23,10 +28,9 @@ class QMMIron(bpy.types.Operator):
             self.make_shader()
         return {'FINISHED'}
 
-    # TODO Rename this here and in `execute`
     def make_shader(self):
-        #CreateShader
-        m_iron = bpy.data.materials.new(name = "QMM Iron")
+        # CreateShader
+        m_iron = bpy.data.materials.new(name="QMM Iron")
         m_iron.use_nodes = True
         m_iron.diffuse_color = (0.531, 0.512, 0.496, 1)
         m_iron.metallic = 1
@@ -34,19 +38,19 @@ class QMMIron(bpy.types.Operator):
 
         nodes = m_iron.node_tree.nodes
 
-        #materialoutput
+        # materialoutput
         material_output = nodes.get('Material Output')
-        material_output.location = (0,0)
+        material_output.location = (0, 0)
 
-        #principledbsdf
+        # principledbsdf
         BSDF = nodes.get('Principled BSDF')
-        BSDF.location = (-300,0)
+        BSDF.location = (-300, 0)
         BSDF.inputs[0].default_value = (0.531, 0.512, 0.496, 1)
         BSDF.inputs[6].default_value = 1
         BSDF.inputs[9].default_value = 0.3
         BSDF.inputs[16].default_value = 2.950
 
-        #EnergyConservationGroup
+        # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
         ec_group = nodes.new("ShaderNodeGroup")
         ec_group.name = "Energy Conservation"
@@ -62,5 +66,5 @@ class QMMIron(bpy.types.Operator):
         links(ec_group.outputs[1], BSDF.inputs[7])
         links(ec_group.outputs[3], BSDF.inputs[16])
 
-        #LOAD THE MATERIAL
+        # LOAD THE MATERIAL
         bpy.context.object.active_material = m_iron

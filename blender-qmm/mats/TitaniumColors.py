@@ -2,22 +2,28 @@ import bpy
 
 # HEX TO RGB CALCS
 
-def srgb_to_linearrgb(c):
-    if   c < 0:       return 0
-    elif c < 0.04045: return c/12.92
-    else:             return ((c+0.055)/1.055)**2.4
 
-def hex_to_rgb(h,alpha=1):
+def srgb_to_linearrgb(c):
+    if c < 0:
+        return 0
+    elif c < 0.04045:
+        return c/12.92
+    else:
+        return ((c+0.055)/1.055)**2.4
+
+
+def hex_to_rgb(h, alpha=1):
     r = (h & 0xff0000) >> 16
     g = (h & 0x00ff00) >> 8
     b = (h & 0x0000ff)
-    return tuple([srgb_to_linearrgb(c/0xff) for c in (r,g,b)] + [alpha])
+    return tuple([srgb_to_linearrgb(c/0xff) for c in (r, g, b)] + [alpha])
 
 
 class TitaniumColorsGroup(bpy.types.Operator):
     """Add/Get Titanium Colors Group Node"""
     bl_label = "Titanium Colors Node Group"
     bl_idname = 'node.titanium_colors_group_operator'
+
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         ng_tcg = bpy.data.node_groups.get("Titanium Colors")
@@ -27,25 +33,28 @@ class TitaniumColorsGroup(bpy.types.Operator):
         return {'FINISHED'}
 
     def make_group(self):
-        #newnodegroup
-        titanium_colors_group = bpy.data.node_groups.new('Titanium Colors', 'ShaderNodeTree')
+        # newnodegroup
+        titanium_colors_group = bpy.data.node_groups.new(
+            'Titanium Colors', 'ShaderNodeTree')
 
-        #groupinput
+        # groupinput
         # group_in = titanium_colors_group.nodes.new('NodeGroupInput')
         # group_in.location = (-400, 0)
 
-        #groupoutput
+        # groupoutput
         group_out = titanium_colors_group.nodes.new('NodeGroupOutput')
         group_out.location = (0, 0)
         titanium_colors_group.outputs.new('NodeSocketColor', 'Titanium')
-        titanium_colors_group.outputs[0].default_value = (0.533276, 0.491021, 0.439657, 1)
+        titanium_colors_group.outputs[0].default_value = (
+            0.533276, 0.491021, 0.439657, 1)
         titanium_colors_group.outputs.new('NodeSocketColor', 'Chaos Titanium')
         titanium_colors_group.outputs.new('NodeSocketColor', 'Titanium White')
         titanium_colors_group.outputs.new('NodeSocketColor', 'Titanium Pale')
         titanium_colors_group.outputs.new('NodeSocketColor', 'Titanium Frost')
         titanium_colors_group.outputs.new('NodeSocketColor', 'PBM Titanium')
         titanium_colors_group.outputs.new('NodeSocketColor', 'Titanium Dark')
-        titanium_colors_group.outputs.new('NodeSocketColor', 'Titanium Metallic')
+        titanium_colors_group.outputs.new(
+            'NodeSocketColor', 'Titanium Metallic')
         titanium_colors_group.outputs.new('NodeSocketColor', 'Titanium Blue')
 
         tc_t = self.define_color(
@@ -88,7 +97,7 @@ class TitaniumColorsGroup(bpy.types.Operator):
         links(tc_tb.outputs[0], group_out.inputs[8])
 
     def define_color(self, titanium_colors_group, arg1, arg2, arg3):
-        #Titanium
+        # Titanium
         result = titanium_colors_group.nodes.new('ShaderNodeRGB')
         result.label = arg1
         result.location = -800, arg2

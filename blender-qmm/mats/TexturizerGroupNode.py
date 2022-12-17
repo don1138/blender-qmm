@@ -1,9 +1,11 @@
 import bpy
 
+
 class TexturizerGroup(bpy.types.Operator):
     """Add/Get Texturizer Group Node"""
     bl_label = "Texturizer Node Group"
     bl_idname = 'node.texturizer_group_operator'
+
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         ng_texturizer = bpy.data.node_groups.get("Texturizer")
@@ -13,15 +15,15 @@ class TexturizerGroup(bpy.types.Operator):
         return {'FINISHED'}
 
     def make_group(self):
-        #newnodegroup
-        texturizer_group = bpy.data.node_groups.new('Texturizer', 'ShaderNodeTree')
+        # newnodegroup
+        texturizer_group = bpy.data.node_groups.new(
+            'Texturizer', 'ShaderNodeTree')
 
-        #groupinput
-        group_in = texturizer_group.nodes.new('NodeGroupInput')
-        group_in.location = (-1300, 0)
+        # groupinput
+        group_in = self.make_node(texturizer_group, 'NodeGroupInput', -1300, 0)
         texturizer_group.inputs.new('NodeSocketColor', 'Color')      # 0
         texturizer_group.inputs.new('NodeSocketFloat', 'Roughness')  # 1
-        texturizer_group.inputs.new('NodeSocketFloat', 'Saturation') # 2
+        texturizer_group.inputs.new('NodeSocketFloat', 'Saturation')  # 2
         texturizer_group.inputs.new('NodeSocketFloat', 'Mix')        # 3
         texturizer_group.inputs.new('NodeSocketFloat', 'Bump')       # 4
         texturizer_group.inputs.new('NodeSocketVector', 'Vector')    # 5
@@ -40,91 +42,81 @@ class TexturizerGroup(bpy.types.Operator):
         texturizer_group.inputs[4].min_value = 0.0
         texturizer_group.inputs[4].max_value = 1.0
 
-        #groupoutput
-        group_out = texturizer_group.nodes.new('NodeGroupOutput')
-        group_out.location = (0, 0)
+        # groupoutput
+        group_out = self.make_node(texturizer_group, 'NodeGroupOutput', 0, 0)
         texturizer_group.outputs.new('NodeSocketColor', 'Color')         # 0
-        texturizer_group.outputs.new('NodeSocketFloat', 'Rough Ceiling') # 1
+        texturizer_group.outputs.new('NodeSocketFloat', 'Rough Ceiling')  # 1
         texturizer_group.outputs.new('NodeSocketFloat', 'Roughness')     # 2
         texturizer_group.outputs.new('NodeSocketFloat', 'Rough Floor')   # 3
         texturizer_group.outputs.new('NodeSocketColor', 'Height')        # 4
         texturizer_group.outputs.new('NodeSocketVector', 'Normal')       # 5
 
-        #mixrgb-multiply
-        n_mix_rgb = texturizer_group.nodes.new('ShaderNodeMixRGB')
-        n_mix_rgb.location = (-300,500)
+        # mixrgb-multiply
+        n_mix_rgb = self.make_node(
+            texturizer_group, 'ShaderNodeMixRGB', -300, 500)
         n_mix_rgb.blend_type = 'MULTIPLY'
         n_mix_rgb.inputs[0].default_value = 0.5
 
-        #maprange-roughceiling
-        n_mr_rc = texturizer_group.nodes.new('ShaderNodeMapRange')
+        # maprange-roughceiling
+        n_mr_rc = self.make_node(
+            texturizer_group, 'ShaderNodeMapRange', -300, 300)
         n_mr_rc.label = "Rough Ceiling"
-        n_mr_rc.location = (-300,300)
         n_mr_rc.inputs[1].default_value = 0.4
         n_mr_rc.inputs[2].default_value = 0.6
 
-        #mixrgb-roughness
-        n_mix_rough = texturizer_group.nodes.new('ShaderNodeMixRGB')
-        n_mix_rough.location = (-300,00)
+        # mixrgb-roughness
+        n_mix_rough = self.make_node(
+            texturizer_group, 'ShaderNodeMixRGB', -300, 00)
         n_mix_rough.blend_type = 'OVERLAY'
         n_mix_rough.inputs[0].default_value = 1.0
 
-        #maprange-roughfloor
-        n_mr_rf = texturizer_group.nodes.new('ShaderNodeMapRange')
+        # maprange-roughfloor
+        n_mr_rf = self.make_node(
+            texturizer_group, 'ShaderNodeMapRange', -300, -200)
         n_mr_rf.label = "Rough Floor"
-        n_mr_rf.location = (-300,-200)
         n_mr_rf.inputs[1].default_value = 0.6
         n_mr_rf.inputs[2].default_value = 0.8
 
-        #bump
-        n_bump = texturizer_group.nodes.new('ShaderNodeBump')
-        n_bump.location = (-300,-500)
+        # bump
+        n_bump = self.make_node(texturizer_group, 'ShaderNodeBump', -300, -500)
         n_bump.inputs[0].default_value = 0.1
 
-        #hsl
-        n_hsl = texturizer_group.nodes.new('ShaderNodeHueSaturation')
-        n_hsl.location = (-500,500)
+        # hsl
+        n_hsl = self.make_node(
+            texturizer_group, 'ShaderNodeHueSaturation', -500, 500)
         n_hsl.inputs[1].default_value = 0.5
 
-        #mathsub
-        n_msub = texturizer_group.nodes.new('ShaderNodeMath')
-        n_msub.location = (-500,300)
+        # mathsub
+        n_msub = self.make_node(texturizer_group, 'ShaderNodeMath', -500, 300)
         n_msub.operation = 'SUBTRACT'
         n_msub.inputs[1].default_value = 0.1
 
-        #mathadd
-        n_madd = texturizer_group.nodes.new('ShaderNodeMath')
-        n_madd.location = (-500,-200)
+        # mathadd
+        n_madd = self.make_node(texturizer_group, 'ShaderNodeMath', -500, -200)
         n_madd.operation = 'ADD'
         n_madd.inputs[1].default_value = 0.1
 
-        #maprange
-        n_mr = texturizer_group.nodes.new('ShaderNodeMapRange')
-        n_mr.location = (-500,-500)
+        # maprange
+        n_mr = self.make_node(
+            texturizer_group, 'ShaderNodeMapRange', -500, -500)
         n_mr.inputs[1].default_value = 0.5
         n_mr.inputs[2].default_value = 0.6
 
-        n_rr11 = texturizer_group.nodes.new('NodeReroute')
-        n_rr11.location = (-600,100)
-        n_rr12 = texturizer_group.nodes.new('NodeReroute')
-        n_rr12.location = (-600,-200)
-        n_rr13 = texturizer_group.nodes.new('NodeReroute')
-        n_rr13.location = (-600,-400)
+        n_rr11 = self.make_node(texturizer_group, 'NodeReroute', -600, 100)
+        n_rr12 = self.make_node(texturizer_group, 'NodeReroute', -600, -200)
+        n_rr13 = self.make_node(texturizer_group, 'NodeReroute', -600, -400)
 
-        n_rr21 = texturizer_group.nodes.new('NodeReroute')
-        n_rr21.location = (-700,200)
-        n_rr22 = texturizer_group.nodes.new('NodeReroute')
-        n_rr22.location = (-700,-100)
-        n_rr23 = texturizer_group.nodes.new('NodeReroute')
-        n_rr23.location = (-700,-300)
+        n_rr21 = self.make_node(texturizer_group, 'NodeReroute', -700, 200)
+        n_rr22 = self.make_node(texturizer_group, 'NodeReroute', -700, -100)
+        n_rr23 = self.make_node(texturizer_group, 'NodeReroute', -700, -300)
 
-        #seperatergb
-        n_sep_rgb = texturizer_group.nodes.new('ShaderNodeSeparateRGB')
-        n_sep_rgb.location = (-900,0)
+        # seperatergb
+        n_sep_rgb = self.make_node(
+            texturizer_group, 'ShaderNodeSeparateRGB', -900, 0)
 
-        #noisetexture
-        n_tex = texturizer_group.nodes.new('ShaderNodeTexNoise')
-        n_tex.location = (-1100,0)
+        # noisetexture
+        n_tex = self.make_node(
+            texturizer_group, 'ShaderNodeTexNoise', -1100, 0)
         n_tex.inputs[2].default_value = 256
         n_tex.inputs[3].default_value = 2.0
         n_tex.inputs[4].default_value = 0.5
@@ -163,3 +155,8 @@ class TexturizerGroup(bpy.types.Operator):
         links(n_mix_rough.outputs[0], group_out.inputs[2])
         links(n_mr_rf.outputs[0], group_out.inputs[3])
         links(n_bump.outputs[0], group_out.inputs[5])
+
+    def make_node(self, group, arg1, arg2, arg3):
+        result = group.nodes.new(arg1)
+        result.location = arg2, arg3
+        return result

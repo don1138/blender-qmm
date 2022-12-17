@@ -2,16 +2,21 @@ import bpy
 
 # MESSAGE BOX
 message_text = "This material already exists"
-def ShowMessageBox(message = "", title = "", icon = 'INFO'):
+
+
+def ShowMessageBox(message="", title="", icon='INFO'):
     def draw(self, context):
         self.layout.label(text=message)
-    bpy.context.window_manager.popup_menu(draw, title = title, icon = icon)
+    bpy.context.window_manager.popup_menu(draw, title=title, icon=icon)
 
-#PlatinumShaderOperator
+# PlatinumShaderOperator
+
+
 class QMMPlatinum(bpy.types.Operator):
     """Add/Apply Platinum Material to Selected Object (or Scene)"""
     bl_label = "QMM Platinum Shader"
     bl_idname = 'shader.qmm_platinum_operator'
+
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         if m_platinum := bpy.data.materials.get("QMM Platinum"):
@@ -24,8 +29,8 @@ class QMMPlatinum(bpy.types.Operator):
         return {'FINISHED'}
 
     def make_shader(self):
-        #CreateShader
-        m_platinum = bpy.data.materials.new(name = "QMM Platinum")
+        # CreateShader
+        m_platinum = bpy.data.materials.new(name="QMM Platinum")
         m_platinum.use_nodes = True
         m_platinum.diffuse_color = (0.679, 0.642, 0.588, 1)
         m_platinum.metallic = 1
@@ -33,19 +38,19 @@ class QMMPlatinum(bpy.types.Operator):
 
         nodes = m_platinum.node_tree.nodes
 
-        #materialoutput
+        # materialoutput
         material_output = nodes.get('Material Output')
-        material_output.location = (0,0)
+        material_output.location = (0, 0)
 
-        #principledbsdf
+        # principledbsdf
         BSDF = nodes.get('Principled BSDF')
-        BSDF.location = (-300,0)
+        BSDF.location = (-300, 0)
         BSDF.inputs[0].default_value = (0.679, 0.642, 0.588, 1)
         BSDF.inputs[6].default_value = 1
         BSDF.inputs[9].default_value = 0.11
         BSDF.inputs[16].default_value = 2.33
 
-        #EnergyConservationGroup
+        # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
         ec_group = nodes.new("ShaderNodeGroup")
         ec_group.name = "Energy Conservation"
@@ -61,5 +66,5 @@ class QMMPlatinum(bpy.types.Operator):
         links(ec_group.outputs[1], BSDF.inputs[7])
         links(ec_group.outputs[3], BSDF.inputs[16])
 
-        #LOAD THE MATERIAL
+        # LOAD THE MATERIAL
         bpy.context.object.active_material = m_platinum

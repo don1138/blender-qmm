@@ -1,3 +1,7 @@
+### 1.5.2 <!-- 12/15/22 -->
+- Code refactoring
+- PEP8 formatting
+
 ### 1.5.1 <!-- 12/14/22 -->
 - Add names to node groups
   - **Copper Colors**

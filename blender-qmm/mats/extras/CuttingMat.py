@@ -2,16 +2,21 @@ import bpy
 
 # MESSAGE BOX
 message_text = "This material already exists"
-def ShowMessageBox(message = "", title = "", icon = 'INFO'):
+
+
+def ShowMessageBox(message="", title="", icon='INFO'):
     def draw(self, context):
         self.layout.label(text=message)
-    bpy.context.window_manager.popup_menu(draw, title = title, icon = icon)
+    bpy.context.window_manager.popup_menu(draw, title=title, icon=icon)
 
-#CuttingMatShaderOperator
+# CuttingMatShaderOperator
+
+
 class QMMCuttingMat(bpy.types.Operator):
     """Add/Apply Rubber Cutting Mat Material to Selected Object (or Scene)"""
     bl_label = "QMM Rubber Cutting Mat Shader"
     bl_idname = 'shader.qmm_cutting_mat_operator'
+
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         if m_cutting_mat := bpy.data.materials.get("QMM Rubber Cutting Mat"):
@@ -24,82 +29,82 @@ class QMMCuttingMat(bpy.types.Operator):
         return {'FINISHED'}
 
     def make_shader(self):
-        #CreateShader
-        m_cutting_mat = bpy.data.materials.new(name = "QMM Rubber Cutting Mat")
+        # CreateShader
+        m_cutting_mat = bpy.data.materials.new(name="QMM Rubber Cutting Mat")
         m_cutting_mat.use_nodes = True
         m_cutting_mat.diffuse_color = (0.045186, 0.141263, 0.144129, 1)
         m_cutting_mat.roughness = 0.79
 
         nodes = m_cutting_mat.node_tree.nodes
 
-        #materialoutput
+        # materialoutput
         material_output = nodes.get('Material Output')
-        material_output.location = (0,0)
+        material_output.location = (0, 0)
 
-        #princibledbsdf
+        # princibledbsdf
         BSDF = nodes.get('Principled BSDF')
-        BSDF.location = (-300,0)
+        BSDF.location = (-300, 0)
         BSDF.distribution = 'MULTI_GGX'
         BSDF.inputs[0].default_value = (0.045186, 0.141263, 0.144129, 1)
         BSDF.inputs[5].default_value = 0.425
         BSDF.inputs[9].default_value = 0.79
 
-        #rgbmix
+        # rgbmix
         m_mix = nodes.new('ShaderNodeMixRGB')
-        m_mix.location = (-700,-200)
+        m_mix.location = (-700, -200)
         m_mix.inputs[1].default_value = (0.045186, 0.141263, 0.144129, 1)
         m_mix.inputs[2].default_value = (0.187821, 0.450786, 0.558341, 1)
 
-        #mathadd
+        # mathadd
         m_add = nodes.new('ShaderNodeMath')
         m_add.operation = 'ADD'
-        m_add.location = (-900,-200)
+        m_add.location = (-900, -200)
 
-        #bricktexture
+        # bricktexture
         m_bricktexture = nodes.new('ShaderNodeTexBrick')
-        m_bricktexture.location = (-1100,-200)
+        m_bricktexture.location = (-1100, -200)
         m_bricktexture.offset = 0.0
         m_bricktexture.inputs[5].default_value = 0.005
         m_bricktexture.inputs[6].default_value = 0.0
         m_bricktexture.inputs[8].default_value = 1.0
         m_bricktexture.inputs[9].default_value = 1.0
 
-        #bricktexture2
+        # bricktexture2
         m_bricktexture2 = nodes.new('ShaderNodeTexBrick')
-        m_bricktexture2.location = (-1100,-600)
+        m_bricktexture2.location = (-1100, -600)
         m_bricktexture2.offset = 0.0
         m_bricktexture2.inputs[5].default_value = 0.01
         m_bricktexture2.inputs[6].default_value = 0.0
         m_bricktexture2.inputs[8].default_value = 1.0
         m_bricktexture2.inputs[9].default_value = 1.0
 
-        #mapping
+        # mapping
         m_mapping = nodes.new('ShaderNodeMapping')
-        m_mapping.location = (-1300,-400)
+        m_mapping.location = (-1300, -400)
 
-        #textcoord
+        # textcoord
         m_textcoord = nodes.new('ShaderNodeTexCoord')
-        m_textcoord.location = (-1500,-400)
+        m_textcoord.location = (-1500, -400)
 
-        #mathmultiply
+        # mathmultiply
         m_multiply = nodes.new('ShaderNodeMath')
         m_multiply.operation = 'MULTIPLY'
-        m_multiply.location = (-1300,-800)
+        m_multiply.location = (-1300, -800)
         m_multiply.inputs[1].default_value = 5
 
-        #mapscale
+        # mapscale
         m_mapscale = nodes.new('ShaderNodeValue')
         m_mapscale.label = "Map Scale"
-        m_mapscale.location = (-1500,-700)
+        m_mapscale.location = (-1500, -700)
         m_mapscale.outputs[0].default_value = 2
 
-        #texscale
+        # texscale
         m_texscale = nodes.new('ShaderNodeValue')
         m_texscale.label = "Texture Scale"
-        m_texscale.location = (-1500,-800)
+        m_texscale.location = (-1500, -800)
         m_texscale.outputs[0].default_value = 5
 
-        #EnergyConservationGroup
+        # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
         ec_group = nodes.new("ShaderNodeGroup")
         ec_group.name = "Energy Conservation"

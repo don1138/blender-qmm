@@ -2,16 +2,21 @@ import bpy
 
 # MESSAGE BOX
 message_text = "This material already exists"
-def ShowMessageBox(message = "", title = "", icon = 'INFO'):
+
+
+def ShowMessageBox(message="", title="", icon='INFO'):
     def draw(self, context):
         self.layout.label(text=message)
-    bpy.context.window_manager.popup_menu(draw, title = title, icon = icon)
+    bpy.context.window_manager.popup_menu(draw, title=title, icon=icon)
 
-#MercuryShaderOperator
+# MercuryShaderOperator
+
+
 class QMMAsphalt(bpy.types.Operator):
     """Add/Apply Tinted Asphalt Material to Selected Object (or Scene)"""
     bl_label = "QMM Asphalt Shader"
     bl_idname = 'shader.qmm_asphalt_operator'
+
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         if m_asphalt := bpy.data.materials.get("QMM Asphalt"):
@@ -24,139 +29,139 @@ class QMMAsphalt(bpy.types.Operator):
         return {'FINISHED'}
 
     def make_shader(self):
-        #CreateShader
-        m_asphalt = bpy.data.materials.new(name = "QMM Asphalt")
+        # CreateShader
+        m_asphalt = bpy.data.materials.new(name="QMM Asphalt")
         m_asphalt.use_nodes = True
         m_asphalt.diffuse_color = (0.02, 0.02, 0.02, 1)
 
         nodes = m_asphalt.node_tree.nodes
 
-        #materialoutput
+        # materialoutput
         material_output = nodes.get('Material Output')
-        material_output.location = (0,0)
+        material_output.location = (0, 0)
 
         # mixshader
         m_mixshader = nodes.new('ShaderNodeMixShader')
-        m_mixshader.location = (-200,0)
+        m_mixshader.location = (-200, 0)
 
-        #displacement
+        # displacement
         m_disp = nodes.new('ShaderNodeDisplacement')
-        m_disp.location = (-200,-200)
+        m_disp.location = (-200, -200)
 
-        #lessthan
+        # lessthan
         m_lessthan = nodes.new('ShaderNodeMath')
         m_lessthan.operation = 'LESS_THAN'
-        m_lessthan.location = (-400,-200)
+        m_lessthan.location = (-400, -200)
 
         #princibledbsdf - stone
         BSDF = nodes.get('Principled BSDF')
-        BSDF.location = (-700,300)
+        BSDF.location = (-700, 300)
         BSDF.inputs[9].default_value = 0.56
         # BSDF.select = True
 
         #princibledbsdf - cracks
         BSDF2 = nodes.new('ShaderNodeBsdfPrincipled')
-        BSDF2.location = (-700,-400)
+        BSDF2.location = (-700, -400)
         BSDF2.inputs[0].default_value = (0.025, 0.01875, 0.01875, 1)
         BSDF2.inputs[9].default_value = 1.0
 
-        #colorramp
+        # colorramp
         m_colorramp = nodes.new('ShaderNodeValToRGB')
-        m_colorramp.location = (-1200,100)
+        m_colorramp.location = (-1200, 100)
         m_colorramp.color_ramp.elements[0].color = (0.02, 0.02, 0.02, 1)
         m_colorramp.color_ramp.elements[0].position = 0.25
         m_colorramp.color_ramp.elements[1].color = (0.333, 0.333, 0.333, 1)
         m_colorramp.color_ramp.elements[1].position = 0.4
         m_colorramp.color_ramp.interpolation = 'B_SPLINE'
 
-        #bump
+        # bump
         m_bump = nodes.new('ShaderNodeBump')
-        m_bump.location = (-900,-200)
+        m_bump.location = (-900, -200)
         m_bump.inputs[0].default_value = 0.4
 
-        #mixrgbshader
+        # mixrgbshader
         m_mix = nodes.new('ShaderNodeMixRGB')
-        m_mix.location = (-1400,-100)
+        m_mix.location = (-1400, -100)
 
-        #bump2
+        # bump2
         m_bump2 = nodes.new('ShaderNodeBump')
-        m_bump2.location = (-1100,-300)
+        m_bump2.location = (-1100, -300)
         m_bump2.invert = True
 
-        #colorramp2
+        # colorramp2
         m_colorramp2 = nodes.new('ShaderNodeValToRGB')
-        m_colorramp2.location = (-1400,-500)
+        m_colorramp2.location = (-1400, -500)
         m_colorramp2.color_ramp.elements[0].color = (1.0, 1.0, 1.0, 1)
         m_colorramp2.color_ramp.elements[1].color = (0.0, 0.0, 0.0, 1)
         m_colorramp2.color_ramp.elements[1].position = 0.025
 
-        #colorramp3
+        # colorramp3
         m_colorramp3 = nodes.new('ShaderNodeValToRGB')
-        m_colorramp3.location = (-1800,300)
+        m_colorramp3.location = (-1800, 300)
         m_colorramp3.color_ramp.elements[0].position = 0.4
 
-        #voronoishader
+        # voronoishader
         m_voronoi = nodes.new('ShaderNodeTexVoronoi')
-        m_voronoi.location = (-2000,0)
+        m_voronoi.location = (-2000, 0)
         m_voronoi.feature = 'DISTANCE_TO_EDGE'
         m_voronoi.inputs[2].default_value = 300.0
 
-        #noiseshader
+        # noiseshader
         m_noise = nodes.new('ShaderNodeTexNoise')
-        m_noise.location = (-2000,-200)
+        m_noise.location = (-2000, -200)
         m_noise.inputs[3].default_value = 12.0
         m_noise.inputs[4].default_value = 0.875
 
-        #voronoishader2
+        # voronoishader2
         m_voronoi2 = nodes.new('ShaderNodeTexVoronoi')
-        m_voronoi2.location = (-1600,-500)
+        m_voronoi2.location = (-1600, -500)
         m_voronoi2.feature = 'DISTANCE_TO_EDGE'
         m_voronoi2.inputs[2].default_value = 8.0
 
-        #noiseshader2
+        # noiseshader2
         m_noise2 = nodes.new('ShaderNodeTexNoise')
-        m_noise2.location = (-2000,300)
+        m_noise2.location = (-2000, 300)
         m_noise2.inputs[2].default_value = 3.0
         m_noise2.inputs[3].default_value = 12.0
         m_noise2.inputs[4].default_value = 0.875
 
-        #mixrgbshader2
+        # mixrgbshader2
         m_mix2 = nodes.new('ShaderNodeMixRGB')
-        m_mix2.location = (-1800,-500)
+        m_mix2.location = (-1800, -500)
         m_mix2.inputs[0].default_value = 0.9
 
-        #noiseshader3
+        # noiseshader3
         m_noise3 = nodes.new('ShaderNodeTexNoise')
-        m_noise3.location = (-2000,-500)
+        m_noise3.location = (-2000, -500)
         m_noise3.inputs[3].default_value = 10.0
 
-        #mapping
+        # mapping
         m_mapping = nodes.new('ShaderNodeMapping')
-        m_mapping.location = (-2300,-600)
+        m_mapping.location = (-2300, -600)
         m_mapping.width = 140
 
-        #mapping2
+        # mapping2
         m_mapping2 = nodes.new('ShaderNodeMapping')
-        m_mapping2.location = (-2300,100)
+        m_mapping2.location = (-2300, 100)
         m_mapping2.width = 140
 
-        #value
+        # value
         m_val = nodes.new('ShaderNodeValue')
         m_val.label = "Fragment Scale"
-        m_val.location = (-2500,-800)
+        m_val.location = (-2500, -800)
         m_val.outputs[0].default_value = 1.0
 
-        #texturecoordinates
+        # texturecoordinates
         m_texcoords = nodes.new('ShaderNodeTexCoord')
-        m_texcoords.location = (-2600,-300)
+        m_texcoords.location = (-2600, -300)
 
-        #value2
+        # value2
         m_val2 = nodes.new('ShaderNodeValue')
         m_val2.label = "Gravel Scale"
-        m_val2.location = (-2500,-100)
+        m_val2.location = (-2500, -100)
         m_val2.outputs[0].default_value = 1.0
 
-        #EnergyConservationGroup
+        # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
         ec_group = nodes.new("ShaderNodeGroup")
         ec_group.name = "Energy Conservation"
@@ -166,7 +171,7 @@ class QMMAsphalt(bpy.types.Operator):
         ec_group.inputs[1].default_value = (0.2, 0.2, 0.2, 1)
         ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
 
-        #EnergyConservationGroup2
+        # EnergyConservationGroup2
         bpy.ops.node.ec_group_operator()
         ec_group2 = nodes.new("ShaderNodeGroup")
         ec_group2.node_tree = bpy.data.node_groups['Energy Conservation']

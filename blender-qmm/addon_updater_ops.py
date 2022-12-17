@@ -1108,7 +1108,6 @@ def update_settings_ui(self, context, element=None):
     else:
         row.label(text="Last update check: Never")
 
-
     # PREFERENCES - ADDITIONAL LINKS
 
     box = element.box()
@@ -1129,8 +1128,10 @@ def update_settings_ui(self, context, element=None):
 
     gumrow = gumbox.row()
     gumrow.scale_y = 1.6
-    gumrow.operator("wm.url_open", text="Blender Quick Lighting Environment").url = "https://don1138.gumroad.com/l/blender-qle"
-    gumrow.operator("wm.url_open", text="Blender Quick Resize Nodes").url = "https://don1138.gumroad.com/l/blender-qrn"
+    gumrow.operator(
+        "wm.url_open", text="Blender Quick Lighting Environment").url = "https://don1138.gumroad.com/l/blender-qle"
+    gumrow.operator(
+        "wm.url_open", text="Blender Quick Resize Nodes").url = "https://don1138.gumroad.com/l/blender-qrn"
 
     # Github Links
 
@@ -1143,8 +1144,10 @@ def update_settings_ui(self, context, element=None):
 
     gitrow = gitbox.row()
     gitrow.scale_y = 1.6
-    gitrow.operator("wm.url_open", text="Blender Materials").url = "https://github.com/don1138/blender-materials"
-    gitrow.operator("wm.url_open", text="Blender Quick Material Colors").url = "https://github.com/don1138/blender-pcoy"
+    gitrow.operator(
+        "wm.url_open", text="Blender Materials").url = "https://github.com/don1138/blender-materials"
+    gitrow.operator(
+        "wm.url_open", text="Blender Quick Material Colors").url = "https://github.com/don1138/blender-pcoy"
 
 
 def update_settings_ui_condensed(self, context, element=None):

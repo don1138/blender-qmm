@@ -2,16 +2,21 @@ import bpy
 
 # MESSAGE BOX
 message_text = "This material already exists"
-def ShowMessageBox(message = "", title = "", icon = 'INFO'):
+
+
+def ShowMessageBox(message="", title="", icon='INFO'):
     def draw(self, context):
         self.layout.label(text=message)
-    bpy.context.window_manager.popup_menu(draw, title = title, icon = icon)
+    bpy.context.window_manager.popup_menu(draw, title=title, icon=icon)
 
-#TinShaderOperator
+# TinShaderOperator
+
+
 class QMMTin(bpy.types.Operator):
     """Add/Apply Tin Material to Selected Object (or Scene)"""
     bl_label = "QMM Tin Shader"
     bl_idname = 'shader.qmm_tin_operator'
+
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         if m_tin := bpy.data.materials.get("QMM Tin"):
@@ -24,8 +29,8 @@ class QMMTin(bpy.types.Operator):
         return {'FINISHED'}
 
     def make_shader(self):
-        #CreateShader
-        m_tin = bpy.data.materials.new(name = "QMM Tin")
+        # CreateShader
+        m_tin = bpy.data.materials.new(name="QMM Tin")
         m_tin.use_nodes = True
         m_tin.diffuse_color = (0.8, 0.8, 0.8, 1)
         m_tin.metallic = 1
@@ -33,19 +38,19 @@ class QMMTin(bpy.types.Operator):
 
         nodes = m_tin.node_tree.nodes
 
-        #materialoutput
+        # materialoutput
         material_output = nodes.get('Material Output')
-        material_output.location = (0,0)
+        material_output.location = (0, 0)
 
-        #princibledbsdf
+        # princibledbsdf
         BSDF = nodes.get('Principled BSDF')
-        BSDF.location = (-300,0)
+        BSDF.location = (-300, 0)
         BSDF.inputs[0].default_value = (0.8, 0.8, 0.8, 1)
         BSDF.inputs[6].default_value = 1
         BSDF.inputs[9].default_value = 0.35
         BSDF.inputs[16].default_value = 2.16
 
-        #EnergyConservationGroup
+        # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
         ec_group = nodes.new("ShaderNodeGroup")
         ec_group.name = "Energy Conservation"
@@ -55,7 +60,7 @@ class QMMTin(bpy.types.Operator):
         ec_group.inputs[1].default_value = (0.8, 0.8, 0.8, 1)
         ec_group.inputs[2].default_value = (0.99, 0.99, 0.99, 1)
 
-        #CanisotrophyGroup
+        # CanisotrophyGroup
         bpy.ops.node.canisotrophy_group_operator()
         canisotrophy_group = nodes.new("ShaderNodeGroup")
         canisotrophy_group.name = "Canisotrophy"
@@ -63,12 +68,11 @@ class QMMTin(bpy.types.Operator):
         canisotrophy_group.location = (-800, -500)
         canisotrophy_group.width = 240
 
-        #Bump
+        # Bump
         bpy.ops.node.canisotrophy_group_operator()
         m_bump = nodes.new("ShaderNodeBump")
         m_bump.location = -500, -500
         m_bump.inputs[0].default_value = 0.02
-
 
         links = m_tin.node_tree.links.new
 
@@ -77,7 +81,7 @@ class QMMTin(bpy.types.Operator):
         links(ec_group.outputs[3], BSDF.inputs[16])
         links(canisotrophy_group.outputs[1], m_bump.inputs[2])
 
-        #LOAD THE MATERIAL
+        # LOAD THE MATERIAL
         bpy.context.object.active_material = m_tin
 
     def make_node(self, nodes, arg1, arg2, arg3):

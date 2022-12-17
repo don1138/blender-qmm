@@ -4,22 +4,28 @@ import bpy
 
 # HEX TO RGB CALCS
 
-def srgb_to_linearrgb(c):
-    if   c < 0:       return 0
-    elif c < 0.04045: return c/12.92
-    else:             return ((c+0.055)/1.055)**2.4
 
-def hex_to_rgb(h,alpha=1):
+def srgb_to_linearrgb(c):
+    if c < 0:
+        return 0
+    elif c < 0.04045:
+        return c/12.92
+    else:
+        return ((c+0.055)/1.055)**2.4
+
+
+def hex_to_rgb(h, alpha=1):
     r = (h & 0xff0000) >> 16
     g = (h & 0x00ff00) >> 8
     b = (h & 0x0000ff)
-    return tuple([srgb_to_linearrgb(c/0xff) for c in (r,g,b)] + [alpha])
+    return tuple([srgb_to_linearrgb(c/0xff) for c in (r, g, b)] + [alpha])
 
 
 class SilverColorsGroup(bpy.types.Operator):
     """Add/Get Silver Colors Group Node"""
     bl_label = "Silver Colors Node Group"
     bl_idname = 'node.silver_colors_group_operator'
+
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         ng_scg = bpy.data.node_groups.get("Silver Colors")
@@ -29,14 +35,15 @@ class SilverColorsGroup(bpy.types.Operator):
         return {'FINISHED'}
 
     def make_group(self):
-        #newnodegroup
-        silver_colors_group = bpy.data.node_groups.new('Silver Colors', 'ShaderNodeTree')
+        # newnodegroup
+        silver_colors_group = bpy.data.node_groups.new(
+            'Silver Colors', 'ShaderNodeTree')
 
-        #groupinput
+        # groupinput
         # group_in = silver_colors_group.nodes.new('NodeGroupInput')
         # group_in.location = (-400, 0)
 
-        #groupoutput
+        # groupoutput
         group_out = silver_colors_group.nodes.new('NodeGroupOutput')
         group_out.location = (0, 0)
         silver_colors_group.outputs.new('NodeSocketColor', 'Silver')
@@ -99,7 +106,7 @@ class SilverColorsGroup(bpy.types.Operator):
         links(sc_sos.outputs[0], group_out.inputs[10])
 
     def define_colors(self, silver_colors_group, arg1, arg2, arg3):
-        #Silver
+        # Silver
         result = silver_colors_group.nodes.new('ShaderNodeRGB')
         result.label = arg1
         result.location = -800, arg2

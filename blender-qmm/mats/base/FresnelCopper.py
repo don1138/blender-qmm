@@ -2,16 +2,21 @@ import bpy
 
 # MESSAGE BOX
 message_text = "This material already exists"
-def ShowMessageBox(message = "", title = "", icon = 'INFO'):
+
+
+def ShowMessageBox(message="", title="", icon='INFO'):
     def draw(self, context):
         self.layout.label(text=message)
-    bpy.context.window_manager.popup_menu(draw, title = title, icon = icon)
+    bpy.context.window_manager.popup_menu(draw, title=title, icon=icon)
 
-#CopperShaderOperator
+# CopperShaderOperator
+
+
 class QMMCopperFresnel(bpy.types.Operator):
     """Add/Apply Copper Material to Selected Object (or Scene)"""
     bl_label = "QMM Copper Fresnel Shader"
     bl_idname = 'shader.qmm_copper_operator'
+
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         if m_copper := bpy.data.materials.get("QMM Copper Fresnel"):
@@ -24,8 +29,8 @@ class QMMCopperFresnel(bpy.types.Operator):
         return {'FINISHED'}
 
     def make_shader(self):
-        #CreateShader
-        m_copper = bpy.data.materials.new(name = "QMM Copper Fresnel")
+        # CreateShader
+        m_copper = bpy.data.materials.new(name="QMM Copper Fresnel")
         m_copper.use_nodes = True
         m_copper.diffuse_color = (0.47932, 0.171441, 0.0331048, 1)
         m_copper.metallic = 1
@@ -33,51 +38,55 @@ class QMMCopperFresnel(bpy.types.Operator):
 
         nodes = m_copper.node_tree.nodes
 
-        #materialoutput
+        # materialoutput
         material_output = nodes.get('Material Output')
-        material_output.location = (0,0)
+        material_output.location = (0, 0)
 
-        #princibledbsdf
+        # princibledbsdf
         BSDF = nodes.get('Principled BSDF')
         nodes.remove(BSDF)
 
-        #mixshader
+        # mixshader
         m_mix = nodes.new('ShaderNodeMixShader')
-        m_mix.location = (-200,0)
+        m_mix.location = (-200, 0)
 
         m_glossy = self.make_node(
-            nodes, "ShaderNodeBsdfGlossy", -400, 0, (0.401978, 0.396755, 0.417885, 1)
+            nodes, "ShaderNodeBsdfGlossy", -
+            400, 0, (0.401978, 0.396755, 0.417885, 1)
         )
 
-        #m_layerweight
+        # m_layerweight
         m_layer_weight = self.make_node(
             nodes, "ShaderNodeLayerWeight", -400, 200, 0.5
         )
 
-        #mixshader2
+        # mixshader2
         m_mix2 = self.make_node(
             nodes, "ShaderNodeMixShader", -400, 0, 0.095
         )
 
-        #glossyshader
+        # glossyshader
         m_glossy = self.make_node(
-            nodes, "ShaderNodeBsdfGlossy", -400, -200, (0.47932, 0.171441, 0.0331048, 1)
+            nodes, "ShaderNodeBsdfGlossy", -400, -
+            200, (0.47932, 0.171441, 0.0331048, 1)
         )
 
-        #glossyshader2
+        # glossyshader2
         m_glossy2 = self.make_node(
-            nodes, "ShaderNodeBsdfGlossy", -600, 0, (0.47932, 0.171441, 0.0331048, 1)
+            nodes, "ShaderNodeBsdfGlossy", -
+            600, 0, (0.47932, 0.171441, 0.0331048, 1)
         )
 
-        #diffuseshader
+        # diffuseshader
         m_diffuse = self.make_node(
-            nodes, "ShaderNodeBsdfDiffuse", -600, 200, (0.47932, 0.171441, 0.0331048, 1)
+            nodes, "ShaderNodeBsdfDiffuse", -
+            600, 200, (0.47932, 0.171441, 0.0331048, 1)
         )
         m_diffuse.inputs[1].default_value = 0
 
-        #value
+        # value
         m_value = nodes.new('ShaderNodeValue')
-        m_value.location = (-800,-200)
+        m_value.location = (-800, -200)
         m_value.outputs[0].default_value = 0.35
 
         links = m_copper.node_tree.links.new
@@ -91,7 +100,7 @@ class QMMCopperFresnel(bpy.types.Operator):
         links(m_layer_weight.outputs[1], m_mix.inputs[0])
         links(m_mix.outputs[0], material_output.inputs[0])
 
-        #CopperColorsGroup
+        # CopperColorsGroup
         bpy.ops.node.copper_colors_group_operator()
         nodes = m_copper.node_tree.nodes
         copper_colors_group = nodes.new("ShaderNodeGroup")
@@ -102,7 +111,7 @@ class QMMCopperFresnel(bpy.types.Operator):
         links(copper_colors_group.outputs[0], m_glossy.inputs[0])
         links(copper_colors_group.outputs[0], m_glossy2.inputs[0])
 
-        #LOAD THE MATERIAL
+        # LOAD THE MATERIAL
         bpy.context.object.active_material = m_copper
 
     def make_node(self, nodes, arg1, arg2, arg3, arg4):
