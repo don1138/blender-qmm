@@ -18,16 +18,16 @@
 
 
 bl_info = {
-    "name"       : "QMM (Quick Metal Materials)",
+    "name": "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
-    "author"     : "Don Schnitzius",
-    "version"    : (1, 5, 2),
-    "blender"    : (3, 0, 0),
-    "location"   : "3D Viewport > Sidebar > MAT > Quick Metal Materials",
-    "warning"    : "",
-    "doc_url"    : "https://github.com/don1138/blender-qmm",
-    "support"    : "COMMUNITY",
-    "category"   : "Material"
+    "author": "Don Schnitzius",
+    "version": (1, 5, 3),
+    "blender": (3, 0, 0),
+    "location": "3D Viewport > Sidebar > MAT > Quick Metal Materials",
+    "warning": "",
+    "wiki_url": "https://github.com/don1138/blender-qmm",
+    "support": "COMMUNITY",
+    "category": "Material"
 }
 
 
@@ -240,6 +240,7 @@ class AutoUpdaterPreferences(bpy.types.AddonPreferences):
         addon_updater_ops.update_settings_ui(self, context)
 
 
+from .mats.MakeMetal import *
 from .mats.TitaniumColors import *
 from .mats.SilverColors import *
 from .mats.GoldColors import *
@@ -249,34 +250,20 @@ from .mats.SpecularGroupNode import *
 from .mats.EnergyConservationGroupNode import *
 from .mats.Canisotrophy import *
 from .mats.noble.Silver import *
-from .mats.noble.Platinum import *
-from .mats.noble.Palladium import *
 from .mats.noble.Gold import *
 from .mats.noble.FresnelSilver import *
 from .mats.noble.FresnelGold import *
 from .mats.extras.WallPaint import *
 from .mats.extras.RedMetal import *
 from .mats.extras.Plaster import *
-from .mats.extras.Mercury import *
 from .mats.extras.Glass import *
 from .mats.extras.CuttingMat import *
 from .mats.extras.AsphaltBleached import *
 from .mats.extras.Asphalt import *
-from .mats.base.Zinc import *
-from .mats.base.TitaniumPolished import *
 from .mats.base.Tin import *
 from .mats.base.Titanium import *
-from .mats.base.Nickel import *
-from .mats.base.LeadRough import *
-from .mats.base.Lead import *
-from .mats.base.Iron import *
 from .mats.base.FresnelCopper import *
 from .mats.base.Copper import *
-from .mats.base.Aluminium import *
-from .mats.alloys.Steel import *
-from .mats.alloys.Chrome import *
-from .mats.alloys.Bronze import *
-from .mats.alloys.Brass import *
 
 
 classes = [
