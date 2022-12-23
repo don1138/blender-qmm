@@ -3,14 +3,12 @@ import bpy
 # MESSAGE BOX
 message_text = "This material already exists"
 
-
 def ShowMessageBox(message="", title="", icon='INFO'):
     def draw(self, context):
         self.layout.label(text=message)
     bpy.context.window_manager.popup_menu(draw, title=title, icon=icon)
 
 # SilverMinShaderOperator
-
 
 class QMMSilver(bpy.types.Operator):
     """Add/Apply Silver (Minimum) Material to Selected Object (or Scene)"""
@@ -58,9 +56,7 @@ class QMMSilver(bpy.types.Operator):
 
         # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
-        ec_group = self.make_node(
-            nodes, "Energy Conservation", 'Energy Conservation', -500
-        )
+        ec_group = self.make_node(nodes, "Energy Conservation", 'Energy Conservation', -500)
         ec_group.inputs[0].default_value = 1.082
         ec_group.inputs[1].default_value = (0.964686, 0.947307, 0.921582, 1)
         ec_group.inputs[2].default_value = (0.999, 0.998, 0.998, 1)
@@ -69,12 +65,11 @@ class QMMSilver(bpy.types.Operator):
         links(ec_group.outputs[3], BSDF.inputs[16])
 
         # SilverColorsGroup
-        bpy.ops.node.silver_colors_group_operator()
+        bpy.ops.node.silver_cg_operator()
         nodes = m_silver_m.node_tree.nodes
-        silver_colors_group = self.make_node(
-            nodes, "Silver Colors", 'Silver Colors', -700
-        )
-        links(silver_colors_group.outputs[2], ec_group.inputs[1])
+        silver_cg = self.make_node(nodes, "Silver Colors", 'Silver Colors', -700)
+
+        links(silver_cg.outputs[2], ec_group.inputs[1])
 
     def make_node(self, nodes, arg1, arg2, arg3):
         result = nodes.new("ShaderNodeGroup")

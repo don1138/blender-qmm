@@ -3,14 +3,12 @@ import bpy
 # MESSAGE BOX
 message_text = "This material already exists"
 
-
 def ShowMessageBox(message="", title="", icon='INFO'):
     def draw(self, context):
         self.layout.label(text=message)
     bpy.context.window_manager.popup_menu(draw, title=title, icon=icon)
 
 # GoldShaderOperator
-
 
 class QMMGold(bpy.types.Operator):
     """Add/Apply Gold Material to Selected Object (or Scene)"""
@@ -66,13 +64,11 @@ class QMMGold(bpy.types.Operator):
         links(ec_group.outputs[3], BSDF.inputs[16])
 
         # GoldColorsGroup
-        bpy.ops.node.gold_colors_group_operator()
+        bpy.ops.node.gold_cg_operator()
         nodes = m_gold_m.node_tree.nodes
-        gold_colors_group = self.make_node(
-            nodes, "Gold Colors", 'Gold Colors'
-        )
-        gold_colors_group.location = (-700, -300)
-        links(gold_colors_group.outputs[1], ec_group.inputs[1])
+        gold_cg = self.make_node(nodes, "Gold Colors", 'Gold Colors')
+        gold_cg.location = (-700, -300)
+        links(gold_cg.outputs[1], ec_group.inputs[1])
 
         # LOAD THE MATERIAL
         bpy.context.object.active_material = m_gold_m

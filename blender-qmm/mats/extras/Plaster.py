@@ -9,7 +9,12 @@ def ShowMessageBox(message="", title="", icon='INFO'):
         self.layout.label(text=message)
     bpy.context.window_manager.popup_menu(draw, title=title, icon=icon)
 
-# MercuryShaderOperator
+def make_node(nodes, shader, locX, locY):
+    result = nodes.new(shader)
+    result.location = (locX, locY)
+    return result
+
+# PlasterShaderOperator
 
 
 class QMMPlaster(bpy.types.Operator):
@@ -49,8 +54,7 @@ class QMMPlaster(bpy.types.Operator):
         BSDF.inputs[9].default_value = 0.86
 
         # colorramp
-        m_colorramp = nodes.new('ShaderNodeValToRGB')
-        m_colorramp.location = (-700, -100)
+        m_colorramp = make_node(nodes, 'ShaderNodeValToRGB', -700, -100)
         m_colorramp.color_ramp.elements[0].color = (
             0.708857, 0.392564, 0.708857, 1)
         m_colorramp.color_ramp.elements.new(0.2)
@@ -60,43 +64,35 @@ class QMMPlaster(bpy.types.Operator):
         m_colorramp.width = 140
 
         # mixshader
-        m_mix = nodes.new('ShaderNodeMixRGB')
-        m_mix.location = (-900, -100)
+        m_mix = make_node(nodes, 'ShaderNodeMixRGB', -900, -100)
 
         # voronoishader
-        m_voronoi = nodes.new('ShaderNodeTexVoronoi')
-        m_voronoi.location = (-1100, -300)
+        m_voronoi = make_node(nodes, 'ShaderNodeTexVoronoi', -1100, -300)
         m_voronoi.distance = 'MANHATTAN'
         m_voronoi.inputs[2].default_value = 30.0
 
         # noiseshader
-        m_noise = nodes.new('ShaderNodeTexNoise')
-        m_noise.location = (-1300, -200)
+        m_noise = make_node(nodes, 'ShaderNodeTexNoise', -1300, -200)
         m_noise.inputs[2].default_value = 50.0
         m_noise.inputs[3].default_value = 5.0
 
         # mapping
-        m_mapping = nodes.new('ShaderNodeMapping')
-        m_mapping.location = (-1500, -100)
+        m_mapping = make_node(nodes, 'ShaderNodeMapping', -1500, -100)
         m_mapping.width = 140
 
         # texturecoordinates
-        m_texcoords = nodes.new('ShaderNodeTexCoord')
-        m_texcoords.location = (-1700, -100)
+        m_texcoords = make_node(nodes, 'ShaderNodeTexCoord', -1700, -100)
 
         # bump
-        m_bump = nodes.new('ShaderNodeBump')
-        m_bump.location = (-700, -400)
+        m_bump = make_node(nodes, 'ShaderNodeBump', -700, -400)
         m_bump.inputs[0].default_value = 0.5
 
         # bump2
-        m_bump2 = nodes.new('ShaderNodeBump')
-        m_bump2.location = (-500, -500)
+        m_bump2 = make_node(nodes, 'ShaderNodeBump', -500, -500)
         m_bump2.inputs[0].default_value = 0.25
 
         # maprange
-        m_maprange = nodes.new('ShaderNodeMapRange')
-        m_maprange.location = (-900, -300)
+        m_maprange = make_node(nodes, 'ShaderNodeMapRange', -900, -300)
         m_maprange.inputs[1].default_value = 0.04
         m_maprange.inputs[2].default_value = 0.08
         m_maprange.width = 140
@@ -106,7 +102,7 @@ class QMMPlaster(bpy.types.Operator):
         ec_group = nodes.new("ShaderNodeGroup")
         ec_group.name = "Energy Conservation"
         ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
-        ec_group.location = (-500, -200)
+        ec_group.location = (-500, -100)
         ec_group.inputs[0].default_value = 1.52
         ec_group.inputs[1].default_value = (0.708857, 0.392564, 0.708857, 1)
         ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)

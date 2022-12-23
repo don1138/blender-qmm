@@ -9,6 +9,11 @@ def ShowMessageBox(message="", title="", icon='INFO'):
         self.layout.label(text=message)
     bpy.context.window_manager.popup_menu(draw, title=title, icon=icon)
 
+def make_node(nodes, shader, locX, locY):
+    result = nodes.new(shader)
+    result.location = (locX, locY)
+    return result
+
 # GlassShaderOperator
 
 
@@ -44,40 +49,32 @@ class QMMGlass(bpy.types.Operator):
         nodes.remove(BSDF)
 
         # mixshader
-        m_mix = nodes.new('ShaderNodeMixShader')
-        m_mix.location = (-200, 0)
+        m_mix = make_node(nodes, 'ShaderNodeMixShader', -200, 0)
 
         # mathadd
-        m_add = nodes.new('ShaderNodeMath')
+        m_add = make_node(nodes, 'ShaderNodeMath', -400, 200)
         m_add.operation = 'ADD'
-        m_add.location = (-400, 200)
 
         # mixshader2
-        m_mix2 = nodes.new('ShaderNodeMixShader')
-        m_mix2.location = (-400, 0)
+        m_mix2 = make_node(nodes, 'ShaderNodeMixShader', -400, 0)
 
         # mathadd2
-        m_add2 = nodes.new('ShaderNodeMath')
+        m_add2 = make_node(nodes, 'ShaderNodeMath', -600, 300)
         m_add2.operation = 'ADD'
-        m_add2.location = (-600, 300)
 
         # fresnel
-        m_fresnel = nodes.new('ShaderNodeFresnel')
-        m_fresnel.location = (-600, 0)
+        m_fresnel = make_node(nodes, 'ShaderNodeFresnel', -600, 0)
         m_fresnel.inputs[0].default_value = 40
 
         # glossyshader
-        m_glossy = nodes.new('ShaderNodeBsdfGlossy')
-        m_glossy.location = (-600, -120)
+        m_glossy = make_node(nodes, 'ShaderNodeBsdfGlossy', -600, -120)
 
         # transparentshader
-        m_transparent = nodes.new('ShaderNodeBsdfTransparent')
-        m_transparent.location = (-600, -300)
+        m_transparent = make_node(nodes, 'ShaderNodeBsdfTransparent', -600, -300)
         m_transparent.inputs[0].default_value = (0.9, 0.9, 1, 1)
 
         # lightpath
-        m_light_path = nodes.new('ShaderNodeLightPath')
-        m_light_path.location = (-800, 200)
+        m_light_path = make_node(nodes, 'ShaderNodeLightPath', -800, 200)
 
         links = m_glass.node_tree.links.new
 

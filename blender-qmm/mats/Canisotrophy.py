@@ -14,6 +14,11 @@ class CanisotrophyGroup(bpy.types.Operator):
             self.make_group()
         return {'FINISHED'}
 
+    def make_node(self, group, arg1, arg2, arg3):
+        result = group.nodes.new(arg1)
+        result.location = arg2, arg3
+        return result
+
     def make_group(self):
         # newnodegroup
         canisotrophy_group = bpy.data.node_groups.new(
@@ -161,8 +166,3 @@ class CanisotrophyGroup(bpy.types.Operator):
         links(m_maprange2.outputs[0], m_mixrgb.inputs[2])
         links(m_mixrgb.outputs[0], group_out.inputs[1])
         links(m_maprange.outputs[0], group_out.inputs[2])
-
-    def make_node(self, group, arg1, arg2, arg3):
-        result = group.nodes.new(arg1)
-        result.location = arg2, arg3
-        return result

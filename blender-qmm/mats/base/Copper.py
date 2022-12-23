@@ -3,14 +3,12 @@ import bpy
 # MESSAGE BOX
 message_text = "This material already exists"
 
-
 def ShowMessageBox(message="", title="", icon='INFO'):
     def draw(self, context):
         self.layout.label(text=message)
     bpy.context.window_manager.popup_menu(draw, title=title, icon=icon)
 
 # CopperShaderOperator
-
 
 class QMMCopper(bpy.types.Operator):
     """Add/Apply Pale Copper (Minimum) Material to Selected Object (or Scene)"""
@@ -27,6 +25,12 @@ class QMMCopper(bpy.types.Operator):
         else:
             self.make_shader()
         return {'FINISHED'}
+
+    def make_group(self, nodes, arg1, arg2, arg3):
+        result = nodes.new("ShaderNodeGroup")
+        result.node_tree = bpy.data.node_groups[arg1]
+        result.location = arg2, arg3
+        return result
 
     def make_shader(self):
         # CreateShader
@@ -52,33 +56,22 @@ class QMMCopper(bpy.types.Operator):
 
         # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
-        ec_group = self.make_group(
-            nodes, 'Energy Conservation', -500, -200
-        )
+        ec_group = self.make_group(nodes, 'Energy Conservation', -500, -200)
         ec_group.inputs[0].default_value = 1.10
         ec_group.inputs[1].default_value = (0.926, 0.721, 0.504, 1)
         ec_group.inputs[2].default_value = (0.996, 0.957, 0.823, 1)
-
         ec_group.name = "Energy Conservation"
-        # CopperColorsGroup
-        bpy.ops.node.copper_colors_group_operator()
-        nodes = m_copper_m.node_tree.nodes
-        copper_colors_group = self.make_group(
-            nodes, 'Copper Colors', -700, -300
-        )
-        links = m_copper_m.node_tree.links.new
 
-        copper_colors_group.name = "Copper Colors"
-        links(copper_colors_group.outputs[1], ec_group.inputs[1])
+        # CopperColorsGroup
+        bpy.ops.node.copper_cg_operator()
+        copper_cg = self.make_group(nodes, 'Copper Colors', -700, -300)
+        copper_cg.name = "Copper Colors"
+
+        links = m_copper_m.node_tree.links.new
+        links(copper_cg.outputs[1], ec_group.inputs[1])
         links(ec_group.outputs[0], BSDF.inputs[0])
         links(ec_group.outputs[1], BSDF.inputs[7])
         links(ec_group.outputs[3], BSDF.inputs[16])
 
         # LOAD THE MATERIAL
         bpy.context.object.active_material = m_copper_m
-
-    def make_group(self, nodes, arg1, arg2, arg3):
-        result = nodes.new("ShaderNodeGroup")
-        result.node_tree = bpy.data.node_groups[arg1]
-        result.location = arg2, arg3
-        return result

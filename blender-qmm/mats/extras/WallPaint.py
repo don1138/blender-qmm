@@ -9,7 +9,12 @@ def ShowMessageBox(message="", title="", icon='INFO'):
         self.layout.label(text=message)
     bpy.context.window_manager.popup_menu(draw, title=title, icon=icon)
 
-# MercuryShaderOperator
+def make_node(nodes, shader, locX, locY):
+    result = nodes.new(shader)
+    result.location = (locX, locY)
+    return result
+
+# WallPaintShaderOperator
 
 
 class QMMWallPaint(bpy.types.Operator):
@@ -47,50 +52,42 @@ class QMMWallPaint(bpy.types.Operator):
         BSDF.inputs[0].default_value = (0.504859, 0.483713, 0.674328, 1)
 
         # bump
-        m_bump = nodes.new('ShaderNodeBump')
-        m_bump.location = (-500, -500)
+        m_bump = make_node(nodes, 'ShaderNodeBump', -500, -500)
         m_bump.inputs[0].default_value = 0.2
         m_bump.invert = True
 
         # maprange
-        m_maprange = nodes.new('ShaderNodeMapRange')
-        m_maprange.location = (-700, -200)
+        m_maprange = make_node(nodes, 'ShaderNodeMapRange', -700, -200)
         m_maprange.inputs[1].default_value = 0.4
         m_maprange.inputs[2].default_value = 0.9
         m_maprange.inputs[3].default_value = 0.52
         m_maprange.inputs[4].default_value = 0.7
 
         # colorramp2
-        m_maprange2 = nodes.new('ShaderNodeMapRange')
-        m_maprange2.location = (-700, -500)
+        m_maprange2 = make_node(nodes, 'ShaderNodeMapRange', -700, -500)
         m_maprange2.inputs[1].default_value = 0.4
         m_maprange2.inputs[2].default_value = 1
         m_maprange2.inputs[3].default_value = 0
         m_maprange2.inputs[4].default_value = 1
 
         # noiseshader
-        m_noise = nodes.new('ShaderNodeTexNoise')
-        m_noise.location = (-900, -200)
+        m_noise = make_node(nodes, 'ShaderNodeTexNoise', -900, -200)
         m_noise.inputs[2].default_value = 3.0
         m_noise.inputs[3].default_value = 3.0
 
         # voronoishader
-        m_voronoi = nodes.new('ShaderNodeTexVoronoi')
-        m_voronoi.location = (-900, -500)
+        m_voronoi = make_node(nodes, 'ShaderNodeTexVoronoi', -900, -500)
         m_voronoi.inputs[2].default_value = 128.0
 
         # mapping
-        m_mapping = nodes.new('ShaderNodeMapping')
-        m_mapping.location = (-1100, -300)
+        m_mapping = make_node(nodes, 'ShaderNodeMapping', -1100, -300)
         m_mapping.width = 140
 
         # texturecoordinates
-        m_texcoords = nodes.new('ShaderNodeTexCoord')
-        m_texcoords.location = (-1300, -300)
+        m_texcoords = make_node(nodes, 'ShaderNodeTexCoord', -1300, -300)
 
         # value
-        m_value = nodes.new('ShaderNodeValue')
-        m_value.location = (-1300, -600)
+        m_value = make_node(nodes, 'ShaderNodeValue', -1300, -600)
         m_value.outputs[0].default_value = 1.0
 
         # EnergyConservationGroup
@@ -98,7 +95,7 @@ class QMMWallPaint(bpy.types.Operator):
         ec_group = nodes.new("ShaderNodeGroup")
         ec_group.name = "Energy Conservation"
         ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
-        ec_group.location = (-500, -200)
+        ec_group.location = (-500, -100)
         ec_group.inputs[0].default_value = 1.495
         ec_group.inputs[1].default_value = (0.504859, 0.483713, 0.674328, 1)
         ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)

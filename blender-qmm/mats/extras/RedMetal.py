@@ -9,7 +9,7 @@ def ShowMessageBox(message="", title="", icon='INFO'):
         self.layout.label(text=message)
     bpy.context.window_manager.popup_menu(draw, title=title, icon=icon)
 
-# Red MetalShaderOperator
+# RedMetalShaderOperator
 
 
 class QMMRedMetal(bpy.types.Operator):

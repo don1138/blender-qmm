@@ -1,6 +1,5 @@
 import bpy
 
-
 class SpecularGroup(bpy.types.Operator):
     """Add/Get Specular Group Node"""
     bl_label = "Specular Node Group"
@@ -13,6 +12,12 @@ class SpecularGroup(bpy.types.Operator):
         if not ng_specular:
             self.make_group()
         return {'FINISHED'}
+
+    def make_node(self, specular_group, arg1, arg2, arg3):
+        result = specular_group.nodes.new('ShaderNodeMath')
+        result.operation = arg1
+        result.location = arg2, arg3
+        return result
 
     def make_group(self):
         # newnodegroup
@@ -67,9 +72,3 @@ class SpecularGroup(bpy.types.Operator):
         links(m_power.outputs[0], m_divide.inputs[0])
         links(m_divide.outputs[0], group_out.inputs[0])
         links(group_in.outputs[0], group_out.inputs[1])
-
-    def make_node(self, specular_group, arg1, arg2, arg3):
-        result = specular_group.nodes.new('ShaderNodeMath')
-        result.operation = arg1
-        result.location = arg2, arg3
-        return result

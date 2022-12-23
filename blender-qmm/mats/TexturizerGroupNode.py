@@ -1,6 +1,5 @@
 import bpy
 
-
 class TexturizerGroup(bpy.types.Operator):
     """Add/Get Texturizer Group Node"""
     bl_label = "Texturizer Node Group"
@@ -13,6 +12,11 @@ class TexturizerGroup(bpy.types.Operator):
         if not ng_texturizer:
             self.make_group()
         return {'FINISHED'}
+
+    def make_node(self, group, arg1, arg2, arg3):
+        result = group.nodes.new(arg1)
+        result.location = arg2, arg3
+        return result
 
     def make_group(self):
         # newnodegroup
@@ -155,8 +159,3 @@ class TexturizerGroup(bpy.types.Operator):
         links(n_mix_rough.outputs[0], group_out.inputs[2])
         links(n_mr_rf.outputs[0], group_out.inputs[3])
         links(n_bump.outputs[0], group_out.inputs[5])
-
-    def make_node(self, group, arg1, arg2, arg3):
-        result = group.nodes.new(arg1)
-        result.location = arg2, arg3
-        return result

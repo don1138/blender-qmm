@@ -71,7 +71,7 @@ class QMMTitanium(bpy.types.Operator):
         texturizer_group.inputs[1].default_value = 0.55
 
         # TitaniumColorsGroup
-        bpy.ops.node.titanium_colors_group_operator()
+        bpy.ops.node.titanium_cg_operator()
         titanium_colors_group = nodes.new("ShaderNodeGroup")
         titanium_colors_group.name = "Titanium Colors"
         titanium_colors_group.node_tree = bpy.data.node_groups['Titanium Colors']

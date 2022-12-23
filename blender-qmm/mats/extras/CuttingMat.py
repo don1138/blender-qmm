@@ -9,6 +9,11 @@ def ShowMessageBox(message="", title="", icon='INFO'):
         self.layout.label(text=message)
     bpy.context.window_manager.popup_menu(draw, title=title, icon=icon)
 
+def make_node(nodes, shader, locX, locY):
+    result = nodes.new(shader)
+    result.location = (locX, locY)
+    return result
+
 # CuttingMatShaderOperator
 
 
@@ -50,19 +55,16 @@ class QMMCuttingMat(bpy.types.Operator):
         BSDF.inputs[9].default_value = 0.79
 
         # rgbmix
-        m_mix = nodes.new('ShaderNodeMixRGB')
-        m_mix.location = (-700, -200)
+        m_mix = make_node(nodes, 'ShaderNodeMixRGB', -700, -200)
         m_mix.inputs[1].default_value = (0.045186, 0.141263, 0.144129, 1)
         m_mix.inputs[2].default_value = (0.187821, 0.450786, 0.558341, 1)
 
         # mathadd
-        m_add = nodes.new('ShaderNodeMath')
+        m_add = make_node(nodes, 'ShaderNodeMath', -900, -200)
         m_add.operation = 'ADD'
-        m_add.location = (-900, -200)
 
         # bricktexture
-        m_bricktexture = nodes.new('ShaderNodeTexBrick')
-        m_bricktexture.location = (-1100, -200)
+        m_bricktexture = make_node(nodes, 'ShaderNodeTexBrick', -1100, -200)
         m_bricktexture.offset = 0.0
         m_bricktexture.inputs[5].default_value = 0.005
         m_bricktexture.inputs[6].default_value = 0.0
@@ -70,8 +72,7 @@ class QMMCuttingMat(bpy.types.Operator):
         m_bricktexture.inputs[9].default_value = 1.0
 
         # bricktexture2
-        m_bricktexture2 = nodes.new('ShaderNodeTexBrick')
-        m_bricktexture2.location = (-1100, -600)
+        m_bricktexture2 = make_node(nodes, 'ShaderNodeTexBrick', -1100, -600)
         m_bricktexture2.offset = 0.0
         m_bricktexture2.inputs[5].default_value = 0.01
         m_bricktexture2.inputs[6].default_value = 0.0
@@ -79,29 +80,24 @@ class QMMCuttingMat(bpy.types.Operator):
         m_bricktexture2.inputs[9].default_value = 1.0
 
         # mapping
-        m_mapping = nodes.new('ShaderNodeMapping')
-        m_mapping.location = (-1300, -400)
+        m_mapping = make_node(nodes, 'ShaderNodeMapping', -1300, -400)
 
         # textcoord
-        m_textcoord = nodes.new('ShaderNodeTexCoord')
-        m_textcoord.location = (-1500, -400)
+        m_textcoord = make_node(nodes, 'ShaderNodeTexCoord', -1500, -400)
 
         # mathmultiply
-        m_multiply = nodes.new('ShaderNodeMath')
+        m_multiply = make_node(nodes, 'ShaderNodeMath', -1300, -800)
         m_multiply.operation = 'MULTIPLY'
-        m_multiply.location = (-1300, -800)
         m_multiply.inputs[1].default_value = 5
 
         # mapscale
-        m_mapscale = nodes.new('ShaderNodeValue')
+        m_mapscale = make_node(nodes, 'ShaderNodeValue', -1500, -700)
         m_mapscale.label = "Map Scale"
-        m_mapscale.location = (-1500, -700)
         m_mapscale.outputs[0].default_value = 2
 
         # texscale
-        m_texscale = nodes.new('ShaderNodeValue')
+        m_texscale = make_node(nodes, 'ShaderNodeValue', -1500, -800)
         m_texscale.label = "Texture Scale"
-        m_texscale.location = (-1500, -800)
         m_texscale.outputs[0].default_value = 5
 
         # EnergyConservationGroup
