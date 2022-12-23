@@ -204,7 +204,7 @@
 
 ### 1.3.8 <!-- 4/14/22 -->
 
-![Blender QMM Extended Color Groups](https://github.com/don1138/blender-qmm/blob/main/qmm-color-groups.png)
+![Blender QMM Extended Color Groups](https://github.com/don1138/blender-qmm/blob/main/imx/qmm-color-groups.png)
 
 - Add new color to **Copper Color Node Group**
   - **Dontnod Copper** <!-- #FAD0C0 -->
@@ -255,7 +255,7 @@
 
 ### 1.3.4 <!-- 1/02/22 -->
 
-![Blender QMM Extended Color Groups](https://github.com/don1138/blender-qmm/blob/main/qmm-extended-color-groups.png)
+![Blender QMM Extended Color Groups](https://github.com/don1138/blender-qmm/blob/main/imx/qmm-extended-color-groups.png)
 
 - **Bugfix:** Change node group output type from `Float` to `Color`
 - Add **Gold Color Group** with 9 color choices. This affects **Gold**, **Pale Gold**, and **Gold (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Gold_(color) -->
