@@ -71,7 +71,7 @@ class QMMTin(bpy.types.Operator):
         # Bump
         bpy.ops.node.canisotrophy_group_operator()
         m_bump = nodes.new("ShaderNodeBump")
-        m_bump.location = -500, -500
+        m_bump.location = -500, -600
         m_bump.inputs[0].default_value = 0.02
 
         links = m_tin.node_tree.links.new
