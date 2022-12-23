@@ -5,6 +5,11 @@
     - **Custom/Auto switch** toggles between user-defined and AGS color
     - **Metal/Dialectric switch** toggles HSV value of AGS between metal `(0.99)` and dialectric `(0.01)` settings
     - **Saturation input** adjusts saturation of AGS
+- Organize layout of RGB nodes inside color node groups
+  - **Copper Colors**
+  - **Gold Colors**
+  - **Silver Colors**
+  - **Titanium Colors**
 - Code refactoring & cleanup
 
 ### 1.5.2 <!-- 12/15/22 -->
