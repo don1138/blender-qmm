@@ -1,3 +1,12 @@
+### 1.5.3 <!-- 12/22/22 -->
+- Update **Energy Conservation** node group
+  - New option to use an auto-generated specular (AGS) color, which is calculated from the diffuse color
+  - New inputs:
+    - **Custom/Auto switch** toggles between user-defined and AGS color
+    - **Metal/Dialectric switch** toggles HSV value of AGS between metal `(0.99)` and dialectric `(0.01)` settings
+    - **Saturation input** adjusts saturation of AGS
+- Code cleanup
+
 ### 1.5.2 <!-- 12/15/22 -->
 - Code refactoring
 - PEP8 formatting

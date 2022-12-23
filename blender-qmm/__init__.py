@@ -40,8 +40,8 @@ from . import addon_updater_ops
 
 
 # PARENT PANEL
-class BQMPanel(bpy.types.Panel):
-    bl_idname = "BQM_PT_Panel"
+class QMMPanel(bpy.types.Panel):
+    bl_idname = "QMM_PT_Panel"
     bl_label = 'Quick Metal Materials'
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
@@ -52,13 +52,13 @@ class BQMPanel(bpy.types.Panel):
 
 
 # NOBLE METALS PANEL
-class BQMPanelNoble(bpy.types.Panel):
-    bl_idname = "BQM_PT_Panel_Noble"
+class QMMPanelNoble(bpy.types.Panel):
+    bl_idname = "QMM_PT_Panel_Noble"
     bl_label = 'Noble Metals'
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "MAT"
-    bl_parent_id = 'BQM_PT_Panel'
+    bl_parent_id = 'QMM_PT_Panel'
     bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
@@ -81,13 +81,13 @@ class BQMPanelNoble(bpy.types.Panel):
 
 
 # BASE METALS PANEL
-class BQMPanelBase(bpy.types.Panel):
-    bl_idname = "BQM_PT_Panel_Base"
+class QMMPanelBase(bpy.types.Panel):
+    bl_idname = "QMM_PT_Panel_Base"
     bl_label = 'Base Metals'
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "MAT"
-    bl_parent_id = 'BQM_PT_Panel'
+    bl_parent_id = 'QMM_PT_Panel'
     bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
@@ -126,13 +126,13 @@ class BQMPanelBase(bpy.types.Panel):
 
 
 # ALLOY METALS PANEL
-class BQMPanelAlloy(bpy.types.Panel):
-    bl_idname = "BQM_PT_Panel_Alloy"
+class QMMPanelAlloy(bpy.types.Panel):
+    bl_idname = "QMM_PT_Panel_Alloy"
     bl_label = 'Alloys'
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "MAT"
-    bl_parent_id = 'BQM_PT_Panel'
+    bl_parent_id = 'QMM_PT_Panel'
     bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
@@ -152,13 +152,13 @@ class BQMPanelAlloy(bpy.types.Panel):
 
 
 # EXTRAS PANEL
-class BQMPanelExtras(bpy.types.Panel):
-    bl_idname = "BQM_PT_Panel_Extras"
+class QMMPanelExtras(bpy.types.Panel):
+    bl_idname = "QMM_PT_Panel_Extras"
     bl_label = 'Extras'
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "MAT"
-    bl_parent_id = 'BQM_PT_Panel'
+    bl_parent_id = 'QMM_PT_Panel'
     bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
@@ -240,38 +240,38 @@ class AutoUpdaterPreferences(bpy.types.AddonPreferences):
         addon_updater_ops.update_settings_ui(self, context)
 
 
-from .mats.MakeMetal import *
-from .mats.TitaniumColors import *
-from .mats.SilverColors import *
-from .mats.GoldColors import *
-from .mats.CopperColors import *
-from .mats.TexturizerGroupNode import *
-from .mats.SpecularGroupNode import *
-from .mats.EnergyConservationGroupNode import *
-from .mats.Canisotrophy import *
-from .mats.noble.Silver import *
-from .mats.noble.Gold import *
-from .mats.noble.FresnelSilver import *
-from .mats.noble.FresnelGold import *
-from .mats.extras.WallPaint import *
-from .mats.extras.RedMetal import *
-from .mats.extras.Plaster import *
-from .mats.extras.Glass import *
-from .mats.extras.CuttingMat import *
-from .mats.extras.AsphaltBleached import *
-from .mats.extras.Asphalt import *
+from .mats.base.Copper import *
+from .mats.base.FresnelCopper import *
 from .mats.base.Tin import *
 from .mats.base.Titanium import *
-from .mats.base.FresnelCopper import *
-from .mats.base.Copper import *
+from .mats.Canisotrophy import *
+from .mats.CopperColors import *
+from .mats.EnergyConservationGroupNode import *
+from .mats.extras.Asphalt import *
+from .mats.extras.AsphaltBleached import *
+from .mats.extras.CuttingMat import *
+from .mats.extras.Glass import *
+from .mats.extras.Plaster import *
+from .mats.extras.RedMetal import *
+from .mats.extras.WallPaint import *
+from .mats.GoldColors import *
+from .mats.MakeMetal import *
+from .mats.noble.FresnelGold import *
+from .mats.noble.FresnelSilver import *
+from .mats.noble.Gold import *
+from .mats.noble.Silver import *
+from .mats.SilverColors import *
+from .mats.SpecularGroupNode import *
+from .mats.TexturizerGroupNode import *
+from .mats.TitaniumColors import *
 
 
 classes = [
-    BQMPanel,
-    BQMPanelNoble,
-    BQMPanelBase,
-    BQMPanelAlloy,
-    BQMPanelExtras,
+    QMMPanel,
+    QMMPanelNoble,
+    QMMPanelBase,
+    QMMPanelAlloy,
+    QMMPanelExtras,
     AutoUpdaterPreferences,
     QMMAluminium,
     QMMAsphalt,

@@ -21,12 +21,29 @@ class EnergyConservationGroup(bpy.types.Operator):
 
         # groupinput
         group_in = self.make_node(ec_group, 'NodeGroupInput', -1400, 0)
-        ec_group.inputs.new('NodeSocketFloat', 'IOR')
-        ec_group.inputs.new('NodeSocketColor', 'Diffuse (Base)')
-        ec_group.inputs.new('NodeSocketColor', 'Specular')
+        ec_group.inputs.new('NodeSocketFloat', 'IOR')               #0
+        ec_group.inputs.new('NodeSocketColor', 'Diffuse (Base)')    #1
+        ec_group.inputs.new('NodeSocketColor', 'Specular Custom')   #2
+        ec_group.inputs.new('NodeSocketString', '- Specular -')     #3
+        ec_group.inputs.new('NodeSocketFloat', 'Custom/Auto')       #4
+        ec_group.inputs.new('NodeSocketFloat', 'Metal/Dialectric')  #5
+        ec_group.inputs.new('NodeSocketFloat', 'Saturation')        #6
         ec_group.inputs[0].default_value = 1.52
+        ec_group.inputs[0].min_value = 0
+        ec_group.inputs[0].max_value = 10
         ec_group.inputs[1].default_value = (0.428690, 0.527115, 0.590619, 1)
         ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
+        ec_group.inputs[3].hide_value = True
+        ec_group.inputs[4].default_value = 0
+        ec_group.inputs[4].min_value = 0
+        ec_group.inputs[4].max_value = 1
+        ec_group.inputs[5].default_value = 0
+        ec_group.inputs[5].min_value = 0
+        ec_group.inputs[5].max_value = 1
+        ec_group.inputs[6].default_value = 0.333333
+        ec_group.inputs[6].min_value = 0
+        ec_group.inputs[6].max_value = 1
+
 
         # groupoutput
         group_out = self.make_node(ec_group, 'NodeGroupOutput', 0, 0)
@@ -61,15 +78,58 @@ class EnergyConservationGroup(bpy.types.Operator):
         m_multiply.inputs[1].default_value = 10
         m_multiply.label = "Clearcoat"
 
+        # colormix
+        m_colormix = self.make_node(ec_group, 'ShaderNodeMixRGB', -800, 300)
+
         # FRESNEL COLOR
         # fresnel
         m_fresnel = self.make_node(ec_group, 'ShaderNodeFresnel', -1000, 300)
 
-        # colormix
-        m_colormix = self.make_node(ec_group, 'ShaderNodeMixRGB', -800, 300)
+        # groupinput2
+        group_in2 = self.make_node(ec_group, 'NodeGroupInput', -1200, 300)
+
+        # colormix2
+        m_colormix2 = self.make_node(ec_group, 'ShaderNodeMixRGB', -1400, 200)
+
+        # mathgreaterthan
+        m_greaterthan = self.make_math_node(ec_group, 'GREATER_THAN', -1800, 200)
+        m_greaterthan.inputs[1].default_value = 0.5
+
+        # colormix3
+        m_colormix3 = self.make_node(ec_group, 'ShaderNodeMixRGB', -1600, 0)
+
+        # groupinput3
+        group_in3 = self.make_node(ec_group, 'NodeGroupInput', -2000, 200)
+
+        # mathgreaterthan2
+        m_greaterthan2 = self.make_math_node(ec_group, 'GREATER_THAN', -1800, -100)
+        m_greaterthan2.inputs[1].default_value = 0.5
+
+        # combinehsv
+        m_combinehsv = self.make_node(ec_group, 'ShaderNodeCombineColor', -1800, -300)
+        m_combinehsv.mode = 'HSV'
+        m_combinehsv.inputs[1].default_value = 0.333333
+        m_combinehsv.inputs[2].default_value = 0.99
+
+        # combinehsv2
+        m_combinehsv2 = self.make_node(ec_group, 'ShaderNodeCombineColor', -1800, -500)
+        m_combinehsv2.mode = 'HSV'
+        m_combinehsv2.inputs[1].default_value = 0.333333
+        m_combinehsv2.inputs[2].default_value = 0.01
+
+        # groupinput4
+        group_in4 = self.make_node(ec_group, 'NodeGroupInput', -2000, -100)
+
+        # separatehsv
+        m_separatehsv = self.make_node(ec_group, 'ShaderNodeSeparateColor', -2000, -400)
+        m_separatehsv.mode = 'HSV'
+
+        # groupinput5
+        group_in5 = self.make_node(ec_group, 'NodeGroupInput', -2200, -500)
 
         links = ec_group.links.new
 
+        # connect ior calc
         links(group_in.outputs[0], m_subtract.inputs[0])
         links(group_in.outputs[0], m_add.inputs[0])
         links(m_add.outputs[0], m_divide2.inputs[1])
@@ -79,14 +139,34 @@ class EnergyConservationGroup(bpy.types.Operator):
         links(m_divide.outputs[0], group_out.inputs[1])
         links(group_in.outputs[0], group_out.inputs[3])
 
+        # connect clearcoat
         links(m_divide.outputs[0], m_multiply.inputs[0])
         links(m_multiply.outputs[0], group_out.inputs[2])
 
-        links(group_in.outputs[0], m_fresnel.inputs[0])
+        # connect color mix
+        links(group_in2.outputs[0], m_fresnel.inputs[0])
         links(m_fresnel.outputs[0], m_colormix.inputs[0])
-        links(group_in.outputs[1], m_colormix.inputs[1])
-        links(group_in.outputs[2], m_colormix.inputs[2])
+        links(group_in2.outputs[1], m_colormix.inputs[1])
+        links(m_colormix2.outputs[0], m_colormix.inputs[2])
         links(m_colormix.outputs[0], group_out.inputs[0])
+
+        links(m_greaterthan.outputs[0], m_colormix2.inputs[0])
+        links(group_in3.outputs[2], m_colormix2.inputs[1])
+        links(group_in3.outputs[4], m_greaterthan.inputs[0])
+        links(m_colormix3.outputs[0], m_colormix2.inputs[2])
+
+        links(m_greaterthan2.outputs[0], m_colormix3.inputs[0])
+        links(m_combinehsv.outputs[0], m_colormix3.inputs[1])
+        links(m_combinehsv2.outputs[0], m_colormix3.inputs[2])
+
+        links(group_in4.outputs[5], m_greaterthan2.inputs[0])
+        links(group_in4.outputs[6], m_combinehsv.inputs[1])
+
+        links(m_separatehsv.outputs[0], m_combinehsv.inputs[1])
+        links(m_separatehsv.outputs[0], m_combinehsv2.inputs[1])
+
+        links(group_in5.outputs[1], m_separatehsv.inputs[0])
+        links(group_in5.outputs[6], m_combinehsv2.inputs[1])
 
     def make_node(self, group, arg1, arg2, arg3):
         result = group.nodes.new(arg1)
