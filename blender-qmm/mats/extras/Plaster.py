@@ -1,4 +1,5 @@
 import bpy
+import time 
 
 # MESSAGE BOX
 message_text = "This material already exists"
@@ -34,6 +35,8 @@ class QMMPlaster(bpy.types.Operator):
         return {'FINISHED'}
 
     def make_shader(self):
+        start = time.time()
+
         # CreateShader
         m_plaster = bpy.data.materials.new(name="QMM Plaster")
         m_plaster.use_nodes = True
@@ -105,7 +108,7 @@ class QMMPlaster(bpy.types.Operator):
         ec_group.location = (-500, -100)
         ec_group.inputs[0].default_value = 1.52
         ec_group.inputs[1].default_value = (0.708857, 0.392564, 0.708857, 1)
-        ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
+        ec_group.inputs[3].default_value = (0.01, 0.01, 0.01, 1)
 
         links = m_plaster.node_tree.links.new
 
@@ -126,3 +129,6 @@ class QMMPlaster(bpy.types.Operator):
         links(ec_group.outputs[3], BSDF.inputs[16])
 
         bpy.context.object.active_material = m_plaster
+
+        end = time.time()
+        print(f"QMM Plaster: {end - start} seconds")

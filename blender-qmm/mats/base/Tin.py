@@ -1,4 +1,5 @@
 import bpy
+import time 
 
 # MESSAGE BOX
 message_text = "This material already exists"
@@ -29,6 +30,8 @@ class QMMTin(bpy.types.Operator):
         return {'FINISHED'}
 
     def make_shader(self):
+        start = time.time()
+
         # CreateShader
         m_tin = bpy.data.materials.new(name="QMM Tin")
         m_tin.use_nodes = True
@@ -58,7 +61,7 @@ class QMMTin(bpy.types.Operator):
         ec_group.location = (-500, -200)
         ec_group.inputs[0].default_value = 2.16
         ec_group.inputs[1].default_value = (0.8, 0.8, 0.8, 1)
-        ec_group.inputs[2].default_value = (0.99, 0.99, 0.99, 1)
+        ec_group.inputs[3].default_value = (0.99, 0.99, 0.99, 1)
 
         # CanisotrophyGroup
         bpy.ops.node.canisotrophy_group_operator()
@@ -83,6 +86,9 @@ class QMMTin(bpy.types.Operator):
 
         # LOAD THE MATERIAL
         bpy.context.object.active_material = m_tin
+
+        end = time.time()
+        print(f"QMM Tin: {end - start} seconds")
 
     def make_node(self, nodes, arg1, arg2, arg3):
         result = nodes.new(arg1)

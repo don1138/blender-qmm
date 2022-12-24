@@ -1,4 +1,5 @@
 import bpy
+import time 
 
 # MESSAGE BOX
 message_text = "This material already exists"
@@ -33,6 +34,8 @@ class QMMCopper(bpy.types.Operator):
         return result
 
     def make_shader(self):
+        start = time.time()
+
         # CreateShader
         m_copper_m = bpy.data.materials.new(name="QMM Copper")
         m_copper_m.use_nodes = True
@@ -59,7 +62,7 @@ class QMMCopper(bpy.types.Operator):
         ec_group = self.make_group(nodes, 'Energy Conservation', -500, -200)
         ec_group.inputs[0].default_value = 1.10
         ec_group.inputs[1].default_value = (0.926, 0.721, 0.504, 1)
-        ec_group.inputs[2].default_value = (0.996, 0.957, 0.823, 1)
+        ec_group.inputs[3].default_value = (0.996, 0.957, 0.823, 1)
         ec_group.name = "Energy Conservation"
 
         # CopperColorsGroup
@@ -75,3 +78,6 @@ class QMMCopper(bpy.types.Operator):
 
         # LOAD THE MATERIAL
         bpy.context.object.active_material = m_copper_m
+
+        end = time.time()
+        print(f"QMM Copper: {end - start} seconds")

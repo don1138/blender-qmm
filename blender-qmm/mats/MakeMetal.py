@@ -1,4 +1,5 @@
 import bpy
+import time 
 
 
 metal_values = [
@@ -30,6 +31,8 @@ def ShowMessageBox(message="", title="", icon='INFO'):
 
 
 def make_metal(units):
+    start = time.time()
+
     uv_dict = metal_values[units]
     unit_key = list(uv_dict.keys())[0]
     unit_value = uv_dict[unit_key]
@@ -42,6 +45,9 @@ def make_metal(units):
         return {'FINISHED'}
     else:
         make_shader(units)
+
+    end = time.time()
+    print(f"{unit_value[1]}: {end - start} seconds")
 
 
 def make_shader(units):
@@ -78,7 +84,7 @@ def make_shader(units):
     ec_group.location = (-500, -200)
     ec_group.inputs[0].default_value = unit_value[4]
     ec_group.inputs[1].default_value = unit_value[2]
-    ec_group.inputs[2].default_value = unit_value[5]
+    ec_group.inputs[3].default_value = unit_value[5]
 
     links = unit_value[0].node_tree.links.new
 

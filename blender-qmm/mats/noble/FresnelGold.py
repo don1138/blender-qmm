@@ -1,4 +1,5 @@
 import bpy
+import time 
 
 # MESSAGE BOX
 message_text = "This material already exists"
@@ -29,6 +30,8 @@ class QMMGoldFresnel(bpy.types.Operator):
         return {'FINISHED'}
 
     def make_shader(self):
+        start = time.time()
+
         # CreateShader
         m_gold = bpy.data.materials.new(name="QMM Gold Fresnel")
         m_gold.use_nodes = True
@@ -98,7 +101,7 @@ class QMMGoldFresnel(bpy.types.Operator):
         bpy.context.object.active_material = m_gold
 
         # GoldColorsGroup
-        bpy.ops.node.gold_colors_group_operator()
+        bpy.ops.node.gold_cg_operator()
         nodes = m_gold.node_tree.nodes
         gold_colors_group = nodes.new("ShaderNodeGroup")
         gold_colors_group.name = "Gold Colors"
@@ -107,6 +110,9 @@ class QMMGoldFresnel(bpy.types.Operator):
         links(gold_colors_group.outputs[0], m_diffuse.inputs[0])
         links(gold_colors_group.outputs[0], m_glossy.inputs[0])
         links(gold_colors_group.outputs[0], m_glossy2.inputs[0])
+
+        end = time.time()
+        print(f"QMM Gold Fresnel: {end - start} seconds")
 
     def make_node(self, nodes, arg1, arg2, arg3, arg4):
         result = nodes.new(arg1)

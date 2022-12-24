@@ -1,4 +1,5 @@
 import bpy
+import time 
 
 # MESSAGE BOX
 message_text = "This material already exists"
@@ -27,6 +28,8 @@ class QMMSilver(bpy.types.Operator):
         return {'FINISHED'}
 
     def make_shader(self):
+        start = time.time()
+
         # CreateShader
         m_silver_m = bpy.data.materials.new(name="QMM Silver")
         m_silver_m.use_nodes = True
@@ -59,7 +62,7 @@ class QMMSilver(bpy.types.Operator):
         ec_group = self.make_node(nodes, "Energy Conservation", 'Energy Conservation', -500)
         ec_group.inputs[0].default_value = 1.082
         ec_group.inputs[1].default_value = (0.964686, 0.947307, 0.921582, 1)
-        ec_group.inputs[2].default_value = (0.999, 0.998, 0.998, 1)
+        ec_group.inputs[3].default_value = (0.999, 0.998, 0.998, 1)
         links(ec_group.outputs[0], BSDF.inputs[0])
         links(ec_group.outputs[1], BSDF.inputs[7])
         links(ec_group.outputs[3], BSDF.inputs[16])
@@ -70,6 +73,9 @@ class QMMSilver(bpy.types.Operator):
         silver_cg = self.make_node(nodes, "Silver Colors", 'Silver Colors', -700)
 
         links(silver_cg.outputs[2], ec_group.inputs[1])
+
+        end = time.time()
+        print(f"QMM Silver: {end - start} seconds")
 
     def make_node(self, nodes, arg1, arg2, arg3):
         result = nodes.new("ShaderNodeGroup")

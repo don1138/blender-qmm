@@ -1,4 +1,5 @@
 import bpy
+import time 
 
 # MESSAGE BOX
 message_text = "This material already exists"
@@ -29,6 +30,8 @@ class QMMSilverFresnel(bpy.types.Operator):
         return {'FINISHED'}
 
     def make_shader(self):
+        start = time.time()
+
         # CreateShader
         m_silver = bpy.data.materials.new(name="QMM Silver Fresnel")
         m_silver.use_nodes = True
@@ -79,7 +82,7 @@ class QMMSilverFresnel(bpy.types.Operator):
         bpy.context.object.active_material = m_silver
 
         # SilverColorsGroup
-        bpy.ops.node.silver_colors_group_operator()
+        bpy.ops.node.silver_cg_operator()
         nodes = m_silver.node_tree.nodes
         silver_colors_group = nodes.new("ShaderNodeGroup")
         silver_colors_group.name = "Silver Colors"
@@ -87,6 +90,9 @@ class QMMSilverFresnel(bpy.types.Operator):
         silver_colors_group.location = (-600, 0)
         links(silver_colors_group.outputs[0], m_glossy.inputs[0])
         links(silver_colors_group.outputs[0], m_glossy2.inputs[0])
+
+        end = time.time()
+        print(f"QMM Silver Fresnel: {end - start} seconds")
 
     def make_node(self, nodes, arg1, arg2, arg3, arg4):
         result = nodes.new(arg1)

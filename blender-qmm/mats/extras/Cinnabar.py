@@ -1,4 +1,5 @@
 import bpy
+import time 
 
 # MESSAGE BOX
 message_text = "This material already exists"
@@ -29,6 +30,8 @@ class QMMCinnabar(bpy.types.Operator):
         return {'FINISHED'}
 
     def make_shader(self):
+        start = time.time()
+
         # CreateShader
         m_cinnabar = bpy.data.materials.new(name="QMM Cinnabar")
         m_cinnabar.use_nodes = True
@@ -82,7 +85,7 @@ class QMMCinnabar(bpy.types.Operator):
         ec_group.location = (-500, -200)
         ec_group.inputs[0].default_value = 3.02
         ec_group.inputs[1].default_value = (0.768151, 0.054480, 0.034340, 1)
-        ec_group.inputs[2].default_value = (0.010000, 0.000687, 0.000429, 1)
+        ec_group.inputs[3].default_value = (0.010000, 0.000687, 0.000429, 1)
 
         # TexturizerGroup
         bpy.ops.node.texturizer_group_operator()
@@ -108,3 +111,6 @@ class QMMCinnabar(bpy.types.Operator):
 
         # LOAD THE MATERIAL
         bpy.context.object.active_material = m_cinnabar
+
+        end = time.time()
+        print(f"QMM Cinnabar: {end - start} seconds")

@@ -1,4 +1,5 @@
 import bpy
+import time 
 
 # MESSAGE BOX
 message_text = "This material already exists"
@@ -21,7 +22,7 @@ def set_ec(nodes, locX, locY, ior, diff, spec):
     result.location = (locX, locY)
     result.inputs[0].default_value = ior
     result.inputs[1].default_value = diff
-    result.inputs[2].default_value = spec
+    result.inputs[3].default_value = spec
     return result
 
 # AsphaltBleachedShaderOperator
@@ -43,6 +44,8 @@ class QMMAsphaltBleached(bpy.types.Operator):
         return {'FINISHED'}
 
     def make_shader(self):
+        start = time.time()
+
         # CreateShader
         m_asphalt_b = bpy.data.materials.new(name="QMM Asphalt Bleached")
         m_asphalt_b.use_nodes = True
@@ -202,3 +205,6 @@ class QMMAsphaltBleached(bpy.types.Operator):
         links(m_disp.outputs[0], material_output.inputs[2])
 
         bpy.context.object.active_material = m_asphalt_b
+
+        end = time.time()
+        print(f"QMM Asphalt Bleached: {end - start} seconds")

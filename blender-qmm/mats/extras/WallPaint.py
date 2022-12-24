@@ -1,4 +1,5 @@
 import bpy
+import time 
 
 # MESSAGE BOX
 message_text = "This material already exists"
@@ -34,6 +35,8 @@ class QMMWallPaint(bpy.types.Operator):
         return {'FINISHED'}
 
     def make_shader(self):
+        start = time.time()
+
         # CreateShader
         m_wall_paint = bpy.data.materials.new(name="QMM Wall Paint")
         m_wall_paint.use_nodes = True
@@ -98,7 +101,7 @@ class QMMWallPaint(bpy.types.Operator):
         ec_group.location = (-500, -100)
         ec_group.inputs[0].default_value = 1.495
         ec_group.inputs[1].default_value = (0.504859, 0.483713, 0.674328, 1)
-        ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
+        ec_group.inputs[3].default_value = (0.01, 0.01, 0.01, 1)
 
         links = m_wall_paint.node_tree.links.new
 
@@ -116,3 +119,6 @@ class QMMWallPaint(bpy.types.Operator):
         links(m_bump.outputs[0], BSDF.inputs[22])
 
         bpy.context.object.active_material = m_wall_paint
+
+        end = time.time()
+        print(f"QMM Wall Paint: {end - start} seconds")

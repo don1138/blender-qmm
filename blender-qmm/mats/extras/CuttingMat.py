@@ -1,4 +1,5 @@
 import bpy
+import time 
 
 # MESSAGE BOX
 message_text = "This material already exists"
@@ -34,6 +35,8 @@ class QMMCuttingMat(bpy.types.Operator):
         return {'FINISHED'}
 
     def make_shader(self):
+        start = time.time()
+
         # CreateShader
         m_cutting_mat = bpy.data.materials.new(name="QMM Rubber Cutting Mat")
         m_cutting_mat.use_nodes = True
@@ -108,7 +111,7 @@ class QMMCuttingMat(bpy.types.Operator):
         ec_group.location = (-500, -200)
         ec_group.inputs[0].default_value = 1.52
         ec_group.inputs[1].default_value = (0.045186, 0.141263, 0.144129, 1)
-        ec_group.inputs[2].default_value = (0.01, 0.01, 0.01, 1)
+        ec_group.inputs[3].default_value = (0.01, 0.01, 0.01, 1)
 
         links = m_cutting_mat.node_tree.links.new
 
@@ -129,3 +132,6 @@ class QMMCuttingMat(bpy.types.Operator):
         links(ec_group.outputs[3], BSDF.inputs[16])
 
         bpy.context.object.active_material = m_cutting_mat
+
+        end = time.time()
+        print(f"QMM Rubber Cutting Mat: {end - start} seconds")

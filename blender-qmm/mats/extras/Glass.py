@@ -1,4 +1,5 @@
 import bpy
+import time 
 
 # MESSAGE BOX
 message_text = "This material already exists"
@@ -34,6 +35,8 @@ class QMMGlass(bpy.types.Operator):
         return {'FINISHED'}
 
     def make_shader(self):
+        start = time.time()
+
         # CreateShader
         m_glass = bpy.data.materials.new(name="QMM Glass")
         m_glass.use_nodes = True
@@ -108,3 +111,6 @@ class QMMGlass(bpy.types.Operator):
         bpy.context.object.active_material = m_glass
         bpy.context.object.active_material.blend_method = 'BLEND'
         bpy.context.object.active_material.shadow_method = 'NONE'
+
+        end = time.time()
+        print(f"QMM Glass: {end - start} seconds")

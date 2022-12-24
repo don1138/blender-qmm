@@ -1,4 +1,5 @@
 import bpy
+import time 
 
 # MESSAGE BOX
 message_text = "This material already exists"
@@ -29,6 +30,8 @@ class QMMTitanium(bpy.types.Operator):
         return {'FINISHED'}
 
     def make_shader(self):
+        start = time.time()
+
         # CreateShader
         m_titanium = bpy.data.materials.new(name="QMM Titanium Textured")
         m_titanium.use_nodes = True
@@ -58,7 +61,7 @@ class QMMTitanium(bpy.types.Operator):
         ec_group.location = (-500, -200)
         ec_group.inputs[0].default_value = 2.16
         ec_group.inputs[1].default_value = (0.533276, 0.491020, 0.439657, 1)
-        ec_group.inputs[2].default_value = (0.689, 0.683, 0.689, 1)
+        ec_group.inputs[3].default_value = (0.689, 0.683, 0.689, 1)
 
         # TexturizerGroup
         bpy.ops.node.texturizer_group_operator()
@@ -89,3 +92,6 @@ class QMMTitanium(bpy.types.Operator):
 
         # LOAD THE MATERIAL
         bpy.context.object.active_material = m_titanium
+
+        end = time.time()
+        print(f"QMM Titanium Textured: {end - start} seconds")

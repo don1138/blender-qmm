@@ -1,4 +1,5 @@
 import bpy
+import time 
 
 # MESSAGE BOX
 message_text = "This material already exists"
@@ -29,6 +30,8 @@ class QMMCopperFresnel(bpy.types.Operator):
         return {'FINISHED'}
 
     def make_shader(self):
+        start = time.time()
+
         # CreateShader
         m_copper = bpy.data.materials.new(name="QMM Copper Fresnel")
         m_copper.use_nodes = True
@@ -101,7 +104,7 @@ class QMMCopperFresnel(bpy.types.Operator):
         links(m_mix.outputs[0], material_output.inputs[0])
 
         # CopperColorsGroup
-        bpy.ops.node.copper_colors_group_operator()
+        bpy.ops.node.copper_cg_operator()
         nodes = m_copper.node_tree.nodes
         copper_colors_group = nodes.new("ShaderNodeGroup")
         copper_colors_group.name = "Copper Colors"
@@ -119,3 +122,6 @@ class QMMCopperFresnel(bpy.types.Operator):
         result.location = arg2, arg3
         result.inputs[0].default_value = arg4
         return result
+
+        end = time.time()
+        print(f"QMM Copper Fresnel: {end - start} seconds")

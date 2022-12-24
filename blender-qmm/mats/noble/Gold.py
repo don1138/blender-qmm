@@ -1,4 +1,5 @@
 import bpy
+import time 
 
 # MESSAGE BOX
 message_text = "This material already exists"
@@ -27,6 +28,8 @@ class QMMGold(bpy.types.Operator):
         return {'FINISHED'}
 
     def make_shader(self):
+        start = time.time()
+
         # CreateShader
         m_gold_m = bpy.data.materials.new(name="QMM Gold")
         m_gold_m.use_nodes = True
@@ -57,7 +60,7 @@ class QMMGold(bpy.types.Operator):
         )
         ec_group.inputs[0].default_value = 1.35
         ec_group.inputs[1].default_value = (0.947306, 0.775822, 0.371238, 1)
-        ec_group.inputs[2].default_value = (1.000000, 0.982250, 0.752942, 1)
+        ec_group.inputs[3].default_value = (1.000000, 0.982250, 0.752942, 1)
         ec_group.location = (-500, -200)
         links(ec_group.outputs[0], BSDF.inputs[0])
         links(ec_group.outputs[1], BSDF.inputs[7])
@@ -72,6 +75,9 @@ class QMMGold(bpy.types.Operator):
 
         # LOAD THE MATERIAL
         bpy.context.object.active_material = m_gold_m
+
+        end = time.time()
+        print(f"QMM Gold: {end - start} seconds")
 
     def make_node(self, nodes, arg1, arg2):
         result = nodes.new("ShaderNodeGroup")
