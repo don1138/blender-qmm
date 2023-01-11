@@ -1,3 +1,7 @@
+### 1.5.5 <!-- 01/10/23 -->
+- Color Mix Shader Node: add Blender 3.4.0 version test to switch between ShaderNodeMixRGB and ShaderNodeMix
+- Switch PrincipledBSDF light scattering to `MULTI_GGX`
+
 ### 1.5.4 <!-- 12/24/22 -->
 - Bugfix: Correct **Energy Conservation** node group connections
 

@@ -51,6 +51,7 @@ class QMMWallPaint(bpy.types.Operator):
 
         # princibledbsdf
         BSDF = nodes.get('Principled BSDF')
+        BSDF.distribution = 'MULTI_GGX'
         BSDF.location = (-300, 0)
         BSDF.inputs[0].default_value = (0.504859, 0.483713, 0.674328, 1)
 

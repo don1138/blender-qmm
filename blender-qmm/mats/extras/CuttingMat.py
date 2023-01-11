@@ -1,6 +1,8 @@
 import bpy
 import time 
 
+bv = bpy.app.version
+
 # MESSAGE BOX
 message_text = "This material already exists"
 
@@ -51,16 +53,22 @@ class QMMCuttingMat(bpy.types.Operator):
 
         # princibledbsdf
         BSDF = nodes.get('Principled BSDF')
-        BSDF.location = (-300, 0)
         BSDF.distribution = 'MULTI_GGX'
+        BSDF.location = (-300, 0)
         BSDF.inputs[0].default_value = (0.045186, 0.141263, 0.144129, 1)
         BSDF.inputs[5].default_value = 0.425
         BSDF.inputs[9].default_value = 0.79
 
         # rgbmix
-        m_mix = make_node(nodes, 'ShaderNodeMixRGB', -700, -200)
-        m_mix.inputs[1].default_value = (0.045186, 0.141263, 0.144129, 1)
-        m_mix.inputs[2].default_value = (0.187821, 0.450786, 0.558341, 1)
+        if bv < (3, 4, 0):
+            m_mix = make_node(nodes, 'ShaderNodeMixRGB', -700, -200)
+            m_mix.inputs[1].default_value = (0.045186, 0.141263, 0.144129, 1)
+            m_mix.inputs[2].default_value = (0.187821, 0.450786, 0.558341, 1)
+        else:
+            m_mix = make_node(nodes, 'ShaderNodeMix', -700, -200)
+            m_mix.data_type = 'RGBA'
+            m_mix.inputs[6].default_value = (0.045186, 0.141263, 0.144129, 1)
+            m_mix.inputs[7].default_value = (0.187821, 0.450786, 0.558341, 1)
 
         # mathadd
         m_add = make_node(nodes, 'ShaderNodeMath', -900, -200)
@@ -125,11 +133,15 @@ class QMMCuttingMat(bpy.types.Operator):
         links(m_bricktexture.outputs[1], m_add.inputs[0])
         links(m_bricktexture2.outputs[1], m_add.inputs[1])
         links(m_add.outputs[0], m_mix.inputs[0])
-        links(m_mix.outputs[0], ec_group.inputs[1])
         links(ec_group.outputs[0], BSDF.inputs[0])
         links(ec_group.outputs[1], BSDF.inputs[7])
         # links(ec_group.outputs[2], BSDF.inputs[14])
         links(ec_group.outputs[3], BSDF.inputs[16])
+
+        if bv < (3, 4, 0):
+            links(m_mix.outputs[0], ec_group.inputs[1])
+        else:
+            links(m_mix.outputs[2], ec_group.inputs[1])
 
         bpy.context.object.active_material = m_cutting_mat
 

@@ -1,6 +1,8 @@
 import bpy
 import time 
 
+bv = bpy.app.version
+
 # MESSAGE BOX
 message_text = "This material already exists"
 
@@ -69,12 +71,14 @@ class QMMAsphaltBleached(bpy.types.Operator):
 
         # principledbsdf - stone
         BSDF = nodes.get('Principled BSDF')
+        BSDF.distribution = 'MULTI_GGX'
         BSDF.location = (-700, 300)
         BSDF.inputs[9].default_value = 0.56
         # BSDF.select = True
 
         # principledbsdf - cracks
         BSDF2 = make_node(nodes, 'ShaderNodeBsdfPrincipled', -700, -400)
+        BSDF2.distribution = 'MULTI_GGX'
         BSDF2.inputs[0].default_value = (0.025, 0.01875, 0.01875, 1)
         BSDF2.inputs[9].default_value = 1.0
 
@@ -90,7 +94,11 @@ class QMMAsphaltBleached(bpy.types.Operator):
         m_bump.inputs[0].default_value = 0.4
 
         # mixrgbshader
-        m_mix = make_node(nodes, 'ShaderNodeMixRGB', -1300, 0)
+        if bv < (3, 4, 0):
+            m_mix = make_node(nodes, 'ShaderNodeMixRGB', -1300, -100)
+        else:
+            m_mix = make_node(nodes, 'ShaderNodeMix', -1300, -100)
+            m_mix.data_type = 'RGBA'
 
         # bump2
         m_bump2 = make_node(nodes, 'ShaderNodeBump', -1100, -300)
@@ -128,7 +136,11 @@ class QMMAsphaltBleached(bpy.types.Operator):
         m_noise2.inputs[4].default_value = 0.875
 
         # mixrgbshader2
-        m_mix2 = make_node(nodes, 'ShaderNodeMixRGB', -1700, -500)
+        if bv < (3, 4, 0):
+            m_mix2 = make_node(nodes, 'ShaderNodeMixRGB', -1700, -500)
+        else:
+            m_mix2 = make_node(nodes, 'ShaderNodeMix', -1700, -500)
+            m_mix2.data_type = 'RGBA'
         m_mix2.inputs[0].default_value = 0.9
 
         # noiseshader3
@@ -171,19 +183,12 @@ class QMMAsphaltBleached(bpy.types.Operator):
         links(BSDF2.outputs[0], m_mixshader.inputs[2])
         links(m_maprange.outputs[0], ec_group.inputs[1])
         links(m_bump.outputs[0], BSDF.inputs[22])
-        links(m_mix.outputs[0], m_maprange.inputs[0])
-        links(m_mix.outputs[0], m_bump.inputs[2])
         links(m_bump2.outputs[0], m_bump.inputs[3])
         links(m_maprange2.outputs[0], m_bump2.inputs[2])
         links(m_maprange3.outputs[0], m_mix.inputs[0])
-        links(m_voronoi.outputs[0], m_mix.inputs[1])
-        links(m_noise.outputs[0], m_mix.inputs[2])
         links(m_voronoi2.outputs[0], m_maprange2.inputs[0])
         links(m_noise2.outputs[0], m_maprange3.inputs[0])
-        links(m_mix2.outputs[0], m_voronoi2.inputs[0])
-        links(m_noise3.outputs[1], m_mix2.inputs[1])
         links(m_mapping.outputs[0], m_noise3.inputs[0])
-        links(m_mapping.outputs[0], m_mix2.inputs[2])
         links(m_mapping2.outputs[0], m_noise2.inputs[0])
         links(m_mapping2.outputs[0], m_voronoi.inputs[0])
         links(m_mapping2.outputs[0], m_noise.inputs[0])
@@ -191,6 +196,23 @@ class QMMAsphaltBleached(bpy.types.Operator):
         links(m_texcoords.outputs[3], m_mapping.inputs[0])
         links(m_texcoords.outputs[3], m_mapping2.inputs[0])
         links(m_val2.outputs[0], m_mapping2.inputs[3])
+
+        if bv < (3, 4, 0):
+            links(m_mix.outputs[0], m_maprange.inputs[0])
+            links(m_mix.outputs[0], m_bump.inputs[2])
+            links(m_voronoi.outputs[0], m_mix.inputs[1])
+            links(m_noise.outputs[0], m_mix.inputs[2])
+            links(m_mix2.outputs[0], m_voronoi2.inputs[0])
+            links(m_noise3.outputs[1], m_mix2.inputs[1])
+            links(m_mapping.outputs[0], m_mix2.inputs[2])
+        else:
+            links(m_mix.outputs[2], m_maprange.inputs[0])
+            links(m_mix.outputs[2], m_bump.inputs[2])
+            links(m_voronoi.outputs[0], m_mix.inputs[6])
+            links(m_noise.outputs[0], m_mix.inputs[7])
+            links(m_mix2.outputs[2], m_voronoi2.inputs[0])
+            links(m_noise3.outputs[1], m_mix2.inputs[6])
+            links(m_mapping.outputs[0], m_mix2.inputs[7])
 
         links(ec_group.outputs[0], BSDF.inputs[0])
         links(ec_group.outputs[1], BSDF.inputs[7])

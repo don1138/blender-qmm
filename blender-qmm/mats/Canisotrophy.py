@@ -1,5 +1,6 @@
 import bpy
 
+bv = bpy.app.version
 
 class CanisotrophyGroup(bpy.types.Operator):
     """Add/Get Canisotrophy Group Node"""
@@ -73,8 +74,11 @@ class CanisotrophyGroup(bpy.types.Operator):
         canisotrophy_group.outputs.new('NodeSocketFloat', 'XY Only')
 
         # mixrbg
-        m_mixrgb = self.make_node(
-            canisotrophy_group, 'ShaderNodeMixRGB', -200, 0)
+        if bv < (3, 4, 0):
+            m_mixrgb = self.make_node(canisotrophy_group, 'ShaderNodeMixRGB', -200, 0)
+        else:
+            m_mixrgb = self.make_node(canisotrophy_group, 'ShaderNodeMix', -200, 0)
+            m_mixrgb.data_type = 'RGBA'
 
         # maprange
         m_maprange = self.make_node(
@@ -154,15 +158,21 @@ class CanisotrophyGroup(bpy.types.Operator):
         links(m_vectormath2.outputs[0], m_vectormath.inputs[0])
         links(m_texcoords.outputs[3], m_vectormath2.inputs[0])
         links(m_texcoords.outputs[1], m_separatexyz.inputs[0])
+        links(m_separatexyz.outputs[2], m_mixrgb.inputs[0])
         links(m_combinexyz.outputs[0], m_mapping.inputs[3])
         links(m_combinexyz.outputs[0], m_mapping2.inputs[3])
-        links(m_separatexyz.outputs[2], m_mixrgb.inputs[0])
         links(m_vectormath.outputs[1], m_mapping2.inputs[0])
         links(m_mapping.outputs[0], m_noise.inputs[0])
         links(m_mapping2.outputs[0], m_noise2.inputs[0])
         links(m_noise.outputs[0], m_maprange.inputs[0])
         links(m_noise2.outputs[0], m_maprange2.inputs[0])
-        links(m_maprange.outputs[0], m_mixrgb.inputs[1])
-        links(m_maprange2.outputs[0], m_mixrgb.inputs[2])
-        links(m_mixrgb.outputs[0], group_out.inputs[1])
         links(m_maprange.outputs[0], group_out.inputs[2])
+
+        if bv < (3, 4, 0):
+            links(m_maprange.outputs[0], m_mixrgb.inputs[1])
+            links(m_maprange2.outputs[0], m_mixrgb.inputs[2])
+            links(m_mixrgb.outputs[0], group_out.inputs[1])
+        else:
+            links(m_maprange.outputs[0], m_mixrgb.inputs[6])
+            links(m_maprange2.outputs[0], m_mixrgb.inputs[7])
+            links(m_mixrgb.outputs[2], group_out.inputs[1])

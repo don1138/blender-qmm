@@ -1,5 +1,7 @@
 import bpy
 
+bv = bpy.app.version
+
 class TexturizerGroup(bpy.types.Operator):
     """Add/Get Texturizer Group Node"""
     bl_label = "Texturizer Node Group"
@@ -56,27 +58,31 @@ class TexturizerGroup(bpy.types.Operator):
         texturizer_group.outputs.new('NodeSocketVector', 'Normal')       # 5
 
         # mixrgb-multiply
-        n_mix_rgb = self.make_node(
-            texturizer_group, 'ShaderNodeMixRGB', -300, 500)
+        if bv < (3, 4, 0):
+            n_mix_rgb = self.make_node(texturizer_group, 'ShaderNodeMixRGB', -300, 500)
+        else:
+            n_mix_rgb = self.make_node(texturizer_group, 'ShaderNodeMix', -300, 600)
+            n_mix_rgb.data_type = 'RGBA'
         n_mix_rgb.blend_type = 'MULTIPLY'
         n_mix_rgb.inputs[0].default_value = 0.5
 
         # maprange-roughceiling
-        n_mr_rc = self.make_node(
-            texturizer_group, 'ShaderNodeMapRange', -300, 300)
+        n_mr_rc = self.make_node(texturizer_group, 'ShaderNodeMapRange', -300, 300)
         n_mr_rc.label = "Rough Ceiling"
         n_mr_rc.inputs[1].default_value = 0.4
         n_mr_rc.inputs[2].default_value = 0.6
 
         # mixrgb-roughness
-        n_mix_rough = self.make_node(
-            texturizer_group, 'ShaderNodeMixRGB', -300, 00)
+        if bv < (3, 4, 0):
+            n_mix_rough = self.make_node(texturizer_group, 'ShaderNodeMixRGB', -300, 00)
+        else:
+            n_mix_rough = self.make_node(texturizer_group, 'ShaderNodeMix', -300, 00)
+            n_mix_rough.data_type = 'RGBA'
         n_mix_rough.blend_type = 'OVERLAY'
         n_mix_rough.inputs[0].default_value = 1.0
 
         # maprange-roughfloor
-        n_mr_rf = self.make_node(
-            texturizer_group, 'ShaderNodeMapRange', -300, -200)
+        n_mr_rf = self.make_node(texturizer_group, 'ShaderNodeMapRange', -300, -200)
         n_mr_rf.label = "Rough Floor"
         n_mr_rf.inputs[1].default_value = 0.6
         n_mr_rf.inputs[2].default_value = 0.8
@@ -140,9 +146,7 @@ class TexturizerGroup(bpy.types.Operator):
         links(n_rr22.outputs[0], n_rr21.inputs[0])
         links(n_rr22.outputs[0], n_rr23.inputs[0])
         links(n_rr21.outputs[0], n_mr_rc.inputs[0])
-        links(n_rr22.outputs[0], n_mix_rough.inputs[1])
         links(n_rr23.outputs[0], n_mr_rf.inputs[0])
-        links(n_hsl.outputs[0], n_mix_rgb.inputs[2])
         links(n_msub.outputs[0], n_mr_rc.inputs[3])
         links(n_madd.outputs[0], n_mr_rf.inputs[4])
         links(n_mr.outputs[0], group_out.inputs[4])
@@ -150,12 +154,22 @@ class TexturizerGroup(bpy.types.Operator):
         links(n_rr11.outputs[0], n_msub.inputs[1])
         links(n_rr11.outputs[0], n_mr_rc.inputs[4])
         links(n_rr12.outputs[0], n_rr11.inputs[0])
-        links(n_rr12.outputs[0], n_mix_rough.inputs[2])
         links(n_rr12.outputs[0], n_rr13.inputs[0])
         links(n_rr13.outputs[0], n_madd.inputs[0])
         links(n_rr13.outputs[0], n_mr_rf.inputs[3])
-        links(n_mix_rgb.outputs[0], group_out.inputs[0])
         links(n_mr_rc.outputs[0], group_out.inputs[1])
-        links(n_mix_rough.outputs[0], group_out.inputs[2])
         links(n_mr_rf.outputs[0], group_out.inputs[3])
         links(n_bump.outputs[0], group_out.inputs[5])
+
+        if bv < (3, 4, 0):
+            links(n_rr22.outputs[0], n_mix_rough.inputs[1])
+            links(n_hsl.outputs[0], n_mix_rgb.inputs[2])
+            links(n_rr12.outputs[0], n_mix_rough.inputs[2])
+            links(n_mix_rgb.outputs[0], group_out.inputs[0])
+            links(n_mix_rough.outputs[0], group_out.inputs[2])
+        else:
+            links(n_rr22.outputs[0], n_mix_rough.inputs[6])
+            links(n_hsl.outputs[0], n_mix_rgb.inputs[7])
+            links(n_rr12.outputs[0], n_mix_rough.inputs[7])
+            links(n_mix_rgb.outputs[2], group_out.inputs[0])
+            links(n_mix_rough.outputs[2], group_out.inputs[2])

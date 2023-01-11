@@ -47,6 +47,7 @@ class QMMGoldFresnel(bpy.types.Operator):
 
         # princibledbsdf
         BSDF = nodes.get('Principled BSDF')
+        BSDF.distribution = 'MULTI_GGX'
         nodes.remove(BSDF)
 
         # mixshader

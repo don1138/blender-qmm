@@ -1,6 +1,8 @@
 import bpy
 import time 
 
+bv = bpy.app.version
+
 # MESSAGE BOX
 message_text = "This material already exists"
 
@@ -51,6 +53,7 @@ class QMMPlaster(bpy.types.Operator):
 
         # princibledbsdf
         BSDF = nodes.get('Principled BSDF')
+        BSDF.distribution = 'MULTI_GGX'
         BSDF.location = (-300, 0)
         BSDF.inputs[1].default_value = 0.02
         BSDF.inputs[3].default_value = (0.708857, 0.392564, 0.708857, 1)
@@ -67,7 +70,11 @@ class QMMPlaster(bpy.types.Operator):
         m_colorramp.width = 140
 
         # mixshader
-        m_mix = make_node(nodes, 'ShaderNodeMixRGB', -900, -100)
+        if bv < (3, 4, 0):
+            m_mix = make_node(nodes, 'ShaderNodeMixRGB', -900, -100)
+        else:
+            m_mix = make_node(nodes, 'ShaderNodeMix', -900, 0)
+            m_mix.data_type = 'RGBA'
 
         # voronoishader
         m_voronoi = make_node(nodes, 'ShaderNodeTexVoronoi', -1100, -300)
@@ -115,10 +122,7 @@ class QMMPlaster(bpy.types.Operator):
         links(m_texcoords.outputs[3], m_mapping.inputs[0])
         links(m_mapping.outputs[0], m_noise.inputs[0])
         links(m_noise.outputs[0], m_voronoi.inputs[0])
-        links(m_voronoi.outputs[0], m_mix.inputs[1])
         links(m_voronoi.outputs[0], m_maprange.inputs[0])
-        links(m_noise.outputs[0], m_mix.inputs[2])
-        links(m_mix.outputs[0], m_colorramp.inputs[0])
         links(m_colorramp.outputs[0], ec_group.inputs[1])
         links(m_maprange.outputs[0], m_bump.inputs[2])
         links(m_noise.outputs[0], m_bump2.inputs[2])
@@ -127,6 +131,15 @@ class QMMPlaster(bpy.types.Operator):
         links(ec_group.outputs[0], BSDF.inputs[0])
         links(ec_group.outputs[1], BSDF.inputs[7])
         links(ec_group.outputs[3], BSDF.inputs[16])
+
+        if bv < (3, 4, 0):
+            links(m_voronoi.outputs[0], m_mix.inputs[1])
+            links(m_noise.outputs[0], m_mix.inputs[2])
+            links(m_mix.outputs[0], m_colorramp.inputs[0])
+        else:
+            links(m_voronoi.outputs[0], m_mix.inputs[6])
+            links(m_noise.outputs[0], m_mix.inputs[7])
+            links(m_mix.outputs[2], m_colorramp.inputs[0])
 
         bpy.context.object.active_material = m_plaster
 

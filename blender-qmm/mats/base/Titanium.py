@@ -47,6 +47,7 @@ class QMMTitanium(bpy.types.Operator):
 
         # princibledbsdf
         BSDF = nodes.get('Principled BSDF')
+        BSDF.distribution = 'MULTI_GGX'
         BSDF.location = (-300, 0)
         BSDF.inputs[0].default_value = (0.533276, 0.491020, 0.439657, 1)
         BSDF.inputs[6].default_value = 1

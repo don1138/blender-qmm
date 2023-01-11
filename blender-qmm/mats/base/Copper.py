@@ -51,6 +51,7 @@ class QMMCopper(bpy.types.Operator):
 
         # princibledbsdf
         BSDF = nodes.get('Principled BSDF')
+        BSDF.distribution = 'MULTI_GGX'
         BSDF.location = (-300, 0)
         BSDF.inputs[0].default_value = (0.926, 0.721, 0.504, 1)
         BSDF.inputs[6].default_value = 1

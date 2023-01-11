@@ -1,6 +1,8 @@
 import bpy
 import time 
 
+bv = bpy.app.version
+
 # MESSAGE BOX
 message_text = "This material already exists"
 
@@ -47,44 +49,27 @@ class QMMCopperFresnel(bpy.types.Operator):
 
         # princibledbsdf
         BSDF = nodes.get('Principled BSDF')
+        BSDF.distribution = 'MULTI_GGX'
         nodes.remove(BSDF)
 
         # mixshader
         m_mix = nodes.new('ShaderNodeMixShader')
         m_mix.location = (-200, 0)
 
-        m_glossy = self.make_node(
-            nodes, "ShaderNodeBsdfGlossy", -
-            400, 0, (0.401978, 0.396755, 0.417885, 1)
-        )
-
         # m_layerweight
-        m_layer_weight = self.make_node(
-            nodes, "ShaderNodeLayerWeight", -400, 200, 0.5
-        )
+        m_layer_weight = self.make_node(nodes, "ShaderNodeLayerWeight", -400, 200, 0.5)
 
         # mixshader2
-        m_mix2 = self.make_node(
-            nodes, "ShaderNodeMixShader", -400, 0, 0.095
-        )
+        m_mix2 = self.make_node(nodes, "ShaderNodeMixShader", -400, 0, 0.095)
 
         # glossyshader
-        m_glossy = self.make_node(
-            nodes, "ShaderNodeBsdfGlossy", -400, -
-            200, (0.47932, 0.171441, 0.0331048, 1)
-        )
+        m_glossy = self.make_node(nodes, "ShaderNodeBsdfGlossy", -400, -200, (0.47932, 0.171441, 0.0331048, 1))
 
         # glossyshader2
-        m_glossy2 = self.make_node(
-            nodes, "ShaderNodeBsdfGlossy", -
-            600, 0, (0.47932, 0.171441, 0.0331048, 1)
-        )
+        m_glossy2 = self.make_node(nodes, "ShaderNodeBsdfGlossy", -600, 0, (0.47932, 0.171441, 0.0331048, 1))
 
         # diffuseshader
-        m_diffuse = self.make_node(
-            nodes, "ShaderNodeBsdfDiffuse", -
-            600, 200, (0.47932, 0.171441, 0.0331048, 1)
-        )
+        m_diffuse = self.make_node(nodes, "ShaderNodeBsdfDiffuse", -600, 200, (0.47932, 0.171441, 0.0331048, 1))
         m_diffuse.inputs[1].default_value = 0
 
         # value

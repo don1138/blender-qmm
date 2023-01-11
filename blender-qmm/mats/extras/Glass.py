@@ -1,6 +1,8 @@
 import bpy
 import time 
 
+bv = bpy.app.version
+
 # MESSAGE BOX
 message_text = "This material already exists"
 
@@ -82,9 +84,14 @@ class QMMGlass(bpy.types.Operator):
         m_light_path = make_node(nodes, 'ShaderNodeLightPath', -800, 200)
 
         # mixrgb
-        m_mixrgb = make_node(nodes, 'ShaderNodeMixRGB', -800, -300)
+        if bv < (3, 4, 0):
+            m_mixrgb = make_node(nodes, 'ShaderNodeMixRGB', -800, -300)
+            m_mixrgb.inputs[1].default_value = (1.6180339, 1.6180339, 1.6180339, 1)
+        else:
+            m_mixrgb = make_node(nodes, 'ShaderNodeMix', -800, -300)
+            m_mixrgb.data_type = 'RGBA'
+            m_mixrgb.inputs[6].default_value = (1.6180339, 1.6180339, 1.6180339, 1)
         m_mixrgb.inputs[0].default_value = 0.38196
-        m_mixrgb.inputs[1].default_value = (1.6180339, 1.6180339, 1.6180339, 1)
 
         # noise
         m_noise = make_node(nodes, 'ShaderNodeTexNoise', -1000, -300)
@@ -94,8 +101,13 @@ class QMMGlass(bpy.types.Operator):
 
         links = m_glass.node_tree.links.new
 
-        links(m_noise.outputs[0], m_mixrgb.inputs[2])
-        links(m_mixrgb.outputs[0], m_transparent.inputs[0])
+        if bv < (3, 4, 0):
+            links(m_noise.outputs[0], m_mixrgb.inputs[2])
+            links(m_mixrgb.outputs[0], m_transparent.inputs[0])
+        else:
+            links(m_noise.outputs[0], m_mixrgb.inputs[7])
+            links(m_mixrgb.outputs[2], m_transparent.inputs[0])
+
         links(m_transparent.outputs[0], m_mix2.inputs[2])
         links(m_glossy.outputs[0], m_mix2.inputs[1])
         links(m_fresnel.outputs[0], m_mix2.inputs[0])

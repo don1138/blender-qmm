@@ -1,5 +1,6 @@
 import bpy
 
+bv = bpy.app.version
 
 class EnergyConservationGroup(bpy.types.Operator):
     """Add/Get Energy Conservation Group Node"""
@@ -79,7 +80,11 @@ class EnergyConservationGroup(bpy.types.Operator):
         m_multiply.label = "Clearcoat"
 
         # colormix
-        m_colormix = self.make_node(ec_group, 'ShaderNodeMixRGB', -600, 300)
+        if bv < (3, 4, 0):
+            m_colormix = self.make_node(ec_group, 'ShaderNodeMixRGB', -600, 300)
+        else:
+            m_colormix = self.make_node(ec_group, 'ShaderNodeMix', -600, 300)
+            m_colormix.data_type = 'RGBA'
 
         # FRESNEL COLOR
         # fresnel
@@ -89,7 +94,11 @@ class EnergyConservationGroup(bpy.types.Operator):
         group_in2 = self.make_node(ec_group, 'NodeGroupInput', -1000, 300)
 
         # colormix2
-        m_colormix2 = self.make_node(ec_group, 'ShaderNodeMixRGB', -1200, 200)
+        if bv < (3, 4, 0):
+            m_colormix2 = self.make_node(ec_group, 'ShaderNodeMixRGB', -1200, 200)
+        else:
+            m_colormix2 = self.make_node(ec_group, 'ShaderNodeMix', -1200, 200)
+            m_colormix2.data_type = 'RGBA'
 
         # mathgreaterthan
         m_greaterthan = self.make_math_node(ec_group, 'GREATER_THAN', -1400, 200)
@@ -140,14 +149,21 @@ class EnergyConservationGroup(bpy.types.Operator):
         # connect color mix
         links(group_in2.outputs[0], m_fresnel.inputs[0])
         links(m_fresnel.outputs[0], m_colormix.inputs[0])
-        links(group_in2.outputs[1], m_colormix.inputs[1])
-        links(m_colormix2.outputs[0], m_colormix.inputs[2])
-        links(m_colormix.outputs[0], group_out.inputs[0])
-
         links(m_greaterthan.outputs[0], m_colormix2.inputs[0])
-        links(group_in3.outputs[3], m_colormix2.inputs[1])
         links(group_in3.outputs[4], m_greaterthan.inputs[0])
-        links(m_combinehsv.outputs[0], m_colormix2.inputs[2])
+        if bv < (3, 4, 0):
+            links(group_in2.outputs[1], m_colormix.inputs[1])
+            links(m_colormix2.outputs[0], m_colormix.inputs[2])
+            links(m_colormix.outputs[0], group_out.inputs[0])
+            links(group_in3.outputs[3], m_colormix2.inputs[1])
+            links(group_in3.outputs[4], m_greaterthan.inputs[0])
+            links(m_combinehsv.outputs[0], m_colormix2.inputs[2])
+        else:
+            links(group_in2.outputs[1], m_colormix.inputs[6])
+            links(m_colormix2.outputs[2], m_colormix.inputs[7])
+            links(m_colormix.outputs[2], group_out.inputs[0])
+            links(group_in3.outputs[3], m_colormix2.inputs[6])
+            links(m_combinehsv.outputs[0], m_colormix2.inputs[7])
 
         links(m_separatehsv.outputs[0], m_combinehsv.inputs[0])
         links(group_in4.outputs[6], m_combinehsv.inputs[1])

@@ -70,6 +70,7 @@ def make_shader(units):
 
     # princibledbsdf
     BSDF = nodes.get('Principled BSDF')
+    BSDF.distribution = 'MULTI_GGX'
     BSDF.location = (-300, 0)
     BSDF.inputs[0].default_value = unit_value[2]
     BSDF.inputs[6].default_value = 1
