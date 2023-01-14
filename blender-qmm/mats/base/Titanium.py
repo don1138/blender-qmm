@@ -15,7 +15,7 @@ def ShowMessageBox(message="", title="", icon='INFO'):
 
 class QMMTitanium(bpy.types.Operator):
     """Add/Apply Titanium Material to Selected Object (or Scene)"""
-    bl_label = "QMM Titanium Textured Shader"
+    bl_label  = "QMM Titanium Textured Shader"
     bl_idname = 'shader.qmm_titanium_operator'
 
     def execute(self, context):

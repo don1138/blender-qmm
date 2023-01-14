@@ -4,7 +4,7 @@ bv = bpy.app.version
 
 class TexturizerGroup(bpy.types.Operator):
     """Add/Get Texturizer Group Node"""
-    bl_label = "Texturizer Node Group"
+    bl_label  = "Texturizer Node Group"
     bl_idname = 'node.texturizer_group_operator'
 
     def execute(self, context):
@@ -22,8 +22,7 @@ class TexturizerGroup(bpy.types.Operator):
 
     def make_group(self):
         # newnodegroup
-        texturizer_group = bpy.data.node_groups.new(
-            'Texturizer', 'ShaderNodeTree')
+        texturizer_group = bpy.data.node_groups.new('Texturizer', 'ShaderNodeTree')
 
         # groupinput
         group_in = self.make_node(texturizer_group, 'NodeGroupInput', -1300, 0)
@@ -107,8 +106,7 @@ class TexturizerGroup(bpy.types.Operator):
         n_madd.inputs[1].default_value = 0.1
 
         # maprange
-        n_mr = self.make_node(
-            texturizer_group, 'ShaderNodeMapRange', -500, -500)
+        n_mr = self.make_node(texturizer_group, 'ShaderNodeMapRange', -500, -500)
         n_mr.inputs[1].default_value = 0.5
         n_mr.inputs[2].default_value = 0.6
 
@@ -125,8 +123,7 @@ class TexturizerGroup(bpy.types.Operator):
             texturizer_group, 'ShaderNodeSeparateRGB', -900, 0)
 
         # noisetexture
-        n_tex = self.make_node(
-            texturizer_group, 'ShaderNodeTexNoise', -1100, 0)
+        n_tex = self.make_node(texturizer_group, 'ShaderNodeTexNoise', -1100, 0)
         n_tex.inputs[2].default_value = 256
         n_tex.inputs[3].default_value = 2.0
         n_tex.inputs[4].default_value = 0.5

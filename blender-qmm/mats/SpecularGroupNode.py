@@ -2,7 +2,7 @@ import bpy
 
 class SpecularGroup(bpy.types.Operator):
     """Add/Get Specular Group Node"""
-    bl_label = "Specular Node Group"
+    bl_label  = "Specular Node Group"
     bl_idname = 'node.specular_group_operator'
 
     def execute(self, context):

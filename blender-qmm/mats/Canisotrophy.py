@@ -4,7 +4,7 @@ bv = bpy.app.version
 
 class CanisotrophyGroup(bpy.types.Operator):
     """Add/Get Canisotrophy Group Node"""
-    bl_label = "Canisotrophy Node Group"
+    bl_label  = "Canisotrophy Node Group"
     bl_idname = 'node.canisotrophy_group_operator'
 
     def execute(self, context):
@@ -22,14 +22,13 @@ class CanisotrophyGroup(bpy.types.Operator):
 
     def make_group(self):
         # newnodegroup
-        canisotrophy_group = bpy.data.node_groups.new(
-            'Canisotrophy', 'ShaderNodeTree')
+        canisotrophy_group = bpy.data.node_groups.new('Canisotrophy', 'ShaderNodeTree')
 
         # groupinputs
-        group_in = canisotrophy_group.nodes.new('NodeGroupInput')
+        group_in   = canisotrophy_group.nodes.new('NodeGroupInput')
         group_in_a = canisotrophy_group.nodes.new('NodeGroupInput')
         group_in_b = canisotrophy_group.nodes.new('NodeGroupInput')
-        group_in.location = (-1600, -300)
+        group_in.location   = (-1600, -300)
         group_in_a.location = (-800, 100)
         group_in_b.location = (-800, -300)
 
@@ -67,8 +66,7 @@ class CanisotrophyGroup(bpy.types.Operator):
 
         # groupoutput
         group_out = self.make_node(canisotrophy_group, 'NodeGroupOutput', 0, 0)
-        canisotrophy_group.outputs.new(
-            'NodeSocketFloat', '- To Roughness & Bump -')
+        canisotrophy_group.outputs.new('NodeSocketFloat', '- To Roughness & Bump -')
         canisotrophy_group.outputs[0].hide_value = True
         canisotrophy_group.outputs.new('NodeSocketFloat', 'XYZ')
         canisotrophy_group.outputs.new('NodeSocketFloat', 'XY Only')
@@ -81,14 +79,12 @@ class CanisotrophyGroup(bpy.types.Operator):
             m_mixrgb.data_type = 'RGBA'
 
         # maprange
-        m_maprange = self.make_node(
-            canisotrophy_group, 'ShaderNodeMapRange', -400, 200)
+        m_maprange = self.make_node(canisotrophy_group, 'ShaderNodeMapRange', -400, 200)
         m_maprange.inputs[3].default_value = 0.1
         m_maprange.inputs[4].default_value = 0.3
 
         # noise
-        m_noise = self.make_node(
-            canisotrophy_group, 'ShaderNodeTexNoise', -600, 200)
+        m_noise = self.make_node(canisotrophy_group, 'ShaderNodeTexNoise', -600, 200)
         m_noise.inputs[3].default_value = 16
 
         # voronoi
@@ -97,47 +93,38 @@ class CanisotrophyGroup(bpy.types.Operator):
         # m_voronoi.inputs[2].default_value = 20
 
         # mapping
-        m_mapping = self.make_node(
-            canisotrophy_group, 'ShaderNodeMapping', -1000, 200)
+        m_mapping = self.make_node(canisotrophy_group, 'ShaderNodeMapping', -1000, 200)
         m_mapping.width = 140
 
         # separatexyz
-        m_separatexyz = self.make_node(
-            canisotrophy_group, 'ShaderNodeSeparateXYZ', -600, -40)
+        m_separatexyz = self.make_node(canisotrophy_group, 'ShaderNodeSeparateXYZ', -600, -40)
 
         # texturecoordinates
-        m_texcoords = self.make_node(
-            canisotrophy_group, 'ShaderNodeTexCoord', -1600, 0)
+        m_texcoords = self.make_node(canisotrophy_group, 'ShaderNodeTexCoord', -1600, 0)
 
         # maprange2
-        m_maprange2 = self.make_node(
-            canisotrophy_group, 'ShaderNodeMapRange', -400, -200)
+        m_maprange2 = self.make_node(canisotrophy_group, 'ShaderNodeMapRange', -400, -200)
         m_maprange2.inputs[3].default_value = 0.1
         m_maprange2.inputs[4].default_value = 0.3
 
         # noise2
-        m_noise2 = self.make_node(
-            canisotrophy_group, 'ShaderNodeTexNoise', -600, -200)
+        m_noise2 = self.make_node(canisotrophy_group, 'ShaderNodeTexNoise', -600, -200)
         m_noise2.inputs[3].default_value = 16
 
         # mapping2
-        m_mapping2 = self.make_node(
-            canisotrophy_group, 'ShaderNodeMapping', -1000, -200)
+        m_mapping2 = self.make_node(canisotrophy_group, 'ShaderNodeMapping', -1000, -200)
         m_mapping2.width = 140
 
         # vectormath
-        m_vectormath = self.make_node(
-            canisotrophy_group, 'ShaderNodeVectorMath', -1200, -200)
+        m_vectormath = self.make_node(canisotrophy_group, 'ShaderNodeVectorMath', -1200, -200)
         m_vectormath.operation = 'DISTANCE'
 
         # vectormath2
-        m_vectormath2 = self.make_node(
-            canisotrophy_group, 'ShaderNodeVectorMath', -1400, -100)
+        m_vectormath2 = self.make_node(canisotrophy_group, 'ShaderNodeVectorMath', -1400, -100)
         m_vectormath2.operation = 'SCALE'
 
         # combinexyz
-        m_combinexyz = self.make_node(
-            canisotrophy_group, 'ShaderNodeCombineXYZ', -1400, -300)
+        m_combinexyz = self.make_node(canisotrophy_group, 'ShaderNodeCombineXYZ', -1400, -300)
         m_combinexyz.inputs[0].default_value = 0.5
         m_combinexyz.inputs[1].default_value = 0.5
         m_combinexyz.inputs[2].default_value = 24

@@ -20,7 +20,7 @@ def make_node(nodes, shader, locX, locY):
 
 class QMMGlass(bpy.types.Operator):
     """Add/Apply Glass Material to Selected Object (or Scene)"""
-    bl_label = "QMM Glass Hack Shader"
+    bl_label  = "QMM Glass Hack Shader"
     bl_idname = 'shader.qmm_glass_operator'
 
     def execute(self, context):

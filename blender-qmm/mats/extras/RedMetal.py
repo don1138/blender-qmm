@@ -15,7 +15,7 @@ def ShowMessageBox(message="", title="", icon='INFO'):
 
 class QMMRedMetal(bpy.types.Operator):
     """Add/Apply Red Metal Material to Selected Object (or Scene)"""
-    bl_label = "QMM Red Metal Shader"
+    bl_label  = "QMM Red Metal Shader"
     bl_idname = 'shader.qmm_red_metal_operator'
 
     def execute(self, context):

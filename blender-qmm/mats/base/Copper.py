@@ -13,7 +13,7 @@ def ShowMessageBox(message="", title="", icon='INFO'):
 
 class QMMCopper(bpy.types.Operator):
     """Add/Apply Pale Copper (Minimum) Material to Selected Object (or Scene)"""
-    bl_label = "QMM Copper Shader"
+    bl_label  = "QMM Copper Shader"
     bl_idname = 'shader.qmm_copper_m_operator'
 
     def execute(self, context):

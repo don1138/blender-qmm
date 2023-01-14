@@ -99,7 +99,7 @@ def make_shader(units):
 
 class QMMPalladium(bpy.types.Operator):
     """Add/Apply Palladium Material to Selected Object (or Scene)"""
-    bl_label = "QMM Palladium Shader"
+    bl_label  = "QMM Palladium Shader"
     bl_idname = 'shader.qmm_palladium_operator'
 
     def execute(self, context):
@@ -109,7 +109,7 @@ class QMMPalladium(bpy.types.Operator):
 
 class QMMPlatinum(bpy.types.Operator):
     """Add/Apply Platinum Material to Selected Object (or Scene)"""
-    bl_label = "QMM Platinum Shader"
+    bl_label  = "QMM Platinum Shader"
     bl_idname = 'shader.qmm_platinum_operator'
 
     def execute(self, context):
@@ -119,7 +119,7 @@ class QMMPlatinum(bpy.types.Operator):
 
 class QMMAluminium(bpy.types.Operator):
     """Add/Apply Aluminium Material to Selected Object (or Scene)"""
-    bl_label = "QMM Aluminium Shader"
+    bl_label  = "QMM Aluminium Shader"
     bl_idname = 'shader.qmm_aluminium_operator'
 
     def execute(self, context):
@@ -129,7 +129,7 @@ class QMMAluminium(bpy.types.Operator):
 
 class QMMIron(bpy.types.Operator):
     """Add/Apply Iron Material to Selected Object (or Scene)"""
-    bl_label = "QMM Iron Shader"
+    bl_label  = "QMM Iron Shader"
     bl_idname = 'shader.qmm_iron_operator'
 
     def execute(self, context):
@@ -139,7 +139,7 @@ class QMMIron(bpy.types.Operator):
 
 class QMMLead(bpy.types.Operator):
     """Add/Apply Lead Material to Selected Object (or Scene)"""
-    bl_label = "QMM Lead Shader"
+    bl_label  = "QMM Lead Shader"
     bl_idname = 'shader.qmm_lead_operator'
 
     def execute(self, context):
@@ -149,7 +149,7 @@ class QMMLead(bpy.types.Operator):
 
 class QMMLeadRough(bpy.types.Operator):
     """Add/Apply Lead Rough Material to Selected Object (or Scene)"""
-    bl_label = "QMM Lead Rough Shader"
+    bl_label  = "QMM Lead Rough Shader"
     bl_idname = 'shader.qmm_lead_rough_operator'
 
     def execute(self, context):
@@ -159,7 +159,7 @@ class QMMLeadRough(bpy.types.Operator):
 
 class QMMNickel(bpy.types.Operator):
     """Add/Apply Nickel Material to Selected Object (or Scene)"""
-    bl_label = "QMM Nickel Shader"
+    bl_label  = "QMM Nickel Shader"
     bl_idname = 'shader.qmm_nickel_operator'
 
     def execute(self, context):
@@ -169,7 +169,7 @@ class QMMNickel(bpy.types.Operator):
 
 class QMMTitaniumPolished(bpy.types.Operator):
     """Add/Apply Titanium Polished Material to Selected Object (or Scene)"""
-    bl_label = "QMM Titanium Polished Shader"
+    bl_label  = "QMM Titanium Polished Shader"
     bl_idname = 'shader.qmm_titanium_p_operator'
 
     def execute(self, context):
@@ -179,7 +179,7 @@ class QMMTitaniumPolished(bpy.types.Operator):
 
 class QMMZinc(bpy.types.Operator):
     """Add/Apply Zinc Material to Selected Object (or Scene)"""
-    bl_label = "QMM Zinc Shader"
+    bl_label  = "QMM Zinc Shader"
     bl_idname = 'shader.qmm_zinc_operator'
 
     def execute(self, context):
@@ -189,7 +189,7 @@ class QMMZinc(bpy.types.Operator):
 
 class QMMBrass(bpy.types.Operator):
     """Add/Apply Brass Material to Selected Object (or Scene)"""
-    bl_label = "QMM Brass Shader"
+    bl_label  = "QMM Brass Shader"
     bl_idname = 'shader.qmm_brass_operator'
 
     def execute(self, context):
@@ -199,7 +199,7 @@ class QMMBrass(bpy.types.Operator):
 
 class QMMBronze(bpy.types.Operator):
     """Add/Apply Bronze Material to Selected Object (or Scene)"""
-    bl_label = "QMM Bronze Shader"
+    bl_label  = "QMM Bronze Shader"
     bl_idname = 'shader.qmm_bronze_operator'
 
     def execute(self, context):
@@ -209,7 +209,7 @@ class QMMBronze(bpy.types.Operator):
 
 class QMMChrome(bpy.types.Operator):
     """Add/Apply Chrome Material to Selected Object (or Scene)"""
-    bl_label = "QMM Chrome Shader"
+    bl_label  = "QMM Chrome Shader"
     bl_idname = 'shader.qmm_chrome_operator'
 
     def execute(self, context):
@@ -219,7 +219,7 @@ class QMMChrome(bpy.types.Operator):
 
 class QMMSteel(bpy.types.Operator):
     """Add/Apply Steel Material to Selected Object (or Scene)"""
-    bl_label = "QMM Steel Shader"
+    bl_label  = "QMM Steel Shader"
     bl_idname = 'shader.qmm_steel_operator'
 
     def execute(self, context):
@@ -229,7 +229,7 @@ class QMMSteel(bpy.types.Operator):
 
 class QMMMercury(bpy.types.Operator):
     """Add/Apply Mercury Material to Selected Object (or Scene)"""
-    bl_label = "QMM Mercury Shader"
+    bl_label  = "QMM Mercury Shader"
     bl_idname = 'shader.qmm_mercury_operator'
 
     def execute(self, context):

@@ -20,7 +20,7 @@ def hex_to_rgb(h, alpha=1):
 
 class GoldColorsGroup(bpy.types.Operator):
     """Add/Get Gold Colors Group Node"""
-    bl_label = "Gold Colors Node Group"
+    bl_label  = "Gold Colors Node Group"
     bl_idname = 'node.gold_cg_operator'
 
     def execute(self, context):

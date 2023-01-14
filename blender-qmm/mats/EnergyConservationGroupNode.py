@@ -4,7 +4,7 @@ bv = bpy.app.version
 
 class EnergyConservationGroup(bpy.types.Operator):
     """Add/Get Energy Conservation Group Node"""
-    bl_label = "Energy Conservation Node Group"
+    bl_label  = "Energy Conservation Node Group"
     bl_idname = 'node.ec_group_operator'
 
     def execute(self, context):
@@ -168,13 +168,9 @@ class EnergyConservationGroup(bpy.types.Operator):
         links(m_separatehsv.outputs[0], m_combinehsv.inputs[0])
         links(group_in4.outputs[6], m_combinehsv.inputs[1])
         links(m_valuemix.outputs[0], m_combinehsv.inputs[2])
-
         links(group_in4.outputs[1], m_separatehsv.inputs[0])
-
         links(m_greaterthan2.outputs[0], m_valuemix.inputs[0])
-
         links(group_in4.outputs[5], m_greaterthan2.inputs[0])
-
 
     def make_node(self, group, arg1, arg2, arg3):
         result = group.nodes.new(arg1)

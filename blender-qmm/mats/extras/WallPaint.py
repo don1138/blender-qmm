@@ -20,7 +20,7 @@ def make_node(nodes, shader, locX, locY):
 
 class QMMWallPaint(bpy.types.Operator):
     """Add/Apply Wall Paint Material to Selected Object (or Scene)"""
-    bl_label = "QMM Wall Paint Shader"
+    bl_label  = "QMM Wall Paint Shader"
     bl_idname = 'shader.qmm_wall_paint_operator'
 
     def execute(self, context):

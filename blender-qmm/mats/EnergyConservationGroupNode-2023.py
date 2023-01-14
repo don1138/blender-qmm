@@ -1,10 +1,12 @@
+# TODO: Replace Specular Sine Mapping with Specular Exponential Mapping
+
 import bpy
 
 bv = bpy.app.version
 
 class EnergyConservationGroup(bpy.types.Operator):
     """Add/Get Energy Conservation Group Node"""
-    bl_label = "Energy Conservation Node Group"
+    bl_label  = "Energy Conservation Node Group"
     bl_idname = 'node.ec_group_operator'
 
     def execute(self, context):
@@ -74,7 +76,7 @@ class EnergyConservationGroup(bpy.types.Operator):
         slinks(m_divide.outputs[0], group_out.inputs[1])
 
     def make_sm_group(self):
-        # sine_group
+        # specular_sine_mapping_group
         sm_group = bpy.data.node_groups.new('% Specular Mapping', 'ShaderNodeTree')
 
         # groupinput
@@ -115,7 +117,7 @@ class EnergyConservationGroup(bpy.types.Operator):
         smlinks(m_subtract.outputs[0], group_out.inputs[0])
 
     def make_sine_group(self):
-        # sine_group
+        # sine_mapping_group
         sine_group = bpy.data.node_groups.new('% Specular Sine Mapping', 'ShaderNodeTree')
 
         # groupinput

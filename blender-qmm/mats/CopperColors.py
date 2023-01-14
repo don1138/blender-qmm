@@ -19,7 +19,7 @@ def hex_to_rgb(h, alpha=1):
 
 class CopperColorsGroup(bpy.types.Operator):
     """Add/Get Copper Colors Group Node"""
-    bl_label = "Copper Colors Node Group"
+    bl_label  = "Copper Colors Node Group"
     bl_idname = 'node.copper_cg_operator'
 
     def execute(self, context):

@@ -18,16 +18,16 @@
 
 
 bl_info = {
-    "name": "QMM (Quick Metal Materials)",
+    "name"       : "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
-    "author": "Don Schnitzius",
-    "version": (1, 5, 5),
-    "blender": (3, 0, 0),
-    "location": "3D Viewport > Sidebar > MAT > Quick Metal Materials",
-    "warning": "",
-    "wiki_url": "https://github.com/don1138/blender-qmm",
-    "support": "COMMUNITY",
-    "category": "Material"
+    "author"     : "Don Schnitzius",
+    "version"    : (1, 5, 5),
+    "blender"    : (3, 0, 0),
+    "location"   : "3D Viewport > Sidebar > MAT > Quick Metal Materials",
+    "warning"    : "",
+    "doc_url"    : "https://github.com/don1138/blender-qmm",
+    "support"    : "COMMUNITY",
+    "category"   : "Material"
 }
 
 
@@ -53,13 +53,13 @@ class QMMPanel(bpy.types.Panel):
 
 # NOBLE METALS PANEL
 class QMMPanelNoble(bpy.types.Panel):
-    bl_idname = "QMM_PT_Panel_Noble"
-    bl_label = 'Noble Metals'
-    bl_space_type = "VIEW_3D"
+    bl_idname      = "QMM_PT_Panel_Noble"
+    bl_label       = 'Noble Metals'
+    bl_space_type  = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "MAT"
-    bl_parent_id = 'QMM_PT_Panel'
-    bl_options = {'DEFAULT_CLOSED'}
+    bl_category    = "MAT"
+    bl_parent_id   = 'QMM_PT_Panel'
+    bl_options     = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
         layout = self.layout
@@ -82,13 +82,13 @@ class QMMPanelNoble(bpy.types.Panel):
 
 # BASE METALS PANEL
 class QMMPanelBase(bpy.types.Panel):
-    bl_idname = "QMM_PT_Panel_Base"
-    bl_label = 'Base Metals'
-    bl_space_type = "VIEW_3D"
+    bl_idname      = "QMM_PT_Panel_Base"
+    bl_label       = 'Base Metals'
+    bl_space_type  = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "MAT"
-    bl_parent_id = 'QMM_PT_Panel'
-    bl_options = {'DEFAULT_CLOSED'}
+    bl_category    = "MAT"
+    bl_parent_id   = 'QMM_PT_Panel'
+    bl_options     = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
         layout = self.layout
@@ -116,8 +116,7 @@ class QMMPanelBase(bpy.types.Panel):
         row.operator("shader.qmm_tin_operator", text='Tin')
 
         row = layout.row()
-        row.operator("shader.qmm_titanium_p_operator",
-                     text='Titanium Polished')
+        row.operator("shader.qmm_titanium_p_operator", text='Titanium Polished')
         row = layout.row()
         row.operator("shader.qmm_titanium_operator", text='Titanium Textured')
 
@@ -127,13 +126,13 @@ class QMMPanelBase(bpy.types.Panel):
 
 # ALLOY METALS PANEL
 class QMMPanelAlloy(bpy.types.Panel):
-    bl_idname = "QMM_PT_Panel_Alloy"
-    bl_label = 'Alloys'
-    bl_space_type = "VIEW_3D"
+    bl_idname      = "QMM_PT_Panel_Alloy"
+    bl_label       = 'Alloys'
+    bl_space_type  = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "MAT"
-    bl_parent_id = 'QMM_PT_Panel'
-    bl_options = {'DEFAULT_CLOSED'}
+    bl_category    = "MAT"
+    bl_parent_id   = 'QMM_PT_Panel'
+    bl_options     = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
         layout = self.layout
@@ -153,13 +152,13 @@ class QMMPanelAlloy(bpy.types.Panel):
 
 # EXTRAS PANEL
 class QMMPanelExtras(bpy.types.Panel):
-    bl_idname = "QMM_PT_Panel_Extras"
-    bl_label = 'Extras'
-    bl_space_type = "VIEW_3D"
+    bl_idname      = "QMM_PT_Panel_Extras"
+    bl_label       = 'Extras'
+    bl_space_type  = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "MAT"
-    bl_parent_id = 'QMM_PT_Panel'
-    bl_options = {'DEFAULT_CLOSED'}
+    bl_category    = "MAT"
+    bl_parent_id   = 'QMM_PT_Panel'
+    bl_options     = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
         layout = self.layout
@@ -180,8 +179,7 @@ class QMMPanelExtras(bpy.types.Panel):
         row.operator("shader.qmm_red_metal_operator", text='Red Metal')
 
         row = layout.row()
-        row.operator("shader.qmm_cutting_mat_operator",
-                     text='Rubber Cutting Mat')
+        row.operator("shader.qmm_cutting_mat_operator", text='Rubber Cutting Mat')
 
         row = layout.row()
         row.operator("shader.qmm_plaster_operator", text='Tinted Plaster')

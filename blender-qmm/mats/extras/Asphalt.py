@@ -32,7 +32,7 @@ def set_ec(nodes, locX, locY, ior, diff, spec):
 
 class QMMAsphalt(bpy.types.Operator):
     """Add/Apply Tinted Asphalt Material to Selected Object (or Scene)"""
-    bl_label = "QMM Asphalt Shader"
+    bl_label  = "QMM Asphalt Shader"
     bl_idname = 'shader.qmm_asphalt_operator'
 
     def execute(self, context):

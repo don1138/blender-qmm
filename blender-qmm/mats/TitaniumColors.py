@@ -18,7 +18,7 @@ def hex_to_rgb(h, alpha=1):
 
 class TitaniumColorsGroup(bpy.types.Operator):
     """Add/Get Titanium Colors Group Node"""
-    bl_label = "Titanium Colors Node Group"
+    bl_label  = "Titanium Colors Node Group"
     bl_idname = 'node.titanium_cg_operator'
 
     def execute(self, context):
@@ -59,15 +59,15 @@ class TitaniumColorsGroup(bpy.types.Operator):
         titanium_cg.outputs.new('NodeSocketColor', 'Titanium Blue')
 
         # makecolors
-        tc_t = self.make_color(titanium_cg, "Titanium", -400, 300, 0xC1BAB1)
-        tc_ct = self.make_color(titanium_cg, "Chaos Titanium", -600, 300, 0xFCF9EA)
-        tc_tw = self.make_color(titanium_cg, "Titanium White", -800, 300, 0xF3F4F7)
-        tc_pt = self.make_color(titanium_cg, "Titanium Pale", -1000, 300, 0xCEC8C2)
-        tc_tf = self.make_color(titanium_cg, "Titanium Frost", -1000, 0, 0xB0AFA9)
+        tc_t   = self.make_color(titanium_cg, "Titanium", -400, 300, 0xC1BAB1)
+        tc_ct  = self.make_color(titanium_cg, "Chaos Titanium", -600, 300, 0xFCF9EA)
+        tc_tw  = self.make_color(titanium_cg, "Titanium White", -800, 300, 0xF3F4F7)
+        tc_pt  = self.make_color(titanium_cg, "Titanium Pale", -1000, 300, 0xCEC8C2)
+        tc_tf  = self.make_color(titanium_cg, "Titanium Frost", -1000, 0, 0xB0AFA9)
         tc_pbm = self.make_color(titanium_cg, "PBM Titanium", -1000, -300, 0x9D948B)
-        tc_dt = self.make_color(titanium_cg, "Titanium Dark", -800, -300, 0x878681)
-        tc_mt = self.make_color(titanium_cg, "Titanium Metallic", -600, -300, 0x7A7772)
-        tc_tb = self.make_color(titanium_cg, "Titanium Blue", -400, -300, 0x5B798E)
+        tc_dt  = self.make_color(titanium_cg, "Titanium Dark", -800, -300, 0x878681)
+        tc_mt  = self.make_color(titanium_cg, "Titanium Metallic", -600, -300, 0x7A7772)
+        tc_tb  = self.make_color(titanium_cg, "Titanium Blue", -400, -300, 0x5B798E)
 
         links = titanium_cg.links.new
 

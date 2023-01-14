@@ -17,7 +17,7 @@ def ShowMessageBox(message="", title="", icon='INFO'):
 
 class QMMCopperFresnel(bpy.types.Operator):
     """Add/Apply Copper Material to Selected Object (or Scene)"""
-    bl_label = "QMM Copper Fresnel Shader"
+    bl_label  = "QMM Copper Fresnel Shader"
     bl_idname = 'shader.qmm_copper_operator'
 
     def execute(self, context):

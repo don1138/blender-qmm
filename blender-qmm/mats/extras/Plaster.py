@@ -22,7 +22,7 @@ def make_node(nodes, shader, locX, locY):
 
 class QMMPlaster(bpy.types.Operator):
     """Add/Apply Tinted Plaster Material to Selected Object (or Scene)"""
-    bl_label = "QMM Plaster Shader"
+    bl_label  = "QMM Plaster Shader"
     bl_idname = 'shader.qmm_plaster_operator'
 
     def execute(self, context):

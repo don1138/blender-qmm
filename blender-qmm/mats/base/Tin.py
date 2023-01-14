@@ -15,7 +15,7 @@ def ShowMessageBox(message="", title="", icon='INFO'):
 
 class QMMTin(bpy.types.Operator):
     """Add/Apply Tin Material to Selected Object (or Scene)"""
-    bl_label = "QMM Tin Shader"
+    bl_label  = "QMM Tin Shader"
     bl_idname = 'shader.qmm_tin_operator'
 
     def execute(self, context):

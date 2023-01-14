@@ -15,7 +15,7 @@ def ShowMessageBox(message="", title="", icon='INFO'):
 
 class QMMSilverFresnel(bpy.types.Operator):
     """Add/Apply Silver Material to Selected Object (or Scene)"""
-    bl_label = "QMM Silver Fresnel Shader"
+    bl_label  = "QMM Silver Fresnel Shader"
     bl_idname = 'shader.qmm_silver_operator'
 
     def execute(self, context):

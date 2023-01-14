@@ -15,7 +15,7 @@ def ShowMessageBox(message="", title="", icon='INFO'):
 
 class QMMCinnabar(bpy.types.Operator):
     """Add/Apply Cinnabar Material to Selected Object (or Scene)"""
-    bl_label = "QMM Cinnabar Shader"
+    bl_label  = "QMM Cinnabar Shader"
     bl_idname = 'shader.qmm_cinnabar_operator'
 
     def execute(self, context):
