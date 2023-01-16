@@ -1,6 +1,13 @@
 ### 1.5.5 <!-- 01/10/23 -->
-- Color Mix Shader Node: add Blender 3.4.0 version test to switch between ShaderNodeMixRGB and ShaderNodeMix
-- Switch PrincipledBSDF light scattering to `MULTI_GGX`
+- Switch **PrincipledBSDF** light scattering to `MULTI_GGX`
+- Update **Energy Conservation** node group
+  - Calculate **Auto Specular Color** by **Linear Mapping** (`2 * (R, G, B)`) of **Diffuse Color**
+  - Remove **Auto Specular Color** `saturation` slider.
+    - **Metal** color = **Auto Specular Color**
+    - **Dialectric** color = **Auto Specular Color** with HSV `value` set to `0.01`
+- Update **Color Mix** shader nodes
+  - Add Blender 3.4.0 version test to switch between `ShaderNodeMixRGB` and `ShaderNodeMix`
+  - This affects all materials that use a mix node
 
 ### 1.5.4 <!-- 12/24/22 -->
 - Bugfix: Correct **Energy Conservation** node group connections

@@ -56,7 +56,7 @@ class QMMRedMetal(bpy.types.Operator):
 
         # colorramp
         m_colorramp = nodes.new('ShaderNodeValToRGB')
-        m_colorramp.label = "Red Metal"
+        m_colorramp.label = "Cinnabar"
         m_colorramp.location = (-800, -200)
         m_colorramp.color_ramp.elements[0].color = (
             0.768151, 0.054480, 0.034340, 1)
