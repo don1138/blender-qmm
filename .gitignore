@@ -1,4 +1,4 @@
 .DS_Store
 .env
 *.zip
-_old_releases
+_old
