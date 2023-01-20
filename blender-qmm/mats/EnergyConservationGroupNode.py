@@ -82,7 +82,7 @@ class EnergyConservationGroup(bpy.types.Operator):
         lin_group.outputs.new('NodeSocketColor', 'Color')
 
         # combineecolor
-        lin_combine_color = self.make_node(lin_group, 'ShaderNodeCombineColor', 200, 0)
+        lin_combine_color = self.make_node(lin_group, 'ShaderNodeCombineColor', -200, 0)
 
         # mathmultiply
         m_multiply = self.make_math_node(lin_group, 'MULTIPLY', -400, 200)
@@ -107,11 +107,11 @@ class EnergyConservationGroup(bpy.types.Operator):
         # connect lm group
         lin_links(group_in.outputs[0], lin_separate_color.inputs[0])
         lin_links(lin_separate_color.outputs[0], m_multiply.inputs[1])
-        lin_links(lin_separate_color.outputs[0], m_multiply2.inputs[1])
-        lin_links(lin_separate_color.outputs[0], m_multiply3.inputs[1])
+        lin_links(lin_separate_color.outputs[1], m_multiply2.inputs[1])
+        lin_links(lin_separate_color.outputs[2], m_multiply3.inputs[1])
         lin_links(m_multiply.outputs[0], lin_combine_color.inputs[0])
-        lin_links(m_multiply.outputs[0], lin_combine_color.inputs[1])
-        lin_links(m_multiply.outputs[0], lin_combine_color.inputs[2])
+        lin_links(m_multiply2.outputs[0], lin_combine_color.inputs[1])
+        lin_links(m_multiply3.outputs[0], lin_combine_color.inputs[2])
         lin_links(lin_combine_color.outputs[0], group_out.inputs[0])
 
     def make_sm_group(self):
