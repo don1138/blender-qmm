@@ -2,7 +2,7 @@
 - Switch **PrincipledBSDF** light scattering to `MULTI_GGX`
 - Update **Energy Conservation** node group
   - Calculate **Auto Specular Color** by **Linear Mapping** (`2 * (R, G, B)`) of **Diffuse Color**
-  - Remove **Auto Specular Color** `saturation` slider.
+  - Remove **Auto Specular Color** `Saturation` slider.
     - **Metal** color = **Auto Specular Color**
     - **Dialectric** color = **Auto Specular Color** with HSV `value` set to `0.01`
 - Update **Color Mix** shader nodes
