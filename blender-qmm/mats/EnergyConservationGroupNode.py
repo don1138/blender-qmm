@@ -206,7 +206,7 @@ class EnergyConservationGroup(bpy.types.Operator):
         ec_group.inputs.new('NodeSocketString', '- Specular -')     #2
         ec_group.inputs.new('NodeSocketColor', 'Specular Custom')   #3
         ec_group.inputs.new('NodeSocketFloat', 'Custom/Auto')       #4
-        ec_group.inputs.new('NodeSocketFloat', 'Metal/Dialectric')  #5
+        ec_group.inputs.new('NodeSocketFloat', 'Metal/Dielectric')  #5
         ec_group.inputs[0].default_value = 1.52
         ec_group.inputs[0].min_value = 0
         ec_group.inputs[0].max_value = 10

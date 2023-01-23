@@ -1,3 +1,11 @@
+### 1.5.6 <!-- 01/23/23 -->
+- Bugfix
+  - Broken color link in **Texturizer** group
+- Code refactoring
+  - **Red Metal**
+- Spell check
+  - From *Dialectric* to *Dielectric*
+
 ### 1.5.5 <!-- 01/10/23 -->
 - Switch **PrincipledBSDF** light scattering to `MULTI_GGX`
 - Update **Energy Conservation** node group

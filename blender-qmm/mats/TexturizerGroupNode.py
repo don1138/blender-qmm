@@ -130,7 +130,6 @@ class TexturizerGroup(bpy.types.Operator):
 
         links = texturizer_group.links.new
 
-        links(group_in.outputs[0], n_mix_rgb.inputs[1])
         links(group_in.outputs[1], n_rr12.inputs[0])
         links(group_in.outputs[2], n_hsl.inputs[1])
         links(group_in.outputs[3], n_mix_rgb.inputs[0])
@@ -159,12 +158,14 @@ class TexturizerGroup(bpy.types.Operator):
         links(n_bump.outputs[0], group_out.inputs[5])
 
         if bv < (3, 4, 0):
+            links(group_in.outputs[0], n_mix_rgb.inputs[1])
             links(n_rr22.outputs[0], n_mix_rough.inputs[1])
             links(n_hsl.outputs[0], n_mix_rgb.inputs[2])
             links(n_rr12.outputs[0], n_mix_rough.inputs[2])
             links(n_mix_rgb.outputs[0], group_out.inputs[0])
             links(n_mix_rough.outputs[0], group_out.inputs[2])
         else:
+            links(group_in.outputs[0], n_mix_rgb.inputs[6])
             links(n_rr22.outputs[0], n_mix_rough.inputs[6])
             links(n_hsl.outputs[0], n_mix_rgb.inputs[7])
             links(n_rr12.outputs[0], n_mix_rough.inputs[7])
