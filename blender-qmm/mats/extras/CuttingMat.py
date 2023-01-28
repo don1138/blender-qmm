@@ -56,22 +56,22 @@ class QMMCuttingMat(bpy.types.Operator):
         BSDF.distribution = 'MULTI_GGX'
         BSDF.location = (-300, 0)
         BSDF.inputs[0].default_value = (0.045186, 0.141263, 0.144129, 1)
-        BSDF.inputs[5].default_value = 0.425
+        BSDF.inputs[7].default_value = 0.425
         BSDF.inputs[9].default_value = 0.79
 
         # rgbmix
         if bv < (3, 4, 0):
-            m_mix = make_node(nodes, 'ShaderNodeMixRGB', -700, -200)
+            m_mix = make_node(nodes, 'ShaderNodeMixRGB', -700, -300)
             m_mix.inputs[1].default_value = (0.045186, 0.141263, 0.144129, 1)
             m_mix.inputs[2].default_value = (0.187821, 0.450786, 0.558341, 1)
         else:
-            m_mix = make_node(nodes, 'ShaderNodeMix', -700, -200)
+            m_mix = make_node(nodes, 'ShaderNodeMix', -700, -300)
             m_mix.data_type = 'RGBA'
             m_mix.inputs[6].default_value = (0.045186, 0.141263, 0.144129, 1)
             m_mix.inputs[7].default_value = (0.187821, 0.450786, 0.558341, 1)
 
         # mathadd
-        m_add = make_node(nodes, 'ShaderNodeMath', -900, -200)
+        m_add = make_node(nodes, 'ShaderNodeMath', -900, -400)
         m_add.operation = 'ADD'
 
         # bricktexture
@@ -109,17 +109,18 @@ class QMMCuttingMat(bpy.types.Operator):
         # texscale
         m_texscale = make_node(nodes, 'ShaderNodeValue', -1500, -800)
         m_texscale.label = "Texture Scale"
-        m_texscale.outputs[0].default_value = 5
+        m_texscale.outputs[0].default_value = 4
 
         # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
         ec_group = nodes.new("ShaderNodeGroup")
-        ec_group.name = "Energy Conservation"
-        ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
+        ec_group.name = "Energy Conservation v4"
+        ec_group.node_tree = bpy.data.node_groups['Energy Conservation v4']
         ec_group.location = (-500, -200)
-        ec_group.inputs[0].default_value = 1.52
-        ec_group.inputs[1].default_value = (0.045186, 0.141263, 0.144129, 1)
-        ec_group.inputs[3].default_value = (0.01, 0.01, 0.01, 1)
+        ec_group.inputs[0].default_value = (0.045186, 0.141263, 0.144129, 1)
+        ec_group.inputs[1].default_value = 0.79
+        ec_group.inputs[2].default_value = 1.52
+        ec_group.inputs[4].default_value = (0.01, 0.01, 0.01, 1)
 
         links = m_cutting_mat.node_tree.links.new
 
@@ -135,13 +136,14 @@ class QMMCuttingMat(bpy.types.Operator):
         links(m_add.outputs[0], m_mix.inputs[0])
         links(ec_group.outputs[0], BSDF.inputs[0])
         links(ec_group.outputs[1], BSDF.inputs[7])
+        links(ec_group.outputs[2], BSDF.inputs[9])
         # links(ec_group.outputs[2], BSDF.inputs[14])
-        links(ec_group.outputs[3], BSDF.inputs[16])
+        links(ec_group.outputs[4], BSDF.inputs[16])
 
         if bv < (3, 4, 0):
-            links(m_mix.outputs[0], ec_group.inputs[1])
+            links(m_mix.outputs[0], ec_group.inputs[0])
         else:
-            links(m_mix.outputs[2], ec_group.inputs[1])
+            links(m_mix.outputs[2], ec_group.inputs[0])
 
         bpy.context.object.active_material = m_cutting_mat
 

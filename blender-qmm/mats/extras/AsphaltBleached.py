@@ -17,14 +17,15 @@ def make_node(nodes, shader, locX, locY):
     result.location = (locX, locY)
     return result
 
-def set_ec(nodes, locX, locY, ior, diff, spec):
+def set_ec(nodes, locX, locY, diff, ruff, ior, spec):
     result = nodes.new("ShaderNodeGroup")
-    result.name = "Energy Conservation"
-    result.node_tree = bpy.data.node_groups['Energy Conservation']
+    result.name = "Energy Conservation v4"
+    result.node_tree = bpy.data.node_groups['Energy Conservation v4']
     result.location = (locX, locY)
-    result.inputs[0].default_value = ior
-    result.inputs[1].default_value = diff
-    result.inputs[3].default_value = spec
+    result.inputs[0].default_value = diff
+    result.inputs[1].default_value = ruff
+    result.inputs[2].default_value = ior
+    result.inputs[4].default_value = spec
     return result
 
 # AsphaltBleachedShaderOperator
@@ -170,10 +171,10 @@ class QMMAsphaltBleached(bpy.types.Operator):
 
         # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
-        ec_group = set_ec(nodes, -900, 200, 1.635, (0.2, 0.2, 0.2, 1), (0.01, 0.01, 0.01, 1))
+        ec_group = set_ec(nodes, -900, 200, (0.2, 0.2, 0.2, 1), 0.56, 1.635, (0.01, 0.01, 0.01, 1))
 
         # EnergyConservationGroup2
-        ec_group2 = set_ec(nodes, -900, -600, 1.52, (0.025000, 0.018750, 0.018750, 1), (0.01, 0.01, 0.01, 1))
+        ec_group2 = set_ec(nodes, -900, -600, (0.025000, 0.018750, 0.018750, 1), 1, 1.52, (0.01, 0.01, 0.01, 1))
 
         links = m_asphalt_b.node_tree.links.new
 
@@ -216,11 +217,13 @@ class QMMAsphaltBleached(bpy.types.Operator):
 
         links(ec_group.outputs[0], BSDF.inputs[0])
         links(ec_group.outputs[1], BSDF.inputs[7])
-        links(ec_group.outputs[3], BSDF.inputs[16])
+        links(ec_group.outputs[2], BSDF.inputs[9])
+        links(ec_group.outputs[4], BSDF.inputs[16])
 
         links(ec_group2.outputs[0], BSDF2.inputs[0])
         links(ec_group2.outputs[1], BSDF2.inputs[7])
-        links(ec_group2.outputs[3], BSDF2.inputs[16])
+        links(ec_group2.outputs[2], BSDF2.inputs[9])
+        links(ec_group2.outputs[4], BSDF2.inputs[16])
 
         links(m_maprange2.outputs[0], m_lessthan.inputs[0])
         links(m_lessthan.outputs[0], m_disp.inputs[0])

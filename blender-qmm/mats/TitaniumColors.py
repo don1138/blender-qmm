@@ -64,7 +64,7 @@ class TitaniumColorsGroup(bpy.types.Operator):
         tc_tw  = self.make_color(titanium_cg, "Titanium White", -800, 300, 0xF3F4F7)
         tc_pt  = self.make_color(titanium_cg, "Titanium Pale", -1000, 300, 0xCEC8C2)
         tc_tf  = self.make_color(titanium_cg, "Titanium Frost", -1000, 0, 0xB0AFA9)
-        tc_pbm = self.make_color(titanium_cg, "PBM Titanium", -1000, -300, 0x9D948B)
+        tc_pbm = self.make_color(titanium_cg, "PBM Titanium", -1000, -300, 0x9D948A)
         tc_dt  = self.make_color(titanium_cg, "Titanium Dark", -800, -300, 0x878681)
         tc_mt  = self.make_color(titanium_cg, "Titanium Metallic", -600, -300, 0x7A7772)
         tc_tb  = self.make_color(titanium_cg, "Titanium Blue", -400, -300, 0x5B798E)

@@ -33,9 +33,9 @@ class QMMSilver(bpy.types.Operator):
         # CreateShader
         m_silver_m = bpy.data.materials.new(name="QMM Silver")
         m_silver_m.use_nodes = True
-        m_silver_m.diffuse_color = (0.962, 0.949, 0.922, 1)
+        m_silver_m.diffuse_color = (0.913098, 0.879622, 0.830770, 1)
         m_silver_m.metallic = 1
-        m_silver_m.roughness = 0.115
+        m_silver_m.roughness = 0.2
 
         nodes = m_silver_m.node_tree.nodes
 
@@ -47,11 +47,10 @@ class QMMSilver(bpy.types.Operator):
         BSDF = nodes.get('Principled BSDF')
         BSDF.distribution = 'MULTI_GGX'
         BSDF.location = (-300, 0)
-        # BSDF.inputs[0].default_value = (0.401978, 0.396755, 0.417885, 1)
-        BSDF.inputs[0].default_value = (0.962, 0.949, 0.922, 1)
+        BSDF.inputs[0].default_value = (0.913098, 0.879622, 0.830770, 1)
         BSDF.inputs[6].default_value = 1
-        BSDF.inputs[9].default_value = 0.115
-        BSDF.inputs[16].default_value = 1.082
+        BSDF.inputs[9].default_value = 0.2
+        BSDF.inputs[16].default_value = 1.45
 
         # LOAD THE MATERIAL
         bpy.context.object.active_material = m_silver_m
@@ -60,27 +59,28 @@ class QMMSilver(bpy.types.Operator):
 
         # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
-        ec_group = self.make_node(nodes, "Energy Conservation", 'Energy Conservation', -500)
-        ec_group.inputs[0].default_value = 1.082
-        ec_group.inputs[1].default_value = (0.964686, 0.947307, 0.921582, 1)
-        ec_group.inputs[3].default_value = (0.999, 0.998, 0.998, 1)
+        ec_group = self.make_node(nodes, "Energy Conservation v4", 'Energy Conservation v4', -500, -200)
+        ec_group.inputs[0].default_value = (0.913098, 0.879622, 0.830770, 1)
+        ec_group.inputs[1].default_value = 0.2
+        ec_group.inputs[2].default_value = 1.45
+        ec_group.inputs[4].default_value = (0.991101, 0.991101, 0.991102, 1)
         links(ec_group.outputs[0], BSDF.inputs[0])
         links(ec_group.outputs[1], BSDF.inputs[7])
-        links(ec_group.outputs[3], BSDF.inputs[16])
+        links(ec_group.outputs[2], BSDF.inputs[9])
+        links(ec_group.outputs[4], BSDF.inputs[16])
 
         # SilverColorsGroup
         bpy.ops.node.silver_cg_operator()
         nodes = m_silver_m.node_tree.nodes
-        silver_cg = self.make_node(nodes, "Silver Colors", 'Silver Colors', -700)
-
-        links(silver_cg.outputs[2], ec_group.inputs[1])
+        silver_cg = self.make_node(nodes, "Silver Colors", 'Silver Colors', -700, -300)
+        links(silver_cg.outputs[2], ec_group.inputs[0])
 
         end = time.time()
         print(f"QMM Silver: {end - start} seconds")
 
-    def make_node(self, nodes, arg1, arg2, arg3):
+    def make_node(self, nodes, arg1, arg2, locX, locY):
         result = nodes.new("ShaderNodeGroup")
         result.name = arg1
         result.node_tree = bpy.data.node_groups[arg2]
-        result.location = arg3, -200
+        result.location = locX, locY
         return result

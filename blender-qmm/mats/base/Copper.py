@@ -39,7 +39,7 @@ class QMMCopper(bpy.types.Operator):
         # CreateShader
         m_copper_m = bpy.data.materials.new(name="QMM Copper")
         m_copper_m.use_nodes = True
-        m_copper_m.diffuse_color = (0.926, 0.721, 0.504, 1)
+        m_copper_m.diffuse_color = (0.838799, 0.473531, 0.215861, 1)
         m_copper_m.metallic = 1
         m_copper_m.roughness = 0.35
 
@@ -53,18 +53,19 @@ class QMMCopper(bpy.types.Operator):
         BSDF = nodes.get('Principled BSDF')
         BSDF.distribution = 'MULTI_GGX'
         BSDF.location = (-300, 0)
-        BSDF.inputs[0].default_value = (0.926, 0.721, 0.504, 1)
+        BSDF.inputs[0].default_value = (0.838799, 0.473531, 0.215861, 1)
         BSDF.inputs[6].default_value = 1
         BSDF.inputs[9].default_value = 0.35
         BSDF.inputs[16].default_value = 1.10
 
         # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
-        ec_group = self.make_group(nodes, 'Energy Conservation', -500, -200)
-        ec_group.inputs[0].default_value = 1.10
-        ec_group.inputs[1].default_value = (0.926, 0.721, 0.504, 1)
-        ec_group.inputs[3].default_value = (0.996, 0.957, 0.823, 1)
-        ec_group.name = "Energy Conservation"
+        ec_group = self.make_group(nodes, 'Energy Conservation v4', -500, -200)
+        ec_group.inputs[0].default_value = (0.838799, 0.473531, 0.215861, 1)
+        ec_group.inputs[1].default_value = 0.35
+        ec_group.inputs[2].default_value = 1.10
+        ec_group.inputs[4].default_value = (0.982250, 0.904660, 0.637597, 1)
+        ec_group.name = "Energy Conservation v4"
 
         # CopperColorsGroup
         bpy.ops.node.copper_cg_operator()
@@ -72,10 +73,11 @@ class QMMCopper(bpy.types.Operator):
         copper_cg.name = "Copper Colors"
 
         links = m_copper_m.node_tree.links.new
-        links(copper_cg.outputs[1], ec_group.inputs[1])
+        links(copper_cg.outputs[1], ec_group.inputs[0])
         links(ec_group.outputs[0], BSDF.inputs[0])
         links(ec_group.outputs[1], BSDF.inputs[7])
-        links(ec_group.outputs[3], BSDF.inputs[16])
+        links(ec_group.outputs[2], BSDF.inputs[9])
+        links(ec_group.outputs[4], BSDF.inputs[16])
 
         # LOAD THE MATERIAL
         bpy.context.object.active_material = m_copper_m

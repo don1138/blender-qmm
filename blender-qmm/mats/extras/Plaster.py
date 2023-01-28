@@ -61,8 +61,7 @@ class QMMPlaster(bpy.types.Operator):
 
         # colorramp
         m_colorramp = make_node(nodes, 'ShaderNodeValToRGB', -700, -100)
-        m_colorramp.color_ramp.elements[0].color = (
-            0.708857, 0.392564, 0.708857, 1)
+        m_colorramp.color_ramp.elements[0].color = (0.708857, 0.392564, 0.708857, 1)
         m_colorramp.color_ramp.elements.new(0.2)
         m_colorramp.color_ramp.elements[1].color = (0.5, 0.5, 0.5, 1)
         m_colorramp.color_ramp.elements[2].position = 0.775
@@ -110,12 +109,13 @@ class QMMPlaster(bpy.types.Operator):
         # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
         ec_group = nodes.new("ShaderNodeGroup")
-        ec_group.name = "Energy Conservation"
-        ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
+        ec_group.name = "Energy Conservation v4"
+        ec_group.node_tree = bpy.data.node_groups['Energy Conservation v4']
         ec_group.location = (-500, -100)
-        ec_group.inputs[0].default_value = 1.52
-        ec_group.inputs[1].default_value = (0.708857, 0.392564, 0.708857, 1)
-        ec_group.inputs[3].default_value = (0.01, 0.01, 0.01, 1)
+        ec_group.inputs[0].default_value = (0.708857, 0.392564, 0.708857, 1)
+        ec_group.inputs[1].default_value = 0.86
+        ec_group.inputs[2].default_value = 1.52
+        ec_group.inputs[4].default_value = (0.01, 0.01, 0.01, 1)
 
         links = m_plaster.node_tree.links.new
 
@@ -123,14 +123,15 @@ class QMMPlaster(bpy.types.Operator):
         links(m_mapping.outputs[0], m_noise.inputs[0])
         links(m_noise.outputs[0], m_voronoi.inputs[0])
         links(m_voronoi.outputs[0], m_maprange.inputs[0])
-        links(m_colorramp.outputs[0], ec_group.inputs[1])
+        links(m_colorramp.outputs[0], ec_group.inputs[0])
         links(m_maprange.outputs[0], m_bump.inputs[2])
         links(m_noise.outputs[0], m_bump2.inputs[2])
         links(m_bump.outputs[0], m_bump2.inputs[3])
         links(m_bump2.outputs[0], BSDF.inputs[22])
         links(ec_group.outputs[0], BSDF.inputs[0])
         links(ec_group.outputs[1], BSDF.inputs[7])
-        links(ec_group.outputs[3], BSDF.inputs[16])
+        links(ec_group.outputs[2], BSDF.inputs[9])
+        links(ec_group.outputs[4], BSDF.inputs[16])
 
         if bv < (3, 4, 0):
             links(m_voronoi.outputs[0], m_mix.inputs[1])

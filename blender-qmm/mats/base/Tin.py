@@ -57,12 +57,13 @@ class QMMTin(bpy.types.Operator):
         # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
         ec_group = nodes.new("ShaderNodeGroup")
-        ec_group.name = "Energy Conservation"
-        ec_group.node_tree = bpy.data.node_groups['Energy Conservation']
+        ec_group.name = "Energy Conservation v4"
+        ec_group.node_tree = bpy.data.node_groups['Energy Conservation v4']
         ec_group.location = (-500, -200)
-        ec_group.inputs[0].default_value = 2.16
-        ec_group.inputs[1].default_value = (0.8, 0.8, 0.8, 1)
-        ec_group.inputs[3].default_value = (0.99, 0.99, 0.99, 1)
+        ec_group.inputs[0].default_value = (0.8, 0.8, 0.8, 1)
+        ec_group.inputs[1].default_value = 0.35
+        ec_group.inputs[2].default_value = 2.16
+        ec_group.inputs[4].default_value = (0.99, 0.99, 0.99, 1)
 
         # CanisotrophyGroup
         bpy.ops.node.canisotrophy_group_operator()
@@ -82,7 +83,8 @@ class QMMTin(bpy.types.Operator):
 
         links(ec_group.outputs[0], BSDF.inputs[0])
         links(ec_group.outputs[1], BSDF.inputs[7])
-        links(ec_group.outputs[3], BSDF.inputs[16])
+        links(ec_group.outputs[2], BSDF.inputs[9])
+        links(ec_group.outputs[4], BSDF.inputs[16])
         links(canisotrophy_group.outputs[1], m_bump.inputs[2])
 
         # LOAD THE MATERIAL

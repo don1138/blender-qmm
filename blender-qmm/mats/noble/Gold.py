@@ -33,9 +33,9 @@ class QMMGold(bpy.types.Operator):
         # CreateShader
         m_gold_m = bpy.data.materials.new(name="QMM Gold")
         m_gold_m.use_nodes = True
-        m_gold_m.diffuse_color = (0.947306, 0.775822, 0.371238, 1)
+        m_gold_m.diffuse_color = (0.871367, 0.558340, 0.114436, 1)
         m_gold_m.metallic = 1
-        m_gold_m.roughness = 0.14
+        m_gold_m.roughness = 0.2
 
         nodes = m_gold_m.node_tree.nodes
 
@@ -47,32 +47,32 @@ class QMMGold(bpy.types.Operator):
         BSDF = nodes.get('Principled BSDF')
         BSDF.distribution = 'MULTI_GGX'
         BSDF.location = (-300, 0)
-        BSDF.inputs[0].default_value = (0.947306, 0.775822, 0.371238, 1)
+        BSDF.inputs[0].default_value = (0.871367, 0.558340, 0.114436, 1)
         BSDF.inputs[6].default_value = 1
-        BSDF.inputs[9].default_value = 0.14
-        BSDF.inputs[16].default_value = 1.35
+        BSDF.inputs[9].default_value = 0.2
+        BSDF.inputs[16].default_value = 1.45
 
         links = m_gold_m.node_tree.links.new
 
         # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
-        ec_group = self.make_node(
-            nodes, "Energy Conservation", 'Energy Conservation'
-        )
-        ec_group.inputs[0].default_value = 1.35
-        ec_group.inputs[1].default_value = (0.947306, 0.775822, 0.371238, 1)
-        ec_group.inputs[3].default_value = (1.000000, 0.982250, 0.752942, 1)
+        ec_group = self.make_node(nodes, "Energy Conservation v4", 'Energy Conservation v4')
+        ec_group.inputs[0].default_value = (0.871367, 0.558340, 0.114436, 1)
+        ec_group.inputs[1].default_value = 0.2
+        ec_group.inputs[2].default_value = 1.45
+        ec_group.inputs[4].default_value = (0.991101, 0.955973, 0.520996, 1)
         ec_group.location = (-500, -200)
         links(ec_group.outputs[0], BSDF.inputs[0])
         links(ec_group.outputs[1], BSDF.inputs[7])
-        links(ec_group.outputs[3], BSDF.inputs[16])
+        links(ec_group.outputs[2], BSDF.inputs[9])
+        links(ec_group.outputs[4], BSDF.inputs[16])
 
         # GoldColorsGroup
         bpy.ops.node.gold_cg_operator()
         nodes = m_gold_m.node_tree.nodes
         gold_cg = self.make_node(nodes, "Gold Colors", 'Gold Colors')
         gold_cg.location = (-700, -300)
-        links(gold_cg.outputs[1], ec_group.inputs[1])
+        links(gold_cg.outputs[1], ec_group.inputs[0])
 
         # LOAD THE MATERIAL
         bpy.context.object.active_material = m_gold_m
