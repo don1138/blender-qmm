@@ -182,7 +182,7 @@ class QMMAsphaltBleached(bpy.types.Operator):
         links(m_maprange2.outputs[0], m_mixshader.inputs[0])
         links(BSDF.outputs[0], m_mixshader.inputs[1])
         links(BSDF2.outputs[0], m_mixshader.inputs[2])
-        links(m_maprange.outputs[0], ec_group.inputs[1])
+        links(m_maprange.outputs[0], ec_group.inputs[0])
         links(m_bump.outputs[0], BSDF.inputs[22])
         links(m_bump2.outputs[0], m_bump.inputs[3])
         links(m_maprange2.outputs[0], m_bump2.inputs[2])
