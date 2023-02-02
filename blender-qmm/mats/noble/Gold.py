@@ -57,10 +57,10 @@ class QMMGold(bpy.types.Operator):
         # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
         ec_group = self.make_node(nodes, "Energy Conservation v5", 'Energy Conservation v5')
-        ec_group.inputs[0].default_value = (0.871367, 0.558340, 0.114436, 1)
+        ec_group.inputs[0].default_value = (0.947306, 0.775822, 0.371238, 1)
         ec_group.inputs[1].default_value = 0.075
         # ec_group.inputs[2].default_value = 1.45
-        ec_group.inputs[4].default_value = (0.991101, 0.955973, 0.520996, 1)
+        ec_group.inputs[4].default_value = (1.000000, 0.982250, 0.752942, 1)
         ec_group.location = (-500, -200)
         links(ec_group.outputs[0], BSDF.inputs[0])
         links(ec_group.outputs[1], BSDF.inputs[7])

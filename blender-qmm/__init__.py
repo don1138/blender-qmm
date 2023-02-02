@@ -144,7 +144,7 @@ class QMMPanelAlloy(bpy.types.Panel):
         row.operator("shader.qmm_bronze_operator", text='Bronze')
 
         row = layout.row()
-        row.operator("shader.qmm_chrome_operator", text='Chrome')
+        row.operator("shader.qmm_chromium_operator", text='Chromium')
 
         row = layout.row()
         row.operator("shader.qmm_steel_operator", text='Steel')
@@ -276,7 +276,7 @@ classes = [
     QMMAsphaltBleached,
     QMMBrass,
     QMMBronze,
-    QMMChrome,
+    QMMChromium,
     QMMCopper,
     QMMCopperFresnel,
     QMMCuttingMat,

@@ -65,7 +65,7 @@ class SilverColorsGroup(bpy.types.Operator):
         # makecolors
         sc_s = self.make_color(silver_cg, "Silver", -400, 400, 0xAAA9AD)
         sc_ps = self.make_color(silver_cg, "Pale Silver", -600, 400, 0xFCFAF5)
-        sc_pbms = self.make_color(silver_cg, "PBM Silver", -800, 400, 0XF5F1EB)
+        sc_pbms = self.make_color(silver_cg, "PBM Silver", -800, 400, 0XFBF9F6)
         sc_cs = self.make_color(silver_cg, "Crayola Silver", -1000, 400, 0xC9C0BB)
         sc_sp = self.make_color(silver_cg, "Silver Pink", -1200, 200, 0xC4AEAD)
         sc_bs = self.make_color(silver_cg, "Basic Silver", -1000, 0, 0xC0C0C0)

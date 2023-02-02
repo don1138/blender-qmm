@@ -58,7 +58,7 @@ class CopperColorsGroup(bpy.types.Operator):
 
         # makecolors
         cc_c = self.make_color(copper_cg, "Copper", -400, 300, 0xB87333)
-        cc_pbmc = self.make_color(copper_cg, "PBM Copper", -600, 300, 0XECB780)
+        cc_pbmc = self.make_color(copper_cg, "PBM Copper", -600, 300, 0XF7DDBC)
         cc_dc = self.make_color(copper_cg, "Dontnod Copper", -800, 300, 0xFAD0C0)
         cc_pc = self.make_color(copper_cg, "Pale Copper", -800, 0, 0xDA8A67)
         cc_cr = self.make_color(copper_cg, "Copper Red", -800, -300, 0xCB6D51)

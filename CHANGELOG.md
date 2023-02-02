@@ -1,8 +1,9 @@
 ### 1.5.7 <!-- 02/01/23 -->
-- Update `diffuse color`, `specular color`, `roughness`, and `IOR` on most materials
 - Update **Energy Conservation** group to **v5**
   - Add `Roughness`
   - Add **Fresnel CCP** group
+- Update `diffuse color`, `specular color`, `roughness`, and `IOR` on most materials
+- Rename **Chrome** to **Chromium**
 - Bugfix
   - Broken links in **Asphalt** and **Asphalt Bleached**
 ### 1.5.6 <!-- 01/23/23 -->

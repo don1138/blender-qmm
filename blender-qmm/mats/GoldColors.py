@@ -67,7 +67,7 @@ class GoldColorsGroup(bpy.types.Operator):
 
         # makecolors
         gc_g = self.make_color(gold_cg, "Gold", -400, 600, 0xD4AF37)
-        gc_pbmg = self.make_color(gold_cg, "PBM Gold", -600, 600, 0xF0C55F)
+        gc_pbmg = self.make_color(gold_cg, "PBM Gold", -600, 600, 0xF9E4A4)
         gc_wg = self.make_color(gold_cg, "White Gold", -800, 600, 0xFFE39D)
         gc_chg = self.make_color(gold_cg, "Chaos Gold", -1000, 600, 0xF3C968)
         gc_cg = self.make_color(gold_cg, "Crayola Gold", -1200, 400, 0xE6BE8A)

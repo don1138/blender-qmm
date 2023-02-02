@@ -4,19 +4,19 @@ import time
 
 metal_values = [
     {'palladium': ['m_palladium', 'QMM Palladium', (0.417885, 0.366252, 0.300544, 1), 0.075, 1.76, (0.930110, 0.947306, 0.964686, 1)]},
-    {'platinum': ['m_platinum', 'QMM Platinum', (0.417885, 0.366252, 0.300544, 1), 0.075, 1.79, (0.577580, 0.584078, 0.571125, 1)]},
-    {'aluminium': ['m_aluminium', 'QMM Aluminium', (0.806951, 0.814846, 0.822786, 1), 0.35, 1.62, (0.930110, 0.947306, 0.964686, 1)]},
-    {'iron': ['m_iron', 'QMM Iron', (0.230740, 0.223228, 0.208637, 1), 0.5, 2.03, (0.283148, 0.250158, 0.300544, 1)]},
-    {'lead': ['m_lead', 'QMM Lead', (0.658374, 0.665387, 0.693872, 1), 0.35, 1.87, (0.803, 0.808, 0.862, 1)]},
+    {'platinum': ['m_platinum', 'QMM Platinum', (0.679542, 0.644479, 0.590619, 1), 0.075, 1.79, (0.783537, 0.791297, 0.783538, 1)]},
+    {'aluminium': ['m_aluminium', 'QMM Aluminium', (0.913098, 0.913098, 0.921582, 1), 0.35, 1.62, (0.973444, 0.982250, 0.991102, 1)]},
+    {'iron': ['m_iron', 'QMM Iron', (0.533276, 0.514917, 0.496933, 1), 0.5, 2.03, (0.571124, 0.539479, 0.584079, 1)]},
+    {'lead': ['m_lead', 'QMM Lead', (0.630757, 0.623960, 0.637597, 1), 0.35, 1.87, (0.799102, 0.806952, 0.863157, 1)]},
     {'lead_rough': ['m_lead_rough', 'QMM Lead_Rough', (0.186, 0.188, 0.196, 1), 0.5, 1.87, (0.99, 0.99, 0.99, 1)]},
-    {'nickel': ['m_nickel', 'QMM Nickel', (0.376262, 0.327778, 0.250158, 1), 0.350, 1.63, (0.597201, 0.603827, 0.584079, 1)]},
-    {'titanium_polished': ['m_titanium_polished', 'QMM Titanium_Polished', (0.337163, 0.296138, 0.254152, 1), 0.35, 2.42, (0.428690, 0.423267, 0.428690, 1)]},
-    {'zinc': ['m_zinc', 'QMM Zinc', (0.737911, 0.723055, 0.701102, 1), 0.35, 1.7, (0.913098, 0.930110, 0.947306, 1)]},
-    {'brass': ['m_brass', 'QMM Brass', (0.760524, 0.584078, 0.158961, 1), 0.35, 1.45, (0.973444, 0.947306, 0.679543, 1)]},
+    {'nickel': ['m_nickel', 'QMM Nickel', (0.651405, 0.610495, 0.539480, 1.000000), 0.350, 1.63, (0.799102, 0.799102, 0.791298, 1)]},
+    {'titanium_polished': ['m_titanium_polished', 'QMM Titanium_Polished', (0.617206, 0.584078, 0.545725, 1), 0.35, 2.42, (0.686685, 0.679542, 0.686685, 1)]},
+    {'zinc': ['m_zinc', 'QMM Zinc', (0.871366, 0.863156, 0.854993, 1), 0.35, 1.7, (0.955972, 0.973444, 0.973445, 1)]},
+    {'brass': ['m_brass', 'QMM Brass', (0.887922, 0.791297, 0.434154, 1), 0.35, 1.45, (0.991101, 0.973444, 0.846874, 1)]},
     {'bronze': ['m_bronze', 'QMM Bronze', (0.434154, 0.266356, 0.0953075, 1), 0.35, 1.45, (0.651405, 0.577580, 0.514918, 1)]},
-    {'chrome': ['m_chrome', 'QMM Chrome', (0.262250, 0.266355, 0.266356, 1), 0.075, 1.5, (0.283148, 0.270498, 0.428690, 1)]},
+    {'chromium': ['m_chromium', 'QMM Chromium', (0.552011, 0.558340, 0.552011, 1), 0.075, 1.5, (0.571124, 0.558340, 0.686685, 1)]},
     {'steel': ['m_steel', 'QMM Steel', (0.42869, 0.527115, 0.590619, 1), 0.3, 2.0, (0.99, 0.99, 0.99, 1)]},
-    {'mercury': ['m_mercury', 'QMM Mercury', (0.781, 0.779, 0.779, 1), 0.075, 1.744, (0.879, 0.910, 0.941, 1)]},
+    {'mercury': ['m_mercury', 'QMM Mercury', (0.783537, 0.775822, 0.775822, 1), 0.025, 1.744, (0.879621, 0.913098, 0.938686, 1)]},
 ]
 
 
@@ -209,10 +209,10 @@ class QMMBronze(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class QMMChrome(bpy.types.Operator):
-    """Add/Apply Chrome Material to Selected Object (or Scene)"""
-    bl_label  = "QMM Chrome Shader"
-    bl_idname = 'shader.qmm_chrome_operator'
+class QMMChromium(bpy.types.Operator):
+    """Add/Apply Chromium Material to Selected Object (or Scene)"""
+    bl_label  = "QMM Chromium Shader"
+    bl_idname = 'shader.qmm_chromium_operator'
 
     def execute(self, context):
         make_metal(11)
