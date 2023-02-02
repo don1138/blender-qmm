@@ -56,14 +56,14 @@ class QMMCopper(bpy.types.Operator):
         BSDF.inputs[0].default_value = (0.838799, 0.473531, 0.215861, 1)
         BSDF.inputs[6].default_value = 1
         BSDF.inputs[9].default_value = 0.35
-        BSDF.inputs[16].default_value = 1.43
+        # BSDF.inputs[16].default_value = 1.43
 
         # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
         ec_group = self.make_group(nodes, 'Energy Conservation v5', -500, -200)
         ec_group.inputs[0].default_value = (0.838799, 0.473531, 0.215861, 1)
         ec_group.inputs[1].default_value = 0.35
-        ec_group.inputs[2].default_value = 1.43
+        # ec_group.inputs[2].default_value = 1.43
         ec_group.inputs[4].default_value = (0.982250, 0.904660, 0.637597, 1)
         ec_group.name = "Energy Conservation v5"
 

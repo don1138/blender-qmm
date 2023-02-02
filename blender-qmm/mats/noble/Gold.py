@@ -50,7 +50,7 @@ class QMMGold(bpy.types.Operator):
         BSDF.inputs[0].default_value = (0.871367, 0.558340, 0.114436, 1)
         BSDF.inputs[6].default_value = 1
         BSDF.inputs[9].default_value = 0.075
-        BSDF.inputs[16].default_value = 1.45
+        # BSDF.inputs[16].default_value = 1.45
 
         links = m_gold_m.node_tree.links.new
 
@@ -59,7 +59,7 @@ class QMMGold(bpy.types.Operator):
         ec_group = self.make_node(nodes, "Energy Conservation v5", 'Energy Conservation v5')
         ec_group.inputs[0].default_value = (0.871367, 0.558340, 0.114436, 1)
         ec_group.inputs[1].default_value = 0.075
-        ec_group.inputs[2].default_value = 1.45
+        # ec_group.inputs[2].default_value = 1.45
         ec_group.inputs[4].default_value = (0.991101, 0.955973, 0.520996, 1)
         ec_group.location = (-500, -200)
         links(ec_group.outputs[0], BSDF.inputs[0])

@@ -60,7 +60,7 @@ class QMMRedMetal(bpy.types.Operator):
         BSDF.inputs[0].default_value = (0.768151, 0.054480, 0.034340, 1)
         BSDF.inputs[6].default_value = 1
         BSDF.inputs[9].default_value = 0.4
-        BSDF.inputs[16].default_value = 3.256
+        # BSDF.inputs[16].default_value = 3.256
 
         # colorramp cinnabar
         c_cinnabar = [(0.768151, 0.054480, 0.034340, 1), (0.964687, 0.066626, 0.002428, 1)]
@@ -78,7 +78,7 @@ class QMMRedMetal(bpy.types.Operator):
         ec_group.location = (-500, -200)
         ec_group.inputs[0].default_value = (0.768151, 0.054480, 0.034340, 1)
         ec_group.inputs[1].default_value = 0.4
-        ec_group.inputs[2].default_value = 3.256
+        # ec_group.inputs[2].default_value = 3.256
         ec_group.inputs[4].default_value = (0.010000, 0.000687, 0.000429, 1)
 
         # TexturizerGroup

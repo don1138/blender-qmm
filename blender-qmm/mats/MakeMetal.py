@@ -75,7 +75,7 @@ def make_shader(units):
     BSDF.inputs[0].default_value = unit_value[2]
     BSDF.inputs[6].default_value = 1
     BSDF.inputs[9].default_value = unit_value[3]
-    BSDF.inputs[16].default_value = unit_value[4]
+    # BSDF.inputs[16].default_value = unit_value[4]
 
     # EnergyConservationGroup
     bpy.ops.node.ec_group_operator()
@@ -85,7 +85,7 @@ def make_shader(units):
     ec_group.location = (-500, -200)
     ec_group.inputs[0].default_value = unit_value[2]
     ec_group.inputs[1].default_value = unit_value[3]
-    ec_group.inputs[2].default_value = unit_value[4]
+    # ec_group.inputs[2].default_value = unit_value[4]
     ec_group.inputs[4].default_value = unit_value[5]
 
     links = unit_value[0].node_tree.links.new

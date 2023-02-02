@@ -52,7 +52,7 @@ class QMMTitanium(bpy.types.Operator):
         BSDF.inputs[0].default_value = (0.337163, 0.296138, 0.254152, 1)
         BSDF.inputs[6].default_value = 1
         BSDF.inputs[9].default_value = 0.35
-        BSDF.inputs[16].default_value = 2.42
+        # BSDF.inputs[16].default_value = 2.42
 
         # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
@@ -62,7 +62,7 @@ class QMMTitanium(bpy.types.Operator):
         ec_group.location = (-500, -200)
         ec_group.inputs[0].default_value = (0.337163, 0.296138, 0.254152, 1)
         ec_group.inputs[1].default_value = 0.35
-        ec_group.inputs[2].default_value = 2.42
+        # ec_group.inputs[2].default_value = 2.42
         ec_group.inputs[4].default_value = (0.428690, 0.423267, 0.428690, 1)
 
         # TexturizerGroup
