@@ -35,7 +35,7 @@ class QMMSilver(bpy.types.Operator):
         m_silver_m.use_nodes = True
         m_silver_m.diffuse_color = (0.913098, 0.879622, 0.830770, 1)
         m_silver_m.metallic = 1
-        m_silver_m.roughness = 0.2
+        m_silver_m.roughness = 0.075
 
         nodes = m_silver_m.node_tree.nodes
 
@@ -49,8 +49,8 @@ class QMMSilver(bpy.types.Operator):
         BSDF.location = (-300, 0)
         BSDF.inputs[0].default_value = (0.913098, 0.879622, 0.830770, 1)
         BSDF.inputs[6].default_value = 1
-        BSDF.inputs[9].default_value = 0.2
-        BSDF.inputs[16].default_value = 1.45
+        BSDF.inputs[9].default_value = 0.075
+        BSDF.inputs[16].default_value = 1.57
 
         # LOAD THE MATERIAL
         bpy.context.object.active_material = m_silver_m
@@ -59,10 +59,10 @@ class QMMSilver(bpy.types.Operator):
 
         # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
-        ec_group = self.make_node(nodes, "Energy Conservation v4", 'Energy Conservation v4', -500, -200)
+        ec_group = self.make_node(nodes, "Energy Conservation v5", 'Energy Conservation v5', -500, -200)
         ec_group.inputs[0].default_value = (0.913098, 0.879622, 0.830770, 1)
-        ec_group.inputs[1].default_value = 0.2
-        ec_group.inputs[2].default_value = 1.45
+        ec_group.inputs[1].default_value = 0.075
+        ec_group.inputs[2].default_value = 1.57
         ec_group.inputs[4].default_value = (0.991101, 0.991101, 0.991102, 1)
         links(ec_group.outputs[0], BSDF.inputs[0])
         links(ec_group.outputs[1], BSDF.inputs[7])

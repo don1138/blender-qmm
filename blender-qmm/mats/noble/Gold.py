@@ -35,7 +35,7 @@ class QMMGold(bpy.types.Operator):
         m_gold_m.use_nodes = True
         m_gold_m.diffuse_color = (0.871367, 0.558340, 0.114436, 1)
         m_gold_m.metallic = 1
-        m_gold_m.roughness = 0.2
+        m_gold_m.roughness = 0.075
 
         nodes = m_gold_m.node_tree.nodes
 
@@ -49,16 +49,16 @@ class QMMGold(bpy.types.Operator):
         BSDF.location = (-300, 0)
         BSDF.inputs[0].default_value = (0.871367, 0.558340, 0.114436, 1)
         BSDF.inputs[6].default_value = 1
-        BSDF.inputs[9].default_value = 0.2
+        BSDF.inputs[9].default_value = 0.075
         BSDF.inputs[16].default_value = 1.45
 
         links = m_gold_m.node_tree.links.new
 
         # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
-        ec_group = self.make_node(nodes, "Energy Conservation v4", 'Energy Conservation v4')
+        ec_group = self.make_node(nodes, "Energy Conservation v5", 'Energy Conservation v5')
         ec_group.inputs[0].default_value = (0.871367, 0.558340, 0.114436, 1)
-        ec_group.inputs[1].default_value = 0.2
+        ec_group.inputs[1].default_value = 0.075
         ec_group.inputs[2].default_value = 1.45
         ec_group.inputs[4].default_value = (0.991101, 0.955973, 0.520996, 1)
         ec_group.location = (-500, -200)

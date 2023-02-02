@@ -3,20 +3,20 @@ import time
 
 
 metal_values = [
-    {'palladium': ['m_palladium', 'QMM Palladium', (0.417885, 0.366252, 0.300544, 1), 0.110, 1.638, (0.930110, 0.947306, 0.964686, 1)]},
-    {'platinum': ['m_platinum', 'QMM Platinum', (0.417885, 0.366252, 0.300544, 1), 0.110, 2.330, (0.577580, 0.584078, 0.571125, 1)]},
-    {'aluminium': ['m_aluminium', 'QMM Aluminium', (0.806951, 0.814846, 0.822786, 1), 0.400, 1.244, (0.930110, 0.947306, 0.964686, 1)]},
-    {'iron': ['m_iron', 'QMM Iron', (0.230740, 0.223228, 0.208637, 1), 0.300, 2.950, (0.283148, 0.250158, 0.300544, 1)]},
-    {'lead': ['m_lead', 'QMM Lead', (0.658374, 0.665387, 0.693872, 1), 0.700, 2.010, (0.803, 0.808, 0.862, 1)]},
-    {'lead_rough': ['m_lead_rough', 'QMM Lead_Rough', (0.186, 0.188, 0.196, 1), 0.565, 2.010, (0.99, 0.99, 0.99, 1)]},
-    {'nickel': ['m_nickel', 'QMM Nickel', (0.376262, 0.327778, 0.250158, 1), 0.350, 1.080, (0.597201, 0.603827, 0.584079, 1)]},
-    {'titanium_polished': ['m_titanium_polished', 'QMM Titanium_Polished', (0.337163, 0.296138, 0.254152, 1), 0.350, 2.160, (0.428690, 0.423267, 0.428690, 1)]},
-    {'zinc': ['m_zinc', 'QMM Zinc', (0.737911, 0.723055, 0.701102, 1), 0.300, 1.918, (0.913098, 0.930110, 0.947306, 1)]},
-    {'brass': ['m_brass', 'QMM Brass', (0.760524, 0.584078, 0.158961, 1), 0.38, 1.225, (0.973444, 0.947306, 0.679543, 1)]},
-    {'bronze': ['m_bronze', 'QMM Bronze', (0.434154, 0.266356, 0.0953075, 1), 0.38, 1.517, (0.651405, 0.577580, 0.514918, 1)]},
-    {'chrome': ['m_chrome', 'QMM Chrome', (0.262250, 0.266355, 0.266356, 1), 0.1, 2.3, (0.283148, 0.270498, 0.428690, 1)]},
-    {'steel': ['m_steel', 'QMM Steel', (0.42869, 0.527115, 0.590619, 1), 0.3, 2.5, (0.99, 0.99, 0.99, 1)]},
-    {'mercury': ['m_mercury', 'QMM Mercury', (0.781, 0.779, 0.779, 1), 0.000, 1.620, (0.879, 0.910, 0.941, 1)]},
+    {'palladium': ['m_palladium', 'QMM Palladium', (0.417885, 0.366252, 0.300544, 1), 0.075, 1.76, (0.930110, 0.947306, 0.964686, 1)]},
+    {'platinum': ['m_platinum', 'QMM Platinum', (0.417885, 0.366252, 0.300544, 1), 0.075, 1.79, (0.577580, 0.584078, 0.571125, 1)]},
+    {'aluminium': ['m_aluminium', 'QMM Aluminium', (0.806951, 0.814846, 0.822786, 1), 0.35, 1.62, (0.930110, 0.947306, 0.964686, 1)]},
+    {'iron': ['m_iron', 'QMM Iron', (0.230740, 0.223228, 0.208637, 1), 0.5, 2.03, (0.283148, 0.250158, 0.300544, 1)]},
+    {'lead': ['m_lead', 'QMM Lead', (0.658374, 0.665387, 0.693872, 1), 0.35, 1.87, (0.803, 0.808, 0.862, 1)]},
+    {'lead_rough': ['m_lead_rough', 'QMM Lead_Rough', (0.186, 0.188, 0.196, 1), 0.5, 1.87, (0.99, 0.99, 0.99, 1)]},
+    {'nickel': ['m_nickel', 'QMM Nickel', (0.376262, 0.327778, 0.250158, 1), 0.350, 1.63, (0.597201, 0.603827, 0.584079, 1)]},
+    {'titanium_polished': ['m_titanium_polished', 'QMM Titanium_Polished', (0.337163, 0.296138, 0.254152, 1), 0.35, 2.42, (0.428690, 0.423267, 0.428690, 1)]},
+    {'zinc': ['m_zinc', 'QMM Zinc', (0.737911, 0.723055, 0.701102, 1), 0.35, 1.7, (0.913098, 0.930110, 0.947306, 1)]},
+    {'brass': ['m_brass', 'QMM Brass', (0.760524, 0.584078, 0.158961, 1), 0.35, 1.45, (0.973444, 0.947306, 0.679543, 1)]},
+    {'bronze': ['m_bronze', 'QMM Bronze', (0.434154, 0.266356, 0.0953075, 1), 0.35, 1.45, (0.651405, 0.577580, 0.514918, 1)]},
+    {'chrome': ['m_chrome', 'QMM Chrome', (0.262250, 0.266355, 0.266356, 1), 0.075, 1.5, (0.283148, 0.270498, 0.428690, 1)]},
+    {'steel': ['m_steel', 'QMM Steel', (0.42869, 0.527115, 0.590619, 1), 0.3, 2.0, (0.99, 0.99, 0.99, 1)]},
+    {'mercury': ['m_mercury', 'QMM Mercury', (0.781, 0.779, 0.779, 1), 0.075, 1.744, (0.879, 0.910, 0.941, 1)]},
 ]
 
 
@@ -80,8 +80,8 @@ def make_shader(units):
     # EnergyConservationGroup
     bpy.ops.node.ec_group_operator()
     ec_group = nodes.new("ShaderNodeGroup")
-    ec_group.name = "Energy Conservation v4"
-    ec_group.node_tree = bpy.data.node_groups['Energy Conservation v4']
+    ec_group.name = "Energy Conservation v5"
+    ec_group.node_tree = bpy.data.node_groups['Energy Conservation v5']
     ec_group.location = (-500, -200)
     ec_group.inputs[0].default_value = unit_value[2]
     ec_group.inputs[1].default_value = unit_value[3]

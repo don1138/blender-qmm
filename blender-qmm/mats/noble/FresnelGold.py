@@ -37,7 +37,7 @@ class QMMGoldFresnel(bpy.types.Operator):
         m_gold.use_nodes = True
         m_gold.diffuse_color = (0.658375, 0.42869, 0.0382044, 1)
         m_gold.metallic = 1
-        m_gold.roughness = 0.14
+        m_gold.roughness = 0.15
 
         nodes = m_gold.node_tree.nodes
 
@@ -86,7 +86,7 @@ class QMMGoldFresnel(bpy.types.Operator):
         # value
         m_value = nodes.new('ShaderNodeValue')
         m_value.location = (-800, -200)
-        m_value.outputs[0].default_value = 0.14
+        m_value.outputs[0].default_value = 0.15
 
         links = m_gold.node_tree.links.new
 

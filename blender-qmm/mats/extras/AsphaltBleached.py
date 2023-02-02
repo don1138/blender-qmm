@@ -19,8 +19,8 @@ def make_node(nodes, shader, locX, locY):
 
 def set_ec(nodes, locX, locY, diff, ruff, ior, spec):
     result = nodes.new("ShaderNodeGroup")
-    result.name = "Energy Conservation v4"
-    result.node_tree = bpy.data.node_groups['Energy Conservation v4']
+    result.name = "Energy Conservation v5"
+    result.node_tree = bpy.data.node_groups['Energy Conservation v5']
     result.location = (locX, locY)
     result.inputs[0].default_value = diff
     result.inputs[1].default_value = ruff

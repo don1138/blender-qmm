@@ -37,7 +37,7 @@ class QMMSilverFresnel(bpy.types.Operator):
         m_silver.use_nodes = True
         m_silver.diffuse_color = (0.401978, 0.396755, 0.417885, 1)
         m_silver.metallic = 1
-        m_silver.roughness = 0.115
+        m_silver.roughness = 0.15
 
         nodes = m_silver.node_tree.nodes
 
@@ -64,7 +64,7 @@ class QMMSilverFresnel(bpy.types.Operator):
             nodes, "ShaderNodeBsdfGlossy", -
             400, 0, (0.401978, 0.396755, 0.417885, 1)
         )
-        m_glossy.inputs[1].default_value = 0.115
+        m_glossy.inputs[1].default_value = 0.15
 
         # glossyshader2
         m_glossy2 = self.make_node(

@@ -1,28 +1,24 @@
-# Energy Conservation v4 Group v.4
+# Energy Conservation v5 Group v.5
 import bpy
 
 bv = bpy.app.version
 
 class EnergyConservationGroup(bpy.types.Operator):
-    """Add/Get Energy Conservation v4 Group Node"""
-    bl_label  = "Energy Conservation v4 Node Group"
+    """Add/Get Energy Conservation v5 Group Node"""
+    bl_label  = "Energy Conservation v5 Node Group"
     bl_idname = 'node.ec_group_operator'
 
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         ng_spec = bpy.data.node_groups.get("Specular")
-        ng_fres = bpy.data.node_groups.get("Fresnel")
-        ng_lin = bpy.data.node_groups.get("Linear Mapping")
-        ng_ec = bpy.data.node_groups.get("Energy Conservation v4")
+        ng_fres = bpy.data.node_groups.get("Fresnel CCP")
+        ng_ec   = bpy.data.node_groups.get("Energy Conservation v5")
 
         if not ng_spec:
             self.make_spec_group()
 
         if not ng_fres:
             self.make_fres_group()
-
-        if not ng_lin:
-            self.make_lin_group()
 
         if not ng_ec:
             self.make_ec_group()
@@ -76,11 +72,11 @@ class EnergyConservationGroup(bpy.types.Operator):
         links(m_divide.outputs[0], group_out.inputs[0])
 
     def make_fres_group(self):
-        # custom fresnel group
-        fres_group = bpy.data.node_groups.new('Fresnel', 'ShaderNodeTree')
+        # fresnel group - cynicalcatpro version
+        fres_group = bpy.data.node_groups.new('Fresnel CCP', 'ShaderNodeTree')
         
         # groupinput
-        group_in = self.make_node(fres_group, 'NodeGroupInput', -800, 0)
+        group_in = self.make_node(fres_group, 'NodeGroupInput', -1000, 0)
         fres_group.inputs.new('NodeSocketFloat', 'Roughness')
         fres_group.inputs.new('NodeSocketFloat', 'IOR')
         fres_group.inputs.new('NodeSocketVector', 'Normal')
@@ -93,25 +89,33 @@ class EnergyConservationGroup(bpy.types.Operator):
 
         # groupoutput
         group_out = self.make_node(fres_group, 'NodeGroupOutput', 0, 0)
-        fres_group.outputs.new('NodeSocketFloat', 'Factor')
+        fres_group.outputs.new('NodeSocketFloat', 'Fresnel')
+        fres_group.outputs.new('NodeSocketFloat', 'Fresnel Metal')
 
         # fresnel
-        m_fresnel = self.make_node(fres_group, 'ShaderNodeFresnel', -200, 0)
+        m_fresnel = self.make_node(fres_group, 'ShaderNodeFresnel', -400, 0)
+
+        # layer weight
+        m_layer_weight = self.make_node(fres_group, 'ShaderNodeLayerWeight', -400, -200)
+
+        # power
+        m_power = self.make_math_node(fres_group, 'POWER', -200, -100)
+        m_power.inputs[1].default_value = 5
         
         # colormix
         if bv < (3, 4, 0):
-            m_colormix = self.make_node(fres_group, 'ShaderNodeMixRGB', -400, -100)
+            m_colormix = self.make_node(fres_group, 'ShaderNodeMixRGB', -600, -100)
         else:
-            m_colormix = self.make_node(fres_group, 'ShaderNodeMix', -400, -100)
+            m_colormix = self.make_node(fres_group, 'ShaderNodeMix', -600, -100)
             m_colormix.data_type = 'RGBA'
 
         # bump
-        m_bump = self.make_node(fres_group, 'ShaderNodeBump', -600, -100)
+        m_bump = self.make_node(fres_group, 'ShaderNodeBump', -800, -100)
         m_bump.inputs[0].default_value = 0
         m_bump.inputs[1].default_value = 0.1
         
         # geometry
-        m_geometry = self.make_node(fres_group, 'ShaderNodeNewGeometry', -600, -300)
+        m_geometry = self.make_node(fres_group, 'ShaderNodeNewGeometry', -800, -300)
 
         # connect fres_group
         links = fres_group.links.new
@@ -122,52 +126,23 @@ class EnergyConservationGroup(bpy.types.Operator):
             links(m_bump.outputs[0], m_colormix.inputs[1])
             links(m_geometry.outputs[4], m_colormix.inputs[2])
             links(m_colormix.outputs[0], m_fresnel.inputs[1])
+            links(m_colormix.outputs[0], m_layer_weight.inputs[1])
         else:
             links(m_bump.outputs[0], m_colormix.inputs[6])
             links(m_geometry.outputs[4], m_colormix.inputs[7])
             links(m_colormix.outputs[2], m_fresnel.inputs[1])
+            links(m_colormix.outputs[2], m_layer_weight.inputs[1])
         links(m_fresnel.outputs[0], group_out.inputs[0])
-
-    def make_lin_group(self):
-        # linear_mapping_group
-        lin_group = bpy.data.node_groups.new('Linear Mapping', 'ShaderNodeTree')
-
-        # groupinput
-        group_in = self.make_node(lin_group, 'NodeGroupInput', -800, 0)
-        lin_group.inputs.new('NodeSocketColor', 'Color')
-
-        # groupoutput
-        group_out = self.make_node(lin_group, 'NodeGroupOutput', 0, 0)
-        lin_group.outputs.new('NodeSocketColor', 'Color')
-
-        # combineecolor
-        lin_combine_color = self.make_node(lin_group, 'ShaderNodeCombineColor', -200, 0)
-
-        # mathmultiply
-        m_multiply =  self.make_math_multiply_node(lin_group, 200)
-        m_multiply2 =  self.make_math_multiply_node(lin_group, 0)
-        m_multiply3 =  self.make_math_multiply_node(lin_group, -200)
-
-        # separatecolor
-        lin_separate_color = self.make_node(lin_group, 'ShaderNodeSeparateColor', -600, 0)
-
-        # connect lm group
-        links = lin_group.links.new
-        links(group_in.outputs[0], lin_separate_color.inputs[0])
-        links(lin_separate_color.outputs[0], m_multiply.inputs[1])
-        links(lin_separate_color.outputs[1], m_multiply2.inputs[1])
-        links(lin_separate_color.outputs[2], m_multiply3.inputs[1])
-        links(m_multiply.outputs[0], lin_combine_color.inputs[0])
-        links(m_multiply2.outputs[0], lin_combine_color.inputs[1])
-        links(m_multiply3.outputs[0], lin_combine_color.inputs[2])
-        links(lin_combine_color.outputs[0], group_out.inputs[0])
+        links(m_layer_weight.outputs[1], m_power.inputs[0])
+        links(m_power.outputs[0], group_out.inputs[1])
 
     def make_ec_group(self):
         # ec_group
-        ec_group = bpy.data.node_groups.new('Energy Conservation v4', 'ShaderNodeTree')
+        ec_group = bpy.data.node_groups.new('Energy Conservation v5', 'ShaderNodeTree')
 
         # groupinput
         group_in = self.make_node(ec_group, 'NodeGroupInput', -200, 0)
+        group_in.label = "Group In 1"
         ec_group.inputs.new('NodeSocketColor', 'Diffuse (Base)')    #0 - formerly 1
         ec_group.inputs.new('NodeSocketFloat', 'Roughness')         #1
         ec_group.inputs.new('NodeSocketFloat', 'IOR')               #2 - formerly 0
@@ -199,63 +174,89 @@ class EnergyConservationGroup(bpy.types.Operator):
         ec_group.outputs.new('NodeSocketFloat', 'Clearcoat')  #3
         ec_group.outputs.new('NodeSocketFloat', 'IOR')        #4
 
-        # colormix
+        # CLEARCOAT
+        m_clearcoat = self.make_math_node(ec_group, 'MULTIPLY', -200, -300)
+        m_clearcoat.label = "Clearcoat"
+        m_clearcoat.inputs[1].default_value = 10
+        m_clearcoat.label = "Clearcoat"
+
+        # colormix1
         if bv < (3, 4, 0):
             m_colormix = self.make_node(ec_group, 'ShaderNodeMixRGB', -400, 300)
         else:
             m_colormix = self.make_node(ec_group, 'ShaderNodeMix', -400, 300)
             m_colormix.data_type = 'RGBA'
-
-        # CLEARCOAT
-        m_clearcoat = self.make_math_node(ec_group, 'MULTIPLY', -200, -300)
-        m_clearcoat.inputs[1].default_value = 10
-        m_clearcoat.label = "Clearcoat"
+        m_colormix.label = "Color Mix 1"
 
         # IOR TO SPECULAR
         spec_group = self.make_node_group(ec_group, "Specular", 'Specular', -400, -300)
-
-        # FRESNEL GROUP
-        fres_group = self.make_node_group(ec_group, "Fresnel", 'Fresnel', -600, 300)
+        spec_group.label = "Specular"
 
         # colormix2
         if bv < (3, 4, 0):
-            m_colormix2 = self.make_node(ec_group, 'ShaderNodeMixRGB', -600, 0)
+            m_colormix2 = self.make_node(ec_group, 'ShaderNodeMixRGB', -600, 400)
         else:
-            m_colormix2 = self.make_node(ec_group, 'ShaderNodeMix', -600, 0)
+            m_colormix2 = self.make_node(ec_group, 'ShaderNodeMix', -600, 400)
             m_colormix2.data_type = 'RGBA'
-
-        # groupinput2
-        group_in2 = self.make_node(ec_group, 'NodeGroupInput', -600, -300)
-
-        # groupinput3
-        group_in3 = self.make_node(ec_group, 'NodeGroupInput', -800, 300)
-
-        # mathgreaterthan
-        m_greaterthan = self.make_math_node(ec_group, 'GREATER_THAN', -800, 0)
-        m_greaterthan.inputs[1].default_value = 0.5
+        m_colormix2.label = "Color Mix 2"
 
         # colormix3
         if bv < (3, 4, 0):
-            m_colormix3 = self.make_node(ec_group, 'ShaderNodeMixRGB', -800, -300)
-            m_colormix3.inputs[1].default_value = (0.99, 0.99, 0.99, 1)
+            m_colormix3 = self.make_node(ec_group, 'ShaderNodeMixRGB', -600, 0)
         else:
-            m_colormix3 = self.make_node(ec_group, 'ShaderNodeMix', -800, -300)
+            m_colormix3 = self.make_node(ec_group, 'ShaderNodeMix', -600, 0)
             m_colormix3.data_type = 'RGBA'
-            m_colormix3.inputs[6].default_value = (0.99, 0.99, 0.99, 1)
+        m_colormix3.label = "Color Mix 3"
+
+        # groupinput2
+        group_in2 = self.make_node(ec_group, 'NodeGroupInput', -600, -300)
+        group_in2.label = "Group In 2"
+
+        # bool1
+        m_greaterthan = self.make_math_node(ec_group, 'GREATER_THAN', -800, 200)
+        m_greaterthan.inputs[1].default_value = 0.5
+        m_greaterthan.label = "Bool 1"
+
+        # bool2
+        m_greaterthan2 = self.make_math_node(ec_group, 'GREATER_THAN', -800, -100)
+        m_greaterthan2.inputs[1].default_value = 0.5
+        m_greaterthan2.label = "Bool 2"
+
+        # colormix4
+        if bv < (3, 4, 0):
+            m_colormix4 = self.make_node(ec_group, 'ShaderNodeMixRGB', -800, -300)
+            m_colormix4.inputs[1].default_value = (0.99, 0.99, 0.99, 1)
+        else:
+            m_colormix4 = self.make_node(ec_group, 'ShaderNodeMix', -800, -300)
+            m_colormix4.data_type = 'RGBA'
+            m_colormix4.inputs[6].default_value = (0.99, 0.99, 0.99, 1)
+        m_colormix4.label = "Color Mix 4"
+
+        # FRESNEL GROUP
+        fres_group = self.make_node_group(ec_group, "Fresnel CCP", 'Fresnel CCP', -1000, 300)
+        fres_group.label = "Fresnel CCP"
 
         # groupinput4
         group_in4 = self.make_node(ec_group, 'NodeGroupInput', -1000, 0)
+        group_in4.label = "Group In 4"
 
         # HSV
         m_hsv = self.make_node(ec_group, 'ShaderNodeHueSaturation', -1000, -300)
         m_hsv.inputs[2].default_value = 0.01
+        m_hsv.label = "HSV"
 
-        # mathgreaterthan2
-        m_greaterthan2 = self.make_math_node(ec_group, 'GREATER_THAN', -1000, -500)
-        m_greaterthan2.inputs[1].default_value = 0.5
+        # bool 3
+        m_greaterthan3 = self.make_math_node(ec_group, 'GREATER_THAN', -1000, -500)
+        m_greaterthan3.inputs[1].default_value = 0.5
+        m_greaterthan3.label = "Bool 3"
+
+        # groupinput3
+        group_in3 = self.make_node(ec_group, 'NodeGroupInput', -1200, 300)
+        group_in3.label = "Group In 3"
 
         # groupinput5
         group_in5 = self.make_node(ec_group, 'NodeGroupInput', -1200, -400)
+        group_in5.label = "Group In 5"
 
         links = ec_group.links.new
 
@@ -269,28 +270,38 @@ class EnergyConservationGroup(bpy.types.Operator):
         # connect color mix 1
         if bv < (3, 4, 0):
             links(group_in3.outputs[0], m_colormix.inputs[1])
-            links(m_colormix2.outputs[0], m_colormix.inputs[2])
+            links(m_colormix.outputs[0], m_colormix.inputs[2])
             links(m_colormix.outputs[0], group_out.inputs[0])
         else:
             links(group_in3.outputs[0], m_colormix.inputs[6])
-            links(m_colormix2.outputs[2], m_colormix.inputs[7])
+            links(m_colormix3.outputs[2], m_colormix.inputs[7])
             links(m_colormix.outputs[2], group_out.inputs[0])
 
         # connect specular group
         links(spec_group.outputs[0], group_out.inputs[1])
         links(spec_group.outputs[0], m_clearcoat.inputs[0])
 
-        # connect fresnel group
-        links(fres_group.outputs[0], m_colormix.inputs[0])
-
-        # connect greaterthan 1 color mix 2
+        # connect color mix 2
         links(m_greaterthan.outputs[0], m_colormix2.inputs[0])
         if bv < (3, 4, 0):
-            links(group_in4.outputs[4], m_colormix2.inputs[1])
-            links(m_colormix3.outputs[0], m_colormix2.inputs[2])
+            links(fres_group.outputs[0], m_colormix2.inputs[2])
+            links(fres_group.outputs[1], m_colormix2.inputs[1])
+            links(m_colormix2.outputs[0], m_colormix.inputs[0])
         else:
-            links(group_in4.outputs[4], m_colormix2.inputs[6])
-            links(m_colormix3.outputs[2], m_colormix2.inputs[7])
+            links(fres_group.outputs[0], m_colormix2.inputs[7])
+            links(fres_group.outputs[1], m_colormix2.inputs[6])
+            links(m_colormix2.outputs[2], m_colormix.inputs[0])
+
+        # connect fresnel group
+
+        # connect bool 2 to color mix 3
+        links(m_greaterthan2.outputs[0], m_colormix3.inputs[0])
+        if bv < (3, 4, 0):
+            links(group_in4.outputs[4], m_colormix3.inputs[1])
+            links(m_colormix4.outputs[0], m_colormix3.inputs[2])
+        else:
+            links(group_in4.outputs[4], m_colormix3.inputs[6])
+            links(m_colormix4.outputs[2], m_colormix3.inputs[7])
 
         # connect group in 2
         links(group_in2.outputs[2], spec_group.inputs[0])
@@ -299,20 +310,21 @@ class EnergyConservationGroup(bpy.types.Operator):
         links(group_in3.outputs[1], fres_group.inputs[0])
         links(group_in3.outputs[2], fres_group.inputs[1])
         links(group_in3.outputs[3], fres_group.inputs[2])
+        links(group_in3.outputs[6], m_greaterthan.inputs[0])
 
         # connect color mix 3
-        links(m_greaterthan2.outputs[0], m_colormix3.inputs[0])
+        links(m_greaterthan3.outputs[0], m_colormix4.inputs[0])
         if bv < (3, 4, 0):
-            links(m_hsv.outputs[0], m_colormix3.inputs[2])
+            links(m_hsv.outputs[0], m_colormix4.inputs[2])
         else:
-            links(m_hsv.outputs[0], m_colormix3.inputs[7])
+            links(m_hsv.outputs[0], m_colormix4.inputs[7])
 
         # connect group in 4
-        links(group_in4.outputs[5], m_greaterthan.inputs[0])
+        links(group_in4.outputs[5], m_greaterthan2.inputs[0])
 
         # connect group in 5
         links(group_in5.outputs[0], m_hsv.inputs[4])
-        links(group_in5.outputs[6], m_greaterthan2.inputs[0])
+        links(group_in5.outputs[6], m_greaterthan3.inputs[0])
         
     def make_node(self, group, arg1, arg2, arg3):
         result = group.nodes.new(arg1)

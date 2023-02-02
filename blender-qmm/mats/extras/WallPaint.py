@@ -97,8 +97,8 @@ class QMMWallPaint(bpy.types.Operator):
         # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
         ec_group = nodes.new("ShaderNodeGroup")
-        ec_group.name = "Energy Conservation v4"
-        ec_group.node_tree = bpy.data.node_groups['Energy Conservation v4']
+        ec_group.name = "Energy Conservation v5"
+        ec_group.node_tree = bpy.data.node_groups['Energy Conservation v5']
         ec_group.location = (-500, -100)
         ec_group.inputs[0].default_value = (0.504859, 0.483713, 0.674328, 1)
         ec_group.inputs[1].default_value = 0.5
