@@ -10,5 +10,5 @@ VERSION 1
 4ec1a166-207c-4646-9ee9-cdb7234da4d6:Quick Metal Materials/A Noble:Quick Metal Materials-A Noble
 c70303e6-c35a-4243-bcf1-e02432dfdc27:Quick Metal Materials/B Base:Quick Metal Materials-B Base
 b9b4ee22-193f-40df-b1ca-a6262a0c3443:Quick Metal Materials/C Alloys:Quick Metal Materials-C Alloys
-cfc09c0f-13eb-4cbe-9775-b99d6dcc2c38:Quick Metal Materials/N Nodes:Quick Metal Materials-N Nodes
+cfc09c0f-13eb-4cbe-9775-b99d6dcc2c38:Quick Metal Materials/N Node Groups:Quick Metal Materials-N Node Groups
 d8bbddfc-c6c8-4562-adc1-bd1a5000c97b:Quick Metal Materials/X Extras:Quick Metal Materials-X Extras
