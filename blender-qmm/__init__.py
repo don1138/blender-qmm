@@ -21,7 +21,7 @@ bl_info = {
     "name"       : "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
     "author"     : "Don Schnitzius",
-    "version"    : (1, 5, 7),
+    "version"    : (1, 5, 8),
     "blender"    : (3, 0, 0),
     "location"   : "3D Viewport > Sidebar > MAT > Quick Metal Materials",
     "warning"    : "",
@@ -65,9 +65,10 @@ class QMMPanelNoble(bpy.types.Panel):
         layout = self.layout
 
         row = layout.row()
-        row.operator("shader.qmm_gold_m_operator", text='Gold')
+        row.operator("shader.qmm_copper_m_operator", text='Copper')
+
         row = layout.row()
-        row.operator("shader.qmm_gold_operator", text='Gold Fresnel')
+        row.operator("shader.qmm_gold_m_operator", text='Gold')
 
         row = layout.row()
         row.operator("shader.qmm_palladium_operator", text='Palladium')
@@ -76,6 +77,11 @@ class QMMPanelNoble(bpy.types.Panel):
 
         row = layout.row()
         row.operator("shader.qmm_silver_m_operator", text='Silver')
+
+        row = layout.row()
+        row.operator("shader.qmm_copper_operator", text='Copper Fresnel')
+        row = layout.row()
+        row.operator("shader.qmm_gold_operator", text='Gold Fresnel')
         row = layout.row()
         row.operator("shader.qmm_silver_operator", text='Silver Fresnel')
 
@@ -97,11 +103,6 @@ class QMMPanelBase(bpy.types.Panel):
         row.operator("shader.qmm_aluminium_operator", text='Aluminium')
 
         row = layout.row()
-        row.operator("shader.qmm_copper_m_operator", text='Copper')
-        row = layout.row()
-        row.operator("shader.qmm_copper_operator", text='Copper Fresnel')
-
-        row = layout.row()
         row.operator("shader.qmm_iron_operator", text='Iron')
 
         row = layout.row()
@@ -116,12 +117,35 @@ class QMMPanelBase(bpy.types.Panel):
         row.operator("shader.qmm_tin_operator", text='Tin')
 
         row = layout.row()
+        row.operator("shader.qmm_zinc_operator", text='Zinc')
+
+
+# MINOR METALS PANEL
+class QMMPanelMinor(bpy.types.Panel):
+    bl_idname      = "QMM_PT_Panel_Minor"
+    bl_label       = 'Minor Metals'
+    bl_space_type  = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category    = "MAT"
+    bl_parent_id   = 'QMM_PT_Panel'
+    bl_options     = {'DEFAULT_CLOSED'}
+
+    def draw(self, context):
+        layout = self.layout
+
+        row = layout.row()
+        row.operator("shader.qmm_chromium_operator", text='Chromium')
+
+        row = layout.row()
+        row.operator("shader.qmm_mercury_operator", text='Mercury')
+
+        row = layout.row()
+        row.operator("shader.qmm_silicon_operator", text='Silicon')
+
+        row = layout.row()
         row.operator("shader.qmm_titanium_p_operator", text='Titanium Polished')
         row = layout.row()
         row.operator("shader.qmm_titanium_operator", text='Titanium Textured')
-
-        row = layout.row()
-        row.operator("shader.qmm_zinc_operator", text='Zinc')
 
 
 # ALLOY METALS PANEL
@@ -142,9 +166,6 @@ class QMMPanelAlloy(bpy.types.Panel):
 
         row = layout.row()
         row.operator("shader.qmm_bronze_operator", text='Bronze')
-
-        row = layout.row()
-        row.operator("shader.qmm_chromium_operator", text='Chromium')
 
         row = layout.row()
         row.operator("shader.qmm_steel_operator", text='Steel')
@@ -171,9 +192,6 @@ class QMMPanelExtras(bpy.types.Panel):
 
         row = layout.row()
         row.operator("shader.qmm_glass_operator", text='Glass')
-
-        row = layout.row()
-        row.operator("shader.qmm_mercury_operator", text='Mercury')
 
         row = layout.row()
         row.operator("shader.qmm_red_metal_operator", text='Red Metal')
@@ -269,6 +287,7 @@ classes = [
     QMMPanelNoble,
     QMMPanelBase,
     QMMPanelAlloy,
+    QMMPanelMinor,
     QMMPanelExtras,
     AutoUpdaterPreferences,
     QMMAluminium,
@@ -292,6 +311,7 @@ classes = [
     QMMPlatinum,
     QMMPlaster,
     QMMRedMetal,
+    QMMSilicon,
     QMMSilverFresnel,
     QMMSilver,
     QMMSteel,

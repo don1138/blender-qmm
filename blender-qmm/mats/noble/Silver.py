@@ -63,7 +63,7 @@ class QMMSilver(bpy.types.Operator):
         ec_group.inputs[0].default_value = (0.964685, 0.947306, 0.921582, 1)
         ec_group.inputs[1].default_value = 0.075
         # ec_group.inputs[2].default_value = 1.57
-        ec_group.inputs[4].default_value = (1, 1, 1, 1)
+        ec_group.inputs[4].default_value = [1.032801, 1.032482, 1.034567, 1]
         links(ec_group.outputs[0], BSDF.inputs[0])
         links(ec_group.outputs[1], BSDF.inputs[7])
         links(ec_group.outputs[2], BSDF.inputs[9])

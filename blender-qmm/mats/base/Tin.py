@@ -35,9 +35,9 @@ class QMMTin(bpy.types.Operator):
         # CreateShader
         m_tin = bpy.data.materials.new(name="QMM Tin")
         m_tin.use_nodes = True
-        m_tin.diffuse_color = (0.8, 0.8, 0.8, 1)
+        m_tin.diffuse_color = (0.988702, 0.988222, 0.986691, 1)
         m_tin.metallic = 1
-        m_tin.roughness = 0.35
+        m_tin.roughness = 0.3
 
         nodes = m_tin.node_tree.nodes
 
@@ -49,9 +49,9 @@ class QMMTin(bpy.types.Operator):
         BSDF = nodes.get('Principled BSDF')
         BSDF.distribution = 'MULTI_GGX'
         BSDF.location = (-300, 0)
-        BSDF.inputs[0].default_value = (0.8, 0.8, 0.8, 1)
+        BSDF.inputs[0].default_value = (0.988702, 0.988222, 0.986691, 1)
         BSDF.inputs[6].default_value = 1
-        BSDF.inputs[9].default_value = 0.35
+        BSDF.inputs[9].default_value = 0.3
         # BSDF.inputs[16].default_value = 2.9
 
         # EnergyConservationGroup
@@ -60,10 +60,10 @@ class QMMTin(bpy.types.Operator):
         ec_group.name = "Energy Conservation v5"
         ec_group.node_tree = bpy.data.node_groups['Energy Conservation v5']
         ec_group.location = (-500, -200)
-        ec_group.inputs[0].default_value = (0.8, 0.8, 0.8, 1)
-        ec_group.inputs[1].default_value = 0.35
+        ec_group.inputs[0].default_value = (0.988702, 0.988222, 0.986691, 1)
+        ec_group.inputs[1].default_value = 0.3
         # ec_group.inputs[2].default_value = 2.9
-        ec_group.inputs[4].default_value = (0.99, 0.99, 0.99, 1)
+        ec_group.inputs[4].default_value = (1.051994, 1.053243, 1.058345, 1)
 
         # CanisotrophyGroup
         bpy.ops.node.canisotrophy_group_operator()

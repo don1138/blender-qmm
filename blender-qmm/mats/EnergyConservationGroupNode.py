@@ -143,13 +143,13 @@ class EnergyConservationGroup(bpy.types.Operator):
         # groupinput
         group_in = self.make_node(ec_group, 'NodeGroupInput', -200, 0)
         group_in.label = "Group In 1"
-        ec_group.inputs.new('NodeSocketColor', 'Diffuse (Base)')    #0 - formerly 1
+        ec_group.inputs.new('NodeSocketColor', 'Reflectivity'       #0
         ec_group.inputs.new('NodeSocketFloat', 'Roughness')         #1
-        ec_group.inputs.new('NodeSocketFloat', 'IOR')               #2 - formerly 0
+        ec_group.inputs.new('NodeSocketFloat', 'IOR')               #2
         ec_group.inputs.new('NodeSocketVector', 'Normal')           #3
-        ec_group.inputs.new('NodeSocketColor', 'Specular Custom')   #4 - formerly 3
-        ec_group.inputs.new('NodeSocketFloat', 'Custom/Auto')       #5 - formerly 4
-        ec_group.inputs.new('NodeSocketFloat', 'Metal/Dielectric')  #6 - formerly 5
+        ec_group.inputs.new('NodeSocketColor', 'Edge Tint')         #4
+        ec_group.inputs.new('NodeSocketFloat', 'Custom/Auto')       #5
+        ec_group.inputs.new('NodeSocketFloat', 'Metal/Dielectric')  #6
         ec_group.inputs[0].default_value = (0.215860, 0.215860, 0.215861, 1)
         ec_group.inputs[1].default_value = 0.2
         ec_group.inputs[1].min_value = 0

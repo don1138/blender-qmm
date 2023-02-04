@@ -72,7 +72,7 @@ class QMMTitanium(bpy.types.Operator):
         texturizer_group.node_tree = bpy.data.node_groups['Texturizer']
         texturizer_group.location = (-700, -300)
         texturizer_group.inputs[0].default_value = (0.533276, 0.491020, 0.439657, 1)
-        texturizer_group.inputs[1].default_value = 0.55
+        texturizer_group.inputs[1].default_value = 0.35
 
         # TitaniumColorsGroup
         bpy.ops.node.titanium_cg_operator()

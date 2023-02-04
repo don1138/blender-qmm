@@ -1,3 +1,15 @@
+### 1.5.8 <!-- 02/04/23 -->
+- Add new material
+  - **Silicon**
+- Add new category
+  - **Minor Metals**
+  - Re-sort materials
+- Update **Energy Conservation v5** group
+  - Rename **Diffuse (Base)** > **Reflectivity**
+  - Rename **Specular Custom** > **Edge Tint**
+- Update **Reflectivity**, **Edge Tint**, and `Roughness` of metals
+  - Colors calculated using equations from Ole Gulbrandsen's [**Artist Friendly Metallic Fresnel**](https://www.jcgt.org/published/0003/04/03)
+
 ### 1.5.7 <!-- 02/01/23 -->
 - Update **Energy Conservation** group to **v5**
   - Add `Roughness`
@@ -6,6 +18,7 @@
 - Rename **Chrome** to **Chromium**
 - Bugfix
   - Broken links in **Asphalt** and **Asphalt Bleached**
+
 ### 1.5.6 <!-- 01/23/23 -->
 - Bugfix
   - Broken color link in **Texturizer** group
@@ -20,7 +33,7 @@
   - Calculate **Auto Specular Color** by **Linear Mapping** (`2 * (R, G, B)`) of **Diffuse Color**
   - Remove **Auto Specular Color** `Saturation` slider.
     - **Metal** color = **Auto Specular Color**
-    - **Dialectric** color = **Auto Specular Color** with HSV `value` set to `0.01`
+    - **Dielectric** color = **Auto Specular Color** with HSV `value` set to `0.01`
 - Update **Color Mix** shader nodes
   - Add Blender 3.4.0 version test to switch between `ShaderNodeMixRGB` and `ShaderNodeMix`
   - This affects all materials that use a mix node
@@ -129,7 +142,7 @@
   - **Zinc**
 - Add **Displacement** to **Asphalt** and **Asphalt Bleached**
 - Add **Canisotrophy Group** with `To Roughness` output. This affects **Tin**.
-- Replace **Specular Group** with **Energy Conservation Group** (via [Christopher 3D](https://www.youtube.com/watch?v=kgORQ5tMe2I))
+- Replace **Specular Group** with **Energy Conservation Group** (via [**Christopher 3D**](https://www.youtube.com/watch?v=kgORQ5tMe2I))
   - Inputs
     - `IOR`
     - `Diffuse (Base)` Color
@@ -146,7 +159,7 @@
 - Code cleanup
 
 ### 1.4.6 <!-- 8/10/22 -->
-- new color values from [physicallybased.info](https://physicallybased.info/)
+- New color values from [**physicallybased.info**](https://physicallybased.info/)
   - Set `Base Color` to new values
     - **Aluminium**
     - **Copper**
