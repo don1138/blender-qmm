@@ -143,7 +143,7 @@ class EnergyConservationGroup(bpy.types.Operator):
         # groupinput
         group_in = self.make_node(ec_group, 'NodeGroupInput', -200, 0)
         group_in.label = "Group In 1"
-        ec_group.inputs.new('NodeSocketColor', 'Reflectivity'       #0
+        ec_group.inputs.new('NodeSocketColor', 'Reflectivity')      #0
         ec_group.inputs.new('NodeSocketFloat', 'Roughness')         #1
         ec_group.inputs.new('NodeSocketFloat', 'IOR')               #2
         ec_group.inputs.new('NodeSocketVector', 'Normal')           #3
