@@ -9,6 +9,7 @@
   - Rename **Specular Custom** > **Edge Tint**
 - Update **Reflectivity**, **Edge Tint**, and `Roughness` of metals
   - Colors calculated using equations from Ole Gulbrandsen's [**Artist Friendly Metallic Fresnel**](https://www.jcgt.org/published/0003/04/03)
+  - Python version: [**reflectivity_edge_tint.py**](https://github.com/don1138/blender-scripts/blob/main/reflectivity_edge_tint.py)
 
 ### 1.5.7 <!-- 02/01/23 -->
 - Update **Energy Conservation** group to **v5**
