@@ -1,6 +1,9 @@
 ### 1.5.8 <!-- 02/04/23 -->
 - Add new material
   - **Silicon**
+- Add new groups
+  - **Anisotrophy X Group** with `To Roughness` and `To Bump` outputs. This affects **Aluminium**.
+  - **Steel Roughness Group** with multiple `Roughness` outputs. This affects **Steel**.
 - Add new category
   - **Minor Metals**
   - Re-sort materials
@@ -10,6 +13,9 @@
 - Update **Reflectivity**, **Edge Tint**, and `Roughness` of metals
   - Colors calculated using equations from Ole Gulbrandsen's [**Artist Friendly Metallic Fresnel**](https://www.jcgt.org/published/0003/04/03)
   - Python version: [**reflectivity_edge_tint.py**](https://github.com/don1138/blender-scripts/blob/main/reflectivity_edge_tint.py)
+- Refactor code and rename files
+  - Move classes for **Copper**, **Gold**, **Silver**, **Tin** and **Titanium** into **MakeMetal.py**
+  - Remove suffix **GroupNode** from file names
 
 ### 1.5.7 <!-- 02/01/23 -->
 - Update **Energy Conservation** group to **v5**

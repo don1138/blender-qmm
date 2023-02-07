@@ -120,6 +120,29 @@ class QMMPanelBase(bpy.types.Panel):
         row.operator("shader.qmm_zinc_operator", text='Zinc')
 
 
+# ALLOY METALS PANEL
+class QMMPanelAlloy(bpy.types.Panel):
+    bl_idname      = "QMM_PT_Panel_Alloy"
+    bl_label       = 'Alloys'
+    bl_space_type  = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category    = "MAT"
+    bl_parent_id   = 'QMM_PT_Panel'
+    bl_options     = {'DEFAULT_CLOSED'}
+
+    def draw(self, context):
+        layout = self.layout
+
+        row = layout.row()
+        row.operator("shader.qmm_brass_operator", text='Brass')
+
+        row = layout.row()
+        row.operator("shader.qmm_bronze_operator", text='Bronze')
+
+        row = layout.row()
+        row.operator("shader.qmm_steel_operator", text='Steel')
+
+
 # MINOR METALS PANEL
 class QMMPanelMinor(bpy.types.Panel):
     bl_idname      = "QMM_PT_Panel_Minor"
@@ -146,29 +169,6 @@ class QMMPanelMinor(bpy.types.Panel):
         row.operator("shader.qmm_titanium_p_operator", text='Titanium Polished')
         row = layout.row()
         row.operator("shader.qmm_titanium_operator", text='Titanium Textured')
-
-
-# ALLOY METALS PANEL
-class QMMPanelAlloy(bpy.types.Panel):
-    bl_idname      = "QMM_PT_Panel_Alloy"
-    bl_label       = 'Alloys'
-    bl_space_type  = "VIEW_3D"
-    bl_region_type = "UI"
-    bl_category    = "MAT"
-    bl_parent_id   = 'QMM_PT_Panel'
-    bl_options     = {'DEFAULT_CLOSED'}
-
-    def draw(self, context):
-        layout = self.layout
-
-        row = layout.row()
-        row.operator("shader.qmm_brass_operator", text='Brass')
-
-        row = layout.row()
-        row.operator("shader.qmm_bronze_operator", text='Bronze')
-
-        row = layout.row()
-        row.operator("shader.qmm_steel_operator", text='Steel')
 
 
 # EXTRAS PANEL
@@ -256,13 +256,20 @@ class AutoUpdaterPreferences(bpy.types.AddonPreferences):
         addon_updater_ops.update_settings_ui(self, context)
 
 
-from .mats.base.Copper import *
-from .mats.base.FresnelCopper import *
-from .mats.base.Tin import *
-from .mats.base.Titanium import *
-from .mats.Canisotrophy import *
 from .mats.CopperColors import *
-from .mats.EnergyConservationGroupNode import *
+from .mats.GoldColors import *
+from .mats.SilverColors import *
+from .mats.TitaniumColors import *
+from .mats.AnisotrophyX import *
+from .mats.Canisotrophy import *
+from .mats.EnergyConservation import *
+from .mats.Specular import *
+from .mats.SteelRoughness import *
+from .mats.Texturizer import *
+from .mats.fresnel.FresnelCopper import *
+from .mats.fresnel.FresnelGold import *
+from .mats.fresnel.FresnelSilver import *
+from .mats.MakeMetal import *
 from .mats.extras.Asphalt import *
 from .mats.extras.AsphaltBleached import *
 from .mats.extras.CuttingMat import *
@@ -270,16 +277,6 @@ from .mats.extras.Glass import *
 from .mats.extras.Plaster import *
 from .mats.extras.RedMetal import *
 from .mats.extras.WallPaint import *
-from .mats.GoldColors import *
-from .mats.MakeMetal import *
-from .mats.noble.FresnelGold import *
-from .mats.noble.FresnelSilver import *
-from .mats.noble.Gold import *
-from .mats.noble.Silver import *
-from .mats.SilverColors import *
-from .mats.SpecularGroupNode import *
-from .mats.TexturizerGroupNode import *
-from .mats.TitaniumColors import *
 
 
 classes = [
@@ -320,9 +317,11 @@ classes = [
     QMMTitaniumPolished,
     QMMZinc,
     QMMWallPaint,
+    AnisotrophyXGroup,
     CanisotrophyGroup,
     EnergyConservationGroup,
     SpecularGroup,
+    SteelRoughnessGroup,
     TexturizerGroup,
     CopperColorsGroup,
     GoldColorsGroup,

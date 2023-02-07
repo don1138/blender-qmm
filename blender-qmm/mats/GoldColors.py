@@ -41,8 +41,7 @@ class GoldColorsGroup(bpy.types.Operator):
 
     def make_group(self):
         # newnodegroup
-        gold_cg = bpy.data.node_groups.new(
-            'Gold Colors', 'ShaderNodeTree')
+        gold_cg = bpy.data.node_groups.new('Gold Colors', 'ShaderNodeTree')
 
         # groupinput
         # group_in = gold_cg.nodes.new('NodeGroupInput')
