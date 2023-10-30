@@ -99,12 +99,19 @@ class QMMCinnabar(bpy.types.Operator):
 
         links(m_colorramp.outputs[0], ec_group.inputs[0])
         links(texturizer_group.outputs[1], m_colorramp.inputs[0])
-        links(texturizer_group.outputs[3], BSDF.inputs[9])
-        links(texturizer_group.outputs[5], BSDF.inputs[22])
         links(ec_group.outputs[0], BSDF.inputs[0])
-        links(ec_group.outputs[1], BSDF.inputs[7])
-        links(ec_group.outputs[2], BSDF.inputs[9])
-        links(ec_group.outputs[4], BSDF.inputs[16])
+        if bpy.app.version < (4, 0, 0):
+            links(texturizer_group.outputs[3], BSDF.inputs[9])
+            links(texturizer_group.outputs[5], BSDF.inputs[22])
+            links(ec_group.outputs[1], BSDF.inputs[7])
+            links(ec_group.outputs[2], BSDF.inputs[9])
+            links(ec_group.outputs[4], BSDF.inputs[16])
+        else:
+            links(texturizer_group.outputs[3], BSDF.inputs[2])
+            links(texturizer_group.outputs[5], BSDF.inputs[5])
+            links(ec_group.outputs[1], BSDF.inputs[12])
+            links(ec_group.outputs[2], BSDF.inputs[2])
+            links(ec_group.outputs[4], BSDF.inputs[3])
 
         # LOAD THE MATERIAL
         bpy.context.object.active_material = m_cinnabar

@@ -48,13 +48,22 @@ class CopperColorsGroup(bpy.types.Operator):
         # groupoutput
         group_out = copper_cg.nodes.new('NodeGroupOutput')
         group_out.location = (0, 0)
-        copper_cg.outputs.new('NodeSocketColor', 'Copper')
-        copper_cg.outputs.new('NodeSocketColor', 'PBM Copper')
-        copper_cg.outputs.new('NodeSocketColor', 'Dontnod Copper')
-        copper_cg.outputs.new('NodeSocketColor', 'Pale Copper')
-        copper_cg.outputs.new('NodeSocketColor', 'Copper Red')
-        copper_cg.outputs.new('NodeSocketColor', 'Copper Penny')
-        copper_cg.outputs.new('NodeSocketColor', 'Copper Rose')
+        if bpy.app.version < (4, 0, 0):
+            copper_cg.outputs.new('NodeSocketColor', 'Copper')
+            copper_cg.outputs.new('NodeSocketColor', 'PBM Copper')
+            copper_cg.outputs.new('NodeSocketColor', 'Dontnod Copper')
+            copper_cg.outputs.new('NodeSocketColor', 'Pale Copper')
+            copper_cg.outputs.new('NodeSocketColor', 'Copper Red')
+            copper_cg.outputs.new('NodeSocketColor', 'Copper Penny')
+            copper_cg.outputs.new('NodeSocketColor', 'Copper Rose')
+        else:
+            copper_cg.interface.new_socket(name="Copper", in_out='OUTPUT')
+            copper_cg.interface.new_socket(name="PBM Copper", in_out='OUTPUT')
+            copper_cg.interface.new_socket(name="Dontnod Copper", in_out='OUTPUT')
+            copper_cg.interface.new_socket(name="Pale Copper", in_out='OUTPUT')
+            copper_cg.interface.new_socket(name="Copper Red", in_out='OUTPUT')
+            copper_cg.interface.new_socket(name="Copper Penny", in_out='OUTPUT')
+            copper_cg.interface.new_socket(name="Copper Rose", in_out='OUTPUT')
 
         # makecolors
         cc_c = self.make_color(copper_cg, "Copper", -400, 300, 0xB87333)

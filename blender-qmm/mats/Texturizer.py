@@ -26,35 +26,63 @@ class TexturizerGroup(bpy.types.Operator):
 
         # groupinput
         group_in = self.make_node(texturizer_group, 'NodeGroupInput', -1300, 0)
-        texturizer_group.inputs.new('NodeSocketColor', 'Color')      # 0
-        texturizer_group.inputs.new('NodeSocketFloat', 'Roughness')  # 1
-        texturizer_group.inputs.new('NodeSocketFloat', 'Saturation')  # 2
-        texturizer_group.inputs.new('NodeSocketFloat', 'Mix')        # 3
-        texturizer_group.inputs.new('NodeSocketFloat', 'Bump')       # 4
-        texturizer_group.inputs.new('NodeSocketVector', 'Vector')    # 5
-        texturizer_group.inputs[5].hide_value = True
-
-        texturizer_group.inputs[1].default_value = 0.565
-        texturizer_group.inputs[1].min_value = 0.0
-        texturizer_group.inputs[1].max_value = 1.0
-        texturizer_group.inputs[2].default_value = 0.5
-        texturizer_group.inputs[2].min_value = 0.0
-        texturizer_group.inputs[2].max_value = 2.0
-        texturizer_group.inputs[3].default_value = 0.5
-        texturizer_group.inputs[3].min_value = 0.0
-        texturizer_group.inputs[3].max_value = 1.0
-        texturizer_group.inputs[4].default_value = 0.1
-        texturizer_group.inputs[4].min_value = 0.0
-        texturizer_group.inputs[4].max_value = 1.0
+        if bv < (4, 0, 0):
+            texturizer_group.inputs.new('NodeSocketColor', 'Color')      # 0
+            texturizer_group.inputs.new('NodeSocketFloat', 'Roughness')  # 1
+            texturizer_group.inputs.new('NodeSocketFloat', 'Saturation') # 2
+            texturizer_group.inputs.new('NodeSocketFloat', 'Mix')        # 3
+            texturizer_group.inputs.new('NodeSocketFloat', 'Bump')       # 4
+            texturizer_group.inputs.new('NodeSocketVector', 'Vector')    # 5
+            texturizer_group.inputs[1].default_value = 0.565
+            texturizer_group.inputs[1].min_value = 0.0
+            texturizer_group.inputs[1].max_value = 1.0
+            texturizer_group.inputs[2].default_value = 0.5
+            texturizer_group.inputs[2].min_value = 0.0
+            texturizer_group.inputs[2].max_value = 2.0
+            texturizer_group.inputs[3].default_value = 0.5
+            texturizer_group.inputs[3].min_value = 0.0
+            texturizer_group.inputs[3].max_value = 1.0
+            texturizer_group.inputs[4].default_value = 0.1
+            texturizer_group.inputs[4].min_value = 0.0
+            texturizer_group.inputs[4].max_value = 1.0
+            texturizer_group.inputs[5].hide_value = True
+        else:
+            texturizer_group.interface.new_socket(name="Color", in_out='INPUT', socket_type='NodeSocketColor')
+            texturizer_group.interface.new_socket(name="Roughness", in_out='INPUT', socket_type='NodeSocketFloat')
+            texturizer_group.interface.new_socket(name="Saturation", in_out='INPUT', socket_type='NodeSocketFloat')
+            texturizer_group.interface.new_socket(name="Mix", in_out='INPUT', socket_type='NodeSocketFloat')
+            texturizer_group.interface.new_socket(name="Bump", in_out='INPUT', socket_type='NodeSocketFloat')
+            texturizer_group.interface.new_socket(name="Vector", in_out='INPUT')
+            texturizer_group.interface.items_tree[1].default_value = 0.565
+            texturizer_group.interface.items_tree[1].min_value = 0
+            texturizer_group.interface.items_tree[1].max_value = 1
+            texturizer_group.interface.items_tree[2].default_value = 0.5
+            texturizer_group.interface.items_tree[2].min_value = 0
+            texturizer_group.interface.items_tree[2].max_value = 2
+            texturizer_group.interface.items_tree[3].default_value = 0.5
+            texturizer_group.interface.items_tree[3].min_value = 0
+            texturizer_group.interface.items_tree[3].max_value = 1
+            texturizer_group.interface.items_tree[4].default_value = 0.1
+            texturizer_group.interface.items_tree[4].min_value = 0
+            texturizer_group.interface.items_tree[4].max_value = 1
+            texturizer_group.interface.items_tree[5].hide_value = True
 
         # groupoutput
         group_out = self.make_node(texturizer_group, 'NodeGroupOutput', 0, 0)
-        texturizer_group.outputs.new('NodeSocketColor', 'Color')         # 0
-        texturizer_group.outputs.new('NodeSocketFloat', 'Rough Ceiling')  # 1
-        texturizer_group.outputs.new('NodeSocketFloat', 'Roughness')     # 2
-        texturizer_group.outputs.new('NodeSocketFloat', 'Rough Floor')   # 3
-        texturizer_group.outputs.new('NodeSocketColor', 'Height')        # 4
-        texturizer_group.outputs.new('NodeSocketVector', 'Normal')       # 5
+        if bv < (4, 0, 0):
+            texturizer_group.outputs.new('NodeSocketColor', 'Color')         # 0
+            texturizer_group.outputs.new('NodeSocketFloat', 'Rough Ceiling') # 1
+            texturizer_group.outputs.new('NodeSocketFloat', 'Roughness')     # 2
+            texturizer_group.outputs.new('NodeSocketFloat', 'Rough Floor')   # 3
+            texturizer_group.outputs.new('NodeSocketColor', 'Height')        # 4
+            texturizer_group.outputs.new('NodeSocketVector', 'Normal')       # 5
+        else:
+            texturizer_group.interface.new_socket(name="Color", in_out='OUTPUT', socket_type='NodeSocketColor')
+            texturizer_group.interface.new_socket(name="Rough Ceiling", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            texturizer_group.interface.new_socket(name="Roughness", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            texturizer_group.interface.new_socket(name="Rough Floor", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            texturizer_group.interface.new_socket(name="Height", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            texturizer_group.interface.new_socket(name="Normal", in_out='OUTPUT')
 
         # mixrgb-multiply
         if bv < (3, 4, 0):

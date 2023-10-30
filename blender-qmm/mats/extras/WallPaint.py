@@ -116,10 +116,16 @@ class QMMWallPaint(bpy.types.Operator):
         links(m_maprange2.outputs[0], m_bump.inputs[2])
         links(m_maprange.outputs[0], ec_group.inputs[1])
         links(ec_group.outputs[0], BSDF.inputs[0])
-        links(ec_group.outputs[1], BSDF.inputs[7])
-        links(ec_group.outputs[2], BSDF.inputs[9])
-        links(ec_group.outputs[4], BSDF.inputs[16])
-        links(m_bump.outputs[0], BSDF.inputs[22])
+        if bpy.app.version < (4, 0, 0):
+            links(ec_group.outputs[1], BSDF.inputs[7])
+            links(ec_group.outputs[2], BSDF.inputs[9])
+            links(ec_group.outputs[4], BSDF.inputs[16])
+            links(m_bump.outputs[0], BSDF.inputs[22])
+        else:
+            links(ec_group.outputs[1], BSDF.inputs[12])
+            links(ec_group.outputs[2], BSDF.inputs[2])
+            links(ec_group.outputs[4], BSDF.inputs[3])
+            links(m_bump.outputs[0], BSDF.inputs[5])
 
         bpy.context.object.active_material = m_wall_paint
 

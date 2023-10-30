@@ -1,5 +1,7 @@
 import bpy
 
+bv = bpy.app.version
+
 class SpecularGroup(bpy.types.Operator):
     """Add/Get Specular Group Node"""
     bl_label  = "Specular Node Group"
@@ -26,13 +28,20 @@ class SpecularGroup(bpy.types.Operator):
         # groupinput
         group_in = specular_group.nodes.new('NodeGroupInput')
         group_in.location = (-1000, 0)
-        specular_group.inputs.new('NodeSocketFloat', 'IOR')
+        if bv < (4, 0, 0):
+            specular_group.inputs.new('NodeSocketFloat', 'IOR')
+        else:
+            specular_group.interface.new_socket(name="IOR", in_out='INPUT', socket_type='NodeSocketFloat')
 
         # groupoutput
         group_out = specular_group.nodes.new('NodeGroupOutput')
         group_out.location = (0, 0)
-        specular_group.outputs.new('NodeSocketFloat', 'Specular')
-        specular_group.outputs.new('NodeSocketFloat', 'IOR')
+        if bv < (4, 0, 0):
+            specular_group.outputs.new('NodeSocketFloat', 'Specular')
+            specular_group.outputs.new('NodeSocketFloat', 'IOR')
+        else:
+            specular_group.interface.new_socket(name="Specular", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            specular_group.interface.new_socket(name="IOR", in_out='OUTPUT', socket_type='NodeSocketFloat')
 
         # IOR TO SPECULAR
         # mathdivide

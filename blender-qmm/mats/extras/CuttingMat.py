@@ -135,10 +135,14 @@ class QMMCuttingMat(bpy.types.Operator):
         links(m_bricktexture2.outputs[1], m_add.inputs[1])
         links(m_add.outputs[0], m_mix.inputs[0])
         links(ec_group.outputs[0], BSDF.inputs[0])
-        links(ec_group.outputs[1], BSDF.inputs[7])
-        links(ec_group.outputs[2], BSDF.inputs[9])
-        # links(ec_group.outputs[2], BSDF.inputs[14])
-        links(ec_group.outputs[4], BSDF.inputs[16])
+        if bv < (4, 0, 0):
+            links(ec_group.outputs[1], BSDF.inputs[7])
+            links(ec_group.outputs[2], BSDF.inputs[9])
+            links(ec_group.outputs[4], BSDF.inputs[16])
+        else:
+            links(ec_group.outputs[1], BSDF.inputs[12])
+            links(ec_group.outputs[2], BSDF.inputs[2])
+            links(ec_group.outputs[4], BSDF.inputs[3])
 
         if bv < (3, 4, 0):
             links(m_mix.outputs[0], ec_group.inputs[0])

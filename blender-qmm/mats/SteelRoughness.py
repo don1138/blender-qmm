@@ -1,7 +1,3 @@
-# TODO
-# Refine values; 0.5 is too high
-# Corrosion node for Weathering Steel
-
 import bpy
 
 class SteelRoughnessGroup(bpy.types.Operator):
@@ -26,18 +22,30 @@ class SteelRoughnessGroup(bpy.types.Operator):
         group_out = self.make_node(sr_group, 'NodeGroupOutput', 0, 0)
 
         # create outputs
-        sr_group.outputs.new('NodeSocketFloat', 'Carbon Steel')                    #0
-        sr_group.outputs.new('NodeSocketFloat', 'Stainless Steel')                 #1
-        sr_group.outputs.new('NodeSocketFloat', 'Alloy Steel')                     #2
-        sr_group.outputs.new('NodeSocketFloat', 'Tool Steel')                      #3
-        sr_group.outputs.new('NodeSocketFloat', 'Spring Steel')                    #4
-        sr_group.outputs.new('NodeSocketFloat', 'Structural Steel')                #5
-        sr_group.outputs.new('NodeSocketFloat', 'High-Strength, Low-Alloy Steel')  #6
-        sr_group.outputs.new('NodeSocketFloat', 'Maraging Steel')                  #7
-        sr_group.outputs.new('NodeSocketFloat', 'Weathering Steel')                #8
-        sr_group.outputs.new('NodeSocketFloat', 'Free-machining Steel')            #9
+        if bpy.app.version < (4, 0, 0):
+            sr_group.outputs.new('NodeSocketFloat', 'Carbon Steel')                    #0
+            sr_group.outputs.new('NodeSocketFloat', 'Stainless Steel')                 #1
+            sr_group.outputs.new('NodeSocketFloat', 'Alloy Steel')                     #2
+            sr_group.outputs.new('NodeSocketFloat', 'Tool Steel')                      #3
+            sr_group.outputs.new('NodeSocketFloat', 'Spring Steel')                    #4
+            sr_group.outputs.new('NodeSocketFloat', 'Structural Steel')                #5
+            sr_group.outputs.new('NodeSocketFloat', 'High-Strength, Low-Alloy Steel')  #6
+            sr_group.outputs.new('NodeSocketFloat', 'Maraging Steel')                  #7
+            sr_group.outputs.new('NodeSocketFloat', 'Weathering Steel')                #8
+            sr_group.outputs.new('NodeSocketFloat', 'Free-machining Steel')            #9
+        else:
+            sr_group.interface.new_socket(name="Carbon Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            sr_group.interface.new_socket(name="Stainless Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            sr_group.interface.new_socket(name="Alloy Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            sr_group.interface.new_socket(name="Tool Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            sr_group.interface.new_socket(name="Spring Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            sr_group.interface.new_socket(name="Structural Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            sr_group.interface.new_socket(name="High-Strength, Low-Alloy Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            sr_group.interface.new_socket(name="Maraging Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            sr_group.interface.new_socket(name="Weathering Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            sr_group.interface.new_socket(name="Free-machining Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
 
-        #set input values
+        #set values
         group_out.inputs[0].default_value = 0.5
         group_out.inputs[1].default_value = 0.2
         group_out.inputs[2].default_value = 0.4
@@ -46,20 +54,8 @@ class SteelRoughnessGroup(bpy.types.Operator):
         group_out.inputs[5].default_value = 0.3
         group_out.inputs[6].default_value = 0.2
         group_out.inputs[7].default_value = 0.05
-        group_out.inputs[8].default_value = 0.5
+        group_out.inputs[8].default_value = 0.05
         group_out.inputs[9].default_value = 0.1
-
-        #set output values
-        group_out.outputs[0].default_value = 0.5
-        group_out.outputs[1].default_value = 0.2
-        group_out.outputs[2].default_value = 0.4
-        group_out.outputs[3].default_value = 0.3
-        group_out.outputs[4].default_value = 0.2
-        group_out.outputs[5].default_value = 0.3
-        group_out.outputs[6].default_value = 0.2
-        group_out.outputs[7].default_value = 0.05
-        group_out.outputs[8].default_value = 0.5
-        group_out.outputs[9].default_value = 0.1
 
     def make_node(self, group, arg1, arg2, arg3):
         result = group.nodes.new(arg1)

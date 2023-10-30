@@ -185,7 +185,10 @@ class QMMAsphalt(bpy.types.Operator):
         links(BSDF.outputs[0], m_mixshader.inputs[1])
         links(BSDF2.outputs[0], m_mixshader.inputs[2])
         links(m_colorramp.outputs[0], ec_group.inputs[0])
-        links(m_bump.outputs[0], BSDF.inputs[22])
+        if bpy.app.version < (4, 0, 0):
+            links(m_bump.outputs[0], BSDF.inputs[22])
+        else:
+            links(m_bump.outputs[0], BSDF.inputs[5])
         links(m_bump2.outputs[0], m_bump.inputs[3])
         links(m_colorramp2.outputs[0], m_bump2.inputs[2])
         links(m_colorramp3.outputs[0], m_mix.inputs[0])
@@ -218,14 +221,24 @@ class QMMAsphalt(bpy.types.Operator):
             links(m_mapping.outputs[0], m_mix2.inputs[7])
 
         links(ec_group.outputs[0], BSDF.inputs[0])
-        links(ec_group.outputs[1], BSDF.inputs[7])
-        links(ec_group.outputs[2], BSDF.inputs[9])
-        links(ec_group.outputs[4], BSDF.inputs[16])
+        if bpy.app.version < (4, 0, 0):
+            links(ec_group.outputs[1], BSDF.inputs[7])
+            links(ec_group.outputs[2], BSDF.inputs[9])
+            links(ec_group.outputs[4], BSDF.inputs[16])
+        else:
+            links(ec_group.outputs[1], BSDF.inputs[12])
+            links(ec_group.outputs[2], BSDF.inputs[2])
+            links(ec_group.outputs[4], BSDF.inputs[3])
 
         links(ec_group2.outputs[0], BSDF2.inputs[0])
-        links(ec_group2.outputs[1], BSDF2.inputs[7])
-        links(ec_group2.outputs[2], BSDF2.inputs[9])
-        links(ec_group2.outputs[4], BSDF2.inputs[16])
+        if bpy.app.version < (4, 0, 0):
+            links(ec_group2.outputs[1], BSDF2.inputs[7])
+            links(ec_group2.outputs[2], BSDF2.inputs[9])
+            links(ec_group2.outputs[4], BSDF2.inputs[16])
+        else:
+            links(ec_group2.outputs[1], BSDF2.inputs[12])
+            links(ec_group2.outputs[2], BSDF2.inputs[2])
+            links(ec_group2.outputs[4], BSDF2.inputs[3])
 
         links(m_colorramp2.outputs[0], m_lessthan.inputs[0])
         links(m_lessthan.outputs[0], m_disp.inputs[0])

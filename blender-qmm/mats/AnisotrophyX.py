@@ -21,17 +21,29 @@ class AnisotrophyXGroup(bpy.types.Operator):
         # groupinput 1
         group_in = self.make_node(anix_group, 'NodeGroupInput', -400, -200)
         group_in.label = "Group In 1"
-        anix_group.inputs.new('NodeSocketFloat', 'Bands')             #0
-        anix_group.inputs.new('NodeSocketFloat', 'Grain')             #1
-        anix_group.inputs.new('NodeSocketFloat', 'Min Roughness')     #2
-        anix_group.inputs[0].default_value = 200
-        anix_group.inputs[1].default_value = 100
-        anix_group.inputs[2].default_value = 0.2
+        if bpy.app.version < (4, 0, 0):
+            anix_group.inputs.new('NodeSocketFloat', 'Bands')             #0
+            anix_group.inputs.new('NodeSocketFloat', 'Grain')             #1
+            anix_group.inputs.new('NodeSocketFloat', 'Min Roughness')     #2
+            anix_group.inputs[0].default_value = 200
+            anix_group.inputs[1].default_value = 100
+            anix_group.inputs[2].default_value = 0.2
+        else:
+            anix_group.interface.new_socket(name="Bands", in_out='INPUT', socket_type='NodeSocketFloat')
+            anix_group.interface.new_socket(name="Grain", in_out='INPUT', socket_type='NodeSocketFloat')
+            anix_group.interface.new_socket(name="Min Roughness", in_out='INPUT', socket_type='NodeSocketFloat')
+            anix_group.interface.items_tree[0].default_value = 200
+            anix_group.interface.items_tree[1].default_value = 100
+            anix_group.interface.items_tree[2].default_value = 0.2
 
         # groupoutput
         group_out = self.make_node(anix_group, 'NodeGroupOutput', 0, 0)
-        anix_group.outputs.new('NodeSocketFloat', 'To Roughness')     #0
-        anix_group.outputs.new('NodeSocketFloat', 'To Bump')          #1
+        if bpy.app.version < (4, 0, 0):
+            anix_group.outputs.new('NodeSocketFloat', 'To Roughness')     #0
+            anix_group.outputs.new('NodeSocketFloat', 'To Bump')          #1
+        else:
+            anix_group.interface.new_socket(name="To Roughness", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            anix_group.interface.new_socket(name="To Bump", in_out='OUTPUT', socket_type='NodeSocketFloat')
 
         # map range
         m_map_range = self.make_node(anix_group, 'ShaderNodeMapRange', -200, 0)

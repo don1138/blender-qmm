@@ -31,15 +31,25 @@ class EnergyConservationGroup(bpy.types.Operator):
 
         # groupinput
         group_in = self.make_node(spec_group, 'NodeGroupInput', -1000, 0)
-        spec_group.inputs.new('NodeSocketFloat', 'IOR')
-        spec_group.inputs[0].default_value = 1.52
-        spec_group.inputs[0].min_value = 0
-        spec_group.inputs[0].max_value = 10
+        if bv < (4, 0, 0):
+            spec_group.inputs.new('NodeSocketFloat', 'IOR')
+            spec_group.inputs[0].default_value = 1.52
+            spec_group.inputs[0].min_value = 0
+            spec_group.inputs[0].max_value = 10
+        else:
+            spec_group.interface.new_socket(name="IOR", in_out='INPUT', socket_type='NodeSocketFloat')
+            spec_group.interface.items_tree[0].default_value = 1.52
+            spec_group.interface.items_tree[0].min_value = 0
+            spec_group.interface.items_tree[0].max_value = 10
 
         # groupoutput
         group_out = self.make_node(spec_group, 'NodeGroupOutput', 0, 0)
-        spec_group.outputs.new('NodeSocketFloat', 'Specular')
-        spec_group.outputs.new('NodeSocketFloat', 'IOR')
+        if bv < (4, 0, 0):
+            spec_group.outputs.new('NodeSocketFloat', 'Specular')
+            spec_group.outputs.new('NodeSocketFloat', 'IOR')
+        else:
+            spec_group.interface.new_socket(name="Specular", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            spec_group.interface.new_socket(name="IOR", in_out='OUTPUT', socket_type='NodeSocketFloat')
 
         # mathdivide
         m_divide = self.make_math_node(spec_group, 'DIVIDE', -200, 100)
@@ -77,20 +87,35 @@ class EnergyConservationGroup(bpy.types.Operator):
         
         # groupinput
         group_in = self.make_node(fres_group, 'NodeGroupInput', -1000, 0)
-        fres_group.inputs.new('NodeSocketFloat', 'Roughness')
-        fres_group.inputs.new('NodeSocketFloat', 'IOR')
-        fres_group.inputs.new('NodeSocketVector', 'Normal')
-        fres_group.inputs[0].default_value = 0.2
-        fres_group.inputs[0].min_value = 0
-        fres_group.inputs[0].max_value = 1
-        fres_group.inputs[1].default_value = 1.45
-        fres_group.inputs[1].min_value = 0
-        fres_group.inputs[1].max_value = 3
+        if bv < (4, 0, 0):
+            fres_group.inputs.new('NodeSocketFloat', 'Roughness')
+            fres_group.inputs.new('NodeSocketFloat', 'IOR')
+            fres_group.inputs.new('NodeSocketVector', 'Normal')
+            fres_group.inputs[0].default_value = 0.2
+            fres_group.inputs[0].min_value = 0
+            fres_group.inputs[0].max_value = 1
+            fres_group.inputs[1].default_value = 1.45
+            fres_group.inputs[1].min_value = 0
+            fres_group.inputs[1].max_value = 3
+        else:
+            fres_group.interface.new_socket(name="Roughness", in_out='INPUT', socket_type='NodeSocketFloat')
+            fres_group.interface.new_socket(name="IOR", in_out='INPUT', socket_type='NodeSocketFloat')
+            fres_group.interface.new_socket(name="Normal", in_out='INPUT')
+            fres_group.interface.items_tree[0].default_value = 0.2
+            fres_group.interface.items_tree[0].min_value = 0
+            fres_group.interface.items_tree[0].max_value = 1
+            fres_group.interface.items_tree[1].default_value = 1.45
+            fres_group.interface.items_tree[1].min_value = 0
+            fres_group.interface.items_tree[1].max_value = 3
 
         # groupoutput
         group_out = self.make_node(fres_group, 'NodeGroupOutput', 0, 0)
-        fres_group.outputs.new('NodeSocketFloat', 'Fresnel')
-        fres_group.outputs.new('NodeSocketFloat', 'Fresnel Metal')
+        if bv < (4, 0, 0):
+            fres_group.outputs.new('NodeSocketFloat', 'Fresnel')
+            fres_group.outputs.new('NodeSocketFloat', 'Fresnel Metal')
+        else:
+            fres_group.interface.new_socket(name="Fresnel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            fres_group.interface.new_socket(name="Fresnel Metal", in_out='OUTPUT', socket_type='NodeSocketFloat')
 
         # fresnel
         m_fresnel = self.make_node(fres_group, 'ShaderNodeFresnel', -400, 0)
@@ -143,36 +168,67 @@ class EnergyConservationGroup(bpy.types.Operator):
         # groupinput
         group_in = self.make_node(ec_group, 'NodeGroupInput', -200, 0)
         group_in.label = "Group In 1"
-        ec_group.inputs.new('NodeSocketColor', 'Reflectivity')      #0
-        ec_group.inputs.new('NodeSocketFloat', 'Roughness')         #1
-        ec_group.inputs.new('NodeSocketFloat', 'IOR')               #2
-        ec_group.inputs.new('NodeSocketVector', 'Normal')           #3
-        ec_group.inputs.new('NodeSocketColor', 'Edge Tint')         #4
-        ec_group.inputs.new('NodeSocketFloat', 'Custom/Auto')       #5
-        ec_group.inputs.new('NodeSocketFloat', 'Metal/Dielectric')  #6
-        ec_group.inputs[0].default_value = (0.215860, 0.215860, 0.215861, 1)
-        ec_group.inputs[1].default_value = 0.2
-        ec_group.inputs[1].min_value = 0
-        ec_group.inputs[1].max_value = 1
-        ec_group.inputs[2].default_value = 1.45
-        ec_group.inputs[2].min_value = 0
-        ec_group.inputs[2].max_value = 3
-        ec_group.inputs[3].hide_value = True
-        ec_group.inputs[4].default_value = (0.01, 0.01, 0.01, 1)
-        ec_group.inputs[5].default_value = 0
-        ec_group.inputs[5].min_value = 0
-        ec_group.inputs[5].max_value = 1
-        ec_group.inputs[6].default_value = 0
-        ec_group.inputs[6].min_value = 0
-        ec_group.inputs[6].max_value = 1
+        if bv < (4, 0, 0):
+            ec_group.inputs.new('NodeSocketColor', 'Reflectivity')      #0
+            ec_group.inputs.new('NodeSocketFloat', 'Roughness')         #1
+            ec_group.inputs.new('NodeSocketFloat', 'IOR')               #2
+            ec_group.inputs.new('NodeSocketVector', 'Normal')           #3
+            ec_group.inputs.new('NodeSocketColor', 'Edge Tint')         #4
+            ec_group.inputs.new('NodeSocketFloat', 'Custom/Auto')       #5
+            ec_group.inputs.new('NodeSocketFloat', 'Metal/Dielectric')  #6
+            ec_group.inputs[0].default_value = (0.215860, 0.215860, 0.215861, 1)
+            ec_group.inputs[1].default_value = 0.2
+            ec_group.inputs[1].min_value = 0
+            ec_group.inputs[1].max_value = 1
+            ec_group.inputs[2].default_value = 1.45
+            ec_group.inputs[2].min_value = 0
+            ec_group.inputs[2].max_value = 3
+            ec_group.inputs[3].hide_value = True
+            ec_group.inputs[4].default_value = (0.01, 0.01, 0.01, 1)
+            ec_group.inputs[5].default_value = 0
+            ec_group.inputs[5].min_value = 0
+            ec_group.inputs[5].max_value = 1
+            ec_group.inputs[6].default_value = 0
+            ec_group.inputs[6].min_value = 0
+            ec_group.inputs[6].max_value = 1
+        else:
+            ec_group.interface.new_socket(name="Reflectivity", in_out='INPUT', socket_type='NodeSocketColor')
+            ec_group.interface.new_socket(name="Roughness", in_out='INPUT', socket_type='NodeSocketFloat')
+            ec_group.interface.new_socket(name="IOR", in_out='INPUT', socket_type='NodeSocketFloat')
+            ec_group.interface.new_socket(name="Normal", in_out='INPUT', socket_type='NodeSocketVector')
+            ec_group.interface.new_socket(name="Edge Tint", in_out='INPUT', socket_type='NodeSocketColor')
+            ec_group.interface.new_socket(name="Custom/Auto", in_out='INPUT', socket_type='NodeSocketFloat')
+            ec_group.interface.new_socket(name="Metal/Dielectric", in_out='INPUT', socket_type='NodeSocketFloat')
+            ec_group.interface.items_tree[0].default_value = (0.215860, 0.215860, 0.215861, 1)
+            ec_group.interface.items_tree[1].default_value = 0.2
+            ec_group.interface.items_tree[1].min_value = 0
+            ec_group.interface.items_tree[1].max_value = 1
+            ec_group.interface.items_tree[2].default_value = 1.45
+            ec_group.interface.items_tree[2].min_value = 0
+            ec_group.interface.items_tree[2].max_value = 3
+            ec_group.interface.items_tree[3].hide_value = True
+            ec_group.interface.items_tree[4].default_value = (0.01, 0.01, 0.01, 1)
+            ec_group.interface.items_tree[5].default_value = 0
+            ec_group.interface.items_tree[5].min_value = 0
+            ec_group.interface.items_tree[5].max_value = 1
+            ec_group.interface.items_tree[6].default_value = 0
+            ec_group.interface.items_tree[6].min_value = 0
+            ec_group.interface.items_tree[6].max_value = 1
 
         # groupoutput
         group_out = self.make_node(ec_group, 'NodeGroupOutput', 0, 0)
-        ec_group.outputs.new('NodeSocketColor', 'Color')      #0
-        ec_group.outputs.new('NodeSocketFloat', 'Specular')   #1
-        ec_group.outputs.new('NodeSocketFloat', 'Roughness')  #2
-        ec_group.outputs.new('NodeSocketFloat', 'Clearcoat')  #3
-        ec_group.outputs.new('NodeSocketFloat', 'IOR')        #4
+        if bv < (4, 0, 0):
+            ec_group.outputs.new('NodeSocketColor', 'Color')      #0
+            ec_group.outputs.new('NodeSocketFloat', 'Specular')   #1
+            ec_group.outputs.new('NodeSocketFloat', 'Roughness')  #2
+            ec_group.outputs.new('NodeSocketFloat', 'Clearcoat')  #3
+            ec_group.outputs.new('NodeSocketFloat', 'IOR')        #4
+        else:
+            ec_group.interface.new_socket(name="Color", in_out='OUTPUT', socket_type='NodeSocketColor')
+            ec_group.interface.new_socket(name="Specular", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            ec_group.interface.new_socket(name="Roughness", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            ec_group.interface.new_socket(name="Clearcoat", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            ec_group.interface.new_socket(name="IOR", in_out='OUTPUT', socket_type='NodeSocketFloat')
 
         # CLEARCOAT
         m_clearcoat = self.make_math_node(ec_group, 'MULTIPLY', -200, -300)

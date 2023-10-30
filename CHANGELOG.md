@@ -1,9 +1,12 @@
+### 1.6.0 <!-- 10/29/23 -->
+- Blender 4.0 Compatability Update
+
 ### 1.5.8 <!-- 02/04/23 -->
 - Add new material
   - **Silicon**
 - Add new groups
   - **Anisotrophy X Group** with `To Roughness` and `To Bump` outputs. This affects **Aluminium**.
-  - **Steel Roughness Group** with multiple `Roughness` outputs. This affects **Steel**.
+  - **Steel Roughness Group** with `Roughness` outputs for multiple types of Steel, sorted by most commonly used. This affects **Steel**.
 - Add new category
   - **Minor Metals**
   - Re-sort materials

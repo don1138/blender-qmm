@@ -55,9 +55,13 @@ class QMMPlaster(bpy.types.Operator):
         BSDF = nodes.get('Principled BSDF')
         BSDF.distribution = 'MULTI_GGX'
         BSDF.location = (-300, 0)
-        BSDF.inputs[1].default_value = 0.02
-        BSDF.inputs[3].default_value = (0.708857, 0.392564, 0.708857, 1)
-        BSDF.inputs[9].default_value = 0.86
+        if bv < (4, 0, 0):
+            BSDF.inputs[1].default_value = 0.02
+            BSDF.inputs[3].default_value = (0.708857, 0.392564, 0.708857, 1)
+            BSDF.inputs[9].default_value = 0.86
+        else:
+            BSDF.inputs[7].default_value = 0.02
+            BSDF.inputs[2].default_value = 0.86
 
         # colorramp
         m_colorramp = make_node(nodes, 'ShaderNodeValToRGB', -700, -100)
@@ -127,11 +131,17 @@ class QMMPlaster(bpy.types.Operator):
         links(m_maprange.outputs[0], m_bump.inputs[2])
         links(m_noise.outputs[0], m_bump2.inputs[2])
         links(m_bump.outputs[0], m_bump2.inputs[3])
-        links(m_bump2.outputs[0], BSDF.inputs[22])
         links(ec_group.outputs[0], BSDF.inputs[0])
-        links(ec_group.outputs[1], BSDF.inputs[7])
-        links(ec_group.outputs[2], BSDF.inputs[9])
-        links(ec_group.outputs[4], BSDF.inputs[16])
+        if bv < (4, 0, 0):
+            links(m_bump2.outputs[0], BSDF.inputs[22])
+            links(ec_group.outputs[1], BSDF.inputs[7])
+            links(ec_group.outputs[2], BSDF.inputs[9])
+            links(ec_group.outputs[4], BSDF.inputs[16])
+        else:
+            links(m_bump2.outputs[0], BSDF.inputs[5])
+            links(ec_group.outputs[1], BSDF.inputs[12])
+            links(ec_group.outputs[2], BSDF.inputs[2])
+            links(ec_group.outputs[4], BSDF.inputs[3])
 
         if bv < (3, 4, 0):
             links(m_voronoi.outputs[0], m_mix.inputs[1])

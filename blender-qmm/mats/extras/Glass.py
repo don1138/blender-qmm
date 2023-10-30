@@ -75,7 +75,10 @@ class QMMGlass(bpy.types.Operator):
         m_glossy = make_node(nodes, 'ShaderNodeBsdfGlossy', -600, -120)
         m_glossy.inputs[0].default_value = (1, 1, 1, 1)
         m_glossy.inputs[1].default_value = 0
-        m_glossy.distribution = 'SHARP'
+        if bv < (4, 0, 0):
+            m_glossy.distribution = 'SHARP'
+        else:
+            m_glossy.distribution = 'MULTI_GGX'
 
         m_transparent = make_node(nodes, 'ShaderNodeBsdfTransparent', -600, -300)
         m_transparent.inputs[0].default_value = (1, 1, 1, 1)

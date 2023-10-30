@@ -18,11 +18,11 @@ metal_values = [
     {'steel': ['m_steel', 'QMM Steel', (0.42869, 0.527115, 0.590619, 1), 0.3, 2.0, (0.99, 0.99, 0.99, 1)]},                                                       #12
     {'mercury': ['m_mercury', 'QMM Mercury', (0.783537, 0.775822, 0.775822, 1), 0.025, 1.744, (1.500116, 1.375106, 1.247637, 1)]},                                #13
     {'silicon': ['m_silicon', 'QMM Silicon', (0.345218, 0.3668, 0.43018, 1), 0.1, 1.45, (3.630057, 4.022775, 5.870442, 1)]},                                      #14
-    {'copper': ['m_copper', 'QMM Copper', (0.838799, 0.473531, 0.215861, 1), 0.25, 1.45, (1.000000, 0.955973, 0.822786, 1)]},                                     #15
+    {'copper': ['m_copper', 'QMM Copper', (0.838799, 0.473531, 0.215861, 1), 0.2, 1.45, (1.000000, 0.955973, 0.822786, 1)]},                                     #15
     {'gold': ['m_gold', 'QMM Gold', (0.94423, 0.776102, 0.372164, 1), 0.2, 1.45, (1.040075, 1.111826, 1.486759, 1)]},                                            #16
-    {'silver': ['m_silver', 'QMM Silver', (0.962, 0.949468, 0.917246, 1), 0.2, 1.45, (1.032801, 1.032482, 1.034567, 1)]},                                        #17
-    {'tin': ['m_tin', 'QMM Tin', (0.988702, 0.988222, 0.986691, 1), 0.15, 1.45, (1.051994, 1.053243, 1.058345, 1)]},                                               #18
-    {'titanium': ['m_titanium', 'QMM Titanium Textured', (0.533276, 0.491021, 0.439657, 1), 0.25, 1.45, (1.939808, 1.880272, 1.764035, 1)]},                      #19
+    {'silver': ['m_silver', 'QMM Silver', (0.962, 0.949468, 0.917246, 1), 0.25, 1.45, (1.032801, 1.032482, 1.034567, 1)]},                                        #17
+    {'tin': ['m_tin', 'QMM Tin', (0.988702, 0.988222, 0.986691, 1), 0.2, 1.45, (1.051994, 1.053243, 1.058345, 1)]},                                               #18
+    {'titanium': ['m_titanium', 'QMM Titanium Textured', (0.533276, 0.491021, 0.439657, 1), 0.3, 1.45, (1.939808, 1.880272, 1.764035, 1)]},                      #19
 ]
 
 
@@ -76,9 +76,13 @@ def make_shader(units):
     BSDF.distribution = 'MULTI_GGX'
     BSDF.location = (-300, 0)
     BSDF.inputs[0].default_value = unit_value[2]
-    BSDF.inputs[6].default_value = 1
-    BSDF.inputs[9].default_value = unit_value[3]
-    # BSDF.inputs[16].default_value = unit_value[4]
+    if bpy.app.version < (4, 0, 0):
+        BSDF.inputs[6].default_value = 1
+        BSDF.inputs[9].default_value = unit_value[3]
+        # BSDF.inputs[16].default_value = unit_value[4]
+    else:
+        BSDF.inputs[1].default_value = 1
+        BSDF.inputs[2].default_value = unit_value[3]
 
     # Energy Conservation group
     bpy.ops.node.ec_group_operator()
@@ -94,9 +98,14 @@ def make_shader(units):
     links = unit_value[0].node_tree.links.new
 
     links(ec_group.outputs[0], BSDF.inputs[0])
-    links(ec_group.outputs[1], BSDF.inputs[7])
-    links(ec_group.outputs[2], BSDF.inputs[9])
-    links(ec_group.outputs[4], BSDF.inputs[16])
+    if bpy.app.version < (4, 0, 0):
+        links(ec_group.outputs[1], BSDF.inputs[7])
+        links(ec_group.outputs[2], BSDF.inputs[9])
+        links(ec_group.outputs[4], BSDF.inputs[16])
+    else:
+        links(ec_group.outputs[1], BSDF.inputs[12])
+        links(ec_group.outputs[2], BSDF.inputs[2])
+        links(ec_group.outputs[4], BSDF.inputs[3])
 
     # Canistropgy group
     if units == 2:
@@ -184,7 +193,10 @@ def add_texturizer(nodes, links, ec_group, BSDF):
     links(titanium_colors_group.outputs[0], texturizer_group.inputs[0])
     links(texturizer_group.outputs[0], ec_group.inputs[0])
     links(texturizer_group.outputs[2], ec_group.inputs[1])
-    links(texturizer_group.outputs[5], BSDF.inputs[22])
+    if bpy.app.version < (4, 0, 0):
+        links(texturizer_group.outputs[5], BSDF.inputs[22])
+    else:
+        links(texturizer_group.outputs[5], BSDF.inputs[5])
     links(texturizer_group.outputs[5], ec_group.inputs[3])
 
 def add_copper_colors(nodes, links, ec_group):
