@@ -1,5 +1,5 @@
 ### 1.6.0 <!-- 10/29/23 -->
-- Blender 4.0 Compatability Update
+- Blender 4.0 Compatibility Update
 
 ### 1.5.8 <!-- 02/04/23 -->
 - Add new material
