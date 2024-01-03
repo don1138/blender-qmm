@@ -109,7 +109,7 @@ class QMMMithryl(bpy.types.Operator):
             m_colorramp.color_ramp.elements.new(0.0)
         m_colorramp.color_ramp.elements[0].color = (0.973445, 0.955973, 0.913099, 1)
         m_colorramp.color_ramp.elements[0].position = 0
-        m_colorramp.color_ramp.elements[1].color = (0.000000, 0.500002, 1, 1)
+        m_colorramp.color_ramp.elements[1].color = (0, 0.900000, 0.703024, 1)
         m_colorramp.color_ramp.elements[1].position = 0.1
         m_colorramp.color_ramp.elements[2].color = (0.333333, 1, 1, 1)
         m_colorramp.color_ramp.elements[2].position = 0.12
