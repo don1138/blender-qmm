@@ -35,8 +35,8 @@ class QMMCinnabar(bpy.types.Operator):
         m_cinnabar = bpy.data.materials.new(name="QMM Cinnabar")
         m_cinnabar.use_nodes = True
         m_cinnabar.diffuse_color = (0.768151, 0.054480, 0.034340, 1)
-        m_cinnabar.metallic = 1
-        m_cinnabar.roughness = 0.6
+        m_cinnabar.metallic = 0
+        m_cinnabar.roughness = 0.3
 
         nodes = m_cinnabar.node_tree.nodes
 
@@ -48,70 +48,57 @@ class QMMCinnabar(bpy.types.Operator):
         BSDF = nodes.get('Principled BSDF')
         BSDF.distribution = 'MULTI_GGX'
         BSDF.location = (-300, 0)
-        BSDF.inputs[0].default_value = (0.768151, 0.054480, 0.034340, 1)
-        BSDF.inputs[6].default_value = 1
-        BSDF.inputs[9].default_value = 0.4
-        # BSDF.inputs[16].default_value = 3.02
+        BSDF.inputs[0].default_value = (0.768151, 0.054480, 0.034340, 1)  # Base Color
+        if bpy.app.version < (4, 0, 0):
+            BSDF.inputs[1].default_value =  0.2                           # Subsurface
+            BSDF.inputs[2].default_value = (0.651516, 0.028425, 0.028424) # Subsurface Radius
+            BSDF.inputs[8].default_value = (0.010000, 0.000709, 0.000447, 1)
+            BSDF.inputs[9].default_value =  0.5                           # Roughness
+            BSDF.inputs[13].default_value = (0.010000, 0.000709, 0.000447, 1)
+            BSDF.inputs[14].default_value = 0.2                           # Clearcoat
+            BSDF.inputs[15].default_value = 0.075                         # Clearcoat Roughness
+        else:
+            BSDF.inputs[2].default_value =  0.5                           # Roughness
+            BSDF.inputs[7].default_value =  0.2                           # Subsurface Weight
+            BSDF.inputs[8].default_value = (0.651516, 0.028425, 0.028424) # Subsurface Radius
+            BSDF.inputs[13].default_value = (0.010000, 0.000709, 0.000447, 1)
+            BSDF.inputs[18].default_value = 0.2                           # Coat Weight
+            BSDF.inputs[19].default_value = 0.075                         # Coat Roughness
+            BSDF.inputs[20].default_value = 3.2                           # Coat IOR
+            BSDF.inputs[21].default_value = (0.010000, 0.000709, 0.000447, 1)
+            BSDF.inputs[23].default_value = 0.2                           # Sheen Weight
+            BSDF.inputs[24].default_value = 0.2                           # Sheen Roughness
+            BSDF.inputs[25].default_value = (0.010000, 0.000709, 0.000447, 1)
 
         # colorramp
         m_colorramp = nodes.new('ShaderNodeValToRGB')
         m_colorramp.label = "Cinnabar"
-        m_colorramp.location = (-800, -200)
+        m_colorramp.location = (-600, 0)
+        m_colorramp.color_ramp.interpolation = 'B_SPLINE'
+        # Ensure there are enough elements in the color ramp
+        while len(m_colorramp.color_ramp.elements) < 4:
+            m_colorramp.color_ramp.elements.new(0.0)
         m_colorramp.color_ramp.elements[0].color = (0.768151, 0.054480, 0.034340, 1)
-        m_colorramp.color_ramp.elements[1].color = (0.283149, 0.039546, 0.031896, 1)
-        m_colorramp.color_ramp.elements[0].position = 0.2
-        m_colorramp.color_ramp.elements[1].position = 0.6
+        m_colorramp.color_ramp.elements[1].color = (0.291820, 0.019381, 0.012982, 1)
+        m_colorramp.color_ramp.elements[2].color = (0.291820, 0.019381, 0.012982, 1)
+        m_colorramp.color_ramp.elements[3].color = (0.768151, 0.054480, 0.034340, 1)
+        m_colorramp.color_ramp.elements[0].position = 0
+        m_colorramp.color_ramp.elements[1].position = 0.2
+        m_colorramp.color_ramp.elements[2].position = 0.8
+        m_colorramp.color_ramp.elements[3].position = 1
 
-        # colorrampvermillion
-        m_colorramp2 = nodes.new('ShaderNodeValToRGB')
-        m_colorramp2.label = "Vermillion"
-        m_colorramp2.location = (-800, 100)
-        m_colorramp2.color_ramp.elements[0].color = (0.964687, 0.066626, 0.002428, 1)
-        m_colorramp2.color_ramp.elements[1].color = (0.473532, 0.152926, 0.001518, 1)
-        m_colorramp2.color_ramp.elements[0].position = 0.2
-        m_colorramp2.color_ramp.elements[1].position = 0.6
+        # Layer Weight
+        m_layerweight = nodes.new('ShaderNodeLayerWeight')
+        m_layerweight.location = (-800, -100)
+        m_layerweight.inputs[0].default_value = 0.3
 
         nodes = m_cinnabar.node_tree.nodes
-
-        # EnergyConservationGroup
-        bpy.ops.node.ec_group_operator()
-        ec_group = nodes.new("ShaderNodeGroup")
-        ec_group.name = "Energy Conservation v5"
-        ec_group.node_tree = bpy.data.node_groups['Energy Conservation v5']
-        ec_group.location = (-500, -200)
-        ec_group.inputs[0].default_value = (0.768151, 0.054480, 0.034340, 1)
-        ec_group.inputs[1].default_value = 0.4
-        # ec_group.inputs[2].default_value = 3.02
-        ec_group.inputs[4].default_value = (0.010000, 0.000687, 0.000429, 1)
-
-        # TexturizerGroup
-        bpy.ops.node.texturizer_group_operator()
-        texturizer_group = nodes.new("ShaderNodeGroup")
-        texturizer_group.node_tree = bpy.data.node_groups['Texturizer']
-        texturizer_group.location = (-1100, -400)
-        texturizer_group.width = 240
-        texturizer_group.inputs[0].default_value = (0.768151, 0.054480, 0.034340, 1)
-        texturizer_group.inputs[1].default_value = 0.4
-        texturizer_group.inputs[4].default_value = 0.0125
 
         # Links
         links = m_cinnabar.node_tree.links.new
 
-        links(m_colorramp.outputs[0], ec_group.inputs[0])
-        links(texturizer_group.outputs[1], m_colorramp.inputs[0])
-        links(ec_group.outputs[0], BSDF.inputs[0])
-        if bpy.app.version < (4, 0, 0):
-            links(texturizer_group.outputs[3], BSDF.inputs[9])
-            links(texturizer_group.outputs[5], BSDF.inputs[22])
-            links(ec_group.outputs[1], BSDF.inputs[7])
-            links(ec_group.outputs[2], BSDF.inputs[9])
-            links(ec_group.outputs[4], BSDF.inputs[16])
-        else:
-            links(texturizer_group.outputs[3], BSDF.inputs[2])
-            links(texturizer_group.outputs[5], BSDF.inputs[5])
-            links(ec_group.outputs[1], BSDF.inputs[12])
-            links(ec_group.outputs[2], BSDF.inputs[2])
-            links(ec_group.outputs[4], BSDF.inputs[3])
+        links(m_colorramp.outputs[0], BSDF.inputs[0])
+        links(m_layerweight.outputs[0], m_colorramp.inputs[0])
 
         # LOAD THE MATERIAL
         bpy.context.object.active_material = m_cinnabar

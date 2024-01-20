@@ -194,7 +194,7 @@ class QMMPanelExtras(bpy.types.Panel):
         row.operator("shader.qmm_glass_operator", text='Glass')
 
         row = layout.row()
-        row.operator("shader.qmm_red_metal_operator", text='Red Metal')
+        row.operator("shader.qmm_cinnabar_operator", text='Cinnabar')
 
         row = layout.row()
         row.operator("shader.qmm_cutting_mat_operator", text='Rubber Cutting Mat')
@@ -272,10 +272,10 @@ from .mats.fresnel.FresnelSilver import *
 from .mats.MakeMetal import *
 from .mats.extras.Asphalt import *
 from .mats.extras.AsphaltBleached import *
+from .mats.extras.Cinnabar import *
 from .mats.extras.CuttingMat import *
 from .mats.extras.Glass import *
 from .mats.extras.Plaster import *
-from .mats.extras.RedMetal import *
 from .mats.extras.WallPaint import *
 
 
@@ -293,6 +293,7 @@ classes = [
     QMMBrass,
     QMMBronze,
     QMMChromium,
+    QMMCinnabar,
     QMMCopper,
     QMMCopperFresnel,
     QMMCuttingMat,
@@ -307,7 +308,6 @@ classes = [
     QMMPalladium,
     QMMPlatinum,
     QMMPlaster,
-    QMMRedMetal,
     QMMSilicon,
     QMMSilverFresnel,
     QMMSilver,

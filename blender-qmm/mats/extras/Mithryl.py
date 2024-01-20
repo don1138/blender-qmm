@@ -57,13 +57,13 @@ class QMMMithryl(bpy.types.Operator):
         BSDF.location = (-300, 0)
         BSDF.inputs[0].default_value = (0.590619, 0.625682, 0.679542, 1)
         if bpy.app.version < (4, 0, 0):
-            BSDF.inputs[6].default_value = 1
-            BSDF.inputs[9].default_value = 0.075
-            BSDF.inputs[19].default_value = (0.590619, 0.625682, 0.679542, 1)
+            BSDF.inputs[6].default_value = 1                    #Metallic
+            BSDF.inputs[9].default_value = 0.075                #Roughness
+            BSDF.inputs[19].default_value = (0.333333, 1, 1, 1) #Emission
         else:
-            BSDF.inputs[1].default_value = 1
-            BSDF.inputs[2].default_value = 0.075
-            BSDF.inputs[26].default_value = (0.590619, 0.625682, 0.679542, 1)
+            BSDF.inputs[1].default_value = 1                    #Metallic
+            BSDF.inputs[2].default_value = 0.075                #Roughness
+            BSDF.inputs[26].default_value = (0.333333, 1, 1, 1) #Emission
         # BSDF.select = True
 
         # mixshader
@@ -139,7 +139,7 @@ class QMMMithryl(bpy.types.Operator):
             links(m_colorramp.outputs[0], m_mixshader2.inputs[6])
             links(m_mixshader2.outputs[2], m_mixshader.inputs[6])
             links(m_maprange2.outputs[0], m_mixshader.inputs[0])
-            links(m_maprange.outputs[0], BSDF.inputs[26])
+            links(m_maprange.outputs[0], BSDF.inputs[27])
             links(m_mixshader.outputs[2], BSDF.inputs[0])
 
         bpy.context.object.active_material = m_mithryl
