@@ -1,3 +1,12 @@
+### 1.7.0 <!-- 01/20/24 -->
+- Add new materials
+  - **Cinnabar**
+  - **Mithryl**
+- Add new groups
+  - **Uneven Roughness Group** with `Roughness` and `Mask` outputs. This affects **Cinnabar**.
+- Remove materials
+  - **Red Metal**
+
 ### 1.6.0 <!-- 10/29/23 -->
 - Blender 4.0 Compatibility Update
 

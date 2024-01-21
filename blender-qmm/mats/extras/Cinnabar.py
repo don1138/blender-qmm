@@ -36,7 +36,7 @@ class QMMCinnabar(bpy.types.Operator):
         m_cinnabar.use_nodes = True
         m_cinnabar.diffuse_color = (0.768151, 0.054480, 0.034340, 1)
         m_cinnabar.metallic = 0
-        m_cinnabar.roughness = 0.3
+        m_cinnabar.roughness = 0.5
 
         nodes = m_cinnabar.node_tree.nodes
 
@@ -94,11 +94,25 @@ class QMMCinnabar(bpy.types.Operator):
 
         nodes = m_cinnabar.node_tree.nodes
 
-        # Links
+        # UnevenRoughnessGroup
+        bpy.ops.node.uneven_roughness_group_operator()
+        uneven_roughness_group = nodes.new("ShaderNodeGroup")
+        uneven_roughness_group.node_tree = bpy.data.node_groups['Uneven Roughness']
+        uneven_roughness_group.location = (-500, -300)
+        uneven_roughness_group.width = 140
+        uneven_roughness_group.inputs[1].default_value = 1
+        uneven_roughness_group.inputs[2].default_value = 0.075
+        uneven_roughness_group.inputs[3].default_value = 0.375
+
+        # LINKS
         links = m_cinnabar.node_tree.links.new
 
         links(m_colorramp.outputs[0], BSDF.inputs[0])
         links(m_layerweight.outputs[0], m_colorramp.inputs[0])
+        if bpy.app.version < (4, 0, 0):
+            links(uneven_roughness_group.outputs[0], BSDF.inputs[15])
+        else:
+            links(uneven_roughness_group.outputs[0], BSDF.inputs[19])
 
         # LOAD THE MATERIAL
         bpy.context.object.active_material = m_cinnabar

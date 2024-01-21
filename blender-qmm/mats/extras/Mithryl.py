@@ -41,7 +41,7 @@ class QMMMithryl(bpy.types.Operator):
         # CreateShader
         m_mithryl = bpy.data.materials.new(name="QMM Mithryl")
         m_mithryl.use_nodes = True
-        m_mithryl.diffuse_color = (0.590619, 0.625682, 0.679542, 1)
+        m_mithryl.diffuse_color = (0.333333, 1, 1, 1)
         m_mithryl.roughness = 0.075
         m_mithryl.metallic = 1
 
@@ -51,7 +51,7 @@ class QMMMithryl(bpy.types.Operator):
         material_output = nodes.get('Material Output')
         material_output.location = (0, 0)
 
-        # principledbsdf - stone
+        # principledbsdf
         BSDF = nodes.get('Principled BSDF')
         BSDF.distribution = 'MULTI_GGX'
         BSDF.location = (-300, 0)
