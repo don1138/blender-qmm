@@ -65,7 +65,7 @@ class UnevenRoughnessGroup(bpy.types.Operator):
         group_out = self.make_node(uneven_roughness_group, 'NodeGroupOutput', 0, 0)
         if bv < (4, 0, 0):
             uneven_roughness_group.outputs.new('NodeSocketFloat', 'Roughness') # 0
-            uneven_roughness_group.outputs.new('NodeSocketFloat', 'Mask')   # 1
+            uneven_roughness_group.outputs.new('NodeSocketFloat', 'Mask')      # 1
         else:
             uneven_roughness_group.interface.new_socket(name="Result", in_out='OUTPUT', socket_type='NodeSocketFloat')
             uneven_roughness_group.interface.new_socket(name="Mask", in_out='OUTPUT', socket_type='NodeSocketFloat')
