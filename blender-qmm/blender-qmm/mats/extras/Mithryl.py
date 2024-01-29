@@ -41,7 +41,7 @@ class QMMMithryl(bpy.types.Operator):
         # CreateShader
         m_mithryl = bpy.data.materials.new(name="QMM Mithryl")
         m_mithryl.use_nodes = True
-        m_mithryl.diffuse_color = (0.333333, 1, 1, 1)
+        m_mithryl.diffuse_color = (0.666667, 1, 1, 1)
         m_mithryl.roughness = 0.075
         m_mithryl.metallic = 1
 
@@ -67,10 +67,7 @@ class QMMMithryl(bpy.types.Operator):
         # BSDF.select = True
 
         # mixshader
-        if bpy.app.version < (4, 0, 0):
-            m_mixshader = make_node(nodes, 'ShaderNodeMixShader', -500, 0)
-        else:
-            m_mixshader = make_node(nodes, 'ShaderNodeMix', -500, 0)
+        m_mixshader = make_node(nodes, 'ShaderNodeMix', -500, 0)
         m_mixshader.data_type = 'RGBA'
         m_mixshader.inputs[7].default_value = (0.590619, 0.625682, 0.679542, 1)
 
@@ -87,10 +84,7 @@ class QMMMithryl(bpy.types.Operator):
         m_maprange2.inputs[2].default_value = 0.7
 
         # mixshader2
-        if bpy.app.version < (4, 0, 0):
-            m_mixshader2 = make_node(nodes, 'ShaderNodeMixShader', -700, -300)
-        else:
-            m_mixshader2 = make_node(nodes, 'ShaderNodeMix', -700, -300)
+        m_mixshader2 = make_node(nodes, 'ShaderNodeMix', -700, -300)
         m_mixshader2.data_type = 'RGBA'
         m_mixshader2.inputs[0].default_value = 0.333
         m_mixshader2.inputs[7].default_value = (0.590619, 0.625682, 0.679542, 1)
@@ -130,11 +124,11 @@ class QMMMithryl(bpy.types.Operator):
         links(m_layerweight.outputs[1], m_power.inputs[0])
         links(m_power.outputs[0], m_maprange2.inputs[0])
         if bpy.app.version < (4, 0, 0):
-            links(m_colorramp.outputs[0], m_mixshader2.inputs[1])
-            links(m_mixshader2.outputs[0], m_mixshader.inputs[1])
+            links(m_colorramp.outputs[0], m_mixshader2.inputs[6])
+            links(m_mixshader2.outputs[2], m_mixshader.inputs[6])
             links(m_maprange2.outputs[0], m_mixshader.inputs[0])
             links(m_maprange.outputs[0], BSDF.inputs[19])
-            links(m_mixshader.outputs[0], BSDF.inputs[0])
+            links(m_mixshader.outputs[2], BSDF.inputs[0])
         else:
             links(m_colorramp.outputs[0], m_mixshader2.inputs[6])
             links(m_mixshader2.outputs[2], m_mixshader.inputs[6])

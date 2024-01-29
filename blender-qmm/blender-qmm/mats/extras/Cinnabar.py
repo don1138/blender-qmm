@@ -48,27 +48,27 @@ class QMMCinnabar(bpy.types.Operator):
         BSDF = nodes.get('Principled BSDF')
         BSDF.distribution = 'MULTI_GGX'
         BSDF.location = (-300, 0)
-        BSDF.inputs[0].default_value = (0.768151, 0.054480, 0.034340, 1)  # Base Color
+        BSDF.inputs[0].default_value = (0.768151, 0.054480, 0.034340, 1)      # Base Color
         if bpy.app.version < (4, 0, 0):
-            BSDF.inputs[1].default_value =  0.2                           # Subsurface
-            BSDF.inputs[2].default_value = (0.651516, 0.028425, 0.028424) # Subsurface Radius
-            BSDF.inputs[8].default_value = (0.010000, 0.000709, 0.000447, 1)
-            BSDF.inputs[9].default_value =  0.5                           # Roughness
-            BSDF.inputs[13].default_value = (0.010000, 0.000709, 0.000447, 1)
-            BSDF.inputs[14].default_value = 0.2                           # Clearcoat
-            BSDF.inputs[15].default_value = 0.075                         # Clearcoat Roughness
+            BSDF.inputs[1].default_value =  0.2                               # Subsurface
+            BSDF.inputs[2].default_value = (0.651516, 0.028425, 0.028424)     # Subsurface Radius
+            BSDF.inputs[3].default_value = (0.010000, 0.000709, 0.000447, 1)  # Subsurface Color
+            BSDF.inputs[9].default_value =  0.5                               # Roughness
+            BSDF.inputs[12].default_value =  0.2                               # Sheen
+            BSDF.inputs[14].default_value = 1.2                               # Clearcoat
+            BSDF.inputs[15].default_value = 0.075                             # Clearcoat Roughness
         else:
-            BSDF.inputs[2].default_value =  0.5                           # Roughness
-            BSDF.inputs[7].default_value =  0.2                           # Subsurface Weight
-            BSDF.inputs[8].default_value = (0.651516, 0.028425, 0.028424) # Subsurface Radius
-            BSDF.inputs[13].default_value = (0.010000, 0.000709, 0.000447, 1)
-            BSDF.inputs[18].default_value = 0.2                           # Coat Weight
-            BSDF.inputs[19].default_value = 0.075                         # Coat Roughness
-            BSDF.inputs[20].default_value = 3.2                           # Coat IOR
-            BSDF.inputs[21].default_value = (0.010000, 0.000709, 0.000447, 1)
-            BSDF.inputs[23].default_value = 0.2                           # Sheen Weight
-            BSDF.inputs[24].default_value = 0.2                           # Sheen Roughness
-            BSDF.inputs[25].default_value = (0.010000, 0.000709, 0.000447, 1)
+            BSDF.inputs[2].default_value =  0.5                               # Roughness
+            BSDF.inputs[7].default_value =  0.2                               # Subsurface Weight
+            BSDF.inputs[8].default_value = (0.651516, 0.028425, 0.028424)     # Subsurface Radius
+            BSDF.inputs[13].default_value = (0.010000, 0.000709, 0.000447, 1) # Specular Tint
+            BSDF.inputs[18].default_value = 0.2                               # Coat Weight
+            BSDF.inputs[19].default_value = 0.075                             # Coat Roughness
+            BSDF.inputs[20].default_value = 3.2                               # Coat IOR
+            BSDF.inputs[21].default_value = (0.010000, 0.000709, 0.000447, 1) # Coat Tint
+            BSDF.inputs[23].default_value = 0.2                               # Sheen Weight
+            BSDF.inputs[24].default_value = 0.2                               # Sheen Roughness
+            BSDF.inputs[25].default_value = (0.010000, 0.000709, 0.000447, 1) # Sheen Tint
 
         # colorramp
         m_colorramp = nodes.new('ShaderNodeValToRGB')
@@ -100,9 +100,9 @@ class QMMCinnabar(bpy.types.Operator):
         uneven_roughness_group.node_tree = bpy.data.node_groups['Uneven Roughness']
         uneven_roughness_group.location = (-500, -300)
         uneven_roughness_group.width = 140
-        uneven_roughness_group.inputs[1].default_value = 1
-        uneven_roughness_group.inputs[2].default_value = 0.075
-        uneven_roughness_group.inputs[3].default_value = 0.375
+        uneven_roughness_group.inputs[0].default_value = 0.075
+        uneven_roughness_group.inputs[1].default_value = 0.375
+        uneven_roughness_group.inputs[2].default_value = 1
 
         # LINKS
         links = m_cinnabar.node_tree.links.new
