@@ -72,7 +72,7 @@ class QMMMithryl(bpy.types.Operator):
         m_mixshader.inputs[7].default_value = (0.590619, 0.625682, 0.679542, 1)
 
         # maprange
-        m_maprange = make_node(nodes, 'ShaderNodeMapRange', -500, -400)
+        m_maprange = make_node(nodes, 'ShaderNodeMapRange', -500, -500)
         m_maprange.width = 140
         m_maprange.inputs[1].default_value = 0.666667
         m_maprange.inputs[4].default_value = 0.16
@@ -111,30 +111,30 @@ class QMMMithryl(bpy.types.Operator):
         m_colorramp.color_ramp.elements[3].position = 1
 
         # layerweight
-        m_layerweight = make_node(nodes, 'ShaderNodeLayerWeight', -1200, -100)
+        m_layerweight = make_node(nodes, 'ShaderNodeLayerWeight', -1100, -100)
         m_layerweight.inputs[0].default_value = 0.9
 
         # layerweight2
-        m_layerweight2 = make_node(nodes, 'ShaderNodeLayerWeight', -1200, -500)
+        m_layerweight2 = make_node(nodes, 'ShaderNodeLayerWeight', -1200, -400)
+
+        # layerweight3
+        m_layerweight3 = make_node(nodes, 'ShaderNodeLayerWeight', -700, -600)
+        m_layerweight3.inputs[0].default_value = 0.333
 
         links = m_mithryl.node_tree.links.new
 
         links(m_layerweight2.outputs[1], m_colorramp.inputs[0])
-        links(m_layerweight2.outputs[1], m_maprange.inputs[0])
+        links(m_layerweight3.outputs[1], m_maprange.inputs[0])
         links(m_layerweight.outputs[1], m_power.inputs[0])
         links(m_power.outputs[0], m_maprange2.inputs[0])
+        links(m_colorramp.outputs[0], m_mixshader2.inputs[6])
+        links(m_mixshader2.outputs[2], m_mixshader.inputs[6])
+        links(m_maprange2.outputs[0], m_mixshader.inputs[0])
+        links(m_mixshader.outputs[2], BSDF.inputs[0])
         if bpy.app.version < (4, 0, 0):
-            links(m_colorramp.outputs[0], m_mixshader2.inputs[6])
-            links(m_mixshader2.outputs[2], m_mixshader.inputs[6])
-            links(m_maprange2.outputs[0], m_mixshader.inputs[0])
             links(m_maprange.outputs[0], BSDF.inputs[19])
-            links(m_mixshader.outputs[2], BSDF.inputs[0])
         else:
-            links(m_colorramp.outputs[0], m_mixshader2.inputs[6])
-            links(m_mixshader2.outputs[2], m_mixshader.inputs[6])
-            links(m_maprange2.outputs[0], m_mixshader.inputs[0])
             links(m_maprange.outputs[0], BSDF.inputs[27])
-            links(m_mixshader.outputs[2], BSDF.inputs[0])
 
         bpy.context.object.active_material = m_mithryl
 
