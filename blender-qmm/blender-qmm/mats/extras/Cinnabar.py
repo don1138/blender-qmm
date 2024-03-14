@@ -13,14 +13,14 @@ def ShowMessageBox(message="", title="", icon='INFO'):
 # CinnabarShaderOperator
 
 class QMMCinnabar(bpy.types.Operator):
-    """Add/Apply Cinnabar Material to Selected Object (or Scene)"""
-    bl_label  = "QMM Cinnabar Shader"
+    """Add/Apply Cinnabar Lacquer Material to Selected Object (or Scene)"""
+    bl_label  = "QMM Cinnabar Lacquer Shader"
     bl_idname = 'shader.qmm_cinnabar_operator'
 
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        if m_cinnabar := bpy.data.materials.get("QMM Cinnabar"):
-            ShowMessageBox(message_text, "QMM Cinnabar")
+        if m_cinnabar := bpy.data.materials.get("QMM Cinnabar Lacquer"):
+            ShowMessageBox(message_text, "QMM Cinnabar Lacquer")
             # print(f"QMM Cinnabar already exists")
             bpy.context.object.active_material = m_cinnabar
             return {'FINISHED'}
@@ -32,7 +32,7 @@ class QMMCinnabar(bpy.types.Operator):
         start = time.time()
 
         # CreateShader
-        m_cinnabar = bpy.data.materials.new(name="QMM Cinnabar")
+        m_cinnabar = bpy.data.materials.new(name="QMM Cinnabar Lacquer")
         m_cinnabar.use_nodes = True
         m_cinnabar.diffuse_color = (0.768151, 0.054480, 0.034340, 1)
         m_cinnabar.metallic = 0
@@ -118,4 +118,4 @@ class QMMCinnabar(bpy.types.Operator):
         bpy.context.object.active_material = m_cinnabar
 
         end = time.time()
-        print(f"QMM Cinnabar: {end - start} seconds")
+        print(f"QMM Cinnabar Lacquer: {end - start} seconds")

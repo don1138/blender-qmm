@@ -194,10 +194,10 @@ class QMMPanelExtras(bpy.types.Panel):
         row.operator("shader.qmm_car_paint_operator", text='Car Paint')
 
         row = layout.row()
-        row.operator("shader.qmm_glass_operator", text='Glass')
+        row.operator("shader.qmm_cinnabar_operator", text='Cinnabar Lacquer')
 
         row = layout.row()
-        row.operator("shader.qmm_cinnabar_operator", text='Cinnabar')
+        row.operator("shader.qmm_glass_operator", text='Glass')
 
         row = layout.row()
         row.operator("shader.qmm_mithryl_operator", text='Mithryl')
