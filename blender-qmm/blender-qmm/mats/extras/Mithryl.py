@@ -69,72 +69,61 @@ class QMMMithryl(bpy.types.Operator):
         # mixshader
         m_mixshader = make_node(nodes, 'ShaderNodeMix', -500, 0)
         m_mixshader.data_type = 'RGBA'
+        m_mixshader.blend_type = 'COLOR'
+        m_mixshader.inputs[0].default_value = 0.6
         m_mixshader.inputs[7].default_value = (0.590619, 0.625682, 0.679542, 1)
 
         # maprange
-        m_maprange = make_node(nodes, 'ShaderNodeMapRange', -500, -500)
+        m_maprange = make_node(nodes, 'ShaderNodeMapRange', -500, -300)
         m_maprange.width = 140
-        m_maprange.inputs[1].default_value = 0.666667
-        m_maprange.inputs[4].default_value = 0.16
-
-        # maprange2
-        m_maprange2 = make_node(nodes, 'ShaderNodeMapRange', -700, 0)
-        m_maprange2.width = 140
-        m_maprange2.inputs[1].default_value = 0.3
-        m_maprange2.inputs[2].default_value = 0.7
-
-        # mixshader2
-        m_mixshader2 = make_node(nodes, 'ShaderNodeMix', -700, -300)
-        m_mixshader2.data_type = 'RGBA'
-        m_mixshader2.inputs[0].default_value = 0.333
-        m_mixshader2.inputs[7].default_value = (0.590619, 0.625682, 0.679542, 1)
-
-        # power
-        m_power = make_node(nodes, 'ShaderNodeMath', -900, -100)
-        m_power.operation = 'POWER'
-        m_power.inputs[1].default_value = 2
-        m_power.use_clamp = True
+        m_maprange.inputs[1].default_value = 0.866666
+        m_maprange.inputs[4].default_value = 0.133333
 
         # colorramp
-        m_colorramp = make_node(nodes, 'ShaderNodeValToRGB', -1000, -300)
+        m_colorramp = make_node(nodes, 'ShaderNodeValToRGB', -800, -100)
         m_colorramp.color_ramp.interpolation = 'B_SPLINE'
         # Ensure there are enough elements in the color ramp
-        while len(m_colorramp.color_ramp.elements) < 4:
+        while len(m_colorramp.color_ramp.elements) < 5:
             m_colorramp.color_ramp.elements.new(0.0)
         m_colorramp.color_ramp.elements[0].color = (0.973445, 0.955973, 0.913099, 1)
-        m_colorramp.color_ramp.elements[0].position = 0
-        m_colorramp.color_ramp.elements[1].color = (0, 0.900000, 0.703024, 1)
-        m_colorramp.color_ramp.elements[1].position = 0.1
+        m_colorramp.color_ramp.elements[0].position = 0.12
+        m_colorramp.color_ramp.elements[1].color = (0.16, 0.8, 0.659928, 1)
+        m_colorramp.color_ramp.elements[1].position = 0.17
         m_colorramp.color_ramp.elements[2].color = (0.333333, 1, 1, 1)
-        m_colorramp.color_ramp.elements[2].position = 0.12
+        m_colorramp.color_ramp.elements[2].position = 0.2
         m_colorramp.color_ramp.elements[3].color = (0.590619, 0.625682, 0.679542, 1)
-        m_colorramp.color_ramp.elements[3].position = 1
+        m_colorramp.color_ramp.elements[3].position = 0.22
+        m_colorramp.color_ramp.elements[4].color = (0.973445, 0.955973, 0.913099, 1)
+        m_colorramp.color_ramp.elements[4].position = 0.25
 
         # layerweight
-        m_layerweight = make_node(nodes, 'ShaderNodeLayerWeight', -1100, -100)
-        m_layerweight.inputs[0].default_value = 0.9
+        m_layerweight = make_node(nodes, 'ShaderNodeLayerWeight', -1000, -300)
+        m_layerweight.inputs[0].default_value = 0.5
 
-        # layerweight2
-        m_layerweight2 = make_node(nodes, 'ShaderNodeLayerWeight', -1200, -400)
-
-        # layerweight3
-        m_layerweight3 = make_node(nodes, 'ShaderNodeLayerWeight', -700, -600)
-        m_layerweight3.inputs[0].default_value = 0.333
+        # Uneven Roughness Group
+        bpy.ops.node.uneven_roughness_group_operator()
+        ur_group = nodes.new("ShaderNodeGroup")
+        ur_group.name = "Uneven Roughness"
+        ur_group.node_tree = bpy.data.node_groups['Uneven Roughness']
+        ur_group.location = (-1000, 0)
+        ur_group.width = 140
+        ur_group.inputs[0].default_value = 0.075
+        ur_group.inputs[1].default_value = 0.225
+        ur_group.inputs[2].default_value = 2
+        ur_group.inputs[3].default_value = 0.8
 
         links = m_mithryl.node_tree.links.new
 
-        links(m_layerweight2.outputs[1], m_colorramp.inputs[0])
-        links(m_layerweight3.outputs[1], m_maprange.inputs[0])
-        links(m_layerweight.outputs[1], m_power.inputs[0])
-        links(m_power.outputs[0], m_maprange2.inputs[0])
-        links(m_colorramp.outputs[0], m_mixshader2.inputs[6])
-        links(m_mixshader2.outputs[2], m_mixshader.inputs[6])
-        links(m_maprange2.outputs[0], m_mixshader.inputs[0])
         links(m_mixshader.outputs[2], BSDF.inputs[0])
+        links(m_colorramp.outputs[0], m_mixshader.inputs[6])
+        links(m_layerweight.outputs[0], m_colorramp.inputs[0])
+        links(m_layerweight.outputs[1], m_maprange.inputs[0])
         if bpy.app.version < (4, 0, 0):
             links(m_maprange.outputs[0], BSDF.inputs[19])
+            links(ur_group.outputs[0], BSDF.inputs[9])
         else:
             links(m_maprange.outputs[0], BSDF.inputs[27])
+            links(ur_group.outputs[0], BSDF.inputs[2])
 
         bpy.context.object.active_material = m_mithryl
 

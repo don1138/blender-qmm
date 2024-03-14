@@ -3,6 +3,8 @@
   - **Car Paint**
 - Add new groups
   - **Metal Flake Group** with `Scale` and `Strength` outputs. This affects **Car Paint**.
+- Tweaks to
+  - **Mithryl**
 
 ### 1.7.0 <!-- 01/20/24 -->
 - Add new materials
