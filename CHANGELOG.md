@@ -1,3 +1,9 @@
+### 1.8.0 <!-- 03/14/24 -->
+- Add new materials
+  - **Car Paint**
+- Add new groups
+  - **Metal Flake Group** with `Scale` and `Strength` outputs. This affects **Car Paint**.
+
 ### 1.7.0 <!-- 01/20/24 -->
 - Add new materials
   - **Cinnabar**

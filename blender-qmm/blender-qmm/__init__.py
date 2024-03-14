@@ -21,7 +21,7 @@ bl_info = {
     "name"       : "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
     "author"     : "Don Schnitzius",
-    "version"    : (1, 7, 0),
+    "version"    : (1, 8, 0),
     "blender"    : (3, 0, 0),
     "location"   : "3D Viewport > Sidebar > MAT > Quick Metal Materials",
     "warning"    : "",
@@ -191,6 +191,9 @@ class QMMPanelExtras(bpy.types.Panel):
         row.operator("shader.qmm_asphalt_b_operator", text='Asphalt Bleached')
 
         row = layout.row()
+        row.operator("shader.qmm_car_paint_operator", text='Car Paint')
+
+        row = layout.row()
         row.operator("shader.qmm_glass_operator", text='Glass')
 
         row = layout.row()
@@ -266,6 +269,7 @@ from .mats.TitaniumColors import *
 from .mats.AnisotrophyX import *
 from .mats.Canisotrophy import *
 from .mats.EnergyConservation import *
+from .mats.MetalFlake import *
 from .mats.Specular import *
 from .mats.SteelRoughness import *
 from .mats.Texturizer import *
@@ -276,6 +280,7 @@ from .mats.fresnel.FresnelSilver import *
 from .mats.MakeMetal import *
 from .mats.extras.Asphalt import *
 from .mats.extras.AsphaltBleached import *
+from .mats.extras.CarPaint import *
 from .mats.extras.Cinnabar import *
 from .mats.extras.CuttingMat import *
 from .mats.extras.Glass import *
@@ -297,6 +302,7 @@ classes = [
     QMMAsphaltBleached,
     QMMBrass,
     QMMBronze,
+    QMMCarPaint,
     QMMChromium,
     QMMCinnabar,
     QMMCopper,
@@ -326,6 +332,7 @@ classes = [
     AnisotrophyXGroup,
     CanisotrophyGroup,
     EnergyConservationGroup,
+    MetalFlakeGroup,
     SpecularGroup,
     SteelRoughnessGroup,
     TexturizerGroup,
