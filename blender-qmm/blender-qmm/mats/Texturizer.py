@@ -82,7 +82,7 @@ class TexturizerGroup(bpy.types.Operator):
             texturizer_group.interface.new_socket(name="Roughness", in_out='OUTPUT', socket_type='NodeSocketFloat')
             texturizer_group.interface.new_socket(name="Rough Floor", in_out='OUTPUT', socket_type='NodeSocketFloat')
             texturizer_group.interface.new_socket(name="Height", in_out='OUTPUT', socket_type='NodeSocketFloat')
-            texturizer_group.interface.new_socket(name="Normal", in_out='OUTPUT')
+            texturizer_group.interface.new_socket(name="Normal", in_out='OUTPUT', socket_type='NodeSocketVector')
 
         # mixrgb-multiply
         if bv < (3, 4, 0):

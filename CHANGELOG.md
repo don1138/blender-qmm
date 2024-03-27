@@ -1,3 +1,6 @@
+### 1.8.1 <!-- 03/27/24 -->
+- 4.1 Bugfix: Set `socket_type` on Group Nodes
+
 ### 1.8.0 <!-- 03/14/24 -->
 - Add new materials
   - **Car Paint**

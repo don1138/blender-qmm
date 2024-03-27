@@ -57,13 +57,13 @@ class CopperColorsGroup(bpy.types.Operator):
             copper_cg.outputs.new('NodeSocketColor', 'Copper Penny')
             copper_cg.outputs.new('NodeSocketColor', 'Copper Rose')
         else:
-            copper_cg.interface.new_socket(name="Copper", in_out='OUTPUT')
-            copper_cg.interface.new_socket(name="PBM Copper", in_out='OUTPUT')
-            copper_cg.interface.new_socket(name="Dontnod Copper", in_out='OUTPUT')
-            copper_cg.interface.new_socket(name="Pale Copper", in_out='OUTPUT')
-            copper_cg.interface.new_socket(name="Copper Red", in_out='OUTPUT')
-            copper_cg.interface.new_socket(name="Copper Penny", in_out='OUTPUT')
-            copper_cg.interface.new_socket(name="Copper Rose", in_out='OUTPUT')
+            copper_cg.interface.new_socket(name="Copper", in_out='OUTPUT', socket_type='NodeSocketColor')
+            copper_cg.interface.new_socket(name="PBM Copper", in_out='OUTPUT', socket_type='NodeSocketColor')
+            copper_cg.interface.new_socket(name="Dontnod Copper", in_out='OUTPUT', socket_type='NodeSocketColor')
+            copper_cg.interface.new_socket(name="Pale Copper", in_out='OUTPUT', socket_type='NodeSocketColor')
+            copper_cg.interface.new_socket(name="Copper Red", in_out='OUTPUT', socket_type='NodeSocketColor')
+            copper_cg.interface.new_socket(name="Copper Penny", in_out='OUTPUT', socket_type='NodeSocketColor')
+            copper_cg.interface.new_socket(name="Copper Rose", in_out='OUTPUT', socket_type='NodeSocketColor')
 
         # makecolors
         cc_c = self.make_color(copper_cg, "Copper", -400, 300, 0xB87333)
