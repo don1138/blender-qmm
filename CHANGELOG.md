@@ -1,3 +1,8 @@
+### 1.8.2 <!-- 03/29/24 -->
+- Update **Metal Flake** group
+  - Add `Blue Mask` output
+  - Change `Scale` to `4096`
+
 ### 1.8.1 <!-- 03/27/24 -->
 - 4.1 Bugfix: Set `socket_type` on Group Nodes
 
@@ -5,7 +10,7 @@
 - Add new materials
   - **Car Paint**
 - Add new groups
-  - **Metal Flake Group** with `Scale` and `Strength` outputs. This affects **Car Paint**.
+  - **Metal Flake** group with `Scale` and `Strength` outputs. This affects **Car Paint**.
 - Tweaks to **Mithryl**
 - Rename **Cinnabar** > **Cinnabar Lacquer**
 
@@ -14,7 +19,7 @@
   - **Cinnabar**
   - **Mithryl**
 - Add new groups
-  - **Uneven Roughness Group** with `Roughness` and `Mask` outputs. This affects **Cinnabar**.
+  - **Uneven Roughness** group with `Roughness` and `Mask` outputs. This affects **Cinnabar**.
 - Remove materials
   - **Red Metal**
 
@@ -25,8 +30,8 @@
 - Add new material
   - **Silicon**
 - Add new groups
-  - **Anisotrophy X Group** with `To Roughness` and `To Bump` outputs. This affects **Aluminium**.
-  - **Steel Roughness Group** with `Roughness` outputs for multiple types of Steel, sorted by most commonly used. This affects **Steel**.
+  - **Anisotrophy X** group with `To Roughness` and `To Bump` outputs. This affects **Aluminium**.
+  - **Steel Roughness** group with `Roughness` outputs for multiple types of Steel, sorted by most commonly used. This affects **Steel**.
 - Add new category
   - **Minor Metals**
   - Re-sort materials
@@ -129,7 +134,7 @@
   - **Spanish**
   - **Swedish**
   - **Ukrainian**
-- Add new colors to **Color Group** nodes
+- Add new colors to **Color** group nodes
   - **Gold Colors**
     - **Chaos Harvest**
   - **Titanium Colors**
@@ -161,7 +166,7 @@
 - Update `Base Color` and `IOR`
     - **Platinum**
     - **Zinc**
-- Bugfix: **Color Group** not connecting in Fresnel materials
+- Bugfix: **Color** group not connecting in Fresnel materials
     - **Copper (Fresnel)**
     - **Gold (Fresnel)**
     - **Silver (Fresnel)**
@@ -171,8 +176,8 @@
   - **Tin**
   - **Zinc**
 - Add **Displacement** to **Asphalt** and **Asphalt Bleached**
-- Add **Canisotrophy Group** with `To Roughness` output. This affects **Tin**.
-- Replace **Specular Group** with **Energy Conservation Group** (via [**Christopher 3D**](https://www.youtube.com/watch?v=kgORQ5tMe2I))
+- Add **Canisotrophy** group with `To Roughness` output. This affects **Tin**.
+- Replace **Specular** group with **Energy Conservation** group (via [**Christopher 3D**](https://www.youtube.com/watch?v=kgORQ5tMe2I))
   - Inputs
     - `IOR`
     - `Diffuse (Base)` Color
@@ -200,7 +205,7 @@
     - **Platinum**
     - **Silver**
     - **Titanium**
-  - Add new colors to **Color Group** nodes
+  - Add new colors to **Color** group nodes
     - **Copper Colors**
       - **PBM Copper**
     - **Gold Colors**
@@ -210,7 +215,7 @@
       - **PBM Silver**
   - Sort colors in **Color Groups**
     - All colors after **Base Name** color sorted from lightest to darkest
-  - Add **Color Group** nodes to Asset Browser file
+  - Add **Color** group nodes to Asset Browser file
     - **Colors Copper**
     - **Colors Gold**
     - **Colors Silver**
@@ -279,9 +284,9 @@
 
 ![Blender QMM Extended Color Groups](https://github.com/don1138/blender-qmm/blob/main/imx/qmm-color-groups.png)
 
-- Add new color to **Copper Color Node Group**
+- Add new color to **Copper Color Node** group
   - **Dontnod Copper** <!-- #FAD0C0 -->
-- Add **Titanium Color Node Group** with 7 color choices. This affects **Titanium**. <!-- https://www.color-name.com/search/titanium -->
+- Add **Titanium Color Node** group with 7 color choices. This affects **Titanium**. <!-- https://www.color-name.com/search/titanium -->
   - **Titanium** <!--#C1BAB1 -->
   - **Pale Titanium** <!--#CEC8C2 -->
   - **Dark Titanium** <!--#878681 -->
@@ -289,7 +294,7 @@
   - **Titanium White** <!--#F3F4F7 -->
   - **Titanium Frost** <!--#B0AFA9 -->
   - **Titanium Blue** <!--#5B798E -->
-- Add **Texturizer Node Group** with `Color` and `Normal` outputs. This affects **Titanium**.
+- Add **Texturizer Node** group with `Color` and `Normal` outputs. This affects **Titanium**.
 - Update  `Roughness` values
   - **Titanium**
 
@@ -302,7 +307,7 @@
 
 ### 1.3.6 <!-- 3/23/22 -->
 
-- Add new color to **Gold Color Node Group**
+- Add new color to **Gold Color Node** group
   - **Pirate Gold** <!-- #AE8403 -->
 
 ### 1.3.5 <!-- 3/14/22 -->
@@ -331,7 +336,7 @@
 ![Blender QMM Extended Color Groups](https://github.com/don1138/blender-qmm/blob/main/imx/qmm-extended-color-groups.png)
 
 - **Bugfix:** Change node group output type from `Float` to `Color`
-- Add **Gold Color Group** with 9 color choices. This affects **Gold**, **Pale Gold**, and **Gold (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Gold_(color) -->
+- Add **Gold Color** group with 9 color choices. This affects **Gold**, **Pale Gold**, and **Gold (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Gold_(color) -->
   - **Gold** <!-- #D4AF37 -->
   - **Pale Gold** <!-- #FFE39D -->
   - **Golden Gold** <!-- #FFD700 -->
@@ -341,7 +346,7 @@
   - **Crayola Gold** <!-- #E6BE8A -->
   - **Vegas Gold** <!-- #C5B358 -->
   - **Satin Sheen Gold** <!-- #CBA135 -->
-- Add **Silver Color Group** with 10 color choices. This affects **Silver Min**, **Silver Max**, **Pale Silver**, and **Silver (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Silver_(color) -->
+- Add **Silver Color** group with 10 color choices. This affects **Silver Min**, **Silver Max**, **Pale Silver**, and **Silver (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Silver_(color) -->
   - **Silver** <!--#AAA9AD -->
   - **Pale Silver** <!--#FCFAF5 -->
   - **Basic Silver** <!--#C0C0C0 -->
@@ -355,8 +360,8 @@
 
 ### 1.3.3 <!-- 12/30/21 -->
 
-- **Bugfix: Specular Group** was being added twice
-- Add **Copper Color Group** with 5 color choices. This affects **Copper Min**, **Copper Max**, and **Copper (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Copper_(color) -->
+- **Bugfix: Specular** group was being added twice
+- Add **Copper Color** group with 5 color choices. This affects **Copper Min**, **Copper Max**, and **Copper (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Copper_(color) -->
   - **Copper** <!-- #B87333 -->
   - **Pale Copper** <!-- #DA8A67 -->
   - **Copper Red** <!-- #CB6D51 -->
@@ -365,7 +370,7 @@
 
 ### 1.3.2 <!-- 12/29/21 -->
 
-- Combine `IOR/Specular` math nodes into **Specular Group**
+- Combine `IOR/Specular` math nodes into **Specular** group
 
 ### 1.3.1 <!-- 12/21/21 -->
 
