@@ -21,7 +21,7 @@ bl_info = {
     "name"       : "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
     "author"     : "Don Schnitzius",
-    "version"    : (1, 8, 2),
+    "version"    : (1, 9, 0),
     "blender"    : (3, 0, 0),
     "location"   : "3D Viewport > Sidebar > MAT > Quick Metal Materials",
     "warning"    : "",
@@ -142,6 +142,30 @@ class QMMPanelAlloy(bpy.types.Panel):
         row = layout.row()
         row.operator("shader.qmm_steel_operator", text='Steel')
 
+        row = layout.row()
+        row.operator("shader.qmm_carbon_steel_new_operator", text='Carbon Steel New')
+
+        row = layout.row()
+        row.operator("shader.qmm_carbon_steel_weathered_operator", text='Carbon Steel Weathered')
+
+        row = layout.row()
+        row.operator("shader.qmm_stainless_steel_304_operator", text='304 Common Stainless Steel')
+
+        row = layout.row()
+        row.operator("shader.qmm_stainless_steel_316_operator", text='316 High-Chromium Stainless Steel')
+
+        row = layout.row()
+        row.operator("shader.qmm_alloy_steel_4140_operator", text='4140 Alloy Steel (Cr-Mo)')
+
+        row = layout.row()
+        row.operator("shader.qmm_alloy_steel_4340_operator", text='4340 Alloy Steel (Ni-Cr-Mo)')
+
+        row = layout.row()
+        row.operator("shader.qmm_manganese_steel_operator", text='Manganese Steel')
+
+        row = layout.row()
+        row.operator("shader.qmm_galvanized_steel_operator", text='Galvanized Steel')
+
 
 # MINOR METALS PANEL
 class QMMPanelMinor(bpy.types.Panel):
@@ -167,6 +191,7 @@ class QMMPanelMinor(bpy.types.Panel):
 
         row = layout.row()
         row.operator("shader.qmm_titanium_p_operator", text='Titanium Polished')
+
         row = layout.row()
         row.operator("shader.qmm_titanium_operator", text='Titanium Textured')
 
@@ -278,6 +303,7 @@ from .mats.fresnel.FresnelCopper import *
 from .mats.fresnel.FresnelGold import *
 from .mats.fresnel.FresnelSilver import *
 from .mats.MakeMetal import *
+from .mats.MakeSteel import *
 from .mats.extras.Asphalt import *
 from .mats.extras.AsphaltBleached import *
 from .mats.extras.CarPaint import *
@@ -329,6 +355,14 @@ classes = [
     QMMTitaniumPolished,
     QMMZinc,
     QMMWallPaint,
+    QMMCarbonSteelNew,
+    QMMCarbonSteelWeathered,
+    QMMStainlessSteel304,
+    QMMStainlessSteel316,
+    QMMAlloySteel4140,
+    QMMAlloySteel4340,
+    QMMManganeseSteel,
+    QMMGalvanizedSteel,
     AnisotrophyXGroup,
     CanisotrophyGroup,
     EnergyConservationGroup,
