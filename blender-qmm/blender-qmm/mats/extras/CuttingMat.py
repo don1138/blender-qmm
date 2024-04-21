@@ -28,7 +28,7 @@ class QMMCuttingMat(bpy.types.Operator):
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         if m_cutting_mat := bpy.data.materials.get("QMM Rubber Cutting Mat"):
-            ShowMessageBox(message_text, "QMM Rubber Cutting Mat")
+            #ShowMessageBox(message_text, "QMM Rubber Cutting Mat")
             # print(f"QMM Rubber Cutting Mat already exists")
             bpy.context.object.active_material = m_cutting_mat
             return {'FINISHED'}

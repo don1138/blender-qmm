@@ -20,7 +20,7 @@ class QMMCarPaint(bpy.types.Operator):
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         if m_car_paint := bpy.data.materials.get("QMM Car Paint"):
-            ShowMessageBox(message_text, "QMM Car Paint")
+            #ShowMessageBox(message_text, "QMM Car Paint")
             bpy.context.object.active_material = m_car_paint
             return {'FINISHED'}
         else:
@@ -64,7 +64,7 @@ class QMMCarPaint(bpy.types.Operator):
         mf_group.node_tree = bpy.data.node_groups['Metal Flake']
         mf_group.location = (-600, -100)
         mf_group.width = 240
-        mf_group.inputs[0].default_value = 4000
+        mf_group.inputs[0].default_value = 4096
         mf_group.inputs[1].default_value = 0.25
 
         # Uneven Roughness Group

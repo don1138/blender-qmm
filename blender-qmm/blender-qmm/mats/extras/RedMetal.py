@@ -20,7 +20,7 @@ class QMMRedMetal(bpy.types.Operator):
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         if m_red_metal := bpy.data.materials.get("QMM Red Metal"):
-            ShowMessageBox(message_text, "QMM Red Metal")
+            #ShowMessageBox(message_text, "QMM Red Metal")
             bpy.context.object.active_material = m_red_metal
             return {'FINISHED'}
         else:

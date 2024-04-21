@@ -20,7 +20,7 @@ class QMMCinnabar(bpy.types.Operator):
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         if m_cinnabar := bpy.data.materials.get("QMM Cinnabar Lacquer"):
-            ShowMessageBox(message_text, "QMM Cinnabar Lacquer")
+            #ShowMessageBox(message_text, "QMM Cinnabar Lacquer")
             # print(f"QMM Cinnabar already exists")
             bpy.context.object.active_material = m_cinnabar
             return {'FINISHED'}

@@ -27,7 +27,7 @@ class QMMMithryl(bpy.types.Operator):
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         if m_mithryl := bpy.data.materials.get("QMM Mithryl"):
-            ShowMessageBox(message_text, "QMM Mithryl")
+            #ShowMessageBox(message_text, "QMM Mithryl")
             # print(f"QMM Mithryl already exists")
             bpy.context.object.active_material = m_mithryl
             return {'FINISHED'}

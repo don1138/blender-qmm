@@ -26,7 +26,7 @@ class QMMWallPaint(bpy.types.Operator):
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         if m_wall_paint := bpy.data.materials.get("QMM Wall Paint"):
-            ShowMessageBox(message_text, "QMM Wall Paint")
+            #ShowMessageBox(message_text, "QMM Wall Paint")
             # print(f"QMM Wall Paint already exists")
             bpy.context.object.active_material = m_wall_paint
             return {'FINISHED'}

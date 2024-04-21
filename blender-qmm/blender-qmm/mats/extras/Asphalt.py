@@ -39,7 +39,7 @@ class QMMAsphalt(bpy.types.Operator):
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         if m_asphalt := bpy.data.materials.get("QMM Asphalt"):
-            ShowMessageBox(message_text, "QMM Asphalt")
+            #ShowMessageBox(message_text, "QMM Asphalt")
             # print(f"QMM Asphalt already exists")
             bpy.context.object.active_material = m_asphalt
             return {'FINISHED'}

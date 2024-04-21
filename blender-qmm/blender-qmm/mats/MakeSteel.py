@@ -35,7 +35,7 @@ def make_steel(units):
 
     # DOES THE MATERIAL ALREADY EXIST?
     if m_name := bpy.data.materials.get(unit_value[1]):
-        ShowMessageBox(message_text, unit_value[1])
+        #ShowMessageBox(message_text, unit_value[1])
         bpy.context.object.active_material = m_name
         return {'FINISHED'}
     else:
@@ -191,3 +191,89 @@ class QMMGalvanizedSteel(bpy.types.Operator):
     def execute(self, context):
         make_steel(7)
         return {'FINISHED'}
+
+
+class QMMWeatheredSteel(bpy.types.Operator):
+    """Add/Apply Weathered Steel Material to Selected Object (or Scene)"""
+    bl_label = "QMM Weathered Steel Shader"
+    bl_idname = 'shader.qmm_weathered_steel_operator'
+
+    def execute(self, context):
+        # DOES THE MATERIAL ALREADY EXIST?
+        if m_weathered_steel := bpy.data.materials.get("QMM Weathered Steel"):
+            #ShowMessageBox(message_text, "QMM Weathered Steel")
+            # print(f"QMM Weathered Steel already exists")
+            bpy.context.object.active_material = m_weathered_steel
+            return {'FINISHED'}
+        else:
+            self.make_shader()
+        return {'FINISHED'}
+
+    def make_shader(self):
+        start = time.time()
+
+        # CreateShader
+        m_weathered_steel = bpy.data.materials.new(name="QMM Weathered Steel")
+        m_weathered_steel.use_nodes = True
+        m_weathered_steel.diffuse_color = (0.351531, 0.084376, 0.026241, 1)
+        m_weathered_steel.roughness = 0.7
+        m_weathered_steel.metallic = 1
+
+        nodes = m_weathered_steel.node_tree.nodes
+
+        # materialoutput
+        material_output = nodes.get('Material Output')
+        material_output.location = (0, 0)
+
+        # principledbsdf
+        BSDF = nodes.get('Principled BSDF')
+        BSDF.distribution = 'MULTI_GGX'
+        BSDF.location = (-300, 0)
+        BSDF.inputs[0].default_value = (0.351531, 0.084376, 0.026241, 1)
+        if bpy.app.version < (4, 0, 0):
+            BSDF.inputs[6].default_value = 1                    #Metallic
+            BSDF.inputs[9].default_value = 0.7                  #Roughness
+        else:
+            BSDF.inputs[1].default_value = 1                    #Metallic
+            BSDF.inputs[2].default_value = 0.7                  #Roughness
+        # BSDF.select = True
+
+        # colorramp
+        m_colorramp = nodes.new("ShaderNodeValToRGB")
+        m_colorramp.location = (-600, 0)
+        m_colorramp.color_ramp.interpolation = 'EASE'
+        # Ensure there are enough elements in the color ramp
+        while len(m_colorramp.color_ramp.elements) < 3:
+            m_colorramp.color_ramp.elements.new(0.0)
+        m_colorramp.color_ramp.elements[0].color = (0.564709, 0.201556, 0.149960, 1)
+        m_colorramp.color_ramp.elements[0].position = 0
+        m_colorramp.color_ramp.elements[1].color = (0.351531, 0.084376, 0.026241, 1)
+        m_colorramp.color_ramp.elements[1].position = 0.333
+        m_colorramp.color_ramp.elements[2].color = (0.158960, 0.076185, 0.045186, 1)
+        m_colorramp.color_ramp.elements[2].position = 1
+
+        # Uneven Roughness Group
+        bpy.ops.node.uneven_roughness_group_operator()
+        ur_group = nodes.new("ShaderNodeGroup")
+        ur_group.name = "Uneven Roughness"
+        ur_group.node_tree = bpy.data.node_groups['Uneven Roughness']
+        ur_group.location = (-800, -100)
+        ur_group.width = 140
+        ur_group.inputs[0].default_value = 0.5
+        ur_group.inputs[1].default_value = 0.9
+        ur_group.inputs[2].default_value = 4
+        ur_group.inputs[3].default_value = 0.5
+
+        links = m_weathered_steel.node_tree.links.new
+
+        links(m_colorramp.outputs[0], BSDF.inputs[0])
+        if bpy.app.version < (4, 0, 0):
+            links(ur_group.outputs[0], BSDF.inputs[9])
+        else:
+            links(ur_group.outputs[0], BSDF.inputs[2])
+        links(ur_group.outputs[1], m_colorramp.inputs[0])
+
+        bpy.context.object.active_material = m_weathered_steel
+
+        end = time.time()
+        print(f"QMM Weathered Steel: {end - start} seconds")

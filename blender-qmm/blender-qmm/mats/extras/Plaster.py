@@ -28,7 +28,7 @@ class QMMPlaster(bpy.types.Operator):
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         if m_plaster := bpy.data.materials.get("QMM Plaster"):
-            ShowMessageBox(message_text, "QMM Plaster")
+            #ShowMessageBox(message_text, "QMM Plaster")
             # print(f"QMM Plaster already exists")
             bpy.context.object.active_material = m_plaster
             return {'FINISHED'}

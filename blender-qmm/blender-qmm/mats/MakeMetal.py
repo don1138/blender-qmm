@@ -44,7 +44,7 @@ def make_metal(units):
 
     # DOES THE MATERIAL ALREADY EXIST?
     if m_name := bpy.data.materials.get(unit_value[1]):
-        ShowMessageBox(message_text, unit_value[1])
+        #ShowMessageBox(message_text, unit_value[1])
         bpy.context.object.active_material = m_name
         return {'FINISHED'}
     else:

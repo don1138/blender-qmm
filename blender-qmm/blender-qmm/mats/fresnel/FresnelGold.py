@@ -21,7 +21,7 @@ class QMMGoldFresnel(bpy.types.Operator):
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         if m_gold := bpy.data.materials.get("QMM Gold Fresnel"):
-            ShowMessageBox(message_text, "QMM Gold Fresnel")
+            #ShowMessageBox(message_text, "QMM Gold Fresnel")
             # print(f"QMM Gold Fresnel already exists")
             bpy.context.object.active_material = m_gold
             return {'FINISHED'}

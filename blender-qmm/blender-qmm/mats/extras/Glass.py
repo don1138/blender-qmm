@@ -28,7 +28,7 @@ class QMMGlass(bpy.types.Operator):
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         if m_glass := bpy.data.materials.get("QMM Glass"):
-            ShowMessageBox(message_text, "QMM Glass")
+            #ShowMessageBox(message_text, "QMM Glass")
             # print(f"QMM Glass already exists")
             bpy.context.object.active_material = m_glass
             return {'FINISHED'}

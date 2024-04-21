@@ -166,6 +166,9 @@ class QMMPanelAlloy(bpy.types.Panel):
         row = layout.row()
         row.operator("shader.qmm_galvanized_steel_operator", text='Galvanized Steel')
 
+        row = layout.row()
+        row.operator("shader.qmm_weathered_steel_operator", text='Weathered Steel')
+
 
 # MINOR METALS PANEL
 class QMMPanelMinor(bpy.types.Panel):
@@ -363,6 +366,7 @@ classes = [
     QMMAlloySteel4340,
     QMMManganeseSteel,
     QMMGalvanizedSteel,
+    QMMWeatheredSteel,
     AnisotrophyXGroup,
     CanisotrophyGroup,
     EnergyConservationGroup,
