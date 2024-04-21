@@ -17,35 +17,6 @@
 # ##### END GPL LICENSE BLOCK #####
 
 
-from .mats.extras.WallPaint import *
-from .mats.extras.Mithryl import *
-from .mats.extras.Plaster import *
-from .mats.extras.Glass import *
-from .mats.extras.CuttingMat import *
-from .mats.extras.Cinnabar import *
-from .mats.extras.CarPaint import *
-from .mats.extras.AsphaltBleached import *
-from .mats.extras.Asphalt import *
-from .mats.MakeSteel import *
-from .mats.MakeMetal import *
-from .mats.fresnel.FresnelSilver import *
-from .mats.fresnel.FresnelGold import *
-from .mats.fresnel.FresnelCopper import *
-from .mats.UnevenRoughness import *
-from .mats.Texturizer import *
-from .mats.SteelRoughness import *
-from .mats.Specular import *
-from .mats.MetalFlake import *
-from .mats.EnergyConservation import *
-from .mats.Canisotrophy import *
-from .mats.AnisotrophyX import *
-from .mats.TitaniumColors import *
-from .mats.SilverColors import *
-from .mats.GoldColors import *
-from .mats.CopperColors import *
-from . import addon_updater_ops
-from .localization import *
-import bpy
 bl_info = {
     "name": "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
@@ -60,7 +31,12 @@ bl_info = {
 }
 
 
+import bpy
+
+
 # Updater ops import, all setup in this file.
+from . import addon_updater_ops
+from .localization import *
 
 
 # PARENT PANEL
@@ -359,6 +335,34 @@ class AutoUpdaterPreferences(bpy.types.AddonPreferences):
 
         # Updater draw function, could also pass in col as third arg.
         addon_updater_ops.update_settings_ui(self, context)
+
+
+from .mats.MakeMetal import *
+from .mats.MakeSteel import *
+from .mats.extras.Asphalt import *
+from .mats.extras.AsphaltBleached import *
+from .mats.extras.CarPaint import *
+from .mats.extras.Cinnabar import *
+from .mats.extras.CuttingMat import *
+from .mats.extras.Glass import *
+from .mats.extras.Mithryl import *
+from .mats.extras.Plaster import *
+from .mats.extras.WallPaint import *
+from .mats.fresnel.FresnelCopper import *
+from .mats.fresnel.FresnelGold import *
+from .mats.fresnel.FresnelSilver import *
+from .mats.CopperColors import *
+from .mats.GoldColors import *
+from .mats.SilverColors import *
+from .mats.TitaniumColors import *
+from .mats.AnisotrophyX import *
+from .mats.Canisotrophy import *
+from .mats.EnergyConservation import *
+from .mats.MetalFlake import *
+from .mats.Specular import *
+from .mats.SteelRoughness import *
+from .mats.Texturizer import *
+from .mats.UnevenRoughness import *
 
 
 classes = [
