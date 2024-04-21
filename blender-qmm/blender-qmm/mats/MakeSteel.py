@@ -5,13 +5,24 @@ import time
 metal_values = [
     # {'dict_name': ['material_name', 'String Name', (color), roughness_min, roughness_max]},
     {'carbon_steel_new': ['m_carbon_steel_new', 'QMM Carbon Steel New', (0.351530, 0.351533, 0.396755, 1), 0.5, 0.8]},                              # 00
-    {'carbon_steel_weathered': ['m_carbon_steel_weathered', 'QMM Carbon Steel Weathered', (0.074213, 0.074214, 0.078187, 1), 0.5, 0.8]},            # 01
+    {'carbon_steel_weathering': ['m_carbon_steel_weathering', 'QMM Carbon Steel Weathering', (0.074213, 0.074214, 0.078187, 1), 0.5, 0.8]},         # 01
     {'stainless_steel_304': ['m_stainless_steel_304', 'QMM 304 Common Stainless Steel', (0.651402, 0.651406, 0.651406, 1), 0.1, 0.3]},              # 02
     {'stainless_steel_316': ['m_stainless_steel_316', 'QMM 316 High-Chromium Stainless Steel', (0.745399, 0.745405, 0.791298, 1), 0.05, 0.25]},     # 03
-    {'alloy_steel_4140': ['m_alloy_steel_4140', 'QMM 4140 Alloy Steel (Cr-Mo)', (0.215859, 0.215861, 0.215861, 1), 0.2, 0.3]},                      # 04
-    {'alloy_steel_4340': ['m_alloy_steel_4340', 'QMM 4340 Alloy Steel (Ni-Cr-Mo)', (0.351530, 0.351533, 0.396755, 1), 0.4, 0.5]},                    # 05
-    {'manganese_steel': ['m_manganese_steel', 'QMM Manganese Steel', (0.162028, 0.162030, 0.162029, 1), 0.5, 0.7]},                                 # 06
-    {'galvanized_steel': ['m_galvanized_steel', 'QMM Galvanized Steel', (0.651402, 0.651406, 0.651406, 1), 0.3, 0.5]},                              # 07
+    {'alloy_steel_4140': ['m_alloy_steel_4140', 'QMM 4140 Alloy Steel', (0.215859, 0.215861, 0.215861, 1), 0.2, 0.3]},                      # 04
+    {'alloy_steel_4340': ['m_alloy_steel_4340', 'QMM 4340 Alloy Steel', (0.351530, 0.351533, 0.396755, 1), 0.4, 0.5]},                   # 05
+    {'case_hardened_steel_a': ['m_case_hardened_steel_a', 'QMM Case-Hardened Steel A', (0.054480, 0.049707, 0.048172, 1), 0.2, 0.3]},               # 06
+    {'case_hardened_steel_b': ['m_case_hardened_steel_b', 'QMM Case-Hardened Steel B', (0.102241, 0.090842, 0.074214, 1), 0.4, 0.5]},               # 07
+    {'manganese_steel': ['m_manganese_steel', 'QMM Manganese Steel', (0.162028, 0.162030, 0.162029, 1), 0.5, 0.7]},                                 # 08
+    {'tool_steel': ['m_tool_steel', 'QMM Tool Steel', (0.056128, 0.061246, 0.070360, 1), 0.3, 0.5]},                                                # 09
+    {'spring_steel': ['m_spring_steel', 'QMM Spring Steel', (0.215859, 0.215861, 0.215861, 1), 0.3, 0.5]},                                          # 10
+    {'structural_steel': ['m_structural_steel', 'QMM Structural Steel', (0.155925, 0.155927, 0.155927, 1), 0.2, 0.4]},                              # 11
+    {'a36_structural_steel': ['m_a36_structural_steel', 'QMM A36 Structural Steel', (0.212229, 0.212231, 0.212231, 1), 0.2, 0.4]},                  # 12
+    {'a572_structural_steel': ['m_a572_structural_steel', 'QMM A572 Structural Steel', (0.165131, 0.165132, 0.165132, 1), 0.2, 0.4]},               # 13
+    {'hsla_steel': ['m_hsla_steel', 'QMM HSLA Steel', (0.223227, 0.223228, 0.223228, 1), 0.2, 0.4]},                                                # 14
+    {'maraging_steel': ['m_maraging_steel', 'QMM Maraging Steel', (0.152925, 0.152926, 0.152926, 1), 0.2, 0.4]},                                    # 15
+    {'virgin_weathering_steel': ['m_virgin_weathering_steel', 'QMM Virgin Weathering Steel', (0.230739, 0.230740, 0.230740, 1), 0.2, 0.4]},         # 16
+    {'free_machining_steel': ['m_free_machining_steel', 'QMM Free-Machining Steel', (0.262249, 0.262251, 0.262251, 1), 0.3, 0.5]},                  # 17
+    {'galvanized_steel': ['m_galvanized_steel', 'QMM Galvanized Steel', (0.651402, 0.651406, 0.651406, 1), 0.3, 0.5]},                              # 18
 ]
 
 
@@ -35,7 +46,7 @@ def make_steel(units):
 
     # DOES THE MATERIAL ALREADY EXIST?
     if m_name := bpy.data.materials.get(unit_value[1]):
-        #ShowMessageBox(message_text, unit_value[1])
+        # #ShowMessageBox(message_text, unit_value[1])
         bpy.context.object.active_material = m_name
         return {'FINISHED'}
     else:
@@ -115,7 +126,7 @@ def make_shader(units):
 
 class QMMCarbonSteelNew(bpy.types.Operator):
     """Add/Apply Carbon Steel New Material to Selected Object (or Scene)"""
-    bl_label = "QMM Carbon Steel New Shader"
+    bl_label = "QMM Carbon Steel New"
     bl_idname = 'shader.qmm_carbon_steel_new_operator'
 
     def execute(self, context):
@@ -123,10 +134,10 @@ class QMMCarbonSteelNew(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class QMMCarbonSteelWeathered(bpy.types.Operator):
-    """Add/Apply Carbon Steel Weathered Material to Selected Object (or Scene)"""
-    bl_label = "QMM Carbon Steel Weathered Shader"
-    bl_idname = 'shader.qmm_carbon_steel_weathered_operator'
+class QMMCarbonSteelWeathering(bpy.types.Operator):
+    """Add/Apply Carbon Steel Weathering Material to Selected Object (or Scene)"""
+    bl_label = "QMM Carbon Steel Weathering"
+    bl_idname = 'shader.qmm_carbon_steel_weathering_operator'
 
     def execute(self, context):
         make_steel(1)
@@ -135,7 +146,7 @@ class QMMCarbonSteelWeathered(bpy.types.Operator):
 
 class QMMStainlessSteel304(bpy.types.Operator):
     """Add/Apply Stainless Steel 304 Material to Selected Object (or Scene)"""
-    bl_label = "QMM 304 Common Stainless Steel Shader"
+    bl_label = "QMM 304 Common Stainless Steel"
     bl_idname = 'shader.qmm_stainless_steel_304_operator'
 
     def execute(self, context):
@@ -145,7 +156,7 @@ class QMMStainlessSteel304(bpy.types.Operator):
 
 class QMMStainlessSteel316(bpy.types.Operator):
     """Add/Apply Stainless Steel 316 Material to Selected Object (or Scene)"""
-    bl_label = "QMM 316 High-Chromium Stainless Steel Shader"
+    bl_label = "QMM 316 High-Chromium Stainless Steel"
     bl_idname = 'shader.qmm_stainless_steel_316_operator'
 
     def execute(self, context):
@@ -155,7 +166,7 @@ class QMMStainlessSteel316(bpy.types.Operator):
 
 class QMMAlloySteel4140(bpy.types.Operator):
     """Add/Apply Alloy Steel 4140 Material to Selected Object (or Scene)"""
-    bl_label = "QMM 4140 Alloy Steel (Cr-Mo) Shader"
+    bl_label = "QMM 4140 Alloy Steel (Cr-Mo)"
     bl_idname = 'shader.qmm_alloy_steel_4140_operator'
 
     def execute(self, context):
@@ -165,7 +176,7 @@ class QMMAlloySteel4140(bpy.types.Operator):
 
 class QMMAlloySteel4340(bpy.types.Operator):
     """Add/Apply Alloy Steel 4340 Material to Selected Object (or Scene)"""
-    bl_label = "QMM 4340 Alloy Steel (Ni-Cr-Mo) Shader"
+    bl_label = "QMM 4340 Alloy Steel (Ni-Cr-Mo)"
     bl_idname = 'shader.qmm_alloy_steel_4340_operator'
 
     def execute(self, context):
@@ -173,37 +184,147 @@ class QMMAlloySteel4340(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class QMMManganeseSteel(bpy.types.Operator):
-    """Add/Apply Manganese Steel Material to Selected Object (or Scene)"""
-    bl_label = "QMM Manganese Steel Shader"
-    bl_idname = 'shader.qmm_manganese_steel_operator'
+class QMMCaseHardenedSteelA(bpy.types.Operator):
+    """Add/Apply Case-Hardened Steel A Material to Selected Object (or Scene)"""
+    bl_label = "QMM Case-Hardened Steel A"
+    bl_idname = 'shader.qmm_case_hardened_steel_a_operator'
 
     def execute(self, context):
         make_steel(6)
         return {'FINISHED'}
 
 
-class QMMGalvanizedSteel(bpy.types.Operator):
-    """Add/Apply Galvanized Steel Material to Selected Object (or Scene)"""
-    bl_label = "QMM Galvanized Steel Shader"
-    bl_idname = 'shader.qmm_galvanized_steel_operator'
+class QMMCaseHardenedSteelB(bpy.types.Operator):
+    """Add/Apply Case-Hardened Steel B Material to Selected Object (or Scene)"""
+    bl_label = "QMM Case-Hardened Steel B"
+    bl_idname = 'shader.qmm_case_hardened_steel_b_operator'
 
     def execute(self, context):
         make_steel(7)
         return {'FINISHED'}
 
 
-class QMMWeatheredSteel(bpy.types.Operator):
-    """Add/Apply Weathered Steel Material to Selected Object (or Scene)"""
-    bl_label = "QMM Weathered Steel Shader"
-    bl_idname = 'shader.qmm_weathered_steel_operator'
+class QMMManganeseSteel(bpy.types.Operator):
+    """Add/Apply Manganese Steel Material to Selected Object (or Scene)"""
+    bl_label = "QMM Manganese Steel"
+    bl_idname = 'shader.qmm_manganese_steel_operator'
+
+    def execute(self, context):
+        make_steel(8)
+        return {'FINISHED'}
+
+
+class QMMToolSteel(bpy.types.Operator):
+    """Add/Apply Tool Steel Material to Selected Object (or Scene)"""
+    bl_label = "QMM Tool Steel"
+    bl_idname = 'shader.qmm_tool_steel_operator'
+
+    def execute(self, context):
+        make_steel(9)
+        return {'FINISHED'}
+
+
+class QMMSpringSteel(bpy.types.Operator):
+    """Add/Apply Spring Steel Material to Selected Object (or Scene)"""
+    bl_label = "QMM Spring Steel"
+    bl_idname = 'shader.qmm_spring_steel_operator'
+
+    def execute(self, context):
+        make_steel(10)
+        return {'FINISHED'}
+
+
+class QMMStructuralSteel(bpy.types.Operator):
+    """Add/Apply Structural Steel Material to Selected Object (or Scene)"""
+    bl_label = "QMM Structural Steel"
+    bl_idname = 'shader.qmm_structural_steel_operator'
+
+    def execute(self, context):
+        make_steel(11)
+        return {'FINISHED'}
+
+
+class QMMA36StructuralSteel(bpy.types.Operator):
+    """Add/Apply A36 Structural Steel Material to Selected Object (or Scene)"""
+    bl_label = "QMM A36 Structural Steel"
+    bl_idname = 'shader.qmm_a36_structural_steel_operator'
+
+    def execute(self, context):
+        make_steel(12)
+        return {'FINISHED'}
+
+
+class QMMA572StructuralSteel(bpy.types.Operator):
+    """Add/Apply A572 Structural Steel Material to Selected Object (or Scene)"""
+    bl_label = "QMM A572 Structural Steel"
+    bl_idname = 'shader.qmm_a572_structural_steel_operator'
+
+    def execute(self, context):
+        make_steel(13)
+        return {'FINISHED'}
+
+
+class QMMHSLASteel(bpy.types.Operator):
+    """Add/Apply HSLA Steel Material to Selected Object (or Scene)"""
+    bl_label = "QMM HSLA Steel"
+    bl_idname = 'shader.qmm_hsla_steel_operator'
+
+    def execute(self, context):
+        make_steel(14)
+        return {'FINISHED'}
+
+
+class QMMMaragingSteel(bpy.types.Operator):
+    """Add/Apply Maraging Steel Material to Selected Object (or Scene)"""
+    bl_label = "QMM Maraging Steel"
+    bl_idname = 'shader.qmm_maraging_steel_operator'
+
+    def execute(self, context):
+        make_steel(15)
+        return {'FINISHED'}
+
+
+class QMMVirginWeatheringSteel(bpy.types.Operator):
+    """Add/Apply Virgin Weathering Steel Material to Selected Object (or Scene)"""
+    bl_label = "QMM Virgin Weathering Steel"
+    bl_idname = 'shader.qmm_virgin_weathering_steel_operator'
+
+    def execute(self, context):
+        make_steel(16)
+        return {'FINISHED'}
+
+
+class QMMFreeMachiningSteel(bpy.types.Operator):
+    """Add/Apply Free-Machining Steel Material to Selected Object (or Scene)"""
+    bl_label = "QMM Free-Machining Steel"
+    bl_idname = 'shader.qmm_free_machining_steel_operator'
+
+    def execute(self, context):
+        make_steel(17)
+        return {'FINISHED'}
+
+
+class QMMGalvanizedSteel(bpy.types.Operator):
+    """Add/Apply Galvanized Steel Material to Selected Object (or Scene)"""
+    bl_label = "QMM Galvanized Steel"
+    bl_idname = 'shader.qmm_galvanized_steel_operator'
+
+    def execute(self, context):
+        make_steel(18)
+        return {'FINISHED'}
+
+
+class QMMWeatheringSteel(bpy.types.Operator):
+    """Add/Apply Weathering Steel Material to Selected Object (or Scene)"""
+    bl_label = "QMM Weathering Steel"
+    bl_idname = 'shader.qmm_weathering_steel_operator'
 
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
-        if m_weathered_steel := bpy.data.materials.get("QMM Weathered Steel"):
-            #ShowMessageBox(message_text, "QMM Weathered Steel")
-            # print(f"QMM Weathered Steel already exists")
-            bpy.context.object.active_material = m_weathered_steel
+        if m_weathering_steel := bpy.data.materials.get("QMM Weathering Steel"):
+            #ShowMessageBox(message_text, "QMM Weathering Steel")
+            # print(f"QMM Weathering Steel already exists")
+            bpy.context.object.active_material = m_weathering_steel
             return {'FINISHED'}
         else:
             self.make_shader()
@@ -213,13 +334,13 @@ class QMMWeatheredSteel(bpy.types.Operator):
         start = time.time()
 
         # CreateShader
-        m_weathered_steel = bpy.data.materials.new(name="QMM Weathered Steel")
-        m_weathered_steel.use_nodes = True
-        m_weathered_steel.diffuse_color = (0.351531, 0.084376, 0.026241, 1)
-        m_weathered_steel.roughness = 0.7
-        m_weathered_steel.metallic = 1
+        m_weathering_steel = bpy.data.materials.new(name="QMM Weathering Steel")
+        m_weathering_steel.use_nodes = True
+        m_weathering_steel.diffuse_color = (0.351531, 0.084376, 0.026241, 1)
+        m_weathering_steel.roughness = 0.7
+        m_weathering_steel.metallic = 1
 
-        nodes = m_weathered_steel.node_tree.nodes
+        nodes = m_weathering_steel.node_tree.nodes
 
         # materialoutput
         material_output = nodes.get('Material Output')
@@ -264,7 +385,7 @@ class QMMWeatheredSteel(bpy.types.Operator):
         ur_group.inputs[2].default_value = 4
         ur_group.inputs[3].default_value = 0.5
 
-        links = m_weathered_steel.node_tree.links.new
+        links = m_weathering_steel.node_tree.links.new
 
         links(m_colorramp.outputs[0], BSDF.inputs[0])
         if bpy.app.version < (4, 0, 0):
@@ -273,7 +394,7 @@ class QMMWeatheredSteel(bpy.types.Operator):
             links(ur_group.outputs[0], BSDF.inputs[2])
         links(ur_group.outputs[1], m_colorramp.inputs[0])
 
-        bpy.context.object.active_material = m_weathered_steel
+        bpy.context.object.active_material = m_weathering_steel
 
         end = time.time()
-        print(f"QMM Weathered Steel: {end - start} seconds")
+        print(f"QMM Weathering Steel: {end - start} seconds")

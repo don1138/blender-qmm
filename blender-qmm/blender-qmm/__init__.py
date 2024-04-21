@@ -17,26 +17,50 @@
 # ##### END GPL LICENSE BLOCK #####
 
 
+from .mats.extras.WallPaint import *
+from .mats.extras.Mithryl import *
+from .mats.extras.Plaster import *
+from .mats.extras.Glass import *
+from .mats.extras.CuttingMat import *
+from .mats.extras.Cinnabar import *
+from .mats.extras.CarPaint import *
+from .mats.extras.AsphaltBleached import *
+from .mats.extras.Asphalt import *
+from .mats.MakeSteel import *
+from .mats.MakeMetal import *
+from .mats.fresnel.FresnelSilver import *
+from .mats.fresnel.FresnelGold import *
+from .mats.fresnel.FresnelCopper import *
+from .mats.UnevenRoughness import *
+from .mats.Texturizer import *
+from .mats.SteelRoughness import *
+from .mats.Specular import *
+from .mats.MetalFlake import *
+from .mats.EnergyConservation import *
+from .mats.Canisotrophy import *
+from .mats.AnisotrophyX import *
+from .mats.TitaniumColors import *
+from .mats.SilverColors import *
+from .mats.GoldColors import *
+from .mats.CopperColors import *
+from . import addon_updater_ops
+from .localization import *
+import bpy
 bl_info = {
-    "name"       : "QMM (Quick Metal Materials)",
+    "name": "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
-    "author"     : "Don Schnitzius",
-    "version"    : (1, 9, 0),
-    "blender"    : (3, 0, 0),
-    "location"   : "3D Viewport > Sidebar > MAT > Quick Metal Materials",
-    "warning"    : "",
-    "doc_url"    : "https://github.com/don1138/blender-qmm",
-    "support"    : "COMMUNITY",
-    "category"   : "Material"
+    "author": "Don Schnitzius",
+    "version": (1, 9, 0),
+    "blender": (3, 0, 0),
+    "location": "3D Viewport > Sidebar > MAT > Quick Metal Materials",
+    "warning": "",
+    "doc_url": "https://github.com/don1138/blender-qmm",
+    "support": "COMMUNITY",
+    "category": "Material"
 }
 
 
-import bpy
-
-
 # Updater ops import, all setup in this file.
-from .localization import *
-from . import addon_updater_ops
 
 
 # PARENT PANEL
@@ -53,13 +77,13 @@ class QMMPanel(bpy.types.Panel):
 
 # NOBLE METALS PANEL
 class QMMPanelNoble(bpy.types.Panel):
-    bl_idname      = "QMM_PT_Panel_Noble"
-    bl_label       = 'Noble Metals'
-    bl_space_type  = "VIEW_3D"
+    bl_idname = "QMM_PT_Panel_Noble"
+    bl_label = 'Noble Metals'
+    bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category    = "MAT"
-    bl_parent_id   = 'QMM_PT_Panel'
-    bl_options     = {'DEFAULT_CLOSED'}
+    bl_category = "MAT"
+    bl_parent_id = 'QMM_PT_Panel'
+    bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
         layout = self.layout
@@ -88,13 +112,13 @@ class QMMPanelNoble(bpy.types.Panel):
 
 # BASE METALS PANEL
 class QMMPanelBase(bpy.types.Panel):
-    bl_idname      = "QMM_PT_Panel_Base"
-    bl_label       = 'Base Metals'
-    bl_space_type  = "VIEW_3D"
+    bl_idname = "QMM_PT_Panel_Base"
+    bl_label = 'Base Metals'
+    bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category    = "MAT"
-    bl_parent_id   = 'QMM_PT_Panel'
-    bl_options     = {'DEFAULT_CLOSED'}
+    bl_category = "MAT"
+    bl_parent_id = 'QMM_PT_Panel'
+    bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
         layout = self.layout
@@ -122,13 +146,13 @@ class QMMPanelBase(bpy.types.Panel):
 
 # ALLOY METALS PANEL
 class QMMPanelAlloy(bpy.types.Panel):
-    bl_idname      = "QMM_PT_Panel_Alloy"
-    bl_label       = 'Alloys'
-    bl_space_type  = "VIEW_3D"
+    bl_idname = "QMM_PT_Panel_Alloy"
+    bl_label = 'Alloys'
+    bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category    = "MAT"
-    bl_parent_id   = 'QMM_PT_Panel'
-    bl_options     = {'DEFAULT_CLOSED'}
+    bl_category = "MAT"
+    bl_parent_id = 'QMM_PT_Panel'
+    bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
         layout = self.layout
@@ -141,6 +165,20 @@ class QMMPanelAlloy(bpy.types.Panel):
 
         row = layout.row()
         row.operator("shader.qmm_steel_operator", text='Steel')
+
+
+# STEEL METALS PANEL
+class QMMPanelSteel(bpy.types.Panel):
+    bl_idname = "QMM_PT_Panel_ASteel"
+    bl_label = 'More Steel'
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category = "MAT"
+    bl_parent_id = 'QMM_PT_Panel'
+    bl_options = {'DEFAULT_CLOSED'}
+
+    def draw(self, context):
+        layout = self.layout
 
         row = layout.row()
         row.operator("shader.qmm_carbon_steel_new_operator", text='Carbon Steel New')
@@ -155,30 +193,63 @@ class QMMPanelAlloy(bpy.types.Panel):
         row.operator("shader.qmm_stainless_steel_316_operator", text='316 High-Chromium Stainless Steel')
 
         row = layout.row()
-        row.operator("shader.qmm_alloy_steel_4140_operator", text='4140 Alloy Steel (Cr-Mo)')
+        row.operator("shader.qmm_alloy_steel_4140_operator", text='4140 Alloy Steel')
 
         row = layout.row()
-        row.operator("shader.qmm_alloy_steel_4340_operator", text='4340 Alloy Steel (Ni-Cr-Mo)')
+        row.operator("shader.qmm_alloy_steel_4340_operator", text='4340 Alloy Steel')
+
+        row = layout.row()
+        row.operator("shader.qmm_case_hardened_steel_a_operator", text='Case-Hardened Steel A')
+
+        row = layout.row()
+        row.operator("shader.qmm_case_hardened_steel_b_operator", text='Case-Hardened Steel B')
 
         row = layout.row()
         row.operator("shader.qmm_manganese_steel_operator", text='Manganese Steel')
 
         row = layout.row()
+        row.operator("shader.qmm_tool_steel_operator", text='Tool Steel')
+
+        row = layout.row()
+        row.operator("shader.qmm_spring_steel_operator", text='Spring Steel')
+
+        row = layout.row()
+        row.operator("shader.qmm_structural_steel_operator", text='Structural Steel')
+
+        row = layout.row()
+        row.operator("shader.qmm_a36_structural_steel_operator", text='A36 Structural Steel')
+
+        row = layout.row()
+        row.operator("shader.qmm_a572_structural_steel_operator", text='A572 Structural Steel')
+
+        row = layout.row()
+        row.operator("shader.qmm_hsla_steel_operator", text='HSLA Steel')
+
+        row = layout.row()
+        row.operator("shader.qmm_maraging_steel_operator", text='Maraging Steel')
+
+        row = layout.row()
+        row.operator("shader.qmm_free_machining_steel_operator", text='Free-Machining Steel')
+
+        row = layout.row()
         row.operator("shader.qmm_galvanized_steel_operator", text='Galvanized Steel')
 
         row = layout.row()
-        row.operator("shader.qmm_weathered_steel_operator", text='Weathered Steel')
+        row.operator("shader.qmm_weathering_steel_operator", text='Weathering Steel')
+
+        row = layout.row()
+        row.operator("shader.qmm_virgin_weathering_steel_operator", text='Virgin Weathering Steel')
 
 
 # MINOR METALS PANEL
 class QMMPanelMinor(bpy.types.Panel):
-    bl_idname      = "QMM_PT_Panel_Minor"
-    bl_label       = 'Minor Metals'
-    bl_space_type  = "VIEW_3D"
+    bl_idname = "QMM_PT_Panel_Minor"
+    bl_label = 'Minor Metals'
+    bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category    = "MAT"
-    bl_parent_id   = 'QMM_PT_Panel'
-    bl_options     = {'DEFAULT_CLOSED'}
+    bl_category = "MAT"
+    bl_parent_id = 'QMM_PT_Panel'
+    bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
         layout = self.layout
@@ -201,13 +272,13 @@ class QMMPanelMinor(bpy.types.Panel):
 
 # EXTRAS PANEL
 class QMMPanelExtras(bpy.types.Panel):
-    bl_idname      = "QMM_PT_Panel_Extras"
-    bl_label       = 'Extras'
-    bl_space_type  = "VIEW_3D"
+    bl_idname = "QMM_PT_Panel_Extras"
+    bl_label = 'Extras'
+    bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category    = "MAT"
-    bl_parent_id   = 'QMM_PT_Panel'
-    bl_options     = {'DEFAULT_CLOSED'}
+    bl_category = "MAT"
+    bl_parent_id = 'QMM_PT_Panel'
+    bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
         layout = self.layout
@@ -290,39 +361,12 @@ class AutoUpdaterPreferences(bpy.types.AddonPreferences):
         addon_updater_ops.update_settings_ui(self, context)
 
 
-from .mats.CopperColors import *
-from .mats.GoldColors import *
-from .mats.SilverColors import *
-from .mats.TitaniumColors import *
-from .mats.AnisotrophyX import *
-from .mats.Canisotrophy import *
-from .mats.EnergyConservation import *
-from .mats.MetalFlake import *
-from .mats.Specular import *
-from .mats.SteelRoughness import *
-from .mats.Texturizer import *
-from .mats.UnevenRoughness import *
-from .mats.fresnel.FresnelCopper import *
-from .mats.fresnel.FresnelGold import *
-from .mats.fresnel.FresnelSilver import *
-from .mats.MakeMetal import *
-from .mats.MakeSteel import *
-from .mats.extras.Asphalt import *
-from .mats.extras.AsphaltBleached import *
-from .mats.extras.CarPaint import *
-from .mats.extras.Cinnabar import *
-from .mats.extras.CuttingMat import *
-from .mats.extras.Glass import *
-from .mats.extras.Plaster import *
-from .mats.extras.Mithryl import *
-from .mats.extras.WallPaint import *
-
-
 classes = [
     QMMPanel,
     QMMPanelNoble,
     QMMPanelBase,
     QMMPanelAlloy,
+    QMMPanelSteel,
     QMMPanelMinor,
     QMMPanelExtras,
     AutoUpdaterPreferences,
@@ -364,9 +408,20 @@ classes = [
     QMMStainlessSteel316,
     QMMAlloySteel4140,
     QMMAlloySteel4340,
+    QMMCaseHardenedSteelA,
+    QMMCaseHardenedSteelB,
     QMMManganeseSteel,
+    QMMToolSteel,
+    QMMSpringSteel,
+    QMMStructuralSteel,
+    QMMA36StructuralSteel,
+    QMMA572StructuralSteel,
+    QMMHSLASteel,
+    QMMMaragingSteel,
+    QMMVirginWeatheringSteel,
+    QMMFreeMachiningSteel,
     QMMGalvanizedSteel,
-    QMMWeatheredSteel,
+    QMMWeatheringSteel,
     AnisotrophyXGroup,
     CanisotrophyGroup,
     EnergyConservationGroup,

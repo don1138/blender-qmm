@@ -1,3 +1,30 @@
+### 1.9.0 <!-- 04/20/24 -->
+- Add new category **More Steel**
+- Add new materials
+  - **QMM Carbon Steel New**
+  - **QMM Carbon Steel Weathering**
+  - **QMM 304 Common Stainless Steel**
+  - **QMM 316 High-Chromium Stainless Steel**
+  - **QMM 4140 Alloy Steel**
+  - **QMM 4340 Alloy Steel**
+  - **QMM Case-Hardened Steel A**
+  - **QMM Case-Hardened Steel B**
+  - **QMM Manganese Steel**
+  - **QMM Tool Steel**
+  - **QMM Spring Steel**
+  - **QMM Structural Steel**
+  - **QMM A36 Structural Steel**
+  - **QMM A572 Structural Steel**
+  - **QMM HSLA Steel**
+  - **QMM Maraging Steel**
+  - **QMM Free-Machining Steel**
+  - **QMM Galvanized Steel**
+  - **QMM Weathering Steel**
+  - **QMM Virgin Weathering Steel**
+- Update **Car Paint**
+  - Change `Metal Flake > Scale` to `4096`
+- Disable `This material already exists` alert
+
 ### 1.8.2 <!-- 03/29/24 -->
 - Update **Metal Flake** group
   - Add `Blue Mask` output
