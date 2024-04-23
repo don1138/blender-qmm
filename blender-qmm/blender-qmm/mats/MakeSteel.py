@@ -105,7 +105,7 @@ def make_shader(units):
     else:
         links(ur_group.outputs[0], BSDF.inputs[2])
 
-    if units == 7:
+    if units == 18:
         # Metal Flake Group
         bpy.ops.node.metal_flake_group_operator()
         mf_group = nodes.new("ShaderNodeGroup")
