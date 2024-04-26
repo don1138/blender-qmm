@@ -1,3 +1,13 @@
+### 1.9.1 <!-- 04/25/24 -->
+- Add new materials
+  - **QMM High-Alloy Stainless Steel**
+  - **QMM Nickel-Vanadium Steel**
+- Change **QMM Carbon Steel New** `Roughness` range to `0.2 - 0.4`
+- Remove category **More Steel** and move materials into new **Alloys** sub-categories
+  - **Carbon Steel**
+  - **Stainless Steel**
+  - **Alloy Steel**
+  - **Specialty Steel**
 ### 1.9.0 <!-- 04/20/24 -->
 - Add new category **More Steel**
 - Add new materials
