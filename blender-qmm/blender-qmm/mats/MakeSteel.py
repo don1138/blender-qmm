@@ -4,25 +4,27 @@ import time
 
 metal_values = [
     # {'dict_name': ['material_name', 'String Name', (color), roughness_min, roughness_max]},
-    {'carbon_steel_new': ['m_carbon_steel_new', 'QMM Carbon Steel New', (0.351530, 0.351533, 0.396755, 1), 0.5, 0.8]},                              # 00
-    {'carbon_steel_weathered': ['m_carbon_steel_weathered', 'QMM Carbon Steel Weathered', (0.074213, 0.074214, 0.078187, 1), 0.5, 0.8]},            # 01
-    {'stainless_steel_304': ['m_stainless_steel_304', 'QMM 304 Common Stainless Steel', (0.651402, 0.651406, 0.651406, 1), 0.1, 0.3]},              # 02
-    {'stainless_steel_316': ['m_stainless_steel_316', 'QMM 316 High-Chromium Stainless Steel', (0.745399, 0.745405, 0.791298, 1), 0.05, 0.25]},     # 03
-    {'alloy_steel_4140': ['m_alloy_steel_4140', 'QMM 4140 Alloy Steel', (0.215859, 0.215861, 0.215861, 1), 0.2, 0.3]},                              # 04
-    {'alloy_steel_4340': ['m_alloy_steel_4340', 'QMM 4340 Alloy Steel', (0.351530, 0.351533, 0.396755, 1), 0.4, 0.5]},                              # 05
-    {'case_hardened_steel_a': ['m_case_hardened_steel_a', 'QMM Case-Hardened Steel A', (0.054480, 0.049707, 0.048172, 1), 0.2, 0.3]},               # 06
-    {'case_hardened_steel_b': ['m_case_hardened_steel_b', 'QMM Case-Hardened Steel B', (0.102241, 0.090842, 0.074214, 1), 0.4, 0.5]},               # 07
-    {'manganese_steel': ['m_manganese_steel', 'QMM Manganese Steel', (0.162028, 0.162030, 0.162029, 1), 0.5, 0.7]},                                 # 08
-    {'tool_steel': ['m_tool_steel', 'QMM Tool Steel', (0.056128, 0.061246, 0.070360, 1), 0.3, 0.5]},                                                # 09
-    {'spring_steel': ['m_spring_steel', 'QMM Spring Steel', (0.215859, 0.215861, 0.215861, 1), 0.3, 0.5]},                                          # 10
-    {'structural_steel': ['m_structural_steel', 'QMM Structural Steel', (0.155925, 0.155927, 0.155927, 1), 0.2, 0.4]},                              # 11
-    {'a36_structural_steel': ['m_a36_structural_steel', 'QMM A36 Structural Steel', (0.212229, 0.212231, 0.212231, 1), 0.2, 0.4]},                  # 12
-    {'a572_structural_steel': ['m_a572_structural_steel', 'QMM A572 Structural Steel', (0.165131, 0.165132, 0.165132, 1), 0.2, 0.4]},               # 13
-    {'hsla_steel': ['m_hsla_steel', 'QMM HSLA Steel', (0.223227, 0.223228, 0.223228, 1), 0.2, 0.4]},                                                # 14
-    {'maraging_steel': ['m_maraging_steel', 'QMM Maraging Steel', (0.152925, 0.152926, 0.152926, 1), 0.2, 0.4]},                                    # 15
-    {'virgin_weathering_steel': ['m_virgin_weathering_steel', 'QMM Virgin Weathering Steel', (0.230739, 0.230740, 0.230740, 1), 0.2, 0.4]},         # 16
-    {'free_machining_steel': ['m_free_machining_steel', 'QMM Free-Machining Steel', (0.262249, 0.262251, 0.262251, 1), 0.3, 0.5]},                  # 17
-    {'galvanized_steel': ['m_galvanized_steel', 'QMM Galvanized Steel', (0.651402, 0.651406, 0.651406, 1), 0.3, 0.5]},                              # 18
+    {'carbon_steel_new': ['m_carbon_steel_new', 'QMM Carbon Steel New', (0.351530, 0.351533, 0.396755, 1), 0.2, 0.4]},                                # 00
+    {'carbon_steel_weathered': ['m_carbon_steel_weathered', 'QMM Carbon Steel Weathered', (0.074213, 0.074214, 0.078187, 1), 0.5, 0.8]},              # 01
+    {'stainless_steel_304': ['m_stainless_steel_304', 'QMM 304 Common Stainless Steel', (0.651402, 0.651406, 0.651406, 1), 0.1, 0.3]},                # 02
+    {'stainless_steel_316': ['m_stainless_steel_316', 'QMM 316 High-Chromium Stainless Steel', (0.745399, 0.745405, 0.791298, 1), 0.05, 0.25]},       # 03
+    {'alloy_steel_4140': ['m_alloy_steel_4140', 'QMM 4140 Alloy Steel', (0.215859, 0.215861, 0.215861, 1), 0.2, 0.3]},                                # 04
+    {'alloy_steel_4340': ['m_alloy_steel_4340', 'QMM 4340 Alloy Steel', (0.351530, 0.351533, 0.396755, 1), 0.4, 0.5]},                                # 05
+    {'case_hardened_steel_a': ['m_case_hardened_steel_a', 'QMM Case-Hardened Steel A', (0.054480, 0.049707, 0.048172, 1), 0.2, 0.3]},                 # 06
+    {'case_hardened_steel_b': ['m_case_hardened_steel_b', 'QMM Case-Hardened Steel B', (0.102241, 0.090842, 0.074214, 1), 0.4, 0.5]},                 # 07
+    {'manganese_steel': ['m_manganese_steel', 'QMM Manganese Steel', (0.162028, 0.162030, 0.162029, 1), 0.5, 0.7]},                                   # 08
+    {'tool_steel': ['m_tool_steel', 'QMM Tool Steel', (0.056128, 0.061246, 0.070360, 1), 0.3, 0.5]},                                                  # 09
+    {'spring_steel': ['m_spring_steel', 'QMM Spring Steel', (0.215859, 0.215861, 0.215861, 1), 0.3, 0.5]},                                            # 10
+    {'structural_steel': ['m_structural_steel', 'QMM Structural Steel', (0.155925, 0.155927, 0.155927, 1), 0.2, 0.4]},                                # 11
+    {'a36_structural_steel': ['m_a36_structural_steel', 'QMM A36 Structural Steel', (0.212229, 0.212231, 0.212231, 1), 0.2, 0.4]},                    # 12
+    {'a572_structural_steel': ['m_a572_structural_steel', 'QMM A572 Structural Steel', (0.165131, 0.165132, 0.165132, 1), 0.2, 0.4]},                 # 13
+    {'hsla_steel': ['m_hsla_steel', 'QMM HSLA Steel', (0.223227, 0.223228, 0.223228, 1), 0.2, 0.4]},                                                  # 14
+    {'maraging_steel': ['m_maraging_steel', 'QMM Maraging Steel', (0.152925, 0.152926, 0.152926, 1), 0.2, 0.4]},                                      # 15
+    {'virgin_weathering_steel': ['m_virgin_weathering_steel', 'QMM Virgin Weathering Steel', (0.230739, 0.230740, 0.230740, 1), 0.2, 0.4]},           # 16
+    {'free_machining_steel': ['m_free_machining_steel', 'QMM Free-Machining Steel', (0.262249, 0.262251, 0.262251, 1), 0.3, 0.5]},                    # 17
+    {'galvanized_steel': ['m_galvanized_steel', 'QMM Galvanized Steel', (0.651402, 0.651406, 0.651406, 1), 0.3, 0.5]},                                # 18
+    {'nickel_vanadium_steel': ['m_nickel_vanadium_steel', 'QMM Nickel-Vanadium Steel', (0.341912, 0.341915, 0.341915, 1), 0.4, 0.6]},                 # 19
+    {'high_alloy_stainless_steel': ['m_high_alloy_stainless_steel', 'QMM High-Alloy Stainless Steel', (0.527112, 0.527116, 0.527115, 1), 0.2, 0.4]},  # 20
 ]
 
 
@@ -311,6 +313,26 @@ class QMMGalvanizedSteel(bpy.types.Operator):
 
     def execute(self, context):
         make_steel(18)
+        return {'FINISHED'}
+
+
+class QMMNickelVanadiumSteel(bpy.types.Operator):
+    """Add/Apply Nickel-Vanadium Steel Material to Selected Object (or Scene)"""
+    bl_label = "QMM Nickel-Vanadium Steel"
+    bl_idname = 'shader.qmm_nickel_vanadium_steel_operator'
+
+    def execute(self, context):
+        make_steel(19)
+        return {'FINISHED'}
+
+
+class QMMHighAlloyStainlessSteel(bpy.types.Operator):
+    """Add/Apply High-Alloy Stainless Steel Material to Selected Object (or Scene)"""
+    bl_label = "QMM High-Alloy Stainless Steel"
+    bl_idname = 'shader.qmm_high_alloy_stainless_steel_operator'
+
+    def execute(self, context):
+        make_steel(20)
         return {'FINISHED'}
 
 

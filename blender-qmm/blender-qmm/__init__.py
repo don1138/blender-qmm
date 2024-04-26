@@ -21,7 +21,7 @@ bl_info = {
     "name": "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
     "author": "Don Schnitzius",
-    "version": (1, 9, 0),
+    "version": (1, 9, 1),
     "blender": (3, 0, 0),
     "location": "3D Viewport > Sidebar > MAT > Quick Metal Materials",
     "warning": "",
@@ -145,12 +145,26 @@ class QMMPanelAlloy(bpy.types.Panel):
 
 # STEEL METALS PANEL
 class QMMPanelSteel(bpy.types.Panel):
-    bl_idname = "QMM_PT_Panel_ASteel"
+    bl_idname = "QMM_PT_Panel_Steel"
     bl_label = 'More Steel'
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "MAT"
     bl_parent_id = 'QMM_PT_Panel'
+    bl_options = {'DEFAULT_CLOSED'}
+
+    def draw(self, context):
+        layout = self.layout
+
+
+# CARBON STEEL METALS PANEL
+class QMMPanelCarbonSteel(bpy.types.Panel):
+    bl_idname = "QMM_PT_Panel_Carbon_Steel"
+    bl_label = '    Carbon Steel'
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category = "MAT"
+    bl_parent_id = 'QMM_PT_Panel_Steel'
     bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
@@ -162,11 +176,42 @@ class QMMPanelSteel(bpy.types.Panel):
         row = layout.row()
         row.operator("shader.qmm_carbon_steel_weathered_operator", text='Carbon Steel Weathered')
 
+
+# STAINLESS STEEL METALS PANEL
+class QMMPanelStainlessSteel(bpy.types.Panel):
+    bl_idname = "QMM_PT_Panel_Stainless_Steel"
+    bl_label = '    Stainless Steel'
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category = "MAT"
+    bl_parent_id = 'QMM_PT_Panel_Steel'
+    bl_options = {'DEFAULT_CLOSED'}
+
+    def draw(self, context):
+        layout = self.layout
+
         row = layout.row()
         row.operator("shader.qmm_stainless_steel_304_operator", text='304 Common Stainless Steel')
 
         row = layout.row()
         row.operator("shader.qmm_stainless_steel_316_operator", text='316 High-Chromium Stainless Steel')
+
+        row = layout.row()
+        row.operator("shader.qmm_high_alloy_stainless_steel_operator", text='High-Alloy Stainless Steel')
+
+
+# ALLOY STEEL METALS PANEL
+class QMMPanelAlloySteel(bpy.types.Panel):
+    bl_idname = "QMM_PT_Panel_Alloy_Steel"
+    bl_label = '    Alloy Steel'
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category = "MAT"
+    bl_parent_id = 'QMM_PT_Panel_Steel'
+    bl_options = {'DEFAULT_CLOSED'}
+
+    def draw(self, context):
+        layout = self.layout
 
         row = layout.row()
         row.operator("shader.qmm_alloy_steel_4140_operator", text='4140 Alloy Steel')
@@ -175,10 +220,7 @@ class QMMPanelSteel(bpy.types.Panel):
         row.operator("shader.qmm_alloy_steel_4340_operator", text='4340 Alloy Steel')
 
         row = layout.row()
-        row.operator("shader.qmm_case_hardened_steel_a_operator", text='Case-Hardened Steel A')
-
-        row = layout.row()
-        row.operator("shader.qmm_case_hardened_steel_b_operator", text='Case-Hardened Steel B')
+        row.operator("shader.qmm_nickel_vanadium_steel_operator", text='Nickel-Vanadium Steel')
 
         row = layout.row()
         row.operator("shader.qmm_manganese_steel_operator", text='Manganese Steel')
@@ -197,6 +239,26 @@ class QMMPanelSteel(bpy.types.Panel):
 
         row = layout.row()
         row.operator("shader.qmm_a572_structural_steel_operator", text='A572 Structural Steel')
+
+
+# SPECIALTY STEEL METALS PANEL
+class QMMPanelSpecialtySteel(bpy.types.Panel):
+    bl_idname = "QMM_PT_Panel_Specialty_Steel"
+    bl_label = '    Specialty Steel'
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category = "MAT"
+    bl_parent_id = 'QMM_PT_Panel_Steel'
+    bl_options = {'DEFAULT_CLOSED'}
+
+    def draw(self, context):
+        layout = self.layout
+
+        row = layout.row()
+        row.operator("shader.qmm_case_hardened_steel_a_operator", text='Case-Hardened Steel A')
+
+        row = layout.row()
+        row.operator("shader.qmm_case_hardened_steel_b_operator", text='Case-Hardened Steel B')
 
         row = layout.row()
         row.operator("shader.qmm_hsla_steel_operator", text='HSLA Steel')
@@ -371,6 +433,10 @@ classes = [
     QMMPanelBase,
     QMMPanelAlloy,
     QMMPanelSteel,
+    QMMPanelCarbonSteel,
+    QMMPanelStainlessSteel,
+    QMMPanelAlloySteel,
+    QMMPanelSpecialtySteel,
     QMMPanelMinor,
     QMMPanelExtras,
     AutoUpdaterPreferences,
@@ -410,22 +476,24 @@ classes = [
     QMMCarbonSteelWeathered,
     QMMStainlessSteel304,
     QMMStainlessSteel316,
+    QMMHighAlloyStainlessSteel,
     QMMAlloySteel4140,
     QMMAlloySteel4340,
-    QMMCaseHardenedSteelA,
-    QMMCaseHardenedSteelB,
+    QMMNickelVanadiumSteel,
     QMMManganeseSteel,
     QMMToolSteel,
     QMMSpringSteel,
     QMMStructuralSteel,
     QMMA36StructuralSteel,
     QMMA572StructuralSteel,
+    QMMCaseHardenedSteelA,
+    QMMCaseHardenedSteelB,
     QMMHSLASteel,
     QMMMaragingSteel,
-    QMMVirginWeatheringSteel,
     QMMFreeMachiningSteel,
     QMMGalvanizedSteel,
     QMMWeatheringSteel,
+    QMMVirginWeatheringSteel,
     AnisotrophyXGroup,
     CanisotrophyGroup,
     EnergyConservationGroup,
