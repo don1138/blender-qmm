@@ -143,20 +143,6 @@ class QMMPanelAlloy(bpy.types.Panel):
         row.operator("shader.qmm_steel_operator", text='Steel')
 
 
-# STEEL METALS PANEL
-class QMMPanelSteel(bpy.types.Panel):
-    bl_idname = "QMM_PT_Panel_Steel"
-    bl_label = 'More Steel'
-    bl_space_type = "VIEW_3D"
-    bl_region_type = "UI"
-    bl_category = "MAT"
-    bl_parent_id = 'QMM_PT_Panel'
-    bl_options = {'DEFAULT_CLOSED'}
-
-    def draw(self, context):
-        layout = self.layout
-
-
 # CARBON STEEL METALS PANEL
 class QMMPanelCarbonSteel(bpy.types.Panel):
     bl_idname = "QMM_PT_Panel_Carbon_Steel"
@@ -164,7 +150,7 @@ class QMMPanelCarbonSteel(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "MAT"
-    bl_parent_id = 'QMM_PT_Panel_Steel'
+    bl_parent_id = 'QMM_PT_Panel_Alloy'
     bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
@@ -184,7 +170,7 @@ class QMMPanelStainlessSteel(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "MAT"
-    bl_parent_id = 'QMM_PT_Panel_Steel'
+    bl_parent_id = 'QMM_PT_Panel_Alloy'
     bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
@@ -207,7 +193,7 @@ class QMMPanelAlloySteel(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "MAT"
-    bl_parent_id = 'QMM_PT_Panel_Steel'
+    bl_parent_id = 'QMM_PT_Panel_Alloy'
     bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
@@ -248,7 +234,7 @@ class QMMPanelSpecialtySteel(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "MAT"
-    bl_parent_id = 'QMM_PT_Panel_Steel'
+    bl_parent_id = 'QMM_PT_Panel_Alloy'
     bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
@@ -432,7 +418,6 @@ classes = [
     QMMPanelNoble,
     QMMPanelBase,
     QMMPanelAlloy,
-    QMMPanelSteel,
     QMMPanelCarbonSteel,
     QMMPanelStainlessSteel,
     QMMPanelAlloySteel,
