@@ -10,7 +10,7 @@ metal_values = [
     {'lead': ['m_lead', 'QMM Lead', (0.630757, 0.623960, 0.637597, 1), 0.3, 1.87, (1.572684, 1.547365, 1.409525, 1)]},                                            #4
     {'lead_rough': ['m_lead_rough', 'QMM Lead Rough', (0.186, 0.188, 0.196, 1), 0.4, 1.87, (0.99, 0.99, 0.99, 1)]},                                               #5
     {'nickel': ['m_nickel', 'QMM Nickel', (0.651405, 0.610495, 0.539480, 1.000000), 0.2, 1.63, (1.553379, 1.569627, 1.535934, 1)]},                               #6
-    {'titanium_polished': ['m_titanium_polished', 'QMM Titanium Polished', (0.617206, 0.584078, 0.545725, 1), 0.1, 2.42, (1.939808, 1.880272, 1.764035, 1)]},    #7
+    {'titanium_polished': ['m_titanium_polished', 'QMM Titanium Polished', (0.617206, 0.584078, 0.545725, 1), 0.1, 2.42, (1.939808, 1.880272, 1.764035, 1)]},     #7
     {'zinc': ['m_zinc', 'QMM Zinc', (0.871366, 0.863156, 0.854993, 1), 0.3, 1.7, (1.241139, 1.193442, 1.147981, 1)]},                                             #8
     {'brass': ['m_brass', 'QMM Brass', (0.887922, 0.791297, 0.434154, 1), 0.2, 1.45, (1.098669, 1.133579, 1.391092, 1)]},                                         #9
     {'bronze': ['m_bronze', 'QMM Bronze', (0.434154, 0.266356, 0.0953075, 1), 0.33, 1.45, (0.651405, 0.577580, 0.514918, 1)]},                                    #10
@@ -18,11 +18,11 @@ metal_values = [
     {'steel': ['m_steel', 'QMM Steel', (0.42869, 0.527115, 0.590619, 1), 0.3, 2.0, (0.99, 0.99, 0.99, 1)]},                                                       #12
     {'mercury': ['m_mercury', 'QMM Mercury', (0.783537, 0.775822, 0.775822, 1), 0.025, 1.744, (1.500116, 1.375106, 1.247637, 1)]},                                #13
     {'silicon': ['m_silicon', 'QMM Silicon', (0.345218, 0.3668, 0.43018, 1), 0.1, 1.45, (3.630057, 4.022775, 5.870442, 1)]},                                      #14
-    {'copper': ['m_copper', 'QMM Copper', (0.838799, 0.473531, 0.215861, 1), 0.2, 1.45, (1.000000, 0.955973, 0.822786, 1)]},                                     #15
-    {'gold': ['m_gold', 'QMM Gold', (0.94423, 0.776102, 0.372164, 1), 0.2, 1.45, (1.040075, 1.111826, 1.486759, 1)]},                                            #16
+    {'copper': ['m_copper', 'QMM Copper', (0.838799, 0.473531, 0.215861, 1), 0.2, 1.45, (1.000000, 0.955973, 0.822786, 1)]},                                      #15
+    {'gold': ['m_gold', 'QMM Gold', (0.94423, 0.776102, 0.372164, 1), 0.2, 1.45, (1.040075, 1.111826, 1.486759, 1)]},                                             #16
     {'silver': ['m_silver', 'QMM Silver', (0.962, 0.949468, 0.917246, 1), 0.25, 1.45, (1.032801, 1.032482, 1.034567, 1)]},                                        #17
     {'tin': ['m_tin', 'QMM Tin', (0.988702, 0.988222, 0.986691, 1), 0.2, 1.45, (1.051994, 1.053243, 1.058345, 1)]},                                               #18
-    {'titanium': ['m_titanium', 'QMM Titanium Textured', (0.533276, 0.491021, 0.439657, 1), 0.3, 1.45, (1.939808, 1.880272, 1.764035, 1)]},                      #19
+    {'titanium': ['m_titanium', 'QMM Titanium Textured', (0.533276, 0.491021, 0.439657, 1), 0.3, 1.45, (1.939808, 1.880272, 1.764035, 1)]},                       #19
 ]
 
 
@@ -89,7 +89,10 @@ def make_shader(units):
     ec_group = nodes.new("ShaderNodeGroup")
     ec_group.name = "Energy Conservation v5"
     ec_group.node_tree = bpy.data.node_groups['Energy Conservation v5']
-    ec_group.location = (-500, -200)
+    if bpy.app.version < (4, 0, 0):
+        ec_group.location = (-500, -200)
+    else: 
+        ec_group.location = (0, -200)
     ec_group.inputs[0].default_value = unit_value[2]
     ec_group.inputs[1].default_value = unit_value[3]
     # ec_group.inputs[2].default_value = unit_value[4]
@@ -97,15 +100,11 @@ def make_shader(units):
 
     links = unit_value[0].node_tree.links.new
 
-    links(ec_group.outputs[0], BSDF.inputs[0])
     if bpy.app.version < (4, 0, 0):
+        links(ec_group.outputs[0], BSDF.inputs[0])
         links(ec_group.outputs[1], BSDF.inputs[7])
         links(ec_group.outputs[2], BSDF.inputs[9])
         links(ec_group.outputs[4], BSDF.inputs[16])
-    else:
-        links(ec_group.outputs[1], BSDF.inputs[12])
-        links(ec_group.outputs[2], BSDF.inputs[2])
-        links(ec_group.outputs[4], BSDF.inputs[3])
 
     # Canistropgy group
     if units == 2:
@@ -125,15 +124,15 @@ def make_shader(units):
 
     # Copper Colors group
     if units == 15:
-        add_copper_colors(nodes, links, ec_group)
+        add_color_group(nodes, "Copper", links, ec_group, BSDF)
 
     # Gold Colors group
     if units == 16:
-        add_gold_colors(nodes, links, ec_group)
+        add_color_group(nodes, "Gold", links, ec_group, BSDF)
 
     # Silver Colors group
     if units == 17:
-        add_silver_colors(nodes, links, ec_group)
+        add_color_group(nodes, "Silver", links, ec_group, BSDF)
 
     # LOAD THE MATERIAL
     bpy.context.object.active_material = unit_value[0]
@@ -144,12 +143,18 @@ def add_anistrophy_x(nodes, links):
     anisotrophy_x = nodes.new("ShaderNodeGroup")
     anisotrophy_x.name = "Anisotrophy X"
     anisotrophy_x.node_tree = bpy.data.node_groups['Anisotrophy X']
-    anisotrophy_x.location = (-700, -500)
-    anisotrophy_x.width = 140
+    if bpy.app.version < (4, 0, 0):
+        anisotrophy_x.location = (-800, -500)
+    else:
+        anisotrophy_x.location = (-800, 0)
+    anisotrophy_x.width = 240
     # Bump
     bpy.ops.node.anisotrophy_x_group_operator()
     m_bump = nodes.new("ShaderNodeBump")
-    m_bump.location = (-500, -600)
+    if bpy.app.version < (4, 0, 0):
+        m_bump.location = (-500, -600)
+    else:
+        m_bump.location = (-500, -100)
     m_bump.inputs[0].default_value = 0.1
     links(anisotrophy_x.outputs[1], m_bump.inputs[2])
 
@@ -159,12 +164,18 @@ def add_canistrophy(nodes, links):
     canisotrophy_group = nodes.new("ShaderNodeGroup")
     canisotrophy_group.name = "Canisotrophy"
     canisotrophy_group.node_tree = bpy.data.node_groups['Canisotrophy']
-    canisotrophy_group.location = (-800, -500)
+    if bpy.app.version < (4, 0, 0):
+        canisotrophy_group.location = (-800, -500)
+    else:
+        canisotrophy_group.location = (-800, 0)
     canisotrophy_group.width = 240
     # Bump
     bpy.ops.node.canisotrophy_group_operator()
     m_bump = nodes.new("ShaderNodeBump")
-    m_bump.location = -500, -600
+    if bpy.app.version < (4, 0, 0):
+        m_bump.location = (-500, -600)
+    else:
+        m_bump.location = (-500, -100)
     m_bump.inputs[0].default_value = 0.02
     links(canisotrophy_group.outputs[1], m_bump.inputs[2])
 
@@ -173,7 +184,11 @@ def add_steel_roughness(nodes):
     sr_group = nodes.new("ShaderNodeGroup")
     sr_group.name = "Steel Roughness"
     sr_group.node_tree = bpy.data.node_groups['Steel Roughness']
-    sr_group.location = (-700, -300)
+    if bpy.app.version < (4, 0, 0):
+        sr_group.location = (-800, -300)
+    else:
+        sr_group.location = (-600, -100)
+    sr_group.width = 240
 
 def add_texturizer(nodes, links, ec_group, BSDF):
     # Texturizer group
@@ -181,7 +196,10 @@ def add_texturizer(nodes, links, ec_group, BSDF):
     texturizer_group = nodes.new("ShaderNodeGroup")
     texturizer_group.name = "Texturizer"
     texturizer_group.node_tree = bpy.data.node_groups['Texturizer']
-    texturizer_group.location = (-700, -300)
+    if bpy.app.version < (4, 0, 0):
+        texturizer_group.location = (-700, -300)
+    else:
+        texturizer_group.location = (-500, 0)
     texturizer_group.inputs[0].default_value = (0.533276, 0.491020, 0.439657, 1)
     texturizer_group.inputs[1].default_value = 0.35
     # Titanium Colors group
@@ -189,40 +207,36 @@ def add_texturizer(nodes, links, ec_group, BSDF):
     titanium_colors_group = nodes.new("ShaderNodeGroup")
     titanium_colors_group.name = "Titanium Colors"
     titanium_colors_group.node_tree = bpy.data.node_groups['Titanium Colors']
-    titanium_colors_group.location = (-900, -400)
-    links(titanium_colors_group.outputs[0], texturizer_group.inputs[0])
-    links(texturizer_group.outputs[0], ec_group.inputs[0])
-    links(texturizer_group.outputs[2], ec_group.inputs[1])
     if bpy.app.version < (4, 0, 0):
-        links(texturizer_group.outputs[5], BSDF.inputs[22])
+        titanium_colors_group.location = (-900, -400)
     else:
+        titanium_colors_group.location = (-700, -100)
+    links(titanium_colors_group.outputs[0], texturizer_group.inputs[0])
+    if bpy.app.version < (4, 0, 0):
+        links(texturizer_group.outputs[0], ec_group.inputs[0])
+        links(texturizer_group.outputs[2], ec_group.inputs[1])
+        links(texturizer_group.outputs[5], BSDF.inputs[22])
+        links(texturizer_group.outputs[5], ec_group.inputs[3])
+    else:
+        links(texturizer_group.outputs[0], BSDF.inputs[0])
+        links(texturizer_group.outputs[2], BSDF.inputs[2])
         links(texturizer_group.outputs[5], BSDF.inputs[5])
-    links(texturizer_group.outputs[5], ec_group.inputs[3])
 
-def add_copper_colors(nodes, links, ec_group):
-    bpy.ops.node.copper_cg_operator()
-    copper_cg = nodes.new("ShaderNodeGroup")
-    copper_cg.name = "Copper Colors"
-    copper_cg.node_tree = bpy.data.node_groups['Copper Colors']
-    copper_cg.location = (-700, -300)
-    links(copper_cg.outputs[1], ec_group.inputs[0])
+def add_color_group(nodes, c_name, links, ec_group, BSDF):
+    operator_name = f"{c_name.lower()}_cg_operator"
+    getattr(bpy.ops.node, operator_name)()
 
-def add_gold_colors(nodes, links, ec_group):
-    bpy.ops.node.gold_cg_operator()
-    gold_cg = nodes.new("ShaderNodeGroup")
-    gold_cg.name = "Gold Colors"
-    gold_cg.node_tree = bpy.data.node_groups['Gold Colors']
-    gold_cg.location = (-700, -300)
-    links(gold_cg.outputs[1], ec_group.inputs[0])
-
-def add_silver_colors(nodes, links, ec_group):
-    bpy.ops.node.silver_cg_operator()
-    silver_cg = nodes.new("ShaderNodeGroup")
-    silver_cg.name = "Silver Colors"
-    silver_cg.node_tree = bpy.data.node_groups['Silver Colors']
-    silver_cg.location = (-700, -300)
-    links(silver_cg.outputs[2], ec_group.inputs[0])
-
+    cg = nodes.new("ShaderNodeGroup")
+    cg.name = f"{c_name} Colors"
+    cg.node_tree = bpy.data.node_groups[f'{c_name} Colors']
+    
+    if bpy.app.version < (4, 0, 0):
+        cg.location = (-700, -300)
+        links(cg.outputs[1], ec_group.inputs[0])
+    else:
+        cg.location = (-500, 0)
+        links(cg.outputs[1], BSDF.inputs[0])
+        
 
 class QMMCopper(bpy.types.Operator):
     """Add/Apply Pale Copper (Minimum) Material to Selected Object (or Scene)"""

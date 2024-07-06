@@ -1,6 +1,8 @@
 import bpy
 import time 
 
+bv = bpy.app.version
+
 # MESSAGE BOX
 message_text = "This material already exists"
 
@@ -12,7 +14,11 @@ def ShowMessageBox(message="", title="", icon='INFO'):
 
 def make_node(nodes, shader, locX, locY):
     result = nodes.new(shader)
-    result.location = (locX, locY)
+    locY2 = locY + 200
+    if bv < (4, 0, 0):
+        result.location = (locX, locY)
+    else:
+        result.location = (locX, locY2)
     return result
 
 # WallPaintShaderOperator
@@ -54,6 +60,8 @@ class QMMWallPaint(bpy.types.Operator):
         BSDF.distribution = 'MULTI_GGX'
         BSDF.location = (-300, 0)
         BSDF.inputs[0].default_value = (0.504859, 0.483713, 0.674328, 1)
+        if bv >= (4, 0, 0):
+            BSDF.inputs[3].default_value = 1.52
 
         # bump
         m_bump = make_node(nodes, 'ShaderNodeBump', -500, -500)
@@ -81,7 +89,7 @@ class QMMWallPaint(bpy.types.Operator):
 
         # voronoishader
         m_voronoi = make_node(nodes, 'ShaderNodeTexVoronoi', -900, -500)
-        m_voronoi.inputs[2].default_value = 128.0
+        m_voronoi.inputs[2].default_value = 512.0
 
         # mapping
         m_mapping = make_node(nodes, 'ShaderNodeMapping', -1100, -300)
@@ -99,7 +107,10 @@ class QMMWallPaint(bpy.types.Operator):
         ec_group = nodes.new("ShaderNodeGroup")
         ec_group.name = "Energy Conservation v5"
         ec_group.node_tree = bpy.data.node_groups['Energy Conservation v5']
-        ec_group.location = (-500, -100)
+        if bv < (4, 0, 0):
+            ec_group.location = (-500, -100)
+        else:
+            ec_group.location = (0, -200)
         ec_group.inputs[0].default_value = (0.504859, 0.483713, 0.674328, 1)
         ec_group.inputs[1].default_value = 0.5
         ec_group.inputs[2].default_value = 1.52
@@ -114,17 +125,15 @@ class QMMWallPaint(bpy.types.Operator):
         links(m_voronoi.outputs[0], m_maprange2.inputs[0])
         links(m_noise.outputs[0], m_maprange.inputs[0])
         links(m_maprange2.outputs[0], m_bump.inputs[2])
-        links(m_maprange.outputs[0], ec_group.inputs[1])
-        links(ec_group.outputs[0], BSDF.inputs[0])
         if bpy.app.version < (4, 0, 0):
+            links(m_maprange.outputs[0], ec_group.inputs[1])
+            links(ec_group.outputs[0], BSDF.inputs[0])
             links(ec_group.outputs[1], BSDF.inputs[7])
             links(ec_group.outputs[2], BSDF.inputs[9])
             links(ec_group.outputs[4], BSDF.inputs[16])
             links(m_bump.outputs[0], BSDF.inputs[22])
         else:
-            links(ec_group.outputs[1], BSDF.inputs[12])
-            links(ec_group.outputs[2], BSDF.inputs[2])
-            links(ec_group.outputs[4], BSDF.inputs[3])
+            links(m_maprange.outputs[0], BSDF.inputs[2])
             links(m_bump.outputs[0], BSDF.inputs[5])
 
         bpy.context.object.active_material = m_wall_paint

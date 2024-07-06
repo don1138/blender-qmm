@@ -14,7 +14,11 @@ def ShowMessageBox(message="", title="", icon='INFO'):
 
 def make_node(nodes, shader, locX, locY):
     result = nodes.new(shader)
-    result.location = (locX, locY)
+    locY2 = locY + 100
+    if bv < (4, 0, 0):
+        result.location = (locX, locY)
+    else:
+        result.location = (locX, locY2)
     return result
 
 # PlasterShaderOperator
@@ -55,13 +59,16 @@ class QMMPlaster(bpy.types.Operator):
         BSDF = nodes.get('Principled BSDF')
         BSDF.distribution = 'MULTI_GGX'
         BSDF.location = (-300, 0)
+        BSDF.inputs[0].default_value = (0.708857, 0.392564, 0.708857, 1)
         if bv < (4, 0, 0):
             BSDF.inputs[1].default_value = 0.02
             BSDF.inputs[3].default_value = (0.708857, 0.392564, 0.708857, 1)
             BSDF.inputs[9].default_value = 0.86
         else:
             BSDF.inputs[7].default_value = 0.02
+            BSDF.inputs[8].default_value = (0.708857, 0.392564, 0.708857)
             BSDF.inputs[2].default_value = 0.86
+            BSDF.inputs[3].default_value = 1.52
 
         # colorramp
         m_colorramp = make_node(nodes, 'ShaderNodeValToRGB', -700, -100)
@@ -101,7 +108,10 @@ class QMMPlaster(bpy.types.Operator):
         m_bump.inputs[0].default_value = 0.5
 
         # bump2
-        m_bump2 = make_node(nodes, 'ShaderNodeBump', -500, -500)
+        if bv < (4, 0, 0):
+            m_bump2 = make_node(nodes, 'ShaderNodeBump', -500, -500)
+        else:
+            m_bump2 = make_node(nodes, 'ShaderNodeBump', -500, -300)
         m_bump2.inputs[0].default_value = 0.25
 
         # maprange
@@ -115,7 +125,10 @@ class QMMPlaster(bpy.types.Operator):
         ec_group = nodes.new("ShaderNodeGroup")
         ec_group.name = "Energy Conservation v5"
         ec_group.node_tree = bpy.data.node_groups['Energy Conservation v5']
-        ec_group.location = (-500, -100)
+        if bv < (4, 0, 0):
+            ec_group.location = (-500, -100)
+        else:
+            ec_group.location = (0, -200)
         ec_group.inputs[0].default_value = (0.708857, 0.392564, 0.708857, 1)
         ec_group.inputs[1].default_value = 0.86
         ec_group.inputs[2].default_value = 1.52
@@ -127,21 +140,19 @@ class QMMPlaster(bpy.types.Operator):
         links(m_mapping.outputs[0], m_noise.inputs[0])
         links(m_noise.outputs[0], m_voronoi.inputs[0])
         links(m_voronoi.outputs[0], m_maprange.inputs[0])
-        links(m_colorramp.outputs[0], ec_group.inputs[0])
         links(m_maprange.outputs[0], m_bump.inputs[2])
         links(m_noise.outputs[0], m_bump2.inputs[2])
         links(m_bump.outputs[0], m_bump2.inputs[3])
         links(ec_group.outputs[0], BSDF.inputs[0])
         if bv < (4, 0, 0):
+            links(m_colorramp.outputs[0], ec_group.inputs[0])
             links(m_bump2.outputs[0], BSDF.inputs[22])
             links(ec_group.outputs[1], BSDF.inputs[7])
             links(ec_group.outputs[2], BSDF.inputs[9])
             links(ec_group.outputs[4], BSDF.inputs[16])
         else:
+            links(m_colorramp.outputs[0], BSDF.inputs[0])
             links(m_bump2.outputs[0], BSDF.inputs[5])
-            links(ec_group.outputs[1], BSDF.inputs[12])
-            links(ec_group.outputs[2], BSDF.inputs[2])
-            links(ec_group.outputs[4], BSDF.inputs[3])
 
         if bv < (3, 4, 0):
             links(m_voronoi.outputs[0], m_mix.inputs[1])

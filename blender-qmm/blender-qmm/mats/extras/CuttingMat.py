@@ -14,7 +14,12 @@ def ShowMessageBox(message="", title="", icon='INFO'):
 
 def make_node(nodes, shader, locX, locY):
     result = nodes.new(shader)
-    result.location = (locX, locY)
+    locX2 = locX + 200
+    locY2 = locY + 300
+    if bv < (4, 0, 0):
+        result.location = (locX, locY)
+    else:
+        result.location = (locX2, locY2)
     return result
 
 # CuttingMatShaderOperator
@@ -56,8 +61,10 @@ class QMMCuttingMat(bpy.types.Operator):
         BSDF.distribution = 'MULTI_GGX'
         BSDF.location = (-300, 0)
         BSDF.inputs[0].default_value = (0.045186, 0.141263, 0.144129, 1)
-        BSDF.inputs[7].default_value = 0.425
-        BSDF.inputs[9].default_value = 0.79
+        if bv >= (4, 0, 0):
+            BSDF.inputs[2].default_value = 0.79
+            BSDF.inputs[3].default_value = 1.52
+            BSDF.inputs[12].default_value = 0.425
 
         # rgbmix
         if bv < (3, 4, 0):
@@ -116,7 +123,10 @@ class QMMCuttingMat(bpy.types.Operator):
         ec_group = nodes.new("ShaderNodeGroup")
         ec_group.name = "Energy Conservation v5"
         ec_group.node_tree = bpy.data.node_groups['Energy Conservation v5']
-        ec_group.location = (-500, -200)
+        if bv < (4, 0, 0):
+            ec_group.location = (-500, -200)
+        else:
+            ec_group.location = (0, -200)
         ec_group.inputs[0].default_value = (0.045186, 0.141263, 0.144129, 1)
         ec_group.inputs[1].default_value = 0.79
         ec_group.inputs[2].default_value = 1.52
@@ -139,15 +149,11 @@ class QMMCuttingMat(bpy.types.Operator):
             links(ec_group.outputs[1], BSDF.inputs[7])
             links(ec_group.outputs[2], BSDF.inputs[9])
             links(ec_group.outputs[4], BSDF.inputs[16])
-        else:
-            links(ec_group.outputs[1], BSDF.inputs[12])
-            links(ec_group.outputs[2], BSDF.inputs[2])
-            links(ec_group.outputs[4], BSDF.inputs[3])
 
         if bv < (3, 4, 0):
             links(m_mix.outputs[0], ec_group.inputs[0])
         else:
-            links(m_mix.outputs[2], ec_group.inputs[0])
+            links(m_mix.outputs[2], BSDF.inputs[0])
 
         bpy.context.object.active_material = m_cutting_mat
 

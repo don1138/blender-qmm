@@ -1,3 +1,8 @@
+### 1.10.0 <!-- 07/06/24 -->
+- Consolidate **Steel Roughness** group from 10 outputs to 5, soted from low (`0.05`) roughness to high (`0.5`)
+- Make **Energy Conservation** group optional for Blender versions 4 and up
+- Code refactoring
+
 ### 1.9.1 <!-- 04/25/24 -->
 - Add new materials
   - **QMM High-Alloy Stainless Steel**
