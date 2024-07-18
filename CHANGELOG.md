@@ -1,9 +1,11 @@
 ### 1.10.0 <!-- 07/06/24 -->
-- Consolidate **Steel Roughness** group from 10 outputs to 5, soted from low (`0.05`) roughness to high (`0.5`)
+
+- Consolidate **Steel Roughness** group from 10 outputs to 5, sorted from low (`0.05`) roughness to high (`0.5`)
 - Make **Energy Conservation** group optional for Blender versions 4 and up
 - Code refactoring
 
 ### 1.9.1 <!-- 04/25/24 -->
+
 - Add new materials
   - **QMM High-Alloy Stainless Steel**
   - **QMM Nickel-Vanadium Steel**
@@ -13,7 +15,9 @@
   - **Stainless Steel**
   - **Alloy Steel**
   - **Specialty Steel**
+
 ### 1.9.0 <!-- 04/20/24 -->
+
 - Add new category **More Steel**
 - Add new materials
   - **QMM Carbon Steel New**
@@ -41,14 +45,17 @@
 - Disable `This material already exists` alert
 
 ### 1.8.2 <!-- 03/29/24 -->
+
 - Update **Metal Flake** group
   - Add `Blue Mask` output
   - Change `Scale` to `4096`
 
 ### 1.8.1 <!-- 03/27/24 -->
+
 - 4.1 Bugfix: Set `socket_type` on Group Nodes
 
 ### 1.8.0 <!-- 03/14/24 -->
+
 - Add new materials
   - **Car Paint**
 - Add new groups
@@ -57,6 +64,7 @@
 - Rename **Cinnabar** > **Cinnabar Lacquer**
 
 ### 1.7.0 <!-- 01/20/24 -->
+
 - Add new materials
   - **Cinnabar**
   - **Mithryl**
@@ -66,9 +74,11 @@
   - **Red Metal**
 
 ### 1.6.0 <!-- 10/29/23 -->
+
 - Blender 4.0 Compatibility Update
 
 ### 1.5.8 <!-- 02/04/23 -->
+
 - Add new material
   - **Silicon**
 - Add new groups
@@ -88,6 +98,7 @@
   - Remove suffix **GroupNode** from file names
 
 ### 1.5.7 <!-- 02/01/23 -->
+
 - Update **Energy Conservation** group to **v5**
   - Add `Roughness`
   - Add **Fresnel CCP** group
@@ -97,6 +108,7 @@
   - Broken links in **Asphalt** and **Asphalt Bleached**
 
 ### 1.5.6 <!-- 01/23/23 -->
+
 - Bugfix
   - Broken color link in **Texturizer** group
 - Code refactoring
@@ -105,6 +117,7 @@
   - From *Dialectric* to *Dielectric*
 
 ### 1.5.5 <!-- 01/10/23 -->
+
 - Switch **PrincipledBSDF** light scattering to `MULTI_GGX`
 - Update **Energy Conservation** node group
   - Calculate **Auto Specular Color** by **Linear Mapping** (`2 * (R, G, B)`) of **Diffuse Color**
@@ -116,9 +129,11 @@
   - This affects all materials that use a mix node
 
 ### 1.5.4 <!-- 12/24/22 -->
+
 - Bugfix: Correct **Energy Conservation** node group connections
 
 ### 1.5.3 <!-- 12/22/22 -->
+
 - Update **Energy Conservation** node group
   - New option to use an auto-generated specular (AGS) color, which is calculated from the diffuse color
   - New inputs:
@@ -133,10 +148,12 @@
 - Code refactoring & cleanup
 
 ### 1.5.2 <!-- 12/15/22 -->
+
 - Code refactoring
 - PEP8 formatting
 
 ### 1.5.1 <!-- 12/14/22 -->
+
 - Add names to node groups
   - **Copper Colors**
   - **Gold Colors**
@@ -157,6 +174,7 @@
 - Code refactoring
 
 ### 1.5.0 <!-- 10/17/22 -->
+
 - UI localized/internationalized
   - **Chinese**
   - **Danish**
@@ -185,11 +203,12 @@
   - Add **Master Scale** input
 
 ### 1.4.9 <!-- 10/16/22 -->
+
 - Add new material
   - **Nickel**
 - Update `IOR`
-    - **Gold**
-    - **Silver**
+  - **Gold**
+  - **Silver**
 - Edit **Canistrophy** Group
   - Fix effect to object orientation
   - Add `XYZ` and `XY Only` output options
@@ -199,21 +218,23 @@
   - **Rubber Cutting Mat**
 
 ### 1.4.8 <!-- 10/15/22 -->
+
 - Update `Base Color`
-    - **Copper**
-    - **Gold**
-    - **Silver**
+  - **Copper**
+  - **Gold**
+  - **Silver**
 - Update `IOR`
-    - **Iron**
+  - **Iron**
 - Update `Base Color` and `IOR`
-    - **Platinum**
-    - **Zinc**
+  - **Platinum**
+  - **Zinc**
 - Bugfix: **Color** group not connecting in Fresnel materials
-    - **Copper (Fresnel)**
-    - **Gold (Fresnel)**
-    - **Silver (Fresnel)**
+  - **Copper (Fresnel)**
+  - **Gold (Fresnel)**
+  - **Silver (Fresnel)**
 
 ### 1.4.7 <!-- 9/27/22 -->
+
 - Add new materials
   - **Tin**
   - **Zinc**
@@ -236,6 +257,7 @@
 - Code cleanup
 
 ### 1.4.6 <!-- 8/10/22 -->
+
 - New color values from [**physicallybased.info**](https://physicallybased.info/)
   - Set `Base Color` to new values
     - **Aluminium**
@@ -264,6 +286,7 @@
     - **Colors Titanium**
 
 ### 1.4.5 <!-- 7/20/22 -->
+
 - Rename material
   - **QMM Mercury Liquid** to **QMM Mercury**
 - Update materials
@@ -279,13 +302,16 @@
   - **Plaster**
 
 ### 1.4.4 <!-- 5/05/22 -->
+
 - Add new material
   - **Cinnabar**
 
 ### 1.4.3 <!-- 5/01/22 -->
+
 - Change **Add-On Updater** to manual install
 
 ### 1.4.2 <!-- 4/30/22 -->
+
 - Update **Texturizer** node group
   - Change color/noise color mix from `OVERLAY` to `MULTIPLY`
   - 1 new input
@@ -297,12 +323,14 @@
     - **Height**
 
 ### 1.4.1 <!-- 4/26/22 -->
+
 - Add new material
   - **Wall Paint**
 - Tweaked layout of links in add-on preferences
 - Tried to un-f*ck **Add-On Updater** install. Failed.
 
 ### 1.4.0 <!-- 4/22/22 -->
+
 - Add new materials
   - **Asphalt**
   - **Asphalt Bleached**

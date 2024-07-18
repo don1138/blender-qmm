@@ -4,16 +4,16 @@ import time
 
 metal_values = [
     # {'dict_name': ['material_name', 'String Name', (color), roughness_min, roughness_max]},
-    {'carbon_steel_new': ['m_carbon_steel_new', 'QMM Carbon Steel New', (0.351530, 0.351533, 0.396755, 1), 0.2, 0.4]},                                # 00
-    {'carbon_steel_weathered': ['m_carbon_steel_weathered', 'QMM Carbon Steel Weathered', (0.074213, 0.074214, 0.078187, 1), 0.5, 0.8]},              # 01
-    {'stainless_steel_304': ['m_stainless_steel_304', 'QMM 304 Common Stainless Steel', (0.651402, 0.651406, 0.651406, 1), 0.1, 0.3]},                # 02
-    {'stainless_steel_316': ['m_stainless_steel_316', 'QMM 316 High-Chromium Stainless Steel', (0.745399, 0.745405, 0.791298, 1), 0.05, 0.25]},       # 03
-    {'alloy_steel_4140': ['m_alloy_steel_4140', 'QMM 4140 Alloy Steel', (0.215859, 0.215861, 0.215861, 1), 0.2, 0.3]},                                # 04
-    {'alloy_steel_4340': ['m_alloy_steel_4340', 'QMM 4340 Alloy Steel', (0.351530, 0.351533, 0.396755, 1), 0.4, 0.5]},                                # 05
-    {'case_hardened_steel_a': ['m_case_hardened_steel_a', 'QMM Case-Hardened Steel A', (0.054480, 0.049707, 0.048172, 1), 0.2, 0.3]},                 # 06
-    {'case_hardened_steel_b': ['m_case_hardened_steel_b', 'QMM Case-Hardened Steel B', (0.102241, 0.090842, 0.074214, 1), 0.4, 0.5]},                 # 07
-    {'manganese_steel': ['m_manganese_steel', 'QMM Manganese Steel', (0.162028, 0.162030, 0.162029, 1), 0.5, 0.7]},                                   # 08
-    {'tool_steel': ['m_tool_steel', 'QMM Tool Steel', (0.056128, 0.061246, 0.070360, 1), 0.3, 0.5]},                                                  # 09
+    {'carbon_steel_new': ['m_carbon_steel_new', 'QMM Carbon Steel New', (0.351530, 0.351533, 0.396755, 1), 0.2, 0.4]},                                #  0
+    {'carbon_steel_weathered': ['m_carbon_steel_weathered', 'QMM Carbon Steel Weathered', (0.074213, 0.074214, 0.078187, 1), 0.5, 0.8]},              #  1
+    {'stainless_steel_304': ['m_stainless_steel_304', 'QMM 304 Common Stainless Steel', (0.651402, 0.651406, 0.651406, 1), 0.1, 0.3]},                #  2
+    {'stainless_steel_316': ['m_stainless_steel_316', 'QMM 316 High-Chromium Stainless Steel', (0.745399, 0.745405, 0.791298, 1), 0.05, 0.25]},       #  3
+    {'alloy_steel_4140': ['m_alloy_steel_4140', 'QMM 4140 Alloy Steel', (0.215859, 0.215861, 0.215861, 1), 0.2, 0.3]},                                #  4
+    {'alloy_steel_4340': ['m_alloy_steel_4340', 'QMM 4340 Alloy Steel', (0.351530, 0.351533, 0.396755, 1), 0.4, 0.5]},                                #  5
+    {'case_hardened_steel_a': ['m_case_hardened_steel_a', 'QMM Case-Hardened Steel A', (0.054480, 0.049707, 0.048172, 1), 0.2, 0.3]},                 #  6
+    {'case_hardened_steel_b': ['m_case_hardened_steel_b', 'QMM Case-Hardened Steel B', (0.102241, 0.090842, 0.074214, 1), 0.4, 0.5]},                 #  7
+    {'manganese_steel': ['m_manganese_steel', 'QMM Manganese Steel', (0.162028, 0.162030, 0.162029, 1), 0.5, 0.7]},                                   #  8
+    {'tool_steel': ['m_tool_steel', 'QMM Tool Steel', (0.056128, 0.061246, 0.070360, 1), 0.3, 0.5]},                                                  #  9
     {'spring_steel': ['m_spring_steel', 'QMM Spring Steel', (0.215859, 0.215861, 0.215861, 1), 0.3, 0.5]},                                            # 10
     {'structural_steel': ['m_structural_steel', 'QMM Structural Steel', (0.155925, 0.155927, 0.155927, 1), 0.2, 0.4]},                                # 11
     {'a36_structural_steel': ['m_a36_structural_steel', 'QMM A36 Structural Steel', (0.212229, 0.212231, 0.212231, 1), 0.2, 0.4]},                    # 12
@@ -48,7 +48,7 @@ def make_steel(units):
 
     # DOES THE MATERIAL ALREADY EXIST?
     if m_name := bpy.data.materials.get(unit_value[1]):
-        # #ShowMessageBox(message_text, unit_value[1])
+        # ShowMessageBox(message_text, unit_value[1])
         bpy.context.object.active_material = m_name
         return {'FINISHED'}
     else:
@@ -63,7 +63,7 @@ def make_shader(units):
     unit_key = list(uv_dict.keys())[0]
     unit_value = uv_dict[unit_key]
 
-    # CreateShader
+    # Create Shader
     unit_value[0] = bpy.data.materials.new(name=unit_value[1])
     unit_value[0].use_nodes = True
     unit_value[0].diffuse_color = unit_value[2]
@@ -72,11 +72,11 @@ def make_shader(units):
 
     nodes = unit_value[0].node_tree.nodes
 
-    # materialoutput
+    # Material Output
     m_output = nodes.get('Material Output')
     m_output.location = (0, 0)
 
-    # princibledbsdf
+    # Princibled BSDF
     BSDF = nodes.get('Principled BSDF')
     BSDF.distribution = 'MULTI_GGX'
     BSDF.location = (-300, 0)
@@ -93,7 +93,7 @@ def make_shader(units):
     ur_group = nodes.new("ShaderNodeGroup")
     ur_group.name = "Uneven Roughness"
     ur_group.node_tree = bpy.data.node_groups['Uneven Roughness']
-    ur_group.location = (-500, 0)
+    ur_group.location = (-500, -100)
     ur_group.width = 140
     ur_group.inputs[0].default_value = unit_value[3]
     ur_group.inputs[1].default_value = unit_value[4]
@@ -113,7 +113,7 @@ def make_shader(units):
         mf_group = nodes.new("ShaderNodeGroup")
         mf_group.name = "Metal Flake"
         mf_group.node_tree = bpy.data.node_groups['Metal Flake']
-        mf_group.location = (-500, -300)
+        mf_group.location = (-700, -200)
         mf_group.width = 140
         mf_group.inputs[0].default_value = 3072
         mf_group.inputs[1].default_value = 0.25
@@ -344,7 +344,7 @@ class QMMWeatheringSteel(bpy.types.Operator):
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         if m_weathering_steel := bpy.data.materials.get("QMM Weathering Steel"):
-            #ShowMessageBox(message_text, "QMM Weathering Steel")
+            # ShowMessageBox(message_text, "QMM Weathering Steel")
             # print(f"QMM Weathering Steel already exists")
             bpy.context.object.active_material = m_weathering_steel
             return {'FINISHED'}
@@ -364,11 +364,11 @@ class QMMWeatheringSteel(bpy.types.Operator):
 
         nodes = m_weathering_steel.node_tree.nodes
 
-        # materialoutput
+        # Material Output
         material_output = nodes.get('Material Output')
         material_output.location = (0, 0)
 
-        # principledbsdf
+        # Principled BSDF
         BSDF = nodes.get('Principled BSDF')
         BSDF.distribution = 'MULTI_GGX'
         BSDF.location = (-300, 0)
@@ -381,7 +381,7 @@ class QMMWeatheringSteel(bpy.types.Operator):
             BSDF.inputs[2].default_value = 0.7                  #Roughness
         # BSDF.select = True
 
-        # colorramp
+        # Color Ramp
         m_colorramp = nodes.new("ShaderNodeValToRGB")
         m_colorramp.location = (-600, 0)
         m_colorramp.color_ramp.interpolation = 'EASE'
