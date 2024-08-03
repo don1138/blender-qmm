@@ -201,7 +201,7 @@ def add_texturizer(nodes, links, ec_group, BSDF):
     else:
         texturizer_group.location = (-500, 0)
     texturizer_group.inputs[0].default_value = (0.533276, 0.491020, 0.439657, 1)
-    texturizer_group.inputs[1].default_value = 0.35
+    texturizer_group.inputs[2].default_value = 0.35
     # Titanium Colors group
     bpy.ops.node.titanium_cg_operator()
     titanium_colors_group = nodes.new("ShaderNodeGroup")

@@ -1,3 +1,7 @@
+### 1.11.0 <!-- 08/03/24 -->
+
+- Ass `Scale` input to **Texturizer** group
+
 ### 1.10.0 <!-- 07/06/24 -->
 
 - Consolidate **Steel Roughness** group from 10 outputs to 5, sorted from low (`0.05`) roughness to high (`0.5`)

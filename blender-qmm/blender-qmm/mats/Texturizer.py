@@ -28,44 +28,52 @@ class TexturizerGroup(bpy.types.Operator):
         group_in = self.make_node(texturizer_group, 'NodeGroupInput', -1300, 0)
         if bv < (4, 0, 0):
             texturizer_group.inputs.new('NodeSocketColor', 'Color')      # 0
-            texturizer_group.inputs.new('NodeSocketFloat', 'Roughness')  # 1
-            texturizer_group.inputs.new('NodeSocketFloat', 'Saturation') # 2
-            texturizer_group.inputs.new('NodeSocketFloat', 'Mix')        # 3
-            texturizer_group.inputs.new('NodeSocketFloat', 'Bump')       # 4
-            texturizer_group.inputs.new('NodeSocketVector', 'Vector')    # 5
-            texturizer_group.inputs[1].default_value = 0.565
+            texturizer_group.inputs.new('NodeSocketFloat', 'Scale')      # 1
+            texturizer_group.inputs.new('NodeSocketFloat', 'Roughness')  # 2
+            texturizer_group.inputs.new('NodeSocketFloat', 'Saturation') # 3
+            texturizer_group.inputs.new('NodeSocketFloat', 'Mix')        # 4
+            texturizer_group.inputs.new('NodeSocketFloat', 'Bump')       # 5
+            texturizer_group.inputs.new('NodeSocketVector', 'Vector')    # 6
+            texturizer_group.inputs[1].default_value = 256.0
             texturizer_group.inputs[1].min_value = 0.0
-            texturizer_group.inputs[1].max_value = 1.0
-            texturizer_group.inputs[2].default_value = 0.5
+            texturizer_group.inputs[1].max_value = 4096.0
+            texturizer_group.inputs[2].default_value = 0.565
             texturizer_group.inputs[2].min_value = 0.0
-            texturizer_group.inputs[2].max_value = 2.0
+            texturizer_group.inputs[2].max_value = 1.0
             texturizer_group.inputs[3].default_value = 0.5
             texturizer_group.inputs[3].min_value = 0.0
-            texturizer_group.inputs[3].max_value = 1.0
-            texturizer_group.inputs[4].default_value = 0.1
+            texturizer_group.inputs[3].max_value = 2.0
+            texturizer_group.inputs[4].default_value = 0.5
             texturizer_group.inputs[4].min_value = 0.0
             texturizer_group.inputs[4].max_value = 1.0
-            texturizer_group.inputs[5].hide_value = True
+            texturizer_group.inputs[5].default_value = 0.1
+            texturizer_group.inputs[5].min_value = 0.0
+            texturizer_group.inputs[5].max_value = 1.0
+            texturizer_group.inputs[6].hide_value = True
         else:
             texturizer_group.interface.new_socket(name="Color", in_out='INPUT', socket_type='NodeSocketColor')
+            texturizer_group.interface.new_socket(name="Scale", in_out='INPUT', socket_type='NodeSocketFloat')
             texturizer_group.interface.new_socket(name="Roughness", in_out='INPUT', socket_type='NodeSocketFloat')
             texturizer_group.interface.new_socket(name="Saturation", in_out='INPUT', socket_type='NodeSocketFloat')
             texturizer_group.interface.new_socket(name="Mix", in_out='INPUT', socket_type='NodeSocketFloat')
             texturizer_group.interface.new_socket(name="Bump", in_out='INPUT', socket_type='NodeSocketFloat')
             texturizer_group.interface.new_socket(name="Vector", in_out='INPUT')
-            texturizer_group.interface.items_tree[1].default_value = 0.565
+            texturizer_group.interface.items_tree[1].default_value = 512.0
             texturizer_group.interface.items_tree[1].min_value = 0
-            texturizer_group.interface.items_tree[1].max_value = 1
-            texturizer_group.interface.items_tree[2].default_value = 0.5
+            texturizer_group.interface.items_tree[1].max_value = 4096.0
+            texturizer_group.interface.items_tree[2].default_value = 0.565
             texturizer_group.interface.items_tree[2].min_value = 0
-            texturizer_group.interface.items_tree[2].max_value = 2
+            texturizer_group.interface.items_tree[2].max_value = 1
             texturizer_group.interface.items_tree[3].default_value = 0.5
             texturizer_group.interface.items_tree[3].min_value = 0
-            texturizer_group.interface.items_tree[3].max_value = 1
-            texturizer_group.interface.items_tree[4].default_value = 0.1
+            texturizer_group.interface.items_tree[3].max_value = 2
+            texturizer_group.interface.items_tree[4].default_value = 0.5
             texturizer_group.interface.items_tree[4].min_value = 0
             texturizer_group.interface.items_tree[4].max_value = 1
-            texturizer_group.interface.items_tree[5].hide_value = True
+            texturizer_group.interface.items_tree[5].default_value = 0.1
+            texturizer_group.interface.items_tree[5].min_value = 0
+            texturizer_group.interface.items_tree[5].max_value = 1
+            texturizer_group.interface.items_tree[6].hide_value = True
 
         # groupoutput
         group_out = self.make_node(texturizer_group, 'NodeGroupOutput', 0, 0)
@@ -158,11 +166,12 @@ class TexturizerGroup(bpy.types.Operator):
 
         links = texturizer_group.links.new
 
-        links(group_in.outputs[1], n_rr12.inputs[0])
-        links(group_in.outputs[2], n_hsl.inputs[1])
-        links(group_in.outputs[3], n_mix_rgb.inputs[0])
-        links(group_in.outputs[4], n_bump.inputs[0])
-        links(group_in.outputs[5], n_tex.inputs[0])
+        links(group_in.outputs[1], n_tex.inputs[2])
+        links(group_in.outputs[2], n_rr12.inputs[0])
+        links(group_in.outputs[3], n_hsl.inputs[1])
+        links(group_in.outputs[4], n_mix_rgb.inputs[0])
+        links(group_in.outputs[5], n_bump.inputs[0])
+        links(group_in.outputs[6], n_tex.inputs[0])
         links(n_tex.outputs[1], n_hsl.inputs[4])
         links(n_tex.outputs[1], n_sep_rgb.inputs[0])
         links(n_sep_rgb.outputs[1], n_rr22.inputs[0])
