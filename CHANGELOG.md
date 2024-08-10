@@ -1,10 +1,13 @@
-### 1.11.0 <!-- 08/09/24 -->
+### 1.12.0 <!-- 08/09/24 -->
 
-- Add `Scale` input to **Texturizer** group
 - Add **Set Viewport Color** checkbox
   - When selected, this changes the **Viewport Color**, **Metallic** and **Roughness** of the material.
   - When unselected, this resets them to Blender default.
   - If a material already exists, clicking its panel button will apply the current **Set Viewport Color** settings.
+
+### 1.11.0 <!-- 08/03/24 -->
+
+- Add `Scale` input to **Texturizer** group
 
 ### 1.10.0 <!-- 07/06/24 -->
 
