@@ -30,6 +30,10 @@ class QMMMithryl(bpy.types.Operator):
             #ShowMessageBox(message_text, "QMM Mithryl")
             # print(f"QMM Mithryl already exists")
             bpy.context.object.active_material = m_mithryl
+            diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
+            m_mithryl.diffuse_color = (0.666667, 1, 1, 1) if diffuse_bool else (0.8, 0.8, 0.8, 1)
+            m_mithryl.metallic = 1 if diffuse_bool else 0
+            m_mithryl.roughness = 0.075 if diffuse_bool else 0.4
             return {'FINISHED'}
         else:
             self.make_shader()
@@ -41,9 +45,11 @@ class QMMMithryl(bpy.types.Operator):
         # CreateShader
         m_mithryl = bpy.data.materials.new(name="QMM Mithryl")
         m_mithryl.use_nodes = True
-        m_mithryl.diffuse_color = (0.666667, 1, 1, 1)
-        m_mithryl.roughness = 0.075
-        m_mithryl.metallic = 1
+        diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
+        if diffuse_bool == True:
+            m_mithryl.diffuse_color = (0.666667, 1, 1, 1)
+            m_mithryl.metallic = 1
+            m_mithryl.roughness = 0.075
 
         nodes = m_mithryl.node_tree.nodes
 

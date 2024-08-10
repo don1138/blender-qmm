@@ -35,6 +35,9 @@ class QMMPlaster(bpy.types.Operator):
             #ShowMessageBox(message_text, "QMM Plaster")
             # print(f"QMM Plaster already exists")
             bpy.context.object.active_material = m_plaster
+            diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
+            m_plaster.diffuse_color = (0.9, 0.7, 0.9, 1) if diffuse_bool else (0.8, 0.8, 0.8, 1)
+            m_plaster.roughness = 0.86 if diffuse_bool else 0.4
             return {'FINISHED'}
         else:
             self.make_shader()
@@ -46,8 +49,10 @@ class QMMPlaster(bpy.types.Operator):
         # CreateShader
         m_plaster = bpy.data.materials.new(name="QMM Plaster")
         m_plaster.use_nodes = True
-        m_plaster.diffuse_color = (0.9, 0.7, 0.9, 1)
-        m_plaster.roughness = 0.86
+        diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
+        if diffuse_bool == True:
+            m_plaster.diffuse_color = (0.9, 0.7, 0.9, 1)
+            m_plaster.roughness = 0.86
 
         nodes = m_plaster.node_tree.nodes
 

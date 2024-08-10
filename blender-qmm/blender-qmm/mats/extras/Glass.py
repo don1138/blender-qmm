@@ -31,6 +31,9 @@ class QMMGlass(bpy.types.Operator):
             #ShowMessageBox(message_text, "QMM Glass")
             # print(f"QMM Glass already exists")
             bpy.context.object.active_material = m_glass
+            diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
+            m_glass.diffuse_color = (1, 1, 1, 0.5) if diffuse_bool else (0.8, 0.8, 0.8, 1)
+            m_glass.roughness = 0 if diffuse_bool else 0.4
             return {'FINISHED'}
         else:
             self.make_shader()
@@ -42,7 +45,10 @@ class QMMGlass(bpy.types.Operator):
         # CreateShader
         m_glass = bpy.data.materials.new(name="QMM Glass")
         m_glass.use_nodes = True
-        m_glass.diffuse_color = (1, 1, 1, 0.5)
+        diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
+        if diffuse_bool == True:
+            m_glass.diffuse_color = (1, 1, 1, 0.5)
+            m_glass.roughness = 0
 
         nodes = m_glass.node_tree.nodes
 

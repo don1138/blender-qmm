@@ -39,6 +39,11 @@ from . import addon_updater_ops
 from .localization import *
 
 
+# BOOLEAN FOR PANEL
+class QMMSettings(bpy.types.PropertyGroup):
+    diffuse_more: bpy.props.BoolProperty(name='',default=False)
+
+
 # PARENT PANEL
 class QMMPanel(bpy.types.Panel):
     bl_idname = "QMM_PT_Panel"
@@ -46,9 +51,21 @@ class QMMPanel(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "MAT"
+    # bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
         layout = self.layout
+        diffuse_bool = context.scene.diffuse_bool
+
+        srow = layout.row()
+        scol = srow.column(align=True)
+        scol.scale_y = 1.25
+        scol.prop(diffuse_bool, "diffuse_more")
+
+        scol = srow.column(align=True)
+        scol.scale_y = 1.25
+        scol.scale_x = 3.0
+        scol.label(text="Set Viewport Color")
 
 
 # NOBLE METALS PANEL
@@ -414,6 +431,7 @@ from .mats.UnevenRoughness import *
 
 
 classes = [
+    QMMSettings,
     QMMPanel,
     QMMPanelNoble,
     QMMPanelBase,
@@ -512,9 +530,11 @@ def unregister():
     addon_updater_ops.unregister()
     for cls in reversed(classes):
         bpy.utils.unregister_class(cls)
+        bpy.types.Scene.diffuse_bool = bpy.props.PointerProperty(type=QMC_SETTINGS)
 
     # Unregister translation
     bpy.app.translations.unregister(__name__)
+    del bpy.types.Scene.diffuse_bool
 
 
 if __name__ == "__main__":

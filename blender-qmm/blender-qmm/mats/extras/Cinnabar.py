@@ -23,6 +23,9 @@ class QMMCinnabar(bpy.types.Operator):
             #ShowMessageBox(message_text, "QMM Cinnabar Lacquer")
             # print(f"QMM Cinnabar already exists")
             bpy.context.object.active_material = m_cinnabar
+            diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
+            m_cinnabar.diffuse_color = (0.768151, 0.054480, 0.034340, 1) if diffuse_bool else (0.8, 0.8, 0.8, 1)
+            m_cinnabar.roughness = 0.5 if diffuse_bool else 0.4
             return {'FINISHED'}
         else:
             self.make_shader()
@@ -34,9 +37,10 @@ class QMMCinnabar(bpy.types.Operator):
         # CreateShader
         m_cinnabar = bpy.data.materials.new(name="QMM Cinnabar Lacquer")
         m_cinnabar.use_nodes = True
-        m_cinnabar.diffuse_color = (0.768151, 0.054480, 0.034340, 1)
-        m_cinnabar.metallic = 0
-        m_cinnabar.roughness = 0.5
+        diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
+        if diffuse_bool == True:
+            m_cinnabar.diffuse_color = (0.768151, 0.054480, 0.034340, 1)
+            m_cinnabar.roughness = 0.5
 
         nodes = m_cinnabar.node_tree.nodes
 

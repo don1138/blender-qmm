@@ -41,6 +41,8 @@ class QMMAsphaltBleached(bpy.types.Operator):
             #ShowMessageBox(message_text, "QMM Asphalt Bleached")
             # print(f"QMM Asphalt Bleached already exists")
             bpy.context.object.active_material = m_asphalt_b
+            diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
+            m_asphalt_b.diffuse_color = (0.333, 0.333, 0.333, 1) if diffuse_bool else (0.8, 0.8, 0.8, 1)
             return {'FINISHED'}
         else:
             self.make_shader()
@@ -52,7 +54,9 @@ class QMMAsphaltBleached(bpy.types.Operator):
         # CreateShader
         m_asphalt_b = bpy.data.materials.new(name="QMM Asphalt Bleached")
         m_asphalt_b.use_nodes = True
-        m_asphalt_b.diffuse_color = (0.333, 0.333, 0.333, 1)
+        diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
+        if diffuse_bool == True:
+            m_asphalt_b.diffuse_color = (0.333, 0.333, 0.333, 1)
 
         nodes = m_asphalt_b.node_tree.nodes
 

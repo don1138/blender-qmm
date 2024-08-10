@@ -35,6 +35,9 @@ class QMMWallPaint(bpy.types.Operator):
             #ShowMessageBox(message_text, "QMM Wall Paint")
             # print(f"QMM Wall Paint already exists")
             bpy.context.object.active_material = m_wall_paint
+            diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
+            m_wall_paint.diffuse_color = (0.504859, 0.483713, 0.674328, 1) if diffuse_bool else (0.8, 0.8, 0.8, 1)
+            m_wall_paint.roughness = 0.5 if diffuse_bool else 0.4
             return {'FINISHED'}
         else:
             self.make_shader()
@@ -46,8 +49,10 @@ class QMMWallPaint(bpy.types.Operator):
         # CreateShader
         m_wall_paint = bpy.data.materials.new(name="QMM Wall Paint")
         m_wall_paint.use_nodes = True
-        m_wall_paint.diffuse_color = (0.504859, 0.483713, 0.674328, 1)
-        m_wall_paint.roughness = 0.5
+        diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
+        if diffuse_bool == True:
+            m_wall_paint.diffuse_color = (0.504859, 0.483713, 0.674328, 1)
+            m_wall_paint.roughness = 0.5
 
         nodes = m_wall_paint.node_tree.nodes
 

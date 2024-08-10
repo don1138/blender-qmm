@@ -36,6 +36,9 @@ class QMMCuttingMat(bpy.types.Operator):
             #ShowMessageBox(message_text, "QMM Rubber Cutting Mat")
             # print(f"QMM Rubber Cutting Mat already exists")
             bpy.context.object.active_material = m_cutting_mat
+            diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
+            m_cutting_mat.diffuse_color = (0.045186, 0.141263, 0.144129, 1) if diffuse_bool else (0.8, 0.8, 0.8, 1)
+            m_cutting_mat.roughness = 0.79 if diffuse_bool else 0.4
             return {'FINISHED'}
         else:
             self.make_shader()
@@ -47,8 +50,10 @@ class QMMCuttingMat(bpy.types.Operator):
         # CreateShader
         m_cutting_mat = bpy.data.materials.new(name="QMM Rubber Cutting Mat")
         m_cutting_mat.use_nodes = True
-        m_cutting_mat.diffuse_color = (0.045186, 0.141263, 0.144129, 1)
-        m_cutting_mat.roughness = 0.79
+        diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
+        if diffuse_bool == True:
+            m_cutting_mat.diffuse_color = (0.045186, 0.141263, 0.144129, 1)
+            m_cutting_mat.roughness = 0.79
 
         nodes = m_cutting_mat.node_tree.nodes
 

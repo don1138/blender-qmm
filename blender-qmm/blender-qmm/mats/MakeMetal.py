@@ -46,6 +46,10 @@ def make_metal(units):
     if m_name := bpy.data.materials.get(unit_value[1]):
         #ShowMessageBox(message_text, unit_value[1])
         bpy.context.object.active_material = m_name
+        diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
+        m_name.diffuse_color = unit_value[2] if diffuse_bool else (0.8, 0.8, 0.8, 1)
+        m_name.metallic = 1 if diffuse_bool else 0
+        m_name.roughness = unit_value[3] if diffuse_bool else 0.4
         return {'FINISHED'}
     else:
         make_shader(units)
@@ -61,9 +65,11 @@ def make_shader(units):
     # CreateShader
     unit_value[0] = bpy.data.materials.new(name=unit_value[1])
     unit_value[0].use_nodes = True
-    unit_value[0].diffuse_color = unit_value[2]
-    unit_value[0].metallic = 1
-    unit_value[0].roughness = unit_value[3]
+    diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
+    if diffuse_bool == True:
+        unit_value[0].diffuse_color = unit_value[2]
+        unit_value[0].metallic = 1
+        unit_value[0].roughness = unit_value[3]
 
     nodes = unit_value[0].node_tree.nodes
 

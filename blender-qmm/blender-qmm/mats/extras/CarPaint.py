@@ -22,6 +22,10 @@ class QMMCarPaint(bpy.types.Operator):
         if m_car_paint := bpy.data.materials.get("QMM Car Paint"):
             #ShowMessageBox(message_text, "QMM Car Paint")
             bpy.context.object.active_material = m_car_paint
+            diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
+            m_car_paint.diffuse_color = (0.527115, 0.564712, 0.577580, 1) if diffuse_bool else (0.8, 0.8, 0.8, 1)
+            m_car_paint.metallic = 1 if diffuse_bool else 0
+            m_car_paint.roughness = 0.24 if diffuse_bool else 0.4
             return {'FINISHED'}
         else:
             self.make_shader()
@@ -33,9 +37,11 @@ class QMMCarPaint(bpy.types.Operator):
         # CreateShader
         m_car_paint = bpy.data.materials.new(name="QMM Car Paint")
         m_car_paint.use_nodes = True
-        m_car_paint.diffuse_color = (0.545724, 0.539479, 0.473531, 1)
-        m_car_paint.metallic = 1
-        m_car_paint.roughness = 0.25
+        diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
+        if diffuse_bool == True:
+            m_car_paint.diffuse_color = (0.527115, 0.564712, 0.577580, 1)
+            m_car_paint.metallic = 1
+            m_car_paint.roughness = 0.25
 
         nodes = m_car_paint.node_tree.nodes
 
@@ -47,14 +53,14 @@ class QMMCarPaint(bpy.types.Operator):
         BSDF = nodes.get('Principled BSDF')
         BSDF.distribution = 'MULTI_GGX'
         BSDF.location = (-300, 0)
-        BSDF.inputs[0].default_value = (0.545724, 0.539479, 0.473531, 1)
+        BSDF.inputs[0].default_value = (0.527115, 0.564712, 0.577580, 1)
         if bpy.app.version < (4, 0, 0):
             BSDF.inputs[6].default_value = 1        #Metallic
-            BSDF.inputs[9].default_value = 0.25     #Roughness
+            BSDF.inputs[9].default_value = 0.25    #Roughness
             BSDF.inputs[14].default_value = 0.25    #Clearcoat
         else:
             BSDF.inputs[1].default_value = 1        #Metallic
-            BSDF.inputs[2].default_value = 0.25     #Roughness
+            BSDF.inputs[2].default_value = 0.25    #Roughness
             BSDF.inputs[18].default_value = 0.25    #Coat Weight
 
         # Metal Flake Group
@@ -82,7 +88,7 @@ class QMMCarPaint(bpy.types.Operator):
 
         links(BSDF.outputs[0], material_output.inputs[0])
         if bpy.app.version < (4, 0, 0):
-            links(mf_group.outputs[0], BSDF.inputs[22])    #Normal
+            links(mf_group.outputs[0], BSDF.inputs[22])     #Normal
             links(ur_group.outputs[0], BSDF.inputs[14])    #Clearcoat
         else:
             links(mf_group.outputs[0], BSDF.inputs[5])     #Normal

@@ -43,9 +43,11 @@ class QMMRedMetal(bpy.types.Operator):
         # CreateShader
         m_red_metal = bpy.data.materials.new(name="QMM Red Metal")
         m_red_metal.use_nodes = True
-        m_red_metal.diffuse_color = (0.768151, 0.054480, 0.034340, 1)
-        m_red_metal.metallic = 1
-        m_red_metal.roughness = 0.4
+        diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
+        if diffuse_bool == True:
+            m_red_metal.diffuse_color = (0.768151, 0.054480, 0.034340, 1)
+            m_red_metal.metallic = 1
+            m_red_metal.roughness = 0.4
 
         nodes = m_red_metal.node_tree.nodes
 
