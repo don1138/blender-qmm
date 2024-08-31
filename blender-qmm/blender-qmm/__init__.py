@@ -21,7 +21,7 @@ bl_info = {
     "name": "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
     "author": "Don Schnitzius",
-    "version": (1, 12, 0),
+    "version": (1, 13, 0),
     "blender": (3, 0, 0),
     "location": "3D Viewport > Sidebar > MAT > Quick Metal Materials",
     "warning": "",
@@ -424,6 +424,7 @@ from .mats.AnisotrophyX import *
 from .mats.Canisotrophy import *
 from .mats.EnergyConservation import *
 from .mats.MetalFlake import *
+from .mats.PearlescentPigment import *
 from .mats.Specular import *
 from .mats.SteelRoughness import *
 from .mats.Texturizer import *
@@ -501,6 +502,7 @@ classes = [
     CanisotrophyGroup,
     EnergyConservationGroup,
     MetalFlakeGroup,
+    PearlescentPigmentGroup,
     SpecularGroup,
     SteelRoughnessGroup,
     TexturizerGroup,

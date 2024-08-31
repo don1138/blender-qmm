@@ -63,6 +63,14 @@ class QMMCarPaint(bpy.types.Operator):
             BSDF.inputs[2].default_value = 0.25    #Roughness
             BSDF.inputs[18].default_value = 0.25    #Coat Weight
 
+        # Pearlescent Pigment Group
+        bpy.ops.node.pearlescent_pigment_group_operator()
+        mf_group = nodes.new("ShaderNodeGroup")
+        mf_group.name = "Pearlescent Pigment"
+        mf_group.node_tree = bpy.data.node_groups['Pearlescent Pigment']
+        mf_group.location = (-600, 100)
+        mf_group.width = 240
+
         # Metal Flake Group
         bpy.ops.node.metal_flake_group_operator()
         mf_group = nodes.new("ShaderNodeGroup")

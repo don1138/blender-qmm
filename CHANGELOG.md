@@ -1,3 +1,8 @@
+### 1.13.0 <!-- 08/31/24 -->
+
+- Add new group
+  - **Pearlescent Pigment** group. This affects **Car Paint**.
+
 ### 1.12.0 <!-- 08/09/24 -->
 
 - Add **Set Viewport Color** checkbox
