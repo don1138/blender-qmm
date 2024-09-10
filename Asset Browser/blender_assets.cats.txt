@@ -6,9 +6,14 @@
 
 VERSION 1
 
-9e3b74d5-9124-46e4-979e-90890a7a03ed:Quick Metal Materials:Quick Metal Materials
-4ec1a166-207c-4646-9ee9-cdb7234da4d6:Quick Metal Materials/A Noble:Quick Metal Materials-A Noble
-c70303e6-c35a-4243-bcf1-e02432dfdc27:Quick Metal Materials/B Base:Quick Metal Materials-B Base
-b9b4ee22-193f-40df-b1ca-a6262a0c3443:Quick Metal Materials/C Alloys:Quick Metal Materials-C Alloys
-cfc09c0f-13eb-4cbe-9775-b99d6dcc2c38:Quick Metal Materials/N Node Groups:Quick Metal Materials-N Node Groups
-d8bbddfc-c6c8-4562-adc1-bd1a5000c97b:Quick Metal Materials/X Extras:Quick Metal Materials-X Extras
+b2944503-8817-40ca-86f6-2ae5b7c0ab11:QMM 1.13.0:QMM 1.13.0
+c317a7cd-c305-4113-8929-ecac1d055540:QMM 1.13.0/Alloys:QMM 1.13.0-Alloys
+8cb1205b-ac71-469d-85f3-3d400a02643c:QMM 1.13.0/Alloys/Alloy Steel:QMM 1.13.0-Alloys-Alloy Steel
+85606a3c-fc32-478a-9aa3-27b2dc01068b:QMM 1.13.0/Alloys/Alloys:QMM 1.13.0-Alloys-Alloys
+73eea2b9-fb0e-4404-a086-1897677542fa:QMM 1.13.0/Alloys/Carbon Steel:QMM 1.13.0-Alloys-Carbon Steel
+323dd7e7-9b32-461b-9d36-88fa28b98b5f:QMM 1.13.0/Alloys/Specialty Steel:QMM 1.13.0-Alloys-Specialty Steel
+ee6bb774-c288-431d-b01e-367aaf89c5d9:QMM 1.13.0/Alloys/Stainless Steel:QMM 1.13.0-Alloys-Stainless Steel
+b7341c99-5bdc-4ebe-8b7c-3dce955ee67e:QMM 1.13.0/Base Metals:QMM 1.13.0-Base Metals
+54fb76ad-4f4d-483a-96a8-b7ffb26b570c:QMM 1.13.0/Extras:QMM 1.13.0-Extras
+4602f3af-f85e-4515-b3d5-2f55bcf93eab:QMM 1.13.0/Minor Metals:QMM 1.13.0-Minor Metals
+ef0445e7-b81b-4acf-8cbf-7aa4c45f94e8:QMM 1.13.0/Noble Metals:QMM 1.13.0-Noble Metals
