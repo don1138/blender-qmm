@@ -100,12 +100,12 @@ class CanisotrophyGroup(bpy.types.Operator):
         # groupoutput
         group_out = self.make_node(canisotrophy_group, 'NodeGroupOutput', 0, 0)
         if bv < (4, 0, 0):
-            canisotrophy_group.outputs.new('NodeSocketFloat', '- To Roughness & Bump -')
+            canisotrophy_group.outputs.new('NodeSocketFloat', '( For Both Roughness & Bump )')
             canisotrophy_group.outputs[0].hide_value = True
             canisotrophy_group.outputs.new('NodeSocketFloat', 'XYZ')
             canisotrophy_group.outputs.new('NodeSocketFloat', 'XY Only')
         else:
-            canisotrophy_group.interface.new_socket(name="- To Roughness & Bump -", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            canisotrophy_group.interface.new_socket(name="( For Both Roughness & Bump )", in_out='OUTPUT', socket_type='NodeSocketFloat')
             canisotrophy_group.interface.items_tree[0].hide_value = True
             canisotrophy_group.interface.new_socket(name="XYZ", in_out='OUTPUT', socket_type='NodeSocketFloat')
             canisotrophy_group.interface.new_socket(name="XY Only", in_out='OUTPUT', socket_type='NodeSocketFloat')

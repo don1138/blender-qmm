@@ -57,11 +57,11 @@ class QMMCarPaint(bpy.types.Operator):
         if bpy.app.version < (4, 0, 0):
             BSDF.inputs[6].default_value = 1        #Metallic
             BSDF.inputs[9].default_value = 0.25    #Roughness
-            BSDF.inputs[14].default_value = 0.25    #Clearcoat
+            BSDF.inputs[14].default_value = 1    #Clearcoat
         else:
             BSDF.inputs[1].default_value = 1        #Metallic
             BSDF.inputs[2].default_value = 0.25    #Roughness
-            BSDF.inputs[18].default_value = 0.25    #Coat Weight
+            BSDF.inputs[18].default_value = 1    #Coat Weight
 
         # Pearlescent Pigment Group
         bpy.ops.node.pearlescent_pigment_group_operator()
@@ -76,31 +76,27 @@ class QMMCarPaint(bpy.types.Operator):
         mf_group = nodes.new("ShaderNodeGroup")
         mf_group.name = "Metal Flake"
         mf_group.node_tree = bpy.data.node_groups['Metal Flake']
-        mf_group.location = (-600, -100)
+        mf_group.location = (-800, -100)
         mf_group.width = 240
         mf_group.inputs[0].default_value = 4096
         mf_group.inputs[1].default_value = 0.25
 
-        # Uneven Roughness Group
-        bpy.ops.node.uneven_roughness_group_operator()
-        ur_group = nodes.new("ShaderNodeGroup")
-        ur_group.name = "Uneven Roughness"
-        ur_group.node_tree = bpy.data.node_groups['Uneven Roughness']
-        ur_group.location = (-600, -300)
-        ur_group.width = 240
-        ur_group.inputs[0].default_value = 0.2
-        ur_group.inputs[1].default_value = 0.3
+        n_maprange = nodes.new("ShaderNodeMapRange")
+        n_maprange.location = (-500, -100)
+        n_maprange.inputs[3].default_value = 0.4
+        n_maprange.inputs[4].default_value = 0.2
 
         # Links
         links = m_car_paint.node_tree.links.new
 
         links(BSDF.outputs[0], material_output.inputs[0])
+        links(mf_group.outputs[1], n_maprange.inputs[0])
         if bpy.app.version < (4, 0, 0):
-            links(mf_group.outputs[0], BSDF.inputs[22])     #Normal
-            links(ur_group.outputs[0], BSDF.inputs[14])    #Clearcoat
+            links(mf_group.outputs[0], BSDF.inputs[22])    #Normal
+            links(n_maprange.outputs[0], BSDF.inputs[9])   #Roughness
         else:
             links(mf_group.outputs[0], BSDF.inputs[5])     #Normal
-            links(ur_group.outputs[0], BSDF.inputs[18])    #Clearcoat
+            links(n_maprange.outputs[0], BSDF.inputs[2])   #Roughness
 
         # LOAD THE MATERIAL
         bpy.context.object.active_material = m_car_paint

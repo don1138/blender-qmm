@@ -65,10 +65,12 @@ class QMMMithryl(bpy.types.Operator):
         if bpy.app.version < (4, 0, 0):
             BSDF.inputs[6].default_value = 1                    #Metallic
             BSDF.inputs[9].default_value = 0.075                #Roughness
+            BSDF.inputs[16].default_value = 0.18                #IOR
             BSDF.inputs[19].default_value = (0.333333, 1, 1, 1) #Emission
         else:
             BSDF.inputs[1].default_value = 1                    #Metallic
             BSDF.inputs[2].default_value = 0.075                #Roughness
+            BSDF.inputs[3].default_value = 0.18                 #IOR
             BSDF.inputs[26].default_value = (0.333333, 1, 1, 1) #Emission
         # BSDF.select = True
 

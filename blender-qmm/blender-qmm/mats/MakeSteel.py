@@ -6,8 +6,8 @@ metal_values = [
     # {'dict_name': ['material_name', 'String Name', (color), roughness_min, roughness_max]},
     {'carbon_steel_new': ['m_carbon_steel_new', 'QMM Carbon Steel New', (0.351530, 0.351533, 0.396755, 1), 0.2, 0.4]},                                # 00
     {'carbon_steel_weathered': ['m_carbon_steel_weathered', 'QMM Carbon Steel Weathered', (0.074213, 0.074214, 0.078187, 1), 0.5, 0.8]},              # 01
-    {'stainless_steel_304': ['m_stainless_steel_304', 'QMM 304 Common Stainless Steel', (0.651402, 0.651406, 0.651406, 1), 0.1, 0.3]},                # 02
-    {'stainless_steel_316': ['m_stainless_steel_316', 'QMM 316 High-Chromium Stainless Steel', (0.745399, 0.745405, 0.791298, 1), 0.05, 0.25]},       # 03
+    {'stainless_steel_304': ['m_stainless_steel_304', 'QMM 304 Common Stainless Steel', (0.651402, 0.651406, 0.651406, 1), 0.25, 0.35]},                # 02
+    {'stainless_steel_316': ['m_stainless_steel_316', 'QMM 316 High-Chromium Stainless Steel', (0.745399, 0.745405, 0.791298, 1), 0.00, 0.04]},       # 03
     {'alloy_steel_4140': ['m_alloy_steel_4140', 'QMM 4140 Alloy Steel', (0.215859, 0.215861, 0.215861, 1), 0.2, 0.3]},                                # 04
     {'alloy_steel_4340': ['m_alloy_steel_4340', 'QMM 4340 Alloy Steel', (0.351530, 0.351533, 0.396755, 1), 0.4, 0.5]},                                # 05
     {'case_hardened_steel_a': ['m_case_hardened_steel_a', 'QMM Case-Hardened Steel A', (0.054480, 0.049707, 0.048172, 1), 0.2, 0.3]},                 # 06
@@ -90,9 +90,11 @@ def make_shader(units):
     if bpy.app.version < (4, 0, 0):
         BSDF.inputs[6].default_value = 1              # Metallic
         BSDF.inputs[9].default_value = unit_value[3]  # Roughness
+        BSDF.inputs[16].default_value = 2.5           # IOR
     else:
         BSDF.inputs[1].default_value = 1              # Metallic
         BSDF.inputs[2].default_value = unit_value[3]  # Roughness
+        BSDF.inputs[3].default_value = 2.5            # IOR
 
     # Add Uneven Roughness Group
     bpy.ops.node.uneven_roughness_group_operator()

@@ -1,3 +1,8 @@
+### 1.14.0 <!-- 09/10/24 -->
+
+- Adjust and reactivate IOR Values
+- Misc. node cleanup
+
 ### 1.13.0 <!-- 08/31/24 -->
 
 - Add new group

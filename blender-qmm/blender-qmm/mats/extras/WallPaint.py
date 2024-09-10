@@ -73,12 +73,32 @@ class QMMWallPaint(bpy.types.Operator):
         m_bump.inputs[0].default_value = 0.2
         m_bump.invert = True
 
-        # maprange
+        # maprange satin
         m_maprange = make_node(nodes, 'ShaderNodeMapRange', -700, -200)
-        m_maprange.inputs[1].default_value = 0.4
-        m_maprange.inputs[2].default_value = 0.9
+        m_maprange.inputs[1].default_value = 0.3
+        m_maprange.inputs[2].default_value = 0.5
         m_maprange.inputs[3].default_value = 0.52
         m_maprange.inputs[4].default_value = 0.7
+        m_maprange.name = "Satin/Semi-gloss"
+        m_maprange.label = "Satin/Semi-gloss"
+
+        # maprange matte
+        m_maprange_m = make_node(nodes, 'ShaderNodeMapRange', -700, 100)
+        m_maprange_m.inputs[1].default_value = 0.6
+        m_maprange_m.inputs[2].default_value = 0.7
+        m_maprange_m.inputs[3].default_value = 0.52
+        m_maprange_m.inputs[4].default_value = 0.7
+        m_maprange_m.name = "Flat/Matte"
+        m_maprange_m.label = "Flat/Matte"
+
+        # maprange glossy
+        m_maprange_g = make_node(nodes, 'ShaderNodeMapRange', -700, 400)
+        m_maprange_g.inputs[1].default_value = 0.1
+        m_maprange_g.inputs[2].default_value = 0.2
+        m_maprange_g.inputs[3].default_value = 0.52
+        m_maprange_g.inputs[4].default_value = 0.7
+        m_maprange_g.name = "Glossy"
+        m_maprange_g.label = "Glossy"
 
         # colorramp2
         m_maprange2 = make_node(nodes, 'ShaderNodeMapRange', -700, -500)
@@ -129,6 +149,8 @@ class QMMWallPaint(bpy.types.Operator):
         links(m_mapping.outputs[0], m_noise.inputs[0])
         links(m_voronoi.outputs[0], m_maprange2.inputs[0])
         links(m_noise.outputs[0], m_maprange.inputs[0])
+        links(m_noise.outputs[0], m_maprange_g.inputs[0])
+        links(m_noise.outputs[0], m_maprange_m.inputs[0])
         links(m_maprange2.outputs[0], m_bump.inputs[2])
         if bpy.app.version < (4, 0, 0):
             links(m_maprange.outputs[0], ec_group.inputs[1])

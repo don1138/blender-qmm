@@ -58,11 +58,13 @@ class QMMCinnabar(bpy.types.Operator):
             BSDF.inputs[2].default_value = (0.651516, 0.028425, 0.028424)     # Subsurface Radius
             BSDF.inputs[3].default_value = (0.010000, 0.000709, 0.000447, 1)  # Subsurface Color
             BSDF.inputs[9].default_value =  0.5                               # Roughness
-            BSDF.inputs[12].default_value =  0.2                               # Sheen
+            BSDF.inputs[12].default_value =  0.2                              # Sheen
             BSDF.inputs[14].default_value = 1.2                               # Clearcoat
             BSDF.inputs[15].default_value = 0.075                             # Clearcoat Roughness
+            BSDF.inputs[16].default_value = 3.02                              # IOR
         else:
             BSDF.inputs[2].default_value =  0.5                               # Roughness
+            BSDF.inputs[3].default_value =  3.02                              # IOR
             BSDF.inputs[7].default_value =  0.2                               # Subsurface Weight
             BSDF.inputs[8].default_value = (0.651516, 0.028425, 0.028424)     # Subsurface Radius
             BSDF.inputs[13].default_value = (0.010000, 0.000709, 0.000447, 1) # Specular Tint

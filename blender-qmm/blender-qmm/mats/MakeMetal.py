@@ -1,30 +1,30 @@
 import bpy
 import time 
 
+bv = bpy.app.version
 
 metal_values = [
-    {'palladium': ['m_palladium', 'QMM Palladium', (0.734139, 0.698362, 0.650909, 1), 0.075, 1.76, (1.468314, 1.447085, 1.390112, 1)]},                           #0
-    {'platinum': ['m_platinum', 'QMM Platinum', (0.679542, 0.644479, 0.590619, 1), 0.075, 1.79, (1.707216, 1.630868, 1.566421, 1)]},                              #1
-    {'aluminium': ['m_aluminium', 'QMM Aluminium', (0.913098, 0.913098, 0.921582, 1), 0.2, 1.62, (1.216499, 1.169372, 1.112043, 1)]},                             #2
-    {'iron': ['m_iron', 'QMM Iron', (0.533276, 0.514917, 0.496933, 1), 0.3, 2.03, (2.151289, 2.202939, 1.956144, 1)]},                                            #3
-    {'lead': ['m_lead', 'QMM Lead', (0.630757, 0.623960, 0.637597, 1), 0.3, 1.87, (1.572684, 1.547365, 1.409525, 1)]},                                            #4
-    {'lead_rough': ['m_lead_rough', 'QMM Lead Rough', (0.186, 0.188, 0.196, 1), 0.4, 1.87, (0.99, 0.99, 0.99, 1)]},                                               #5
-    {'nickel': ['m_nickel', 'QMM Nickel', (0.651405, 0.610495, 0.539480, 1.000000), 0.2, 1.63, (1.553379, 1.569627, 1.535934, 1)]},                               #6
-    {'titanium_polished': ['m_titanium_polished', 'QMM Titanium Polished', (0.617206, 0.584078, 0.545725, 1), 0.1, 2.42, (1.939808, 1.880272, 1.764035, 1)]},     #7
-    {'zinc': ['m_zinc', 'QMM Zinc', (0.871366, 0.863156, 0.854993, 1), 0.3, 1.7, (1.241139, 1.193442, 1.147981, 1)]},                                             #8
-    {'brass': ['m_brass', 'QMM Brass', (0.887922, 0.791297, 0.434154, 1), 0.2, 1.45, (1.098669, 1.133579, 1.391092, 1)]},                                         #9
-    {'bronze': ['m_bronze', 'QMM Bronze', (0.434154, 0.266356, 0.0953075, 1), 0.33, 1.45, (0.651405, 0.577580, 0.514918, 1)]},                                    #10
-    {'chromium': ['m_chromium', 'QMM Chromium', (0.655879, 0.681365, 0.698525, 1), 0.075, 1.5, (2.809509, 2.227482, 1.634533, 1)]},                               #11
-    {'steel': ['m_steel', 'QMM Steel', (0.42869, 0.527115, 0.590619, 1), 0.3, 2.0, (0.99, 0.99, 0.99, 1)]},                                                       #12
-    {'mercury': ['m_mercury', 'QMM Mercury', (0.783537, 0.775822, 0.775822, 1), 0.025, 1.744, (1.500116, 1.375106, 1.247637, 1)]},                                #13
-    {'silicon': ['m_silicon', 'QMM Silicon', (0.345218, 0.3668, 0.43018, 1), 0.1, 1.45, (3.630057, 4.022775, 5.870442, 1)]},                                      #14
-    {'copper': ['m_copper', 'QMM Copper', (0.838799, 0.473531, 0.215861, 1), 0.2, 1.45, (1.000000, 0.955973, 0.822786, 1)]},                                      #15
-    {'gold': ['m_gold', 'QMM Gold', (0.94423, 0.776102, 0.372164, 1), 0.2, 1.45, (1.040075, 1.111826, 1.486759, 1)]},                                             #16
-    {'silver': ['m_silver', 'QMM Silver', (0.962, 0.949468, 0.917246, 1), 0.25, 1.45, (1.032801, 1.032482, 1.034567, 1)]},                                        #17
-    {'tin': ['m_tin', 'QMM Tin', (0.988702, 0.988222, 0.986691, 1), 0.2, 1.45, (1.051994, 1.053243, 1.058345, 1)]},                                               #18
-    {'titanium': ['m_titanium', 'QMM Titanium Textured', (0.533276, 0.491021, 0.439657, 1), 0.3, 1.45, (1.939808, 1.880272, 1.764035, 1)]},                       #19
+    {'palladium': ['m_palladium', 'QMM Palladium', (0.734139, 0.698362, 0.650909, 1), 0.11, 1.64, (1.468314, 1.447085, 1.390112, 1)]},                           #0
+    {'platinum': ['m_platinum', 'QMM Platinum', (0.679542, 0.644479, 0.590619, 1), 0.11, 2.33, (1.707216, 1.630868, 1.566421, 1)]},                              #1
+    {'aluminium': ['m_aluminium', 'QMM Aluminium', (0.913098, 0.913098, 0.921582, 1), 0.2, 1.244, (1.216499, 1.169372, 1.112043, 1)]},                             #2
+    {'iron': ['m_iron', 'QMM Iron', (0.533276, 0.514917, 0.496933, 1), 0.3, 2.95, (2.151289, 2.202939, 1.956144, 1)]},                                            #3
+    {'lead': ['m_lead', 'QMM Lead', (0.630757, 0.623960, 0.637597, 1), 0.3, 2.01, (1.572684, 1.547365, 1.409525, 1)]},                                            #4
+    {'lead_rough': ['m_lead_rough', 'QMM Lead Rough', (0.186, 0.188, 0.196, 1), 0.4, 2.01, (0.99, 0.99, 0.99, 1)]},                                               #5
+    {'nickel': ['m_nickel', 'QMM Nickel', (0.651405, 0.610495, 0.539480, 1.000000), 0.2, 1.08, (1.553379, 1.569627, 1.535934, 1)]},                               #6
+    {'titanium_polished': ['m_titanium_polished', 'QMM Titanium Polished', (0.617206, 0.584078, 0.545725, 1), 0.155, 2.16, (1.939808, 1.880272, 1.764035, 1)]},     #7
+    {'zinc': ['m_zinc', 'QMM Zinc', (0.871366, 0.863156, 0.854993, 1), 0.3, 1.918, (1.241139, 1.193442, 1.147981, 1)]},                                             #8
+    {'brass': ['m_brass', 'QMM Brass', (0.887922, 0.791297, 0.434154, 1), 0.2, 1.225, (1.098669, 1.133579, 1.391092, 1)]},                                         #9
+    {'bronze': ['m_bronze', 'QMM Bronze', (0.434154, 0.266356, 0.0953075, 1), 0.33, 1.517, (0.651405, 0.577580, 0.514918, 1)]},                                    #10
+    {'chromium': ['m_chromium', 'QMM Chromium', (0.655879, 0.681365, 0.698525, 1), 0.075, 1.97, (2.809509, 2.227482, 1.634533, 1)]},                               #11
+    {'steel': ['m_steel', 'QMM Steel', (0.42869, 0.527115, 0.590619, 1), 0.3, 2.5, (0.99, 0.99, 0.99, 1)]},                                                       #12
+    {'mercury': ['m_mercury', 'QMM Mercury', (0.783537, 0.775822, 0.775822, 1), 0.025, 1.62, (1.500116, 1.375106, 1.247637, 1)]},                                #13
+    {'silicon': ['m_silicon', 'QMM Silicon', (0.345218, 0.3668, 0.43018, 1), 0.1, 4.24, (3.630057, 4.022775, 5.870442, 1)]},                                      #14
+    {'copper': ['m_copper', 'QMM Copper', (0.838799, 0.473531, 0.215861, 1), 0.125, 2.43, (1.000000, 0.955973, 0.822786, 1)]},                                      #15
+    {'gold': ['m_gold', 'QMM Gold', (0.94423, 0.776102, 0.372164, 1), 0.2, 1.335, (1.040075, 1.111826, 1.486759, 1)]},                                             #16
+    {'silver': ['m_silver', 'QMM Silver', (0.962, 0.949468, 0.917246, 1), 0.25, 1.082, (1.032801, 1.032482, 1.034567, 1)]},                                        #17
+    {'tin': ['m_tin', 'QMM Tin', (0.988702, 0.988222, 0.986691, 1), 0.2, 2.16, (1.051994, 1.053243, 1.058345, 1)]},                                               #18
+    {'titanium': ['m_titanium', 'QMM Titanium Textured', (0.533276, 0.491021, 0.439657, 1), 0.3, 2.16, (1.939808, 1.880272, 1.764035, 1)]},                       #19
 ]
-
 
 # MESSAGE BOX
 message_text = "This material already exists"
@@ -85,10 +85,11 @@ def make_shader(units):
     if bpy.app.version < (4, 0, 0):
         BSDF.inputs[6].default_value = 1
         BSDF.inputs[9].default_value = unit_value[3]
-        # BSDF.inputs[16].default_value = unit_value[4]
+        BSDF.inputs[16].default_value = unit_value[4]
     else:
         BSDF.inputs[1].default_value = 1
         BSDF.inputs[2].default_value = unit_value[3]
+        BSDF.inputs[3].default_value = unit_value[4]
 
     # Energy Conservation group
     bpy.ops.node.ec_group_operator()
@@ -112,25 +113,48 @@ def make_shader(units):
         links(ec_group.outputs[2], BSDF.inputs[9])
         links(ec_group.outputs[4], BSDF.inputs[16])
 
-    # Canistropgy group
+    # Alumnium > Add Anistropgy group
     if units == 2:
         add_anistrophy_x(nodes, links)
+        add_value(nodes, -500, 0, "Roughness (Polished)", 0.12, 140)
+        add_value(nodes, -500, -100, "Roughness (Matte)", 0.4, 140)
 
-    # Canistropgy group
-    if units == 18:
-        add_canistrophy(nodes, links)
+    # Nickel
+    if units == 6:
+        add_value(nodes, -600, 0, "Roughness (Antique)", 0.35, 240)
+        add_value(nodes, -600, -100, "Roughness (Matte)", 0.35, 240)
+        add_value(nodes, -600, -200, "Roughness (Polished)", 0.10, 240)
+        add_value(nodes, -600, -300, "Roughness (Satin Polished)", 0.25, 240)
+
+    # Brass
+    if units == 9:
+        add_value(nodes, -600, 0, "Roughness (Polished)", 0.12, 240)
+        add_value(nodes, -600, -100, "Roughness (Satin Polished)", 0.30, 240)
+        add_value(nodes, -600, -200, "Roughness (Matte)", 0.38, 240)
+
+    # Bronze
+    if units == 10:
+        add_value(nodes, -600, 0, "Roughness (Oil Rubbed)", 0.55, 240)
+        add_value(nodes, -600, -100, "Roughness (Oil Rubbed Venetian)", 0.38, 240)
+        add_value(nodes, -600, -200, "Roughness (Patina)", 0.45, 240)
+        add_value(nodes, -600, -300, "Roughness (Satin Polished)", 0.30, 240)
+
+    # Chromium
+    if units == 11:
+        add_value(nodes, -600, 0, "Roughness (Matte)", 0.37, 240)
+        add_value(nodes, -600, -100, "Roughness (Polished)", 0.02, 240)
 
     # Steel Roughness group
     if units == 12:
         add_steel_roughness(nodes)
 
-    # Texturizer group
-    if units == 19:
-        add_texturizer(nodes, links, ec_group, BSDF)
-
     # Copper Colors group
     if units == 15:
         add_color_group(nodes, "Copper", links, ec_group, BSDF)
+        add_value(nodes, -800, 0, "Roughness (Matte)", 0.35, 240)
+        add_value(nodes, -800, -100, "Roughness (Patina)", 0.50, 240)
+        add_value(nodes, -800, -200, "Roughness (Polished)", 0.12, 240)
+        add_value(nodes, -800, -300, "Roughness (Satin Polished)", 0.275, 240)
 
     # Gold Colors group
     if units == 16:
@@ -140,8 +164,27 @@ def make_shader(units):
     if units == 17:
         add_color_group(nodes, "Silver", links, ec_group, BSDF)
 
+    # Tin > Add Canistropgy group
+    if units == 18:
+        add_canistrophy(nodes, links)
+        add_value(nodes, -800, 0, "Roughness (Matte)", 0.35, 140)
+        add_value(nodes, -800, -100, "Roughness (Polished)", 0.1, 140)
+
+    # Titanium > Add Texturizer group
+    if units == 19:
+        add_texturizer(nodes, links, ec_group, BSDF)
+
     # LOAD THE MATERIAL
     bpy.context.object.active_material = unit_value[0]
+
+
+def add_value(nodes, x_pos, y_pos, name, val, width):
+    m_val = nodes.new("ShaderNodeValue")
+    m_val.location = (x_pos, y_pos)
+    m_val.name = name
+    m_val.label = name
+    m_val.outputs[0].default_value = (val)
+    m_val.width = width
 
 def add_anistrophy_x(nodes, links):
     # Anisotrophy X group
@@ -152,7 +195,7 @@ def add_anistrophy_x(nodes, links):
     if bpy.app.version < (4, 0, 0):
         anisotrophy_x.location = (-800, -500)
     else:
-        anisotrophy_x.location = (-800, 0)
+        anisotrophy_x.location = (-800, -100)
     anisotrophy_x.width = 240
     # Bump
     bpy.ops.node.anisotrophy_x_group_operator()
@@ -160,7 +203,7 @@ def add_anistrophy_x(nodes, links):
     if bpy.app.version < (4, 0, 0):
         m_bump.location = (-500, -600)
     else:
-        m_bump.location = (-500, -100)
+        m_bump.location = (-500, -200)
     m_bump.inputs[0].default_value = 0.1
     links(anisotrophy_x.outputs[1], m_bump.inputs[2])
 
@@ -173,7 +216,7 @@ def add_canistrophy(nodes, links):
     if bpy.app.version < (4, 0, 0):
         canisotrophy_group.location = (-800, -500)
     else:
-        canisotrophy_group.location = (-800, 0)
+        canisotrophy_group.location = (-800, -200)
     canisotrophy_group.width = 240
     # Bump
     bpy.ops.node.canisotrophy_group_operator()
@@ -181,7 +224,7 @@ def add_canistrophy(nodes, links):
     if bpy.app.version < (4, 0, 0):
         m_bump.location = (-500, -600)
     else:
-        m_bump.location = (-500, -100)
+        m_bump.location = (-500, -200)
     m_bump.inputs[0].default_value = 0.02
     links(canisotrophy_group.outputs[1], m_bump.inputs[2])
 
