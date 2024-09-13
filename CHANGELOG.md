@@ -1,3 +1,7 @@
+### 1.15.0 <!-- 09/12/24 -->
+
+- Adjust `Secondary Color` of **Pearlescent Pigment**
+
 ### 1.14.0 <!-- 09/10/24 -->
 
 - Adjust and reactivate IOR Values
