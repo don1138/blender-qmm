@@ -1,3 +1,10 @@
+### 1.16.0 <!-- 11/27/24 -->
+
+- Blender 4.3.0 compatability. Updates to:
+  - CarPaint.py
+  - CuttingMat.py
+  - Cinnabar.py
+
 ### 1.15.0 <!-- 09/12/24 -->
 
 - Adjust `Secondary Color` of **Pearlescent Pigment**

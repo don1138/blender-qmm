@@ -66,7 +66,11 @@ class QMMCuttingMat(bpy.types.Operator):
         BSDF.distribution = 'MULTI_GGX'
         BSDF.location = (-300, 0)
         BSDF.inputs[0].default_value = (0.045186, 0.141263, 0.144129, 1)
-        if bv >= (4, 0, 0):
+        if bv >= (4, 3, 0):
+            BSDF.inputs[2].default_value = 0.79
+            BSDF.inputs[3].default_value = 1.52
+            BSDF.inputs[11].default_value = 0.425
+        elif bv >= (4, 0, 0):
             BSDF.inputs[2].default_value = 0.79
             BSDF.inputs[3].default_value = 1.52
             BSDF.inputs[12].default_value = 0.425
