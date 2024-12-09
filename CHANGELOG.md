@@ -1,13 +1,13 @@
 ### 1.17.0 <!-- 12/08/24 -->
 
-- Blender 4.3.0 compatability. Updates to:
+- Blender 4.3.0 compatibility. Updates to:
   - **Glass.py**
   - **Plaster.py**
 - Update output labels on **Steel Roughness** group node. This affects **Steel** material.
 
 ### 1.16.0 <!-- 11/27/24 -->
 
-- Blender 4.3.0 compatability. Updates to:
+- Blender 4.3.0 compatibility. Updates to:
   - **CarPaint.py**
   - **CuttingMat.py**
   - **Cinnabar.py**
@@ -291,7 +291,7 @@
     - `IOR`
   - This affects ALL materials, both metal and dialectic, except:
     - **Gold** and **Silver** because: IOR value is too low
-    - **Gold (Fresnel)**, **Silver (Fresnel)**, and **Copper (Fresnel)** because: not compatable with node setup
+    - **Gold (Fresnel)**, **Silver (Fresnel)**, and **Copper (Fresnel)** because: not compatible with node setup
     - **Glass Hack** because: not relevant
 - Code cleanup
 
@@ -487,7 +487,7 @@
 
 ### 1.3.0 <!-- 12/15/21 -->
 
-- Blender 3.0 compatability
+- Blender 3.0 compatibility
 - Update node input IDs to new settings
 - Connect `IOR` value node to **Principled BSDF** `IOR` input
 
@@ -544,7 +544,7 @@
 
 - Move categories into sub-panels
 - Change **Category** to `Material`
-- Change Blender compatability to 2.83
+- Change Blender compatibility to 2.83
 
 ### 0.0.2 <!-- 3/10/21 -->
 
