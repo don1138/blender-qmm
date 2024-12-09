@@ -69,9 +69,14 @@ class QMMPlaster(bpy.types.Operator):
             # BSDF.inputs[1].default_value = 0.02
             BSDF.inputs[3].default_value = (0.708857, 0.392564, 0.708857, 1)
             BSDF.inputs[9].default_value = 0.86
-        else:
+        elif bv < (4, 3, 0):
             # BSDF.inputs[7].default_value = 0.02
             BSDF.inputs[8].default_value = (0.708857, 0.392564, 0.708857)
+            BSDF.inputs[2].default_value = 0.86
+            BSDF.inputs[3].default_value = 1.3
+        else:
+            # BSDF.inputs[7].default_value = 0.02
+            BSDF.inputs[9].default_value = (0.708857, 0.392564, 0.708857)
             BSDF.inputs[2].default_value = 0.86
             BSDF.inputs[3].default_value = 1.3
 

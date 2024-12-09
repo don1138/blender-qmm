@@ -130,8 +130,11 @@ class QMMGlass(bpy.types.Operator):
         links(m_mix.outputs[0], material_output.inputs[0])
 
         bpy.context.object.active_material = m_glass
-        bpy.context.object.active_material.blend_method = 'BLEND'
-        bpy.context.object.active_material.shadow_method = 'NONE'
+        if bv < (4, 3, 0):
+            bpy.context.object.active_material.blend_method = 'BLEND'
+            bpy.context.object.active_material.shadow_method = 'NONE'
+        else:
+            bpy.context.object.active_material.surface_render_method = 'BLENDED'
 
         end = time.time()
         print(f"QMM Glass: {end - start} seconds")

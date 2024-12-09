@@ -23,19 +23,19 @@ class SteelRoughnessGroup(bpy.types.Operator):
 
         # create outputs
         if bpy.app.version < (4, 0, 0):
-            sr_group.outputs.new('NodeSocketFloat', 'Maraging, Weathering Steel')      #0
-            sr_group.outputs.new('NodeSocketFloat', 'Free-Machining Steel')            #1
-            sr_group.outputs.new('NodeSocketFloat', 'Spring, Stainless, HSLA Steel')   #2
-            sr_group.outputs.new('NodeSocketFloat', 'Structural, Tool Steel')          #3
-            sr_group.outputs.new('NodeSocketFloat', 'Alloy Steel')                     #4
-            sr_group.outputs.new('NodeSocketFloat', 'Carbon Steel')                    #5
+            sr_group.outputs.new('NodeSocketFloat', '0.05 - Maraging, Weathering Steel')      #0
+            sr_group.outputs.new('NodeSocketFloat', '0.1 - Free-Machining Steel')            #1
+            sr_group.outputs.new('NodeSocketFloat', '0.2 - Spring, Stainless, HSLA Steel')   #2
+            sr_group.outputs.new('NodeSocketFloat', '0.3 - Structural, Tool Steel')          #3
+            sr_group.outputs.new('NodeSocketFloat', '0.4 - Alloy Steel')                     #4
+            sr_group.outputs.new('NodeSocketFloat', '0.5 - Carbon Steel')                    #5
         else:
-            sr_group.interface.new_socket(name="Maraging, Weathering Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
-            sr_group.interface.new_socket(name="Free-Machining Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
-            sr_group.interface.new_socket(name="Spring, Stainless, HSLA Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
-            sr_group.interface.new_socket(name="Structural, Tool Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
-            sr_group.interface.new_socket(name="Alloy Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
-            sr_group.interface.new_socket(name="Carbon Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            sr_group.interface.new_socket(name="0.05 - Maraging, Weathering Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            sr_group.interface.new_socket(name="0.1 - Free-Machining Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            sr_group.interface.new_socket(name="0.2 - Spring, Stainless, HSLA Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            sr_group.interface.new_socket(name="0.3 - Structural, Tool Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            sr_group.interface.new_socket(name="0.4 - Alloy Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+            sr_group.interface.new_socket(name="0.5 - Carbon Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
 
         #set values
         group_out.inputs[0].default_value = 0.05

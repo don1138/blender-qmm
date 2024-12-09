@@ -1,9 +1,16 @@
+### 1.17.0 <!-- 12/08/24 -->
+
+- Blender 4.3.0 compatability. Updates to:
+  - **Glass.py**
+  - **Plaster.py**
+- Update output labels on **Steel Roughness** group node. This affects **Steel** material.
+
 ### 1.16.0 <!-- 11/27/24 -->
 
 - Blender 4.3.0 compatability. Updates to:
-  - CarPaint.py
-  - CuttingMat.py
-  - Cinnabar.py
+  - **CarPaint.py**
+  - **CuttingMat.py**
+  - **Cinnabar.py**
 
 ### 1.15.0 <!-- 09/12/24 -->
 
