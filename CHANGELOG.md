@@ -1,3 +1,8 @@
+### 1.18.0 <!-- 01/07/25 -->
+
+- Add new material
+  - **QMM Orichalcum**
+
 ### 1.17.0 <!-- 12/08/24 -->
 
 - Blender 4.3.0 compatibility. Updates to:

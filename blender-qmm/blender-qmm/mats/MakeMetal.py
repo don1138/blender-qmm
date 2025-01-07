@@ -6,24 +6,25 @@ bv = bpy.app.version
 metal_values = [
     {'palladium': ['m_palladium', 'QMM Palladium', (0.734139, 0.698362, 0.650909, 1), 0.11, 1.64, (1.468314, 1.447085, 1.390112, 1)]},                           #0
     {'platinum': ['m_platinum', 'QMM Platinum', (0.679542, 0.644479, 0.590619, 1), 0.11, 2.33, (1.707216, 1.630868, 1.566421, 1)]},                              #1
-    {'aluminium': ['m_aluminium', 'QMM Aluminium', (0.913098, 0.913098, 0.921582, 1), 0.2, 1.244, (1.216499, 1.169372, 1.112043, 1)]},                             #2
-    {'iron': ['m_iron', 'QMM Iron', (0.533276, 0.514917, 0.496933, 1), 0.3, 2.95, (2.151289, 2.202939, 1.956144, 1)]},                                            #3
-    {'lead': ['m_lead', 'QMM Lead', (0.630757, 0.623960, 0.637597, 1), 0.3, 2.01, (1.572684, 1.547365, 1.409525, 1)]},                                            #4
-    {'lead_rough': ['m_lead_rough', 'QMM Lead Rough', (0.186, 0.188, 0.196, 1), 0.4, 2.01, (0.99, 0.99, 0.99, 1)]},                                               #5
-    {'nickel': ['m_nickel', 'QMM Nickel', (0.651405, 0.610495, 0.539480, 1.000000), 0.2, 1.08, (1.553379, 1.569627, 1.535934, 1)]},                               #6
-    {'titanium_polished': ['m_titanium_polished', 'QMM Titanium Polished', (0.617206, 0.584078, 0.545725, 1), 0.155, 2.16, (1.939808, 1.880272, 1.764035, 1)]},     #7
-    {'zinc': ['m_zinc', 'QMM Zinc', (0.871366, 0.863156, 0.854993, 1), 0.3, 1.918, (1.241139, 1.193442, 1.147981, 1)]},                                             #8
-    {'brass': ['m_brass', 'QMM Brass', (0.887922, 0.791297, 0.434154, 1), 0.2, 1.225, (1.098669, 1.133579, 1.391092, 1)]},                                         #9
-    {'bronze': ['m_bronze', 'QMM Bronze', (0.434154, 0.266356, 0.0953075, 1), 0.33, 1.517, (0.651405, 0.577580, 0.514918, 1)]},                                    #10
-    {'chromium': ['m_chromium', 'QMM Chromium', (0.655879, 0.681365, 0.698525, 1), 0.075, 1.97, (2.809509, 2.227482, 1.634533, 1)]},                               #11
-    {'steel': ['m_steel', 'QMM Steel', (0.42869, 0.527115, 0.590619, 1), 0.3, 2.5, (0.99, 0.99, 0.99, 1)]},                                                       #12
+    {'aluminium': ['m_aluminium', 'QMM Aluminium', (0.913098, 0.913098, 0.921582, 1), 0.2, 1.244, (1.216499, 1.169372, 1.112043, 1)]},                           #2
+    {'iron': ['m_iron', 'QMM Iron', (0.533276, 0.514917, 0.496933, 1), 0.3, 2.95, (2.151289, 2.202939, 1.956144, 1)]},                                           #3
+    {'lead': ['m_lead', 'QMM Lead', (0.630757, 0.623960, 0.637597, 1), 0.3, 2.01, (1.572684, 1.547365, 1.409525, 1)]},                                           #4
+    {'lead_rough': ['m_lead_rough', 'QMM Lead Rough', (0.186, 0.188, 0.196, 1), 0.4, 2.01, (0.99, 0.99, 0.99, 1)]},                                              #5
+    {'nickel': ['m_nickel', 'QMM Nickel', (0.651405, 0.610495, 0.539480, 1.000000), 0.2, 1.08, (1.553379, 1.569627, 1.535934, 1)]},                              #6
+    {'titanium_polished': ['m_titanium_polished', 'QMM Titanium Polished', (0.617206, 0.584078, 0.545725, 1), 0.155, 2.16, (1.939808, 1.880272, 1.764035, 1)]},  #7
+    {'zinc': ['m_zinc', 'QMM Zinc', (0.871366, 0.863156, 0.854993, 1), 0.3, 1.918, (1.241139, 1.193442, 1.147981, 1)]},                                          #8
+    {'brass': ['m_brass', 'QMM Brass', (0.887922, 0.791297, 0.434154, 1), 0.2, 1.225, (1.098669, 1.133579, 1.391092, 1)]},                                       #9
+    {'bronze': ['m_bronze', 'QMM Bronze', (0.434154, 0.266356, 0.0953075, 1), 0.33, 1.517, (0.651405, 0.577580, 0.514918, 1)]},                                  #10
+    {'chromium': ['m_chromium', 'QMM Chromium', (0.655879, 0.681365, 0.698525, 1), 0.075, 1.97, (2.809509, 2.227482, 1.634533, 1)]},                             #11
+    {'steel': ['m_steel', 'QMM Steel', (0.42869, 0.527115, 0.590619, 1), 0.3, 2.5, (0.99, 0.99, 0.99, 1)]},                                                      #12
     {'mercury': ['m_mercury', 'QMM Mercury', (0.783537, 0.775822, 0.775822, 1), 0.025, 1.62, (1.500116, 1.375106, 1.247637, 1)]},                                #13
-    {'silicon': ['m_silicon', 'QMM Silicon', (0.345218, 0.3668, 0.43018, 1), 0.1, 4.24, (3.630057, 4.022775, 5.870442, 1)]},                                      #14
-    {'copper': ['m_copper', 'QMM Copper', (0.838799, 0.473531, 0.215861, 1), 0.125, 2.43, (1.000000, 0.955973, 0.822786, 1)]},                                      #15
-    {'gold': ['m_gold', 'QMM Gold', (0.94423, 0.776102, 0.372164, 1), 0.2, 1.335, (1.040075, 1.111826, 1.486759, 1)]},                                             #16
-    {'silver': ['m_silver', 'QMM Silver', (0.962, 0.949468, 0.917246, 1), 0.25, 1.082, (1.032801, 1.032482, 1.034567, 1)]},                                        #17
-    {'tin': ['m_tin', 'QMM Tin', (0.988702, 0.988222, 0.986691, 1), 0.2, 2.16, (1.051994, 1.053243, 1.058345, 1)]},                                               #18
-    {'titanium': ['m_titanium', 'QMM Titanium Textured', (0.533276, 0.491021, 0.439657, 1), 0.3, 2.16, (1.939808, 1.880272, 1.764035, 1)]},                       #19
+    {'silicon': ['m_silicon', 'QMM Silicon', (0.345218, 0.3668, 0.43018, 1), 0.1, 4.24, (3.630057, 4.022775, 5.870442, 1)]},                                     #14
+    {'copper': ['m_copper', 'QMM Copper', (0.838799, 0.473531, 0.215861, 1), 0.125, 2.43, (1.000000, 0.955973, 0.822786, 1)]},                                   #15
+    {'gold': ['m_gold', 'QMM Gold', (0.94423, 0.776102, 0.372164, 1), 0.2, 1.335, (1.040075, 1.111826, 1.486759, 1)]},                                           #16
+    {'silver': ['m_silver', 'QMM Silver', (0.962, 0.949468, 0.917246, 1), 0.25, 1.082, (1.032801, 1.032482, 1.034567, 1)]},                                      #17
+    {'tin': ['m_tin', 'QMM Tin', (0.988702, 0.988222, 0.986691, 1), 0.2, 2.16, (1.051994, 1.053243, 1.058345, 1)]},                                              #18
+    {'titanium': ['m_titanium', 'QMM Titanium Textured', (0.533276, 0.491021, 0.439657, 1), 0.3, 2.16, (1.939808, 1.880272, 1.764035, 1)]},                      #19
+    {'Orichalcum': ['m_orichalcum', 'QMM Orichalcum', (0.520992, 0.376263, 0.144129, 1), 0.4, 1.5, (1, 1, 1, 1)]},                                               #20
 ]
 
 # MESSAGE BOX
@@ -48,7 +49,7 @@ def make_metal(units):
         bpy.context.object.active_material = m_name
         diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
         m_name.diffuse_color = unit_value[2] if diffuse_bool else (0.8, 0.8, 0.8, 1)
-        m_name.metallic = 1 if diffuse_bool else 0
+        # m_name.metallic = 1 if diffuse_bool else 0
         m_name.roughness = unit_value[3] if diffuse_bool else 0.4
         return {'FINISHED'}
     else:
@@ -68,7 +69,7 @@ def make_shader(units):
     diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
     if diffuse_bool == True:
         unit_value[0].diffuse_color = unit_value[2]
-        unit_value[0].metallic = 1
+        # unit_value[0].metallic = 1
         unit_value[0].roughness = unit_value[3]
 
     nodes = unit_value[0].node_tree.nodes
@@ -444,6 +445,16 @@ class QMMBronze(bpy.types.Operator):
 
     def execute(self, context):
         make_metal(10)
+        return {'FINISHED'}
+
+
+class QMMOrichalcum(bpy.types.Operator):
+    """Add/Apply Orichalcum Material to Selected Object (or Scene)"""
+    bl_label  = "QMM Orichalcumnze Shader"
+    bl_idname = 'shader.qmm_orichalcum_operator'
+
+    def execute(self, context):
+        make_metal(20)
         return {'FINISHED'}
 
 

@@ -21,7 +21,7 @@ bl_info = {
     "name": "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
     "author": "Don Schnitzius",
-    "version": (1, 17, 0),
+    "version": (1, 18, 0),
     "blender": (3, 0, 0),
     "location": "3D Viewport > Sidebar > MAT > Quick Metal Materials",
     "warning": "",
@@ -155,6 +155,9 @@ class QMMPanelAlloy(bpy.types.Panel):
 
         row = layout.row()
         row.operator("shader.qmm_bronze_operator", text='Bronze')
+
+        row = layout.row()
+        row.operator("shader.qmm_orichalcum_operator", text='Orichalcum')
 
         row = layout.row()
         row.operator("shader.qmm_steel_operator", text='Steel')
@@ -464,6 +467,7 @@ classes = [
     QMMMercury,
     QMMMithryl,
     QMMNickel,
+    QMMOrichalcum,
     QMMPalladium,
     QMMPlatinum,
     QMMPlaster,
