@@ -1,8 +1,8 @@
 ### 1.19.0 <!-- 06/03/25 -->
 
-- Add Uneven Roughness group to all metals
-- Bugfix: Error unregistering QMMSettings
-- Remove Addon Updater
+- Add **Uneven Roughness** group to all metals
+- Bugfix: Error unregistering **QMMSettings**
+- Remove **Addon Updater**
 
 ### 1.18.0 <!-- 01/07/25 -->
 
