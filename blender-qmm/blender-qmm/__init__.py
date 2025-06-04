@@ -21,7 +21,7 @@ bl_info = {
     "name": "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
     "author": "Don Schnitzius",
-    "version": (1, 18, 0),
+    "version": (1, 19, 0),
     "blender": (3, 0, 0),
     "location": "3D Viewport > Sidebar > MAT > Quick Metal Materials",
     "warning": "",
@@ -34,15 +34,13 @@ bl_info = {
 import bpy
 
 
-# Updater ops import, all setup in this file.
-from . import addon_updater_ops
 from .localization import *
 
 
 # BOOLEAN FOR PANEL
 class QMMSettings(bpy.types.PropertyGroup):
     diffuse_more: bpy.props.BoolProperty(name='',default=False)
-
+    
 
 # PARENT PANEL
 class QMMPanel(bpy.types.Panel):
@@ -355,54 +353,45 @@ class QMMPanelExtras(bpy.types.Panel):
         row.operator("shader.qmm_wall_paint_operator", text='Wall Paint')
 
 
-@addon_updater_ops.make_annotations
-class AutoUpdaterPreferences(bpy.types.AddonPreferences):
-    """Blender QMM updater preferences"""
-    bl_idname = __package__
+class QMM_AddonPreferences(bpy.types.AddonPreferences):
+    bl_idname = __package__  # or use your module name
 
-    # Addon updater preferences.
-
-    auto_check_update = bpy.props.BoolProperty(
-        name="Auto-check for Update",
-        description="If enabled, auto-check for updates using an interval",
-        default=False)
-
-    updater_interval_months = bpy.props.IntProperty(
-        name='Months',
-        description="Number of months between checking for updates",
-        default=0,
-        min=0)
-
-    updater_interval_days = bpy.props.IntProperty(
-        name='Days',
-        description="Number of days between checking for updates",
-        default=7,
-        min=0,
-        max=31)
-
-    updater_interval_hours = bpy.props.IntProperty(
-        name='Hours',
-        description="Number of hours between checking for updates",
-        default=0,
-        min=0,
-        max=23)
-
-    updater_interval_minutes = bpy.props.IntProperty(
-        name='Minutes',
-        description="Number of minutes between checking for updates",
-        default=0,
-        min=0,
-        max=59)
+    # Addon settings can go here as bpy.props, if needed
 
     def draw(self, context):
         layout = self.layout
 
-        # Works best if a column, or even just self.layout.
-        mainrow = layout.row()
-        col = mainrow.column()
+        # Additional Resources Section
+        box = layout.box()
+        box.label(text="Additional Resources:")
 
-        # Updater draw function, could also pass in col as third arg.
-        addon_updater_ops.update_settings_ui(self, context)
+        linkcol = box.column(align=True)
+
+        # Gumroad Links
+        gumbox = linkcol.box()
+        gumroad = gumbox.row()
+        gumroad.ui_units_y = 0.8
+        gumroad.label(text="Gumroad:")
+
+        gumrow = gumbox.row()
+        gumrow.scale_y = 1.6
+        gumrow.operator(
+            "wm.url_open", text="Blender Quick Lighting Environment").url = "https://don1138.gumroad.com/l/blender-qle"
+        gumrow.operator(
+            "wm.url_open", text="Blender Quick Resize Nodes").url = "https://don1138.gumroad.com/l/blender-qrn"
+
+        # Github Links
+        gitbox = linkcol.box()
+        github = gitbox.row()
+        github.ui_units_y = 0.8
+        github.label(text="Github:")
+
+        gitrow = gitbox.row()
+        gitrow.scale_y = 1.6
+        gitrow.operator(
+            "wm.url_open", text="Blender Materials").url = "https://github.com/don1138/blender-materials"
+        gitrow.operator(
+            "wm.url_open", text="Blender Quick Material Colors").url = "https://github.com/don1138/blender-pcoy"
 
 
 from .mats.MakeMetal import *
@@ -435,6 +424,7 @@ from .mats.UnevenRoughness import *
 
 
 classes = [
+    QMM_AddonPreferences,
     QMMSettings,
     QMMPanel,
     QMMPanelNoble,
@@ -446,7 +436,6 @@ classes = [
     QMMPanelSpecialtySteel,
     QMMPanelMinor,
     QMMPanelExtras,
-    AutoUpdaterPreferences,
     QMMAluminium,
     QMMAsphalt,
     QMMAsphaltBleached,
@@ -519,28 +508,26 @@ classes = [
 
 
 def register():
-    # Addon updater code and configurations.
-    # In case of a broken version, try to register the updater first so that
-    # users can revert back to a working version.
-    addon_updater_ops.register(bl_info)
     bpy.app.translations.register(__name__, langs)
-
-    # Register the example panel, to show updater buttons.
+    
+    # Register all classes
     for cls in classes:
-        addon_updater_ops.make_annotations(cls)  # Avoid blender 2.8 warnings.
         bpy.utils.register_class(cls)
+    
+    # Register the PointerProperty on Scene AFTER class registration
+    bpy.types.Scene.diffuse_bool = bpy.props.PointerProperty(type=QMMSettings)
 
 
 def unregister():
-    # Addon updater unregister.
-    addon_updater_ops.unregister()
+    bpy.app.translations.unregister(__name__)
+    
+    # Remove the property first
+    if hasattr(bpy.types.Scene, "diffuse_bool"):
+        del bpy.types.Scene.diffuse_bool
+    
+    # Unregister all classes in reverse
     for cls in reversed(classes):
         bpy.utils.unregister_class(cls)
-        bpy.types.Scene.diffuse_bool = bpy.props.PointerProperty(type=QMC_SETTINGS)
-
-    # Unregister translation
-    bpy.app.translations.unregister(__name__)
-    del bpy.types.Scene.diffuse_bool
 
 
 if __name__ == "__main__":
