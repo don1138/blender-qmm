@@ -63,15 +63,20 @@ class QMMMithryl(bpy.types.Operator):
         BSDF.location = (-300, 0)
         BSDF.inputs[0].default_value = (0.590619, 0.625682, 0.679542, 1)
         if bpy.app.version < (4, 0, 0):
-            BSDF.inputs[6].default_value = 1                    #Metallic
-            BSDF.inputs[9].default_value = 0.075                #Roughness
-            BSDF.inputs[16].default_value = 0.18                #IOR
-            BSDF.inputs[19].default_value = (0.333333, 1, 1, 1) #Emission
+            BSDF.inputs[6].default_value = 1                           #Metallic
+            BSDF.inputs[9].default_value = 0.075                       #Roughness
+            BSDF.inputs[16].default_value = 0.18                       #IOR
+            BSDF.inputs[19].default_value = (0.332452, 1, 0.617207, 1) #Emission
+        elif bpy.app.version < (4, 3, 0):
+            BSDF.inputs[1].default_value = 1                           #Metallic
+            BSDF.inputs[2].default_value = 0.075                       #Roughness
+            BSDF.inputs[3].default_value = 0.18                        #IOR
+            BSDF.inputs[26].default_value = (0.332452, 1, 0.617207, 1) #Emission
         else:
-            BSDF.inputs[1].default_value = 1                    #Metallic
-            BSDF.inputs[2].default_value = 0.075                #Roughness
-            BSDF.inputs[3].default_value = 0.18                 #IOR
-            BSDF.inputs[26].default_value = (0.333333, 1, 1, 1) #Emission
+            BSDF.inputs[1].default_value = 1                           #Metallic
+            BSDF.inputs[2].default_value = 0.075                       #Roughness
+            BSDF.inputs[3].default_value = 0.18                        #IOR
+            BSDF.inputs[27].default_value = (0.332452, 1, 0.617207, 1) #Emission
         # BSDF.select = True
 
         # mixshader
@@ -95,9 +100,9 @@ class QMMMithryl(bpy.types.Operator):
             m_colorramp.color_ramp.elements.new(0.0)
         m_colorramp.color_ramp.elements[0].color = (0.973445, 0.955973, 0.913099, 1)
         m_colorramp.color_ramp.elements[0].position = 0.12
-        m_colorramp.color_ramp.elements[1].color = (0.16, 0.8, 0.659928, 1)
+        m_colorramp.color_ramp.elements[1].color = (0.16, 0.8, 0.43136, 1)
         m_colorramp.color_ramp.elements[1].position = 0.17
-        m_colorramp.color_ramp.elements[2].color = (0.333333, 1, 1, 1)
+        m_colorramp.color_ramp.elements[2].color = (0.332452, 1, 0.617207, 1)
         m_colorramp.color_ramp.elements[2].position = 0.2
         m_colorramp.color_ramp.elements[3].color = (0.590619, 0.625682, 0.679542, 1)
         m_colorramp.color_ramp.elements[3].position = 0.22
@@ -129,8 +134,11 @@ class QMMMithryl(bpy.types.Operator):
         if bpy.app.version < (4, 0, 0):
             links(m_maprange.outputs[0], BSDF.inputs[19])
             links(ur_group.outputs[0], BSDF.inputs[9])
-        else:
+        elif bpy.app.version < (4, 3, 0):
             links(m_maprange.outputs[0], BSDF.inputs[27])
+            links(ur_group.outputs[0], BSDF.inputs[2])
+        else:
+            links(m_maprange.outputs[0], BSDF.inputs[28])
             links(ur_group.outputs[0], BSDF.inputs[2])
 
         bpy.context.object.active_material = m_mithryl

@@ -1,3 +1,9 @@
+### 1.20.0 <!-- 07/13/25 -->
+
+- Tweaks to **Mithryl**
+  - Change color tint from turquoise to **Cosmic Spectrum Green**
+  - Bugfix: Update **Principled BSDF** node **Emission** inputs to 4.3 config
+
 ### 1.19.0 <!-- 06/03/25 -->
 
 - Add **Uneven Roughness** group to all metals
