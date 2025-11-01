@@ -80,22 +80,24 @@ def make_shader(units):
     nodes = unit_value[0].node_tree.nodes
 
     # materialoutput
-    m_output = nodes.get('Material Output')
-    m_output.location = (0, 0)
+    m_output = next((n for n in nodes if n.bl_idname == 'ShaderNodeOutputMaterial'), None)
+    if m_output:
+        m_output.location = (0, 0)
 
     # princibledbsdf
-    BSDF = nodes.get('Principled BSDF')
-    BSDF.distribution = 'MULTI_GGX'
-    BSDF.location = (-300, 0)
-    BSDF.inputs[0].default_value = unit_value[2]
-    if bpy.app.version < (4, 0, 0):
-        BSDF.inputs[6].default_value = 1
-        BSDF.inputs[9].default_value = unit_value[3]
-        BSDF.inputs[16].default_value = unit_value[5]
-    else:
-        BSDF.inputs[1].default_value = 1
-        BSDF.inputs[2].default_value = unit_value[3]
-        BSDF.inputs[3].default_value = unit_value[5]
+    BSDF = next((n for n in nodes if n.bl_idname == 'ShaderNodeBsdfPrincipled'), None)
+    if BSDF:
+        BSDF.distribution = 'MULTI_GGX'
+        BSDF.location = (-300, 0)
+        BSDF.inputs[0].default_value = unit_value[2]
+        if bpy.app.version < (4, 0, 0):
+            BSDF.inputs[6].default_value = 1
+            BSDF.inputs[9].default_value = unit_value[3]
+            BSDF.inputs[16].default_value = unit_value[5]
+        else:
+            BSDF.inputs[1].default_value = 1
+            BSDF.inputs[2].default_value = unit_value[3]
+            BSDF.inputs[3].default_value = unit_value[5]
 
     # Energy Conservation group
     bpy.ops.node.ec_group_operator()

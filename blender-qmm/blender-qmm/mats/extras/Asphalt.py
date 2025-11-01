@@ -62,8 +62,9 @@ class QMMAsphalt(bpy.types.Operator):
         nodes = m_asphalt.node_tree.nodes
 
         # materialoutput
-        material_output = nodes.get('Material Output')
-        material_output.location = (0, 0)
+        material_output = next((n for n in nodes if n.bl_idname == 'ShaderNodeOutputMaterial'), None)
+        if material_output:
+            material_output.location = (0, 0)
 
         # mixshader
         m_mixshader = make_node(nodes, 'ShaderNodeMixShader', -200, 0)
@@ -76,16 +77,17 @@ class QMMAsphalt(bpy.types.Operator):
         m_lessthan.operation = 'LESS_THAN'
 
         # principledbsdf - stone
-        BSDF = nodes.get('Principled BSDF')
-        BSDF.distribution = 'MULTI_GGX'
-        BSDF.location = (-700, 300)
-        BSDF.inputs[0].default_value = (0.333, 0.333, 0.333, 1)
-        if bv < (4, 0, 0):
-            BSDF.inputs[9].default_value = 0.56
-        else:
-            BSDF.inputs[2].default_value = 0.56
-            BSDF.inputs[3].default_value = 1.635
-        # BSDF.select = True
+        BSDF = next((n for n in nodes if n.bl_idname == 'ShaderNodeBsdfPrincipled'), None)
+        if BSDF:
+            BSDF.distribution = 'MULTI_GGX'
+            BSDF.location = (-700, 300)
+            BSDF.inputs[0].default_value = (0.333, 0.333, 0.333, 1)
+            if bv < (4, 0, 0):
+                BSDF.inputs[9].default_value = 0.56
+            else:
+                BSDF.inputs[2].default_value = 0.56
+                BSDF.inputs[3].default_value = 1.635
+            # BSDF.select = True
 
         # principledbsdf - cracks
         BSDF2 = make_node(nodes, 'ShaderNodeBsdfPrincipled', -700, -400)

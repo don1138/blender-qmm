@@ -79,22 +79,24 @@ def make_shader(units):
     nodes = unit_value[0].node_tree.nodes
 
     # materialoutput
-    m_output = nodes.get('Material Output')
-    m_output.location = (0, 0)
+    m_output = next((n for n in nodes if n.bl_idname == 'ShaderNodeOutputMaterial'), None)
+    if m_output:
+        m_output.location = (0, 0)
 
     # princibledbsdf
-    BSDF = nodes.get('Principled BSDF')
-    BSDF.distribution = 'MULTI_GGX'
-    BSDF.location = (-300, 0)
-    BSDF.inputs[0].default_value = unit_value[2]
-    if bpy.app.version < (4, 0, 0):
-        BSDF.inputs[6].default_value = 1              # Metallic
-        BSDF.inputs[9].default_value = unit_value[3]  # Roughness
-        BSDF.inputs[16].default_value = 2.5           # IOR
-    else:
-        BSDF.inputs[1].default_value = 1              # Metallic
-        BSDF.inputs[2].default_value = unit_value[3]  # Roughness
-        BSDF.inputs[3].default_value = 2.5            # IOR
+    BSDF = next((n for n in nodes if n.bl_idname == 'ShaderNodeBsdfPrincipled'), None)
+    if BSDF:
+        BSDF.distribution = 'MULTI_GGX'
+        BSDF.location = (-300, 0)
+        BSDF.inputs[0].default_value = unit_value[2]
+        if bpy.app.version < (4, 0, 0):
+            BSDF.inputs[6].default_value = 1              # Metallic
+            BSDF.inputs[9].default_value = unit_value[3]  # Roughness
+            BSDF.inputs[16].default_value = 2.5           # IOR
+        else:
+            BSDF.inputs[1].default_value = 1              # Metallic
+            BSDF.inputs[2].default_value = unit_value[3]  # Roughness
+            BSDF.inputs[3].default_value = 2.5            # IOR
 
     # Add Uneven Roughness Group
     bpy.ops.node.uneven_roughness_group_operator()
@@ -379,21 +381,23 @@ class QMMWeatheringSteel(bpy.types.Operator):
         nodes = m_weathering_steel.node_tree.nodes
 
         # materialoutput
-        material_output = nodes.get('Material Output')
-        material_output.location = (0, 0)
+        material_output = next((n for n in nodes if n.bl_idname == 'ShaderNodeOutputMaterial'), None)
+        if material_output:
+            material_output.location = (0, 0)
 
         # principledbsdf
-        BSDF = nodes.get('Principled BSDF')
-        BSDF.distribution = 'MULTI_GGX'
-        BSDF.location = (-300, 0)
-        BSDF.inputs[0].default_value = (0.351531, 0.084376, 0.026241, 1)
-        if bpy.app.version < (4, 0, 0):
-            BSDF.inputs[6].default_value = 1                    #Metallic
-            BSDF.inputs[9].default_value = 0.7                  #Roughness
-        else:
-            BSDF.inputs[1].default_value = 1                    #Metallic
-            BSDF.inputs[2].default_value = 0.7                  #Roughness
-        # BSDF.select = True
+        BSDF = next((n for n in nodes if n.bl_idname == 'ShaderNodeBsdfPrincipled'), None)
+        if BSDF:
+            BSDF.distribution = 'MULTI_GGX'
+            BSDF.location = (-300, 0)
+            BSDF.inputs[0].default_value = (0.351531, 0.084376, 0.026241, 1)
+            if bpy.app.version < (4, 0, 0):
+                BSDF.inputs[6].default_value = 1                    #Metallic
+                BSDF.inputs[9].default_value = 0.7                  #Roughness
+            else:
+                BSDF.inputs[1].default_value = 1                    #Metallic
+                BSDF.inputs[2].default_value = 0.7                  #Roughness
+            # BSDF.select = True
 
         # colorramp
         m_colorramp = nodes.new("ShaderNodeValToRGB")

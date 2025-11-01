@@ -57,28 +57,30 @@ class QMMPlaster(bpy.types.Operator):
         nodes = m_plaster.node_tree.nodes
 
         # materialoutput
-        material_output = nodes.get('Material Output')
-        material_output.location = (0, 0)
+        material_output = next((n for n in nodes if n.bl_idname == 'ShaderNodeOutputMaterial'), None)
+        if material_output:
+            material_output.location = (0, 0)
 
         # princibledbsdf
-        BSDF = nodes.get('Principled BSDF')
-        BSDF.distribution = 'MULTI_GGX'
-        BSDF.location = (-300, 0)
-        BSDF.inputs[0].default_value = (0.708857, 0.392564, 0.708857, 1)
-        if bv < (4, 0, 0):
-            # BSDF.inputs[1].default_value = 0.02
-            BSDF.inputs[3].default_value = (0.708857, 0.392564, 0.708857, 1)
-            BSDF.inputs[9].default_value = 0.86
-        elif bv < (4, 3, 0):
-            # BSDF.inputs[7].default_value = 0.02
-            BSDF.inputs[8].default_value = (0.708857, 0.392564, 0.708857)
-            BSDF.inputs[2].default_value = 0.86
-            BSDF.inputs[3].default_value = 1.3
-        else:
-            # BSDF.inputs[7].default_value = 0.02
-            BSDF.inputs[9].default_value = (0.708857, 0.392564, 0.708857)
-            BSDF.inputs[2].default_value = 0.86
-            BSDF.inputs[3].default_value = 1.3
+        BSDF = next((n for n in nodes if n.bl_idname == 'ShaderNodeBsdfPrincipled'), None)
+        if BSDF:
+            BSDF.distribution = 'MULTI_GGX'
+            BSDF.location = (-300, 0)
+            BSDF.inputs[0].default_value = (0.708857, 0.392564, 0.708857, 1)
+            if bv < (4, 0, 0):
+                # BSDF.inputs[1].default_value = 0.02
+                BSDF.inputs[3].default_value = (0.708857, 0.392564, 0.708857, 1)
+                BSDF.inputs[9].default_value = 0.86
+            elif bv < (4, 3, 0):
+                # BSDF.inputs[7].default_value = 0.02
+                BSDF.inputs[8].default_value = (0.708857, 0.392564, 0.708857)
+                BSDF.inputs[2].default_value = 0.86
+                BSDF.inputs[3].default_value = 1.3
+            else:
+                # BSDF.inputs[7].default_value = 0.02
+                BSDF.inputs[9].default_value = (0.708857, 0.392564, 0.708857)
+                BSDF.inputs[2].default_value = 0.86
+                BSDF.inputs[3].default_value = 1.3
 
         # colorramp
         m_colorramp = make_node(nodes, 'ShaderNodeValToRGB', -600, -100)

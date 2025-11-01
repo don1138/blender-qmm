@@ -52,17 +52,19 @@ class QMMRedMetal(bpy.types.Operator):
         nodes = m_red_metal.node_tree.nodes
 
         # materialoutput
-        material_output = nodes.get('Material Output')
-        material_output.location = (0, 0)
+        material_output = next((n for n in nodes if n.bl_idname == 'ShaderNodeOutputMaterial'), None)
+        if material_output:
+            material_output.location = (0, 0)
 
         # princibledbsdf
-        BSDF = nodes.get('Principled BSDF')
-        BSDF.distribution = 'MULTI_GGX'
-        BSDF.location = (-300, 0)
-        BSDF.inputs[0].default_value = (0.768151, 0.054480, 0.034340, 1)
-        BSDF.inputs[6].default_value = 1
-        BSDF.inputs[9].default_value = 0.4
-        # BSDF.inputs[16].default_value = 3.256
+        BSDF = next((n for n in nodes if n.bl_idname == 'ShaderNodeBsdfPrincipled'), None)
+        if BSDF:
+            BSDF.distribution = 'MULTI_GGX'
+            BSDF.location = (-300, 0)
+            BSDF.inputs[0].default_value = (0.768151, 0.054480, 0.034340, 1)
+            BSDF.inputs[6].default_value = 1
+            BSDF.inputs[9].default_value = 0.4
+            # BSDF.inputs[16].default_value = 3.256
 
         # colorramp cinnabar
         c_cinnabar = [(0.768151, 0.054480, 0.034340, 1), (0.964687, 0.066626, 0.002428, 1)]

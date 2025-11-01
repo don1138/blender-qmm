@@ -44,13 +44,15 @@ class QMMCopperFresnel(bpy.types.Operator):
         nodes = m_copper.node_tree.nodes
 
         # materialoutput
-        material_output = nodes.get('Material Output')
-        material_output.location = (0, 0)
+        material_output = next((n for n in nodes if n.bl_idname == 'ShaderNodeOutputMaterial'), None)
+        if material_output:
+            material_output.location = (0, 0)
 
         # princibledbsdf
-        BSDF = nodes.get('Principled BSDF')
-        BSDF.distribution = 'MULTI_GGX'
-        nodes.remove(BSDF)
+        BSDF = next((n for n in nodes if n.bl_idname == 'ShaderNodeBsdfPrincipled'), None)
+        if BSDF:
+            BSDF.distribution = 'MULTI_GGX'
+            nodes.remove(BSDF)
 
         # mixshader
         m_mix = nodes.new('ShaderNodeMixShader')

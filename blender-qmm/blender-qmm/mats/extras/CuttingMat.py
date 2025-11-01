@@ -58,22 +58,24 @@ class QMMCuttingMat(bpy.types.Operator):
         nodes = m_cutting_mat.node_tree.nodes
 
         # materialoutput
-        material_output = nodes.get('Material Output')
-        material_output.location = (0, 0)
+        material_output = next((n for n in nodes if n.bl_idname == 'ShaderNodeOutputMaterial'), None)
+        if material_output:
+            material_output.location = (0, 0)
 
         # princibledbsdf
-        BSDF = nodes.get('Principled BSDF')
-        BSDF.distribution = 'MULTI_GGX'
-        BSDF.location = (-300, 0)
-        BSDF.inputs[0].default_value = (0.045186, 0.141263, 0.144129, 1)
-        if bv >= (4, 3, 0):
-            BSDF.inputs[2].default_value = 0.79
-            BSDF.inputs[3].default_value = 1.52
-            BSDF.inputs[11].default_value = 0.425
-        elif bv >= (4, 0, 0):
-            BSDF.inputs[2].default_value = 0.79
-            BSDF.inputs[3].default_value = 1.52
-            BSDF.inputs[12].default_value = 0.425
+        BSDF = next((n for n in nodes if n.bl_idname == 'ShaderNodeBsdfPrincipled'), None)
+        if BSDF:
+            BSDF.distribution = 'MULTI_GGX'
+            BSDF.location = (-300, 0)
+            BSDF.inputs[0].default_value = (0.045186, 0.141263, 0.144129, 1)
+            if bv >= (4, 3, 0):
+                BSDF.inputs[2].default_value = 0.79
+                BSDF.inputs[3].default_value = 1.52
+                BSDF.inputs[11].default_value = 0.425
+            elif bv >= (4, 0, 0):
+                BSDF.inputs[2].default_value = 0.79
+                BSDF.inputs[3].default_value = 1.52
+                BSDF.inputs[12].default_value = 0.425
 
         # rgbmix
         if bv < (3, 4, 0):

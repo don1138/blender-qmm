@@ -57,16 +57,18 @@ class QMMWallPaint(bpy.types.Operator):
         nodes = m_wall_paint.node_tree.nodes
 
         # materialoutput
-        material_output = nodes.get('Material Output')
-        material_output.location = (0, 0)
+        material_output = next((n for n in nodes if n.bl_idname == 'ShaderNodeOutputMaterial'), None)
+        if material_output:
+            material_output.location = (0, 0)
 
         # princibledbsdf
-        BSDF = nodes.get('Principled BSDF')
-        BSDF.distribution = 'MULTI_GGX'
-        BSDF.location = (-300, 0)
-        BSDF.inputs[0].default_value = (0.504859, 0.483713, 0.674328, 1)
-        if bv >= (4, 0, 0):
-            BSDF.inputs[3].default_value = 1.52
+        BSDF = next((n for n in nodes if n.bl_idname == 'ShaderNodeBsdfPrincipled'), None)
+        if BSDF:
+            BSDF.distribution = 'MULTI_GGX'
+            BSDF.location = (-300, 0)
+            BSDF.inputs[0].default_value = (0.504859, 0.483713, 0.674328, 1)
+            if bv >= (4, 0, 0):
+                BSDF.inputs[3].default_value = 1.52
 
         # bump
         m_bump = make_node(nodes, 'ShaderNodeBump', -500, -500)

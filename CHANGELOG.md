@@ -1,8 +1,29 @@
+### 1.21.0 <!-- 10/31/25 -->
+
+- UI localization overhaul
+  - Update supported language list (based on active user base):
+    - Japanese
+    - German
+    - French
+    - Russian
+    - Italian
+    - Brazilian Portuguese
+    - Spanish
+    - Indonesian
+    - Chinese Traditional
+    - Korean
+    - Polish
+    - Turkish
+    - Dutch
+    - Ukrainian
+    - Hungarian
+  - Bugfix: Node selection by translated name (e.g., `nodes.get('Principled BSDF')`) failed in non-English locales. Switch node lookups to `bl_idname` for Material Output, Principled BSDF, Mix Shader, etc.
+
 ### 1.20.0 <!-- 07/13/25 -->
 
 - Tweaks to **Mithryl**
-  - Change color tint from turquoise to **Cosmic Spectrum Green**
-  - Bugfix: Update **Principled BSDF** node **Emission** inputs to 4.3 config
+  - Color tint updated from turquoise to **Cosmic Spectrum Green**
+  - Bugfix: Updated **Principled BSDF** node **Emission** inputs for Blender 4.3 compatibility
 
 ### 1.19.0 <!-- 06/03/25 -->
 

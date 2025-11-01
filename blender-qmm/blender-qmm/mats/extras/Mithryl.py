@@ -54,30 +54,32 @@ class QMMMithryl(bpy.types.Operator):
         nodes = m_mithryl.node_tree.nodes
 
         # materialoutput
-        material_output = nodes.get('Material Output')
-        material_output.location = (0, 0)
+        material_output = next((n for n in nodes if n.bl_idname == 'ShaderNodeOutputMaterial'), None)
+        if material_output:
+            material_output.location = (0, 0)
 
         # principledbsdf
-        BSDF = nodes.get('Principled BSDF')
-        BSDF.distribution = 'MULTI_GGX'
-        BSDF.location = (-300, 0)
-        BSDF.inputs[0].default_value = (0.590619, 0.625682, 0.679542, 1)
-        if bpy.app.version < (4, 0, 0):
-            BSDF.inputs[6].default_value = 1                           #Metallic
-            BSDF.inputs[9].default_value = 0.075                       #Roughness
-            BSDF.inputs[16].default_value = 0.18                       #IOR
-            BSDF.inputs[19].default_value = (0.332452, 1, 0.617207, 1) #Emission
-        elif bpy.app.version < (4, 3, 0):
-            BSDF.inputs[1].default_value = 1                           #Metallic
-            BSDF.inputs[2].default_value = 0.075                       #Roughness
-            BSDF.inputs[3].default_value = 0.18                        #IOR
-            BSDF.inputs[26].default_value = (0.332452, 1, 0.617207, 1) #Emission
-        else:
-            BSDF.inputs[1].default_value = 1                           #Metallic
-            BSDF.inputs[2].default_value = 0.075                       #Roughness
-            BSDF.inputs[3].default_value = 0.18                        #IOR
-            BSDF.inputs[27].default_value = (0.332452, 1, 0.617207, 1) #Emission
-        # BSDF.select = True
+        BSDF = next((n for n in nodes if n.bl_idname == 'ShaderNodeBsdfPrincipled'), None)
+        if BSDF:
+            BSDF.distribution = 'MULTI_GGX'
+            BSDF.location = (-300, 0)
+            BSDF.inputs[0].default_value = (0.590619, 0.625682, 0.679542, 1)
+            if bpy.app.version < (4, 0, 0):
+                BSDF.inputs[6].default_value = 1                           #Metallic
+                BSDF.inputs[9].default_value = 0.075                       #Roughness
+                BSDF.inputs[16].default_value = 0.18                       #IOR
+                BSDF.inputs[19].default_value = (0.332452, 1, 0.617207, 1) #Emission
+            elif bpy.app.version < (4, 3, 0):
+                BSDF.inputs[1].default_value = 1                           #Metallic
+                BSDF.inputs[2].default_value = 0.075                       #Roughness
+                BSDF.inputs[3].default_value = 0.18                        #IOR
+                BSDF.inputs[26].default_value = (0.332452, 1, 0.617207, 1) #Emission
+            else:
+                BSDF.inputs[1].default_value = 1                           #Metallic
+                BSDF.inputs[2].default_value = 0.075                       #Roughness
+                BSDF.inputs[3].default_value = 0.18                        #IOR
+                BSDF.inputs[27].default_value = (0.332452, 1, 0.617207, 1) #Emission
+            # BSDF.select = True
 
         # mixshader
         m_mixshader = make_node(nodes, 'ShaderNodeMix', -500, 0)
