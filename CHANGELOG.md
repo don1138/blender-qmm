@@ -1,3 +1,8 @@
+### 1.21.1 <!-- 10/31/25 -->
+
+- Update `bl_info` metadata:
+  - Change `doc_url` to point to the GitHub QMM wiki instead of the main site.
+
 ### 1.21.0 <!-- 10/31/25 -->
 
 - UI localization overhaul
