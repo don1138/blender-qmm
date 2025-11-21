@@ -21,7 +21,7 @@ bl_info = {
     "name": "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
     "author": "Don Schnitzius",
-    "version": (1, 21, 1),
+    "version": (1, 22, 0),
     "blender": (3, 0, 0),
     "location": "3D Viewport > Sidebar > MAT > Quick Metal Materials",
     "warning": "",
@@ -408,19 +408,19 @@ from .mats.extras.WallPaint import *
 from .mats.fresnel.FresnelCopper import *
 from .mats.fresnel.FresnelGold import *
 from .mats.fresnel.FresnelSilver import *
-from .mats.CopperColors import *
-from .mats.GoldColors import *
-from .mats.SilverColors import *
-from .mats.TitaniumColors import *
-from .mats.AnisotrophyX import *
-from .mats.Canisotrophy import *
-from .mats.EnergyConservation import *
-from .mats.MetalFlake import *
-from .mats.PearlescentPigment import *
-from .mats.Specular import *
-from .mats.SteelRoughness import *
-from .mats.Texturizer import *
-from .mats.UnevenRoughness import *
+from .mats.colors.CopperColors import *
+from .mats.colors.GoldColors import *
+from .mats.colors.SilverColors import *
+from .mats.colors.TitaniumColors import *
+from .mats.nodes.AnisotrophyX import *
+from .mats.nodes.Canisotrophy import *
+from .mats.nodes.EnergyConservation import *
+from .mats.nodes.MetalFlake import *
+from .mats.nodes.PearlescentPigment import *
+from .mats.nodes.Specular import *
+from .mats.nodes.SteelRoughness import *
+from .mats.nodes.Texturizer import *
+from .mats.nodes.UnevenRoughness import *
 
 
 classes = [

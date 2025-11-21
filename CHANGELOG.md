@@ -1,3 +1,7 @@
+### 1.22.0 <!-- 11/21/25 -->
+
+- Move `color` and `node` group scripts into new `mats/color` and `mats/nodes` subfolders
+
 ### 1.21.1 <!-- 10/31/25 -->
 
 - Update `bl_info` metadata:
