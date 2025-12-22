@@ -20,6 +20,14 @@ class TexturizerGroup(bpy.types.Operator):
         result.location = arg2, arg3
         return result
 
+    def make_separate_rgb(self, group, x, y):
+        if hasattr(bpy.types, "ShaderNodeSeparateRGB"):
+            return self.make_node(group, "ShaderNodeSeparateRGB", x, y)
+
+        n = self.make_node(group, "ShaderNodeSeparateColor", x, y)
+        n.mode = 'RGB'
+        return n
+
     def make_group(self):
         # newnodegroup
         texturizer_group = bpy.data.node_groups.new('Texturizer', 'ShaderNodeTree')
@@ -155,8 +163,9 @@ class TexturizerGroup(bpy.types.Operator):
         n_rr23 = self.make_node(texturizer_group, 'NodeReroute', -700, -300)
 
         # seperatergb
-        n_sep_rgb = self.make_node(
-            texturizer_group, 'ShaderNodeSeparateRGB', -900, 0)
+        n_sep_rgb = self.make_separate_rgb(
+            texturizer_group, -900, 0
+        )
 
         # noisetexture
         n_tex = self.make_node(texturizer_group, 'ShaderNodeTexNoise', -1100, 0)

@@ -1,3 +1,7 @@
+### 1.22.1 <!-- 12/21/25 -->
+
+- Bugfix: Replace deprecated `ShaderNodeSeparateRGB` with feature-detected `ShaderNodeSeparateColor` and explicit RGB mode for Blender 4.x+ and 5.x compatibility.
+
 ### 1.22.0 <!-- 11/21/25 -->
 
 - Move `color` and `node` group scripts into new `mats/color` and `mats/nodes` subfolders
