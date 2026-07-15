@@ -180,7 +180,7 @@ class TexturizerGroup(bpy.types.Operator):
         links(group_in.outputs[3], n_hsl.inputs[1])
         links(group_in.outputs[4], n_mix_rgb.inputs[0])
         links(group_in.outputs[5], n_bump.inputs[0])
-        links(group_in.outputs[6], n_tex.inputs[0])
+        # links(group_in.outputs[6], n_tex.inputs[0])
         links(n_tex.outputs[1], n_hsl.inputs[4])
         links(n_tex.outputs[1], n_sep_rgb.inputs[0])
         links(n_sep_rgb.outputs[1], n_rr22.inputs[0])

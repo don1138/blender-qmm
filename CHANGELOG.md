@@ -1,6 +1,20 @@
+### 1.23.0 <!-- 07/14/26 -->
+
+- Blender 5.2 compatibility updates
+  - Replace positional **Principled BSDF** socket indices with named sockets
+  - Correct Bump node connections to the **Normal** input
+  - Fix **Cinnabar Lacquer**
+  - Fix **Tinted Plaster**
+  - Fix **Asphalt**
+  - Fix **Asphalt Bleached**
+  - Fix **Car Paint**
+  - Fix **Wall Paint**
+- Update minimum supported Blender version to **4.0.0**
+  
 ### 1.22.1 <!-- 12/21/25 -->
 
 - Bugfix: Replace deprecated `ShaderNodeSeparateRGB` with feature-detected `ShaderNodeSeparateColor` and explicit RGB mode for Blender 4.x+ and 5.x compatibility.
+- Bugfix: Unlink `Vector` group input from `ShaderNodeTexNoise` node
 
 ### 1.22.0 <!-- 11/21/25 -->
 

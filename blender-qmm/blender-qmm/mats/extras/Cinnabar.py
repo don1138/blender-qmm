@@ -14,15 +14,16 @@ def ShowMessageBox(message="", title="", icon='INFO'):
 
 # CinnabarShaderOperator
 
+
 class QMMCinnabar(bpy.types.Operator):
     """Add/Apply Cinnabar Lacquer Material to Selected Object (or Scene)"""
-    bl_label  = "QMM Cinnabar Lacquer Shader"
+    bl_label = "QMM Cinnabar Lacquer Shader"
     bl_idname = 'shader.qmm_cinnabar_operator'
 
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         if m_cinnabar := bpy.data.materials.get("QMM Cinnabar Lacquer"):
-            #ShowMessageBox(message_text, "QMM Cinnabar Lacquer")
+            # ShowMessageBox(message_text, "QMM Cinnabar Lacquer")
             # print(f"QMM Cinnabar already exists")
             bpy.context.object.active_material = m_cinnabar
             diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
@@ -51,47 +52,29 @@ class QMMCinnabar(bpy.types.Operator):
         if material_output:
             material_output.location = (0, 0)
 
-        # princibledbsdf
+        # Principled BSDF
         BSDF = next((n for n in nodes if n.bl_idname == 'ShaderNodeBsdfPrincipled'), None)
         if BSDF:
             BSDF.distribution = 'MULTI_GGX'
             BSDF.location = (-300, 0)
-            BSDF.inputs[0].default_value = (0.768151, 0.054480, 0.034340, 1)      # Base Color
-            if bv < (4, 0, 0):
-                BSDF.inputs[1].default_value =  0.2                               # Subsurface
-                BSDF.inputs[2].default_value = (0.651516, 0.028425, 0.028424)     # Subsurface Radius
-                BSDF.inputs[3].default_value = (0.010000, 0.000709, 0.000447, 1)  # Subsurface Color
-                BSDF.inputs[9].default_value =  0.5                               # Roughness
-                BSDF.inputs[12].default_value =  0.2                              # Sheen
-                BSDF.inputs[14].default_value = 1.2                               # Clearcoat
-                BSDF.inputs[15].default_value = 0.075                             # Clearcoat Roughness
-                BSDF.inputs[16].default_value = 3.02                              # IOR
-            elif bv < (4, 3, 0):
-                BSDF.inputs[2].default_value =  0.5                               # Roughness
-                BSDF.inputs[3].default_value =  3.02                              # IOR
-                BSDF.inputs[7].default_value =  0.2                               # Subsurface Weight
-                BSDF.inputs[8].default_value = (0.651516, 0.028425, 0.028424)     # Subsurface Radius
-                BSDF.inputs[13].default_value = (0.010000, 0.000709, 0.000447, 1) # Specular Tint
-                BSDF.inputs[18].default_value = 0.2                               # Coat Weight
-                BSDF.inputs[19].default_value = 0.075                             # Coat Roughness
-                BSDF.inputs[20].default_value = 3.2                               # Coat IOR
-                BSDF.inputs[21].default_value = (0.010000, 0.000709, 0.000447, 1) # Coat Tint
-                BSDF.inputs[23].default_value = 0.2                               # Sheen Weight
-                BSDF.inputs[24].default_value = 0.2                               # Sheen Roughness
-                BSDF.inputs[25].default_value = (0.010000, 0.000709, 0.000447, 1) # Sheen Tint
-            else:
-                BSDF.inputs[2].default_value =  0.5                               # Roughness
-                BSDF.inputs[3].default_value =  3.02                              # IOR
-                BSDF.inputs[8].default_value =  0.2                               # Subsurface Weight
-                BSDF.inputs[9].default_value = (0.651516, 0.028425, 0.028424)     # Subsurface Radius
-                BSDF.inputs[14].default_value = (0.010000, 0.000709, 0.000447, 1) # Specular Tint
-                BSDF.inputs[19].default_value = 0.2                               # Coat Weight
-                BSDF.inputs[20].default_value = 0.075                             # Coat Roughness
-                BSDF.inputs[21].default_value = 3.2                               # Coat IOR
-                BSDF.inputs[22].default_value = (0.010000, 0.000709, 0.000447, 1) # Coat Tint
-                BSDF.inputs[24].default_value = 0.2                               # Sheen Weight
-                BSDF.inputs[25].default_value = 0.2                               # Sheen Roughness
-                BSDF.inputs[26].default_value = (0.010000, 0.000709, 0.000447, 1) # Sheen Tint
+
+            BSDF.inputs["Base Color"].default_value = (0.768151, 0.054480, 0.034340, 1)
+            BSDF.inputs["Roughness"].default_value = 0.5
+            BSDF.inputs["IOR"].default_value = 3.02
+
+            BSDF.inputs["Subsurface Weight"].default_value = 0.2
+            BSDF.inputs["Subsurface Radius"].default_value = (0.651516, 0.028425, 0.028424)
+
+            BSDF.inputs["Specular Tint"].default_value = (0.010000, 0.000709, 0.000447, 1)
+
+            BSDF.inputs["Coat Weight"].default_value = 0.2
+            BSDF.inputs["Coat Roughness"].default_value = 0.075
+            BSDF.inputs["Coat IOR"].default_value = 3.2
+            BSDF.inputs["Coat Tint"].default_value = (0.010000, 0.000709, 0.000447, 1)
+
+            BSDF.inputs["Sheen Weight"].default_value = 0.2
+            BSDF.inputs["Sheen Roughness"].default_value = 0.2
+            BSDF.inputs["Sheen Tint"].default_value = (0.010000, 0.000709, 0.000447, 1)
 
         # colorramp
         m_colorramp = nodes.new('ShaderNodeValToRGB')
@@ -130,13 +113,10 @@ class QMMCinnabar(bpy.types.Operator):
         # LINKS
         links = m_cinnabar.node_tree.links.new
 
-        links(m_colorramp.outputs[0], BSDF.inputs[0])
+        links(m_colorramp.outputs[0], BSDF.inputs["Base Color"])
         links(m_layerweight.outputs[0], m_colorramp.inputs[0])
-        if bpy.app.version < (4, 0, 0):
-            links(uneven_roughness_group.outputs[0], BSDF.inputs[15])
-        else:
-            links(uneven_roughness_group.outputs[0], BSDF.inputs[19])
-
+        links(uneven_roughness_group.outputs[0], BSDF.inputs["Coat Roughness"])
+        
         # LOAD THE MATERIAL
         bpy.context.object.active_material = m_cinnabar
 

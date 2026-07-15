@@ -1,8 +1,6 @@
 import bpy
 import time 
 
-bv = bpy.app.version
-
 # MESSAGE BOX
 message_text = "This material already exists"
 
@@ -15,17 +13,6 @@ def ShowMessageBox(message="", title="", icon='INFO'):
 def make_node(nodes, shader, locX, locY):
     result = nodes.new(shader)
     result.location = (locX, locY)
-    return result
-
-def set_ec(nodes, locX, locY, diff, ruff, ior, spec):
-    result = nodes.new("ShaderNodeGroup")
-    result.name = "Energy Conservation v5"
-    result.node_tree = bpy.data.node_groups['Energy Conservation v5']
-    result.location = (locX, locY)
-    result.inputs[0].default_value = diff
-    result.inputs[1].default_value = ruff
-    result.inputs[2].default_value = ior
-    result.inputs[4].default_value = spec
     return result
 
 # AsphaltBleachedShaderOperator
@@ -80,22 +67,16 @@ class QMMAsphaltBleached(bpy.types.Operator):
         if BSDF:
             BSDF.distribution = 'MULTI_GGX'
             BSDF.location = (-700, 300)
-            if bv < (4, 0, 0):
-                BSDF.inputs[9].default_value = 0.56
-            else:
-                BSDF.inputs[2].default_value = 0.56
-                BSDF.inputs[3].default_value = 1.635
+            BSDF.inputs["Roughness"].default_value = 0.56
+            BSDF.inputs["IOR"].default_value = 1.635
             # BSDF.select = True
 
         # principledbsdf - cracks
         BSDF2 = make_node(nodes, 'ShaderNodeBsdfPrincipled', -700, -400)
         BSDF2.distribution = 'MULTI_GGX'
-        BSDF2.inputs[0].default_value = (0.025, 0.01875, 0.01875, 1)
-        if bv < (4, 0, 0):
-            BSDF2.inputs[9].default_value = 1.0
-        else:
-            BSDF2.inputs[2].default_value = 1.0
-            BSDF2.inputs[3].default_value = 1.52
+        BSDF2.inputs["Base Color"].default_value = (0.025, 0.01875, 0.01875, 1)
+        BSDF2.inputs["Roughness"].default_value = 1.0
+        BSDF2.inputs["IOR"].default_value = 1.52
 
         # maprange
         m_maprange = make_node(nodes, 'ShaderNodeMapRange', -1100, 100)
@@ -109,11 +90,8 @@ class QMMAsphaltBleached(bpy.types.Operator):
         m_bump.inputs[0].default_value = 0.4
 
         # mixrgbshader
-        if bv < (3, 4, 0):
-            m_mix = make_node(nodes, 'ShaderNodeMixRGB', -1300, -100)
-        else:
-            m_mix = make_node(nodes, 'ShaderNodeMix', -1300, -100)
-            m_mix.data_type = 'RGBA'
+        m_mix = make_node(nodes, 'ShaderNodeMix', -1300, -100)
+        m_mix.data_type = 'RGBA'
 
         # bump2
         m_bump2 = make_node(nodes, 'ShaderNodeBump', -1100, -300)
@@ -151,11 +129,8 @@ class QMMAsphaltBleached(bpy.types.Operator):
         m_noise2.inputs[4].default_value = 0.875
 
         # mixrgbshader2
-        if bv < (3, 4, 0):
-            m_mix2 = make_node(nodes, 'ShaderNodeMixRGB', -1700, -500)
-        else:
-            m_mix2 = make_node(nodes, 'ShaderNodeMix', -1700, -500)
-            m_mix2.data_type = 'RGBA'
+        m_mix2 = make_node(nodes, 'ShaderNodeMix', -1700, -500)
+        m_mix2.data_type = 'RGBA'
         m_mix2.inputs[0].default_value = 0.9
 
         # noiseshader3
@@ -183,27 +158,14 @@ class QMMAsphaltBleached(bpy.types.Operator):
         m_val2.label = "Gravel Scale"
         m_val2.outputs[0].default_value = 1.0
 
-        # EnergyConservationGroups
-        bpy.ops.node.ec_group_operator()
-        if bv < (4, 0, 0):
-            ec_group = set_ec(nodes, -900, 200, (0.2, 0.2, 0.2, 1), 0.56, 1.635, (0.01, 0.01, 0.01, 1))
-            ec_group2 = set_ec(nodes, -900, -600, (0.025000, 0.018750, 0.018750, 1), 1, 1.52, (0.01, 0.01, 0.01, 1))
-        else:
-            ec_group = set_ec(nodes, 0, 400, (0.2, 0.2, 0.2, 1), 0.56, 1.635, (0.01, 0.01, 0.01, 1))
-            ec_group2 = set_ec(nodes, 0, -200, (0.025000, 0.018750, 0.018750, 1), 1, 1.52, (0.01, 0.01, 0.01, 1))
-
         links = m_asphalt_b.node_tree.links.new
 
         links(m_mixshader.outputs[0], material_output.inputs[0])
         links(m_maprange2.outputs[0], m_mixshader.inputs[0])
         links(BSDF.outputs[0], m_mixshader.inputs[1])
         links(BSDF2.outputs[0], m_mixshader.inputs[2])
-        if bpy.app.version < (4, 0, 0):
-            links(m_maprange.outputs[0], ec_group.inputs[0])
-            links(m_bump.outputs[0], BSDF.inputs[22])
-        else:
-            links(m_maprange.outputs[0], BSDF.inputs[0])
-            links(m_bump.outputs[0], BSDF.inputs[5])
+        links(m_maprange.outputs[0], BSDF.inputs["Base Color"])
+        links(m_bump.outputs[0], BSDF.inputs["Normal"])
         links(m_bump2.outputs[0], m_bump.inputs[3])
         links(m_maprange2.outputs[0], m_bump2.inputs[2])
         links(m_maprange3.outputs[0], m_mix.inputs[0])
@@ -218,42 +180,13 @@ class QMMAsphaltBleached(bpy.types.Operator):
         links(m_texcoords.outputs[3], m_mapping2.inputs[0])
         links(m_val2.outputs[0], m_mapping2.inputs[3])
 
-        if bv < (3, 4, 0):
-            links(m_mix.outputs[0], m_maprange.inputs[0])
-            links(m_mix.outputs[0], m_bump.inputs[2])
-            links(m_voronoi.outputs[0], m_mix.inputs[1])
-            links(m_noise.outputs[0], m_mix.inputs[2])
-            links(m_mix2.outputs[0], m_voronoi2.inputs[0])
-            links(m_noise3.outputs[1], m_mix2.inputs[1])
-            links(m_mapping.outputs[0], m_mix2.inputs[2])
-        else:
-            links(m_mix.outputs[2], m_maprange.inputs[0])
-            links(m_mix.outputs[2], m_bump.inputs[2])
-            links(m_voronoi.outputs[0], m_mix.inputs[6])
-            links(m_noise.outputs[0], m_mix.inputs[7])
-            links(m_mix2.outputs[2], m_voronoi2.inputs[0])
-            links(m_noise3.outputs[1], m_mix2.inputs[6])
-            links(m_mapping.outputs[0], m_mix2.inputs[7])
-
-        if bpy.app.version < (4, 0, 0):
-            links(ec_group.outputs[0], BSDF.inputs[0])
-            links(ec_group.outputs[1], BSDF.inputs[7])
-            links(ec_group.outputs[2], BSDF.inputs[9])
-            links(ec_group.outputs[4], BSDF.inputs[16])
-        # else:
-        #     links(ec_group.outputs[1], BSDF.inputs[12])
-        #     links(ec_group.outputs[2], BSDF.inputs[2])
-        #     links(ec_group.outputs[4], BSDF.inputs[3])
-
-        if bpy.app.version < (4, 0, 0):
-            links(ec_group2.outputs[0], BSDF2.inputs[0])
-            links(ec_group2.outputs[1], BSDF2.inputs[7])
-            links(ec_group2.outputs[2], BSDF2.inputs[9])
-            links(ec_group2.outputs[4], BSDF2.inputs[16])
-        # else:
-        #     links(ec_group2.outputs[1], BSDF2.inputs[12])
-        #     links(ec_group2.outputs[2], BSDF2.inputs[2])
-        #     links(ec_group2.outputs[4], BSDF2.inputs[3])
+        links(m_mix.outputs[2], m_maprange.inputs[0])
+        links(m_mix.outputs[2], m_bump.inputs[2])
+        links(m_voronoi.outputs[0], m_mix.inputs[6])
+        links(m_noise.outputs[0], m_mix.inputs[7])
+        links(m_mix2.outputs[2], m_voronoi2.inputs[0])
+        links(m_noise3.outputs[1], m_mix2.inputs[6])
+        links(m_mapping.outputs[0], m_mix2.inputs[7])
 
         links(m_maprange2.outputs[0], m_lessthan.inputs[0])
         links(m_lessthan.outputs[0], m_disp.inputs[0])
