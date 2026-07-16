@@ -6,7 +6,7 @@ metal_values = [
     # {'dict_name': ['material_name', 'String Name', (color), roughness_min, roughness_max]},
     {'carbon_steel_new': ['m_carbon_steel_new', 'QMM Carbon Steel New', (0.351530, 0.351533, 0.396755, 1), 0.2, 0.4]},                                # 00
     {'carbon_steel_weathered': ['m_carbon_steel_weathered', 'QMM Carbon Steel Weathered', (0.074213, 0.074214, 0.078187, 1), 0.5, 0.8]},              # 01
-    {'stainless_steel_304': ['m_stainless_steel_304', 'QMM 304 Common Stainless Steel', (0.651402, 0.651406, 0.651406, 1), 0.25, 0.35]},                # 02
+    {'stainless_steel_304': ['m_stainless_steel_304', 'QMM 304 Common Stainless Steel', (0.651402, 0.651406, 0.651406, 1), 0.25, 0.35]},              # 02
     {'stainless_steel_316': ['m_stainless_steel_316', 'QMM 316 High-Chromium Stainless Steel', (0.745399, 0.745405, 0.791298, 1), 0.00, 0.04]},       # 03
     {'alloy_steel_4140': ['m_alloy_steel_4140', 'QMM 4140 Alloy Steel', (0.215859, 0.215861, 0.215861, 1), 0.2, 0.3]},                                # 04
     {'alloy_steel_4340': ['m_alloy_steel_4340', 'QMM 4340 Alloy Steel', (0.351530, 0.351533, 0.396755, 1), 0.4, 0.5]},                                # 05
@@ -83,20 +83,15 @@ def make_shader(units):
     if m_output:
         m_output.location = (0, 0)
 
-    # princibledbsdf
+    # Principled BSDF
     BSDF = next((n for n in nodes if n.bl_idname == 'ShaderNodeBsdfPrincipled'), None)
     if BSDF:
         BSDF.distribution = 'MULTI_GGX'
         BSDF.location = (-300, 0)
-        BSDF.inputs[0].default_value = unit_value[2]
-        if bpy.app.version < (4, 0, 0):
-            BSDF.inputs[6].default_value = 1              # Metallic
-            BSDF.inputs[9].default_value = unit_value[3]  # Roughness
-            BSDF.inputs[16].default_value = 2.5           # IOR
-        else:
-            BSDF.inputs[1].default_value = 1              # Metallic
-            BSDF.inputs[2].default_value = unit_value[3]  # Roughness
-            BSDF.inputs[3].default_value = 2.5            # IOR
+        BSDF.inputs["Base Color"].default_value = unit_value[2]
+        BSDF.inputs["Metallic"].default_value = 1
+        BSDF.inputs["Roughness"].default_value = unit_value[3]
+        BSDF.inputs["IOR"].default_value = 2.5
 
     # Add Uneven Roughness Group
     bpy.ops.node.uneven_roughness_group_operator()
@@ -111,11 +106,7 @@ def make_shader(units):
     ur_group.inputs[3].default_value = 0.5
 
     links = unit_value[0].node_tree.links.new
-
-    if bpy.app.version < (4, 0, 0):
-        links(ur_group.outputs[0], BSDF.inputs[8])
-    else:
-        links(ur_group.outputs[0], BSDF.inputs[2])
+    links(ur_group.outputs[0], BSDF.inputs["Roughness"])
 
     if units == 18:
         # Metal Flake Group
@@ -127,10 +118,7 @@ def make_shader(units):
         mf_group.width = 140
         mf_group.inputs[0].default_value = 3072
         mf_group.inputs[1].default_value = 0.25
-        if bpy.app.version < (4, 0, 0):
-            links(mf_group.outputs[0], BSDF.inputs[22])
-        else:
-            links(mf_group.outputs[0], BSDF.inputs[5])
+        links(mf_group.outputs[0], BSDF.inputs["Normal"])
 
     # LOAD THE MATERIAL
     bpy.context.object.active_material = unit_value[0]
@@ -354,7 +342,7 @@ class QMMWeatheringSteel(bpy.types.Operator):
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         if m_weathering_steel := bpy.data.materials.get("QMM Weathering Steel"):
-            #ShowMessageBox(message_text, "QMM Weathering Steel")
+            # ShowMessageBox(message_text, "QMM Weathering Steel")
             # print(f"QMM Weathering Steel already exists")
             bpy.context.object.active_material = m_weathering_steel
             diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
@@ -385,33 +373,32 @@ class QMMWeatheringSteel(bpy.types.Operator):
         if material_output:
             material_output.location = (0, 0)
 
-        # principledbsdf
+        # Principled BSDF
         BSDF = next((n for n in nodes if n.bl_idname == 'ShaderNodeBsdfPrincipled'), None)
         if BSDF:
             BSDF.distribution = 'MULTI_GGX'
             BSDF.location = (-300, 0)
-            BSDF.inputs[0].default_value = (0.351531, 0.084376, 0.026241, 1)
-            if bpy.app.version < (4, 0, 0):
-                BSDF.inputs[6].default_value = 1                    #Metallic
-                BSDF.inputs[9].default_value = 0.7                  #Roughness
-            else:
-                BSDF.inputs[1].default_value = 1                    #Metallic
-                BSDF.inputs[2].default_value = 0.7                  #Roughness
+            BSDF.inputs["Base Color"].default_value = (0.351531, 0.084376, 0.026241, 1)
+            BSDF.inputs["Metallic"].default_value = 1
+            BSDF.inputs["Roughness"].default_value = 0.7
             # BSDF.select = True
 
-        # colorramp
+        # Color Ramp
         m_colorramp = nodes.new("ShaderNodeValToRGB")
         m_colorramp.location = (-600, 0)
         m_colorramp.color_ramp.interpolation = 'EASE'
-        # Ensure there are enough elements in the color ramp
-        while len(m_colorramp.color_ramp.elements) < 3:
-            m_colorramp.color_ramp.elements.new(0.0)
-        m_colorramp.color_ramp.elements[0].color = (0.564709, 0.201556, 0.149960, 1)
-        m_colorramp.color_ramp.elements[0].position = 0
-        m_colorramp.color_ramp.elements[1].color = (0.351531, 0.084376, 0.026241, 1)
-        m_colorramp.color_ramp.elements[1].position = 0.333
-        m_colorramp.color_ramp.elements[2].color = (0.158960, 0.076185, 0.045186, 1)
-        m_colorramp.color_ramp.elements[2].position = 1
+
+        ramp = m_colorramp.color_ramp
+        ramp.elements.new(0.333)
+
+        ramp.elements[0].position = 0
+        ramp.elements[0].color = (0.564709, 0.201556, 0.149960, 1)
+
+        ramp.elements[1].position = 0.333
+        ramp.elements[1].color = (0.351531, 0.084376, 0.026241, 1)
+
+        ramp.elements[2].position = 1
+        ramp.elements[2].color = (0.158960, 0.076185, 0.045186, 1)
 
         # Uneven Roughness Group
         bpy.ops.node.uneven_roughness_group_operator()
@@ -427,12 +414,9 @@ class QMMWeatheringSteel(bpy.types.Operator):
 
         links = m_weathering_steel.node_tree.links.new
 
-        links(m_colorramp.outputs[0], BSDF.inputs[0])
-        if bpy.app.version < (4, 0, 0):
-            links(ur_group.outputs[0], BSDF.inputs[9])
-        else:
-            links(ur_group.outputs[0], BSDF.inputs[2])
-        links(ur_group.outputs[1], m_colorramp.inputs[0])
+        links(m_colorramp.outputs["Color"], BSDF.inputs["Base Color"])
+        links(ur_group.outputs[0], BSDF.inputs["Roughness"])
+        links(ur_group.outputs[1], m_colorramp.inputs["Fac"])
 
         bpy.context.object.active_material = m_weathering_steel
 

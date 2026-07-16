@@ -1,8 +1,6 @@
 import bpy
 import time
 
-bv = bpy.app.version
-
 # MESSAGE BOX
 message_text = "This material already exists"
 
@@ -15,11 +13,7 @@ def ShowMessageBox(message="", title="", icon='INFO'):
 
 def make_node(nodes, shader, locX, locY):
     result = nodes.new(shader)
-    locY2 = locY + 100
-    if bv < (4, 0, 0):
-        result.location = (locX, locY)
-    else:
-        result.location = (locX, locY2)
+    result.location = (locX, locY + 100)
     return result
 
 # PlasterShaderOperator
@@ -51,7 +45,7 @@ class QMMPlaster(bpy.types.Operator):
         m_plaster = bpy.data.materials.new(name="QMM Plaster")
         m_plaster.use_nodes = True
         diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
-        if diffuse_bool == True:
+        if diffuse_bool:
             m_plaster.diffuse_color = (0.9, 0.7, 0.9, 1)
             m_plaster.roughness = 0.86
 
@@ -73,55 +67,54 @@ class QMMPlaster(bpy.types.Operator):
             BSDF.inputs["IOR"].default_value = 1.3
             BSDF.inputs["Subsurface Radius"].default_value = (0.708857, 0.392564, 0.708857)
 
+        # Tint
+        m_tint = make_node(nodes, 'ShaderNodeMix', -500, -100)
+        m_tint.data_type = 'RGBA'
+        m_tint.blend_type = 'COLOR'
+        m_tint.inputs[0].default_value = 0.2
+        m_tint.inputs[7].default_value = (0.708857, 0.392564, 0.708857, 1)
+
         # colorramp
-        m_colorramp = make_node(nodes, 'ShaderNodeValToRGB', -600, -100)
-        m_colorramp.color_ramp.elements[0].color = (0.708857, 0.392564, 0.708857, 1)
-        m_colorramp.color_ramp.elements.new(0.2)
-        m_colorramp.color_ramp.elements[1].color = (0.5, 0.5, 0.5, 1)
-        m_colorramp.color_ramp.elements[2].position = 0.775
-        m_colorramp.color_ramp.elements[2].color = (0.4, 0.4, 0.4, 1)
+        m_colorramp = make_node(nodes, 'ShaderNodeValToRGB', -800, -100)
+        m_colorramp.color_ramp.elements[0].position = 0.2
+        m_colorramp.color_ramp.elements[1].position = 0.775
+        m_colorramp.color_ramp.elements[0].color = (0.5, 0.5, 0.5, 1)
+        m_colorramp.color_ramp.elements[1].color = (0.4, 0.4, 0.4, 1)
         m_colorramp.width = 240
 
-        # mixshader
-        if bv < (3, 4, 0):
-            m_mix = make_node(nodes, 'ShaderNodeMixRGB', -800, -200)
-        else:
-            m_mix = make_node(nodes, 'ShaderNodeMix', -800, -100)
-            m_mix.data_type = 'RGBA'
+        # mix
+        m_mix = make_node(nodes, 'ShaderNodeMix', -1000, -100)
+        m_mix.data_type = 'RGBA'
+        m_mix.blend_type = 'COLOR'
+        m_mix.inputs[7].default_value = (0.708857, 0.392564, 0.708857, 1)
 
-        # voronoishader
-        m_voronoi = make_node(nodes, 'ShaderNodeTexVoronoi', -1000, -100)
+        # voronoi
+        m_voronoi = make_node(nodes, 'ShaderNodeTexVoronoi', -1200, -100)
         m_voronoi.distance = 'MANHATTAN'
-        m_voronoi.inputs[2].default_value = 30.0
+        m_voronoi.inputs["Scale"].default_value = 30.0
 
-        # noiseshader
-        m_noise = make_node(nodes, 'ShaderNodeTexNoise', -1200, -400)
-        m_noise.inputs[2].default_value = 50.0
-        m_noise.inputs[3].default_value = 5.0
+        # noise
+        m_noise = make_node(nodes, 'ShaderNodeTexNoise', -1400, -400)
+        m_noise.inputs["Scale"].default_value = 50.0
+        m_noise.inputs["Detail"].default_value = 5.0
 
         # mapping
-        m_mapping = make_node(nodes, 'ShaderNodeMapping', -1400, -400)
+        m_mapping = make_node(nodes, 'ShaderNodeMapping', -1600, -400)
         m_mapping.width = 140
 
-        # texturecoordinates
-        m_texcoords = make_node(nodes, 'ShaderNodeTexCoord', -1600, -400)
+        # texture coordinates
+        m_texcoords = make_node(nodes, 'ShaderNodeTexCoord', -1800, -400)
 
         # bump
-        if bv < (4, 0, 0):
-            m_bump = make_node(nodes, 'ShaderNodeBump', -500, -600)
-        else:
-            m_bump = make_node(nodes, 'ShaderNodeBump', -500, -400)
-        m_bump.inputs[0].default_value = 0.25
+        m_bump = make_node(nodes, 'ShaderNodeBump', -500, -400)
+        m_bump.inputs["Strength"].default_value = 0.25
 
         # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
         ec_group = nodes.new("ShaderNodeGroup")
         ec_group.name = "Energy Conservation v5"
         ec_group.node_tree = bpy.data.node_groups['Energy Conservation v5']
-        if bv < (4, 0, 0):
-            ec_group.location = (-500, -100)
-        else:
-            ec_group.location = (0, -200)
+        ec_group.location = (0, -200)
         ec_group.inputs[0].default_value = (0.708857, 0.392564, 0.708857, 1)
         ec_group.inputs[1].default_value = 0.86
         ec_group.inputs[2].default_value = 1.52
@@ -129,21 +122,16 @@ class QMMPlaster(bpy.types.Operator):
 
         links = m_plaster.node_tree.links.new
 
-        links(m_texcoords.outputs[3], m_mapping.inputs[0])
-        links(m_mapping.outputs[0], m_noise.inputs[0])
-        links(m_noise.outputs[0], m_voronoi.inputs[0])
-        links(m_noise.outputs[0], m_bump.inputs[2])
-        links(m_colorramp.outputs[0], BSDF.inputs["Base Color"])
-        links(m_bump.outputs[0], BSDF.inputs["Normal"])
-
-        if bv < (3, 4, 0):
-            links(m_voronoi.outputs[0], m_mix.inputs[1])
-            links(m_noise.outputs[0], m_mix.inputs[2])
-            links(m_mix.outputs[0], m_colorramp.inputs[0])
-        else:
-            links(m_voronoi.outputs[0], m_mix.inputs[6])
-            links(m_noise.outputs[0], m_mix.inputs[7])
-            links(m_mix.outputs[2], m_colorramp.inputs[0])
+        links(m_texcoords.outputs["Object"], m_mapping.inputs["Vector"])
+        links(m_mapping.outputs["Vector"], m_noise.inputs["Vector"])
+        links(m_noise.outputs["Fac"], m_voronoi.inputs["Vector"])
+        links(m_noise.outputs["Fac"], m_bump.inputs["Height"])
+        links(m_voronoi.outputs["Distance"], m_mix.inputs[6])
+        links(m_noise.outputs["Fac"], m_mix.inputs[7])
+        links(m_mix.outputs[2], m_colorramp.inputs["Fac"])
+        links(m_colorramp.outputs["Color"], m_tint.inputs[6])
+        links(m_tint.outputs[2], BSDF.inputs["Base Color"])
+        links(m_bump.outputs["Normal"], BSDF.inputs["Normal"])
 
         bpy.context.object.active_material = m_plaster
 

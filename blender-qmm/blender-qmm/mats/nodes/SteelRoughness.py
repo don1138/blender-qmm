@@ -22,28 +22,20 @@ class SteelRoughnessGroup(bpy.types.Operator):
         group_out = self.make_node(sr_group, 'NodeGroupOutput', 0, 0)
 
         # create outputs
-        if bpy.app.version < (4, 0, 0):
-            sr_group.outputs.new('NodeSocketFloat', '0.05 - Maraging, Weathering Steel')      #0
-            sr_group.outputs.new('NodeSocketFloat', '0.1 - Free-Machining Steel')            #1
-            sr_group.outputs.new('NodeSocketFloat', '0.2 - Spring, Stainless, HSLA Steel')   #2
-            sr_group.outputs.new('NodeSocketFloat', '0.3 - Structural, Tool Steel')          #3
-            sr_group.outputs.new('NodeSocketFloat', '0.4 - Alloy Steel')                     #4
-            sr_group.outputs.new('NodeSocketFloat', '0.5 - Carbon Steel')                    #5
-        else:
-            sr_group.interface.new_socket(name="0.05 - Maraging, Weathering Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
-            sr_group.interface.new_socket(name="0.1 - Free-Machining Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
-            sr_group.interface.new_socket(name="0.2 - Spring, Stainless, HSLA Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
-            sr_group.interface.new_socket(name="0.3 - Structural, Tool Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
-            sr_group.interface.new_socket(name="0.4 - Alloy Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
-            sr_group.interface.new_socket(name="0.5 - Carbon Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        sr_group.interface.new_socket(name="0.05 - Maraging, Weathering Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        sr_group.interface.new_socket(name="0.1 - Free-Machining Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        sr_group.interface.new_socket(name="0.2 - Spring, Stainless, HSLA Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        sr_group.interface.new_socket(name="0.3 - Structural, Tool Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        sr_group.interface.new_socket(name="0.4 - Alloy Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        sr_group.interface.new_socket(name="0.5 - Carbon Steel", in_out='OUTPUT', socket_type='NodeSocketFloat')
 
         #set values
-        group_out.inputs[0].default_value = 0.05
-        group_out.inputs[1].default_value = 0.1
-        group_out.inputs[2].default_value = 0.2
-        group_out.inputs[3].default_value = 0.3
-        group_out.inputs[4].default_value = 0.4
-        group_out.inputs[5].default_value = 0.5
+        group_out.inputs['0.05 - Maraging, Weathering Steel'].default_value = 0.05
+        group_out.inputs['0.1 - Free-Machining Steel'].default_value = 0.1
+        group_out.inputs['0.2 - Spring, Stainless, HSLA Steel'].default_value = 0.2
+        group_out.inputs['0.3 - Structural, Tool Steel'].default_value = 0.3
+        group_out.inputs['0.4 - Alloy Steel'].default_value = 0.4
+        group_out.inputs['0.5 - Carbon Steel'].default_value = 0.5
 
     def make_node(self, group, arg1, arg2, arg3):
         result = group.nodes.new(arg1)

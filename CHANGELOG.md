@@ -1,3 +1,17 @@
+### 1.24.0 <!-- 07/15/26 -->
+
+- Blender 4.5 LTS and 5.2 LTS compatibility updates
+  - Remove compatibility code for Blender versions before 4.0
+  - Modernize node-group interface creation
+  - Replace positional standard-node socket indices with named sockets where names are unambiguous
+  - Retain positional indices for sockets with duplicated names
+  - Replace legacy node types with their current equivalents
+- Fix **Texturizer** Rough Ceiling subtraction
+- Remove a duplicate link from **Uneven Roughness**
+- Fix **Cutting Mat** compatibility across Blender 4.5 and 5.2
+- Preserve the UV texture-coordinate connection in **Anisotrophy X**
+- Correct the **Canisotrophy** XY Scale minimum
+
 ### 1.23.0 <!-- 07/14/26 -->
 
 - Blender 5.2 compatibility updates

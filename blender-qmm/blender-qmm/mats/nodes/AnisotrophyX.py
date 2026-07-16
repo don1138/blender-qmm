@@ -21,29 +21,17 @@ class AnisotrophyXGroup(bpy.types.Operator):
         # groupinput 1
         group_in = self.make_node(anix_group, 'NodeGroupInput', -400, -200)
         group_in.label = "Group In 1"
-        if bpy.app.version < (4, 0, 0):
-            anix_group.inputs.new('NodeSocketFloat', 'Bands')             #0
-            anix_group.inputs.new('NodeSocketFloat', 'Grain')             #1
-            anix_group.inputs.new('NodeSocketFloat', 'Min Roughness')     #2
-            anix_group.inputs[0].default_value = 200
-            anix_group.inputs[1].default_value = 100
-            anix_group.inputs[2].default_value = 0.2
-        else:
-            anix_group.interface.new_socket(name="Bands", in_out='INPUT', socket_type='NodeSocketFloat')
-            anix_group.interface.new_socket(name="Grain", in_out='INPUT', socket_type='NodeSocketFloat')
-            anix_group.interface.new_socket(name="Min Roughness", in_out='INPUT', socket_type='NodeSocketFloat')
-            anix_group.interface.items_tree[0].default_value = 200
-            anix_group.interface.items_tree[1].default_value = 100
-            anix_group.interface.items_tree[2].default_value = 0.2
+        bands_socket = anix_group.interface.new_socket(name="Bands", in_out='INPUT', socket_type='NodeSocketFloat')
+        bands_socket.default_value = 200
+        grain_socket = anix_group.interface.new_socket(name="Grain", in_out='INPUT', socket_type='NodeSocketFloat')
+        grain_socket.default_value = 100
+        min_roughness_socket = anix_group.interface.new_socket(name="Min Roughness", in_out='INPUT', socket_type='NodeSocketFloat')
+        min_roughness_socket.default_value = 0.2
 
         # groupoutput
         group_out = self.make_node(anix_group, 'NodeGroupOutput', 0, 0)
-        if bpy.app.version < (4, 0, 0):
-            anix_group.outputs.new('NodeSocketFloat', 'To Roughness')     #0
-            anix_group.outputs.new('NodeSocketFloat', 'To Bump')          #1
-        else:
-            anix_group.interface.new_socket(name="To Roughness", in_out='OUTPUT', socket_type='NodeSocketFloat')
-            anix_group.interface.new_socket(name="To Bump", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        anix_group.interface.new_socket(name="To Roughness", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        anix_group.interface.new_socket(name="To Bump", in_out='OUTPUT', socket_type='NodeSocketFloat')
 
         # map range
         m_map_range = self.make_node(anix_group, 'ShaderNodeMapRange', -200, 0)
@@ -65,13 +53,13 @@ class AnisotrophyXGroup(bpy.types.Operator):
         # noise1
         m_noise = self.make_node(anix_group, 'ShaderNodeTexNoise', -900, 0)
         m_noise.noise_dimensions = '1D'
-        m_noise.inputs[1].default_value = 200
-        m_noise.inputs[5].default_value = 2.0
+        m_noise.inputs['W'].default_value = 200
+        m_noise.inputs['Lacunarity'].default_value = 2.0
 
         # noise2
         m_noise2 = self.make_node(anix_group, 'ShaderNodeTexNoise', -900, -300)
         m_noise2.noise_dimensions = '3D'
-        m_noise2.inputs[1].default_value = 100
+        m_noise2.inputs['Scale'].default_value = 100
 
         # mapping
         m_map = self.make_node(anix_group, 'ShaderNodeMapping', -1100, 200)
@@ -88,19 +76,19 @@ class AnisotrophyXGroup(bpy.types.Operator):
 
         links = anix_group.links.new
 
-        links(m_tex.outputs[2], m_sep.inputs[0])
-        links(m_sep.outputs[0], m_map.inputs[0])
-        links(m_map.outputs[0], m_noise.inputs[1])
-        links(group_in2.outputs[0], m_noise.inputs[2])
-        links(group_in2.outputs[1], m_noise2.inputs[2])
-        links(m_noise.outputs[1], m_subtract.inputs[0])
-        links(m_noise2.outputs[0], m_subtract.inputs[1])
-        links(m_subtract.outputs[0], m_greater.inputs[0])
-        links(m_greater.outputs[0], n_rr.inputs[0])
-        links(n_rr.outputs[0], group_out.inputs[1])
-        links(n_rr.outputs[0], m_map_range.inputs[0])
-        links(group_in.outputs[2], m_map_range.inputs[4])
-        links(m_map_range.outputs[0], group_out.inputs[0])
+        links(m_tex.outputs['UV'], m_sep.inputs['Vector'])
+        links(m_sep.outputs['X'], m_map.inputs['Vector'])
+        links(m_map.outputs['Vector'], m_noise.inputs['W'])
+        links(group_in2.outputs['Bands'], m_noise.inputs['Scale'])
+        links(group_in2.outputs['Grain'], m_noise2.inputs['Scale'])
+        links(m_noise.outputs['Color'], m_subtract.inputs[0])
+        links(m_noise2.outputs['Fac'], m_subtract.inputs[1])
+        links(m_subtract.outputs['Value'], m_greater.inputs[0])
+        links(m_greater.outputs['Value'], n_rr.inputs['Input'])
+        links(n_rr.outputs['Output'], group_out.inputs['To Bump'])
+        links(n_rr.outputs['Output'], m_map_range.inputs['Value'])
+        links(group_in.outputs['Min Roughness'], m_map_range.inputs[4])
+        links(m_map_range.outputs['Result'], group_out.inputs['To Roughness'])
 
     def make_node(self, group, arg1, arg2, arg3):
         result = group.nodes.new(arg1)
@@ -111,4 +99,3 @@ class AnisotrophyXGroup(bpy.types.Operator):
         result = self.make_node(group, 'ShaderNodeMath', arg2, arg3)
         result.operation = arg1
         return result
-

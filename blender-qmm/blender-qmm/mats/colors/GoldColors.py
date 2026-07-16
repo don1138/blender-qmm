@@ -35,7 +35,7 @@ class GoldColorsGroup(bpy.types.Operator):
         result = group.nodes.new('ShaderNodeRGB')
         result.location = arg2, arg3
         result.label = arg1
-        result.outputs[0].default_value = hex_to_rgb(arg4)
+        result.outputs['Color'].default_value = hex_to_rgb(arg4)
 
         return result
 
@@ -43,41 +43,22 @@ class GoldColorsGroup(bpy.types.Operator):
         # newnodegroup
         gold_cg = bpy.data.node_groups.new('Gold Colors', 'ShaderNodeTree')
 
-        # groupinput
-        # group_in = gold_cg.nodes.new('NodeGroupInput')
-        # group_in.location(-400, 0)
-
         # groupoutput
         group_out = gold_cg.nodes.new('NodeGroupOutput')
         group_out.location = (0, 0)
-        if bpy.app.version < (4, 0, 0):
-            gold_cg.outputs.new('NodeSocketColor', 'Gold')
-            gold_cg.outputs.new('NodeSocketColor', 'PBM Gold')
-            gold_cg.outputs.new('NodeSocketColor', 'White Gold')
-            gold_cg.outputs.new('NodeSocketColor', 'Chaos Gold')
-            gold_cg.outputs.new('NodeSocketColor', 'Crayola Gold')
-            gold_cg.outputs.new('NodeSocketColor', 'Vegas Gold')
-            gold_cg.outputs.new('NodeSocketColor', 'Old Gold')
-            gold_cg.outputs.new('NodeSocketColor', 'Satin Sheen Gold')
-            gold_cg.outputs.new('NodeSocketColor', 'Pirate Gold')
-            gold_cg.outputs.new('NodeSocketColor', 'Golden Yellow')
-            gold_cg.outputs.new('NodeSocketColor', 'Golden Gold')
-            gold_cg.outputs.new('NodeSocketColor', 'Golden Poppy')
-            gold_cg.outputs.new('NodeSocketColor', 'Harvest Gold')
-        else:
-            gold_cg.interface.new_socket(name="Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
-            gold_cg.interface.new_socket(name="PBM Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
-            gold_cg.interface.new_socket(name="White Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
-            gold_cg.interface.new_socket(name="Chaos Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
-            gold_cg.interface.new_socket(name="Crayola Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
-            gold_cg.interface.new_socket(name="Vegas Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
-            gold_cg.interface.new_socket(name="Old Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
-            gold_cg.interface.new_socket(name="Satin Sheen Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
-            gold_cg.interface.new_socket(name="Pirate Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
-            gold_cg.interface.new_socket(name="Golden Yellow", in_out='OUTPUT', socket_type='NodeSocketColor')
-            gold_cg.interface.new_socket(name="Golden Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
-            gold_cg.interface.new_socket(name="Golden Poppy", in_out='OUTPUT', socket_type='NodeSocketColor')
-            gold_cg.interface.new_socket(name="Harvest Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
+        gold_cg.interface.new_socket(name="Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
+        gold_cg.interface.new_socket(name="PBM Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
+        gold_cg.interface.new_socket(name="White Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
+        gold_cg.interface.new_socket(name="Chaos Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
+        gold_cg.interface.new_socket(name="Crayola Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
+        gold_cg.interface.new_socket(name="Vegas Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
+        gold_cg.interface.new_socket(name="Old Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
+        gold_cg.interface.new_socket(name="Satin Sheen Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
+        gold_cg.interface.new_socket(name="Pirate Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
+        gold_cg.interface.new_socket(name="Golden Yellow", in_out='OUTPUT', socket_type='NodeSocketColor')
+        gold_cg.interface.new_socket(name="Golden Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
+        gold_cg.interface.new_socket(name="Golden Poppy", in_out='OUTPUT', socket_type='NodeSocketColor')
+        gold_cg.interface.new_socket(name="Harvest Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
 
 
         # makecolors
@@ -97,16 +78,16 @@ class GoldColorsGroup(bpy.types.Operator):
 
         links = gold_cg.links.new
 
-        links(gc_g.outputs[0], group_out.inputs[0])
-        links(gc_pbmg.outputs[0], group_out.inputs[1])
-        links(gc_wg.outputs[0], group_out.inputs[2])
-        links(gc_chg.outputs[0], group_out.inputs[3])
-        links(gc_cg.outputs[0], group_out.inputs[4])
-        links(gc_vg.outputs[0], group_out.inputs[5])
-        links(gc_og.outputs[0], group_out.inputs[6])
-        links(gc_ssg.outputs[0], group_out.inputs[7])
-        links(gc_prtg.outputs[0], group_out.inputs[8])
-        links(gc_gy.outputs[0], group_out.inputs[9])
-        links(gc_gg.outputs[0], group_out.inputs[10])
-        links(gc_gp.outputs[0], group_out.inputs[11])
-        links(gc_hg.outputs[0], group_out.inputs[12])
+        links(gc_g.outputs['Color'], group_out.inputs['Gold'])
+        links(gc_pbmg.outputs['Color'], group_out.inputs['PBM Gold'])
+        links(gc_wg.outputs['Color'], group_out.inputs['White Gold'])
+        links(gc_chg.outputs['Color'], group_out.inputs['Chaos Gold'])
+        links(gc_cg.outputs['Color'], group_out.inputs['Crayola Gold'])
+        links(gc_vg.outputs['Color'], group_out.inputs['Vegas Gold'])
+        links(gc_og.outputs['Color'], group_out.inputs['Old Gold'])
+        links(gc_ssg.outputs['Color'], group_out.inputs['Satin Sheen Gold'])
+        links(gc_prtg.outputs['Color'], group_out.inputs['Pirate Gold'])
+        links(gc_gy.outputs['Color'], group_out.inputs['Golden Yellow'])
+        links(gc_gg.outputs['Color'], group_out.inputs['Golden Gold'])
+        links(gc_gp.outputs['Color'], group_out.inputs['Golden Poppy'])
+        links(gc_hg.outputs['Color'], group_out.inputs['Harvest Gold'])

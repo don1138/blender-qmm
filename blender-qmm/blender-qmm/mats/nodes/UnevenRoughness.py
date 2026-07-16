@@ -1,7 +1,5 @@
 import bpy
 
-bv = bpy.app.version
-
 class UnevenRoughnessGroup(bpy.types.Operator):
     """Add/Get Uneven Roughness Group Node"""
     bl_label  = "Uneven Roughness Node Group"
@@ -27,65 +25,40 @@ class UnevenRoughnessGroup(bpy.types.Operator):
         # groupinput 1
         group_in_1 = self.make_node(uneven_roughness_group, 'NodeGroupInput', -400, -200)
         group_in_1.label = "Group Input 1"
-        if bv < (4, 0, 0):
-            uneven_roughness_group.inputs.new('NodeSocketFloat', 'Min')   # 2
-            uneven_roughness_group.inputs.new('NodeSocketFloat', 'Max')   # 3
-            uneven_roughness_group.inputs.new('NodeSocketFloat', 'Scale') # 1
-            uneven_roughness_group.inputs.new('NodeSocketFloat', 'Contrast')   # 3
-            uneven_roughness_group.inputs.new('NodeSocketFloat', 'Midpoint')   # 3
-            uneven_roughness_group.inputs.new('NodeSocketFloat', 'Seed')  # 0
-            uneven_roughness_group.inputs[0].default_value = 0
-            uneven_roughness_group.inputs[0].min_value = 0.0
-            uneven_roughness_group.inputs[0].max_value = 1.0
-            uneven_roughness_group.inputs[1].default_value = 0.5
-            uneven_roughness_group.inputs[1].min_value = 0.0
-            uneven_roughness_group.inputs[1].max_value = 1.0
-            uneven_roughness_group.inputs[2].default_value = 6
-            uneven_roughness_group.inputs[2].min_value = 0.5
-            uneven_roughness_group.inputs[2].max_value = 128
-            uneven_roughness_group.inputs[3].default_value = 0.5
-            uneven_roughness_group.inputs[3].min_value = 0.0
-            uneven_roughness_group.inputs[3].max_value = 1.0
-            uneven_roughness_group.inputs[4].default_value = 0.5
-            uneven_roughness_group.inputs[4].min_value = 0.0
-            uneven_roughness_group.inputs[4].max_value = 1.0
-            uneven_roughness_group.inputs[5].default_value = 1618
-            uneven_roughness_group.inputs[5].min_value = -1618
-            uneven_roughness_group.inputs[5].max_value = 1618
-        else:
-            uneven_roughness_group.interface.new_socket(name="Min", in_out='INPUT', socket_type='NodeSocketFloat')
-            uneven_roughness_group.interface.new_socket(name="Max", in_out='INPUT', socket_type='NodeSocketFloat')
-            uneven_roughness_group.interface.new_socket(name="Scale", in_out='INPUT', socket_type='NodeSocketFloat')
-            uneven_roughness_group.interface.new_socket(name="Contrast", in_out='INPUT', socket_type='NodeSocketFloat')
-            uneven_roughness_group.interface.new_socket(name="Midpoint", in_out='INPUT', socket_type='NodeSocketFloat')
-            uneven_roughness_group.interface.new_socket(name="Seed", in_out='INPUT', socket_type='NodeSocketFloat')
-            uneven_roughness_group.interface.items_tree[0].default_value = 0
-            uneven_roughness_group.interface.items_tree[0].min_value = 0.0
-            uneven_roughness_group.interface.items_tree[0].max_value = 1.0
-            uneven_roughness_group.interface.items_tree[1].default_value = 0.5
-            uneven_roughness_group.interface.items_tree[1].min_value = 0.0
-            uneven_roughness_group.interface.items_tree[1].max_value = 1.0
-            uneven_roughness_group.interface.items_tree[2].default_value = 6
-            uneven_roughness_group.interface.items_tree[2].min_value = 0.5
-            uneven_roughness_group.interface.items_tree[2].max_value = 128
-            uneven_roughness_group.interface.items_tree[3].default_value = 0.5
-            uneven_roughness_group.interface.items_tree[3].min_value = 0.0
-            uneven_roughness_group.interface.items_tree[3].max_value = 1.0
-            uneven_roughness_group.interface.items_tree[4].default_value = 0.5
-            uneven_roughness_group.interface.items_tree[4].min_value = 0.0
-            uneven_roughness_group.interface.items_tree[4].max_value = 1.0
-            uneven_roughness_group.interface.items_tree[5].default_value = 1618
-            uneven_roughness_group.interface.items_tree[5].min_value = -1618
-            uneven_roughness_group.interface.items_tree[5].max_value = 1618
+        min_socket = uneven_roughness_group.interface.new_socket(name="Min", in_out='INPUT', socket_type='NodeSocketFloat')
+        min_socket.default_value = 0
+        min_socket.min_value = 0.0
+        min_socket.max_value = 1.0
+
+        max_socket = uneven_roughness_group.interface.new_socket(name="Max", in_out='INPUT', socket_type='NodeSocketFloat')
+        max_socket.default_value = 0.5
+        max_socket.min_value = 0.0
+        max_socket.max_value = 1.0
+
+        scale_socket = uneven_roughness_group.interface.new_socket(name="Scale", in_out='INPUT', socket_type='NodeSocketFloat')
+        scale_socket.default_value = 6
+        scale_socket.min_value = 0.5
+        scale_socket.max_value = 128
+
+        contrast_socket = uneven_roughness_group.interface.new_socket(name="Contrast", in_out='INPUT', socket_type='NodeSocketFloat')
+        contrast_socket.default_value = 0.5
+        contrast_socket.min_value = 0.0
+        contrast_socket.max_value = 1.0
+
+        midpoint_socket = uneven_roughness_group.interface.new_socket(name="Midpoint", in_out='INPUT', socket_type='NodeSocketFloat')
+        midpoint_socket.default_value = 0.5
+        midpoint_socket.min_value = 0.0
+        midpoint_socket.max_value = 1.0
+
+        seed_socket = uneven_roughness_group.interface.new_socket(name="Seed", in_out='INPUT', socket_type='NodeSocketFloat')
+        seed_socket.default_value = 1618
+        seed_socket.min_value = -1618
+        seed_socket.max_value = 1618
 
         # groupoutput
         group_out = self.make_node(uneven_roughness_group, 'NodeGroupOutput', 0, 0)
-        if bv < (4, 0, 0):
-            uneven_roughness_group.outputs.new('NodeSocketFloat', 'Roughness') # 0
-            uneven_roughness_group.outputs.new('NodeSocketFloat', 'Mask')      # 1
-        else:
-            uneven_roughness_group.interface.new_socket(name="Roughness", in_out='OUTPUT', socket_type='NodeSocketFloat')
-            uneven_roughness_group.interface.new_socket(name="Mask", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        uneven_roughness_group.interface.new_socket(name="Roughness", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        uneven_roughness_group.interface.new_socket(name="Mask", in_out='OUTPUT', socket_type='NodeSocketFloat')
 
         # Map Range 1
         n_map_1 = self.make_node(uneven_roughness_group, 'ShaderNodeMapRange', -200, 0)
@@ -106,8 +79,8 @@ class UnevenRoughnessGroup(bpy.types.Operator):
         # Noise Texture
         n_noise = self.make_node(uneven_roughness_group, 'ShaderNodeTexNoise', -600, 0)
         n_noise.noise_dimensions = '4D'
-        n_noise.inputs[3].default_value = 8
-        n_noise.inputs[4].default_value = 1
+        n_noise.inputs['Detail'].default_value = 8
+        n_noise.inputs['Roughness'].default_value = 1
 
         # Texture Coordinates
         n_tex = self.make_node(uneven_roughness_group, 'ShaderNodeTexCoord', -800, 0)
@@ -161,26 +134,25 @@ class UnevenRoughnessGroup(bpy.types.Operator):
         # LINKS
         links = uneven_roughness_group.links.new
 
-        links(n_tex.outputs[3], n_noise.inputs[0])
-        links(group_in_2.outputs[5], n_noise.inputs[1])
-        links(group_in_2.outputs[2], n_noise.inputs[2])
-        links(n_noise.outputs[0], n_map_1.inputs[0])
-        links(n_noise.outputs[0], n_map_2.inputs[0])
-        links(n_noise.outputs[0], n_map_2.inputs[0])
-        links(group_in_1.outputs[0], n_map_1.inputs[3])
-        links(group_in_1.outputs[1], n_map_1.inputs[4])
-        links(n_map_1.outputs[0], group_out.inputs[0])
-        links(n_map_2.outputs[0], group_out.inputs[1])
+        links(n_tex.outputs['Object'], n_noise.inputs['Vector'])
+        links(group_in_2.outputs['Seed'], n_noise.inputs['W'])
+        links(group_in_2.outputs['Scale'], n_noise.inputs['Scale'])
+        links(n_noise.outputs['Fac'], n_map_1.inputs['Value'])
+        links(n_noise.outputs['Fac'], n_map_2.inputs['Value'])
+        links(group_in_1.outputs['Min'], n_map_1.inputs[3])
+        links(group_in_1.outputs['Max'], n_map_1.inputs[4])
+        links(n_map_1.outputs['Result'], group_out.inputs['Roughness'])
+        links(n_map_2.outputs['Result'], group_out.inputs['Mask'])
 
-        links(n_math_min.outputs[0], n_map_1.inputs[1])
-        links(n_math_min.outputs[0], n_map_2.inputs[1])
-        links(n_math_max_bump.outputs[0], n_map_1.inputs[2])
-        links(n_math_max_bump.outputs[0], n_map_2.inputs[2])
-        links(n_math_max.outputs[0], n_math_max_bump.inputs[0])
-        links(n_math_tenth.outputs[0], n_math_min.inputs[1])
-        links(n_math_tenth.outputs[0], n_math_max.inputs[1])
-        links(n_map_3.outputs[0], n_math_tenth.inputs[0])
-        links(n_map_4.outputs[0], n_math_min.inputs[0])
-        links(n_map_4.outputs[0], n_math_max.inputs[0])
-        links(group_in_3.outputs[3], n_map_3.inputs[0])
-        links(group_in_3.outputs[4], n_map_4.inputs[0])
+        links(n_math_min.outputs['Value'], n_map_1.inputs[1])
+        links(n_math_min.outputs['Value'], n_map_2.inputs[1])
+        links(n_math_max_bump.outputs['Value'], n_map_1.inputs[2])
+        links(n_math_max_bump.outputs['Value'], n_map_2.inputs[2])
+        links(n_math_max.outputs['Value'], n_math_max_bump.inputs[0])
+        links(n_math_tenth.outputs['Value'], n_math_min.inputs[1])
+        links(n_math_tenth.outputs['Value'], n_math_max.inputs[1])
+        links(n_map_3.outputs['Result'], n_math_tenth.inputs[0])
+        links(n_map_4.outputs['Result'], n_math_min.inputs[0])
+        links(n_map_4.outputs['Result'], n_math_max.inputs[0])
+        links(group_in_3.outputs['Contrast'], n_map_3.inputs['Value'])
+        links(group_in_3.outputs['Midpoint'], n_map_4.inputs['Value'])

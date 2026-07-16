@@ -44,7 +44,7 @@ class QMMWallPaint(bpy.types.Operator):
         m_wall_paint = bpy.data.materials.new(name="QMM Wall Paint")
         m_wall_paint.use_nodes = True
         diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
-        if diffuse_bool == True:
+        if diffuse_bool:
             m_wall_paint.diffuse_color = (0.504859, 0.483713, 0.674328, 1)
             m_wall_paint.roughness = 0.5
 
@@ -64,7 +64,7 @@ class QMMWallPaint(bpy.types.Operator):
 
         # bump
         m_bump = make_node(nodes, 'ShaderNodeBump', -500, -500)
-        m_bump.inputs[0].default_value = 0.2
+        m_bump.inputs["Strength"].default_value = 0.2
         m_bump.invert = True
 
         # maprange satin
@@ -103,12 +103,12 @@ class QMMWallPaint(bpy.types.Operator):
 
         # noiseshader
         m_noise = make_node(nodes, 'ShaderNodeTexNoise', -900, -200)
-        m_noise.inputs[2].default_value = 3.0
-        m_noise.inputs[3].default_value = 3.0
+        m_noise.inputs["Scale"].default_value = 3.0
+        m_noise.inputs["Detail"].default_value = 3.0
 
         # voronoishader
         m_voronoi = make_node(nodes, 'ShaderNodeTexVoronoi', -900, -500)
-        m_voronoi.inputs[2].default_value = 512.0
+        m_voronoi.inputs["Scale"].default_value = 512.0
 
         # mapping
         m_mapping = make_node(nodes, 'ShaderNodeMapping', -1100, -300)
@@ -119,7 +119,7 @@ class QMMWallPaint(bpy.types.Operator):
 
         # value
         m_value = make_node(nodes, 'ShaderNodeValue', -1300, -600)
-        m_value.outputs[0].default_value = 1.0
+        m_value.outputs["Value"].default_value = 1.0
 
         # EnergyConservationGroup
         bpy.ops.node.ec_group_operator()
@@ -134,17 +134,17 @@ class QMMWallPaint(bpy.types.Operator):
 
         links = m_wall_paint.node_tree.links.new
 
-        links(m_value.outputs[0], m_mapping.inputs[3])
-        links(m_texcoords.outputs[3], m_mapping.inputs[0])
-        links(m_mapping.outputs[0], m_voronoi.inputs[0])
-        links(m_mapping.outputs[0], m_noise.inputs[0])
-        links(m_voronoi.outputs[0], m_maprange2.inputs[0])
-        links(m_noise.outputs[0], m_maprange.inputs[0])
-        links(m_noise.outputs[0], m_maprange_g.inputs[0])
-        links(m_noise.outputs[0], m_maprange_m.inputs[0])
-        links(m_maprange2.outputs[0], m_bump.inputs[2])
-        links(m_maprange.outputs[0], BSDF.inputs["Roughness"])
-        links(m_bump.outputs[0], BSDF.inputs["Normal"])
+        links(m_value.outputs["Value"], m_mapping.inputs["Scale"])
+        links(m_texcoords.outputs["Object"], m_mapping.inputs["Vector"])
+        links(m_mapping.outputs["Vector"], m_voronoi.inputs["Vector"])
+        links(m_mapping.outputs["Vector"], m_noise.inputs["Vector"])
+        links(m_voronoi.outputs["Distance"], m_maprange2.inputs["Value"])
+        links(m_noise.outputs["Fac"], m_maprange.inputs["Value"])
+        links(m_noise.outputs["Fac"], m_maprange_g.inputs["Value"])
+        links(m_noise.outputs["Fac"], m_maprange_m.inputs["Value"])
+        links(m_maprange2.outputs["Result"], m_bump.inputs["Height"])
+        links(m_maprange.outputs["Result"], BSDF.inputs["Roughness"])
+        links(m_bump.outputs["Normal"], BSDF.inputs["Normal"])
 
         bpy.context.object.active_material = m_wall_paint
 

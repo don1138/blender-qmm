@@ -2,3 +2,5 @@
 .env
 *.zip
 _old
+__pycache__/
+*.py[cod]

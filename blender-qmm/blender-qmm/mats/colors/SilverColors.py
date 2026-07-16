@@ -35,7 +35,7 @@ class SilverColorsGroup(bpy.types.Operator):
         result = group.nodes.new('ShaderNodeRGB')
         result.location = locX, locY
         result.label = label
-        result.outputs[0].default_value = hex_to_rgb(hex)
+        result.outputs['Color'].default_value = hex_to_rgb(hex)
 
         return result
 
@@ -43,37 +43,20 @@ class SilverColorsGroup(bpy.types.Operator):
         # newnodegroup
         silver_cg = bpy.data.node_groups.new('Silver Colors', 'ShaderNodeTree')
 
-        # groupinput
-        # group_in = silver_cg.nodes.new('NodeGroupInput')
-        # group_in.location = (-400, 0)
-
         # groupoutput
         group_out = silver_cg.nodes.new('NodeGroupOutput')
         group_out.location = (0, 0)
-        if bpy.app.version < (4, 0, 0):
-            silver_cg.outputs.new('NodeSocketColor', 'Silver')
-            silver_cg.outputs.new('NodeSocketColor', 'Pale Silver')
-            silver_cg.outputs.new('NodeSocketColor', 'PBM Silver')
-            silver_cg.outputs.new('NodeSocketColor', 'Crayola Silver')
-            silver_cg.outputs.new('NodeSocketColor', 'Silver Pink')
-            silver_cg.outputs.new('NodeSocketColor', 'Basic Silver')
-            silver_cg.outputs.new('NodeSocketColor', 'Silver Sand')
-            silver_cg.outputs.new('NodeSocketColor', 'Silver Chalice')
-            silver_cg.outputs.new('NodeSocketColor', 'Old Silver')
-            silver_cg.outputs.new('NodeSocketColor', 'Roman Silver')
-            silver_cg.outputs.new('NodeSocketColor', 'Sonic Silver')
-        else:
-            silver_cg.interface.new_socket(name="Silver", in_out='OUTPUT', socket_type='NodeSocketColor')
-            silver_cg.interface.new_socket(name="Pale Silver", in_out='OUTPUT', socket_type='NodeSocketColor')
-            silver_cg.interface.new_socket(name="PBM Silver", in_out='OUTPUT', socket_type='NodeSocketColor')
-            silver_cg.interface.new_socket(name="Crayola Silver", in_out='OUTPUT', socket_type='NodeSocketColor')
-            silver_cg.interface.new_socket(name="Silver Pink", in_out='OUTPUT', socket_type='NodeSocketColor')
-            silver_cg.interface.new_socket(name="Basic Silver", in_out='OUTPUT', socket_type='NodeSocketColor')
-            silver_cg.interface.new_socket(name="Silver Sand", in_out='OUTPUT', socket_type='NodeSocketColor')
-            silver_cg.interface.new_socket(name="Silver Chalice", in_out='OUTPUT', socket_type='NodeSocketColor')
-            silver_cg.interface.new_socket(name="Old Silver", in_out='OUTPUT', socket_type='NodeSocketColor')
-            silver_cg.interface.new_socket(name="Roman Silver", in_out='OUTPUT', socket_type='NodeSocketColor')
-            silver_cg.interface.new_socket(name="Sonic Silver", in_out='OUTPUT', socket_type='NodeSocketColor')
+        silver_cg.interface.new_socket(name="Silver", in_out='OUTPUT', socket_type='NodeSocketColor')
+        silver_cg.interface.new_socket(name="Pale Silver", in_out='OUTPUT', socket_type='NodeSocketColor')
+        silver_cg.interface.new_socket(name="PBM Silver", in_out='OUTPUT', socket_type='NodeSocketColor')
+        silver_cg.interface.new_socket(name="Crayola Silver", in_out='OUTPUT', socket_type='NodeSocketColor')
+        silver_cg.interface.new_socket(name="Silver Pink", in_out='OUTPUT', socket_type='NodeSocketColor')
+        silver_cg.interface.new_socket(name="Basic Silver", in_out='OUTPUT', socket_type='NodeSocketColor')
+        silver_cg.interface.new_socket(name="Silver Sand", in_out='OUTPUT', socket_type='NodeSocketColor')
+        silver_cg.interface.new_socket(name="Silver Chalice", in_out='OUTPUT', socket_type='NodeSocketColor')
+        silver_cg.interface.new_socket(name="Old Silver", in_out='OUTPUT', socket_type='NodeSocketColor')
+        silver_cg.interface.new_socket(name="Roman Silver", in_out='OUTPUT', socket_type='NodeSocketColor')
+        silver_cg.interface.new_socket(name="Sonic Silver", in_out='OUTPUT', socket_type='NodeSocketColor')
 
         # makecolors
         sc_s = self.make_color(silver_cg, "Silver", -400, 400, 0xAAA9AD)
@@ -90,14 +73,14 @@ class SilverColorsGroup(bpy.types.Operator):
 
         links = silver_cg.links.new
 
-        links(sc_s.outputs[0], group_out.inputs[0])
-        links(sc_ps.outputs[0], group_out.inputs[1])
-        links(sc_pbms.outputs[0], group_out.inputs[2])
-        links(sc_cs.outputs[0], group_out.inputs[3])
-        links(sc_sp.outputs[0], group_out.inputs[4])
-        links(sc_bs.outputs[0], group_out.inputs[5])
-        links(sc_ss.outputs[0], group_out.inputs[6])
-        links(sc_sc.outputs[0], group_out.inputs[7])
-        links(sc_os.outputs[0], group_out.inputs[8])
-        links(sc_rs.outputs[0], group_out.inputs[9])
-        links(sc_sos.outputs[0], group_out.inputs[10])
+        links(sc_s.outputs['Color'], group_out.inputs['Silver'])
+        links(sc_ps.outputs['Color'], group_out.inputs['Pale Silver'])
+        links(sc_pbms.outputs['Color'], group_out.inputs['PBM Silver'])
+        links(sc_cs.outputs['Color'], group_out.inputs['Crayola Silver'])
+        links(sc_sp.outputs['Color'], group_out.inputs['Silver Pink'])
+        links(sc_bs.outputs['Color'], group_out.inputs['Basic Silver'])
+        links(sc_ss.outputs['Color'], group_out.inputs['Silver Sand'])
+        links(sc_sc.outputs['Color'], group_out.inputs['Silver Chalice'])
+        links(sc_os.outputs['Color'], group_out.inputs['Old Silver'])
+        links(sc_rs.outputs['Color'], group_out.inputs['Roman Silver'])
+        links(sc_sos.outputs['Color'], group_out.inputs['Sonic Silver'])

@@ -21,7 +21,7 @@ bl_info = {
     "name": "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
     "author": "Don Schnitzius",
-    "version": (1, 23, 0),
+    "version": (1, 24, 0),
     "blender": (4, 0, 0),
     "location": "3D Viewport > Sidebar > MAT > Quick Metal Materials",
     "warning": "",

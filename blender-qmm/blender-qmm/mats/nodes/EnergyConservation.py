@@ -1,8 +1,6 @@
 # Energy Conservation v5 Group v.5
 import bpy
 
-bv = bpy.app.version
-
 class EnergyConservationGroup(bpy.types.Operator):
     """Add/Get Energy Conservation v5 Group Node"""
     bl_label  = "Energy Conservation v5 Node Group"
@@ -31,25 +29,15 @@ class EnergyConservationGroup(bpy.types.Operator):
 
         # groupinput
         group_in = self.make_node(spec_group, 'NodeGroupInput', -1000, 0)
-        if bv < (4, 0, 0):
-            spec_group.inputs.new('NodeSocketFloat', 'IOR')
-            spec_group.inputs[0].default_value = 1.52
-            spec_group.inputs[0].min_value = 0
-            spec_group.inputs[0].max_value = 10
-        else:
-            spec_group.interface.new_socket(name="IOR", in_out='INPUT', socket_type='NodeSocketFloat')
-            spec_group.interface.items_tree[0].default_value = 1.52
-            spec_group.interface.items_tree[0].min_value = 0
-            spec_group.interface.items_tree[0].max_value = 10
+        ior_socket = spec_group.interface.new_socket(name="IOR", in_out='INPUT', socket_type='NodeSocketFloat')
+        ior_socket.default_value = 1.52
+        ior_socket.min_value = 0
+        ior_socket.max_value = 10
 
         # groupoutput
         group_out = self.make_node(spec_group, 'NodeGroupOutput', 0, 0)
-        if bv < (4, 0, 0):
-            spec_group.outputs.new('NodeSocketFloat', 'Specular')
-            spec_group.outputs.new('NodeSocketFloat', 'IOR')
-        else:
-            spec_group.interface.new_socket(name="Specular", in_out='OUTPUT', socket_type='NodeSocketFloat')
-            spec_group.interface.new_socket(name="IOR", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        spec_group.interface.new_socket(name="Specular", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        spec_group.interface.new_socket(name="IOR", in_out='OUTPUT', socket_type='NodeSocketFloat')
 
         # mathdivide
         m_divide = self.make_math_node(spec_group, 'DIVIDE', -200, 100)
@@ -72,14 +60,14 @@ class EnergyConservationGroup(bpy.types.Operator):
 
         # connect spec group
         links = spec_group.links.new
-        links(group_in.outputs[0], m_subtract.inputs[0])
-        links(group_in.outputs[0], m_add.inputs[0])
-        links(group_in.outputs[0], group_out.inputs[1])
-        links(m_add.outputs[0], m_divide2.inputs[1])
-        links(m_subtract.outputs[0], m_divide2.inputs[0])
-        links(m_divide2.outputs[0], m_power.inputs[0])
-        links(m_power.outputs[0], m_divide.inputs[0])
-        links(m_divide.outputs[0], group_out.inputs[0])
+        links(group_in.outputs['IOR'], m_subtract.inputs[0])
+        links(group_in.outputs['IOR'], m_add.inputs[0])
+        links(group_in.outputs['IOR'], group_out.inputs['IOR'])
+        links(m_add.outputs['Value'], m_divide2.inputs[1])
+        links(m_subtract.outputs['Value'], m_divide2.inputs[0])
+        links(m_divide2.outputs['Value'], m_power.inputs[0])
+        links(m_power.outputs['Value'], m_divide.inputs[0])
+        links(m_divide.outputs['Value'], group_out.inputs['Specular'])
 
     def make_fres_group(self):
         # fresnel group - cynicalcatpro version
@@ -87,35 +75,22 @@ class EnergyConservationGroup(bpy.types.Operator):
         
         # groupinput
         group_in = self.make_node(fres_group, 'NodeGroupInput', -1000, 0)
-        if bv < (4, 0, 0):
-            fres_group.inputs.new('NodeSocketFloat', 'Roughness')
-            fres_group.inputs.new('NodeSocketFloat', 'IOR')
-            fres_group.inputs.new('NodeSocketVector', 'Normal')
-            fres_group.inputs[0].default_value = 0.2
-            fres_group.inputs[0].min_value = 0
-            fres_group.inputs[0].max_value = 1
-            fres_group.inputs[1].default_value = 1.45
-            fres_group.inputs[1].min_value = 0
-            fres_group.inputs[1].max_value = 3
-        else:
-            fres_group.interface.new_socket(name="Roughness", in_out='INPUT', socket_type='NodeSocketFloat')
-            fres_group.interface.new_socket(name="IOR", in_out='INPUT', socket_type='NodeSocketFloat')
-            fres_group.interface.new_socket(name="Normal", in_out='INPUT')
-            fres_group.interface.items_tree[0].default_value = 0.2
-            fres_group.interface.items_tree[0].min_value = 0
-            fres_group.interface.items_tree[0].max_value = 1
-            fres_group.interface.items_tree[1].default_value = 1.45
-            fres_group.interface.items_tree[1].min_value = 0
-            fres_group.interface.items_tree[1].max_value = 3
+        roughness_socket = fres_group.interface.new_socket(name="Roughness", in_out='INPUT', socket_type='NodeSocketFloat')
+        roughness_socket.default_value = 0.2
+        roughness_socket.min_value = 0
+        roughness_socket.max_value = 1
+
+        ior_socket = fres_group.interface.new_socket(name="IOR", in_out='INPUT', socket_type='NodeSocketFloat')
+        ior_socket.default_value = 1.45
+        ior_socket.min_value = 0
+        ior_socket.max_value = 3
+
+        fres_group.interface.new_socket(name="Normal", in_out='INPUT', socket_type='NodeSocketVector')
 
         # groupoutput
         group_out = self.make_node(fres_group, 'NodeGroupOutput', 0, 0)
-        if bv < (4, 0, 0):
-            fres_group.outputs.new('NodeSocketFloat', 'Fresnel')
-            fres_group.outputs.new('NodeSocketFloat', 'Fresnel Metal')
-        else:
-            fres_group.interface.new_socket(name="Fresnel", in_out='OUTPUT', socket_type='NodeSocketFloat')
-            fres_group.interface.new_socket(name="Fresnel Metal", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        fres_group.interface.new_socket(name="Fresnel", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        fres_group.interface.new_socket(name="Fresnel Metal", in_out='OUTPUT', socket_type='NodeSocketFloat')
 
         # fresnel
         m_fresnel = self.make_node(fres_group, 'ShaderNodeFresnel', -400, 0)
@@ -128,38 +103,29 @@ class EnergyConservationGroup(bpy.types.Operator):
         m_power.inputs[1].default_value = 5
         
         # colormix
-        if bv < (3, 4, 0):
-            m_colormix = self.make_node(fres_group, 'ShaderNodeMixRGB', -600, -100)
-        else:
-            m_colormix = self.make_node(fres_group, 'ShaderNodeMix', -600, -100)
-            m_colormix.data_type = 'RGBA'
+        m_colormix = self.make_node(fres_group, 'ShaderNodeMix', -600, -100)
+        m_colormix.data_type = 'RGBA'
 
         # bump
         m_bump = self.make_node(fres_group, 'ShaderNodeBump', -800, -100)
-        m_bump.inputs[0].default_value = 0
-        m_bump.inputs[1].default_value = 0.1
+        m_bump.inputs['Strength'].default_value = 0
+        m_bump.inputs['Distance'].default_value = 0.1
         
         # geometry
         m_geometry = self.make_node(fres_group, 'ShaderNodeNewGeometry', -800, -300)
 
         # connect fres_group
         links = fres_group.links.new
-        links(group_in.outputs[0], m_colormix.inputs[0])
-        links(group_in.outputs[1], m_fresnel.inputs[0])
-        links(group_in.outputs[2], m_bump.inputs[3])
-        if bv < (3, 4, 0):
-            links(m_bump.outputs[0], m_colormix.inputs[1])
-            links(m_geometry.outputs[4], m_colormix.inputs[2])
-            links(m_colormix.outputs[0], m_fresnel.inputs[1])
-            links(m_colormix.outputs[0], m_layer_weight.inputs[1])
-        else:
-            links(m_bump.outputs[0], m_colormix.inputs[6])
-            links(m_geometry.outputs[4], m_colormix.inputs[7])
-            links(m_colormix.outputs[2], m_fresnel.inputs[1])
-            links(m_colormix.outputs[2], m_layer_weight.inputs[1])
-        links(m_fresnel.outputs[0], group_out.inputs[0])
-        links(m_layer_weight.outputs[1], m_power.inputs[0])
-        links(m_power.outputs[0], group_out.inputs[1])
+        links(group_in.outputs['Roughness'], m_colormix.inputs[0])
+        links(group_in.outputs['IOR'], m_fresnel.inputs['IOR'])
+        links(group_in.outputs['Normal'], m_bump.inputs['Normal'])
+        links(m_bump.outputs['Normal'], m_colormix.inputs[6])
+        links(m_geometry.outputs['Incoming'], m_colormix.inputs[7])
+        links(m_colormix.outputs[2], m_fresnel.inputs['Normal'])
+        links(m_colormix.outputs[2], m_layer_weight.inputs['Normal'])
+        links(m_fresnel.outputs['Fac'], group_out.inputs['Fresnel'])
+        links(m_layer_weight.outputs['Facing'], m_power.inputs[0])
+        links(m_power.outputs['Value'], group_out.inputs['Fresnel Metal'])
 
     def make_ec_group(self):
         # ec_group
@@ -168,67 +134,42 @@ class EnergyConservationGroup(bpy.types.Operator):
         # groupinput
         group_in = self.make_node(ec_group, 'NodeGroupInput', -200, 0)
         group_in.label = "Group In 1"
-        if bv < (4, 0, 0):
-            ec_group.inputs.new('NodeSocketColor', 'Reflectivity')      #0
-            ec_group.inputs.new('NodeSocketFloat', 'Roughness')         #1
-            ec_group.inputs.new('NodeSocketFloat', 'IOR')               #2
-            ec_group.inputs.new('NodeSocketVector', 'Normal')           #3
-            ec_group.inputs.new('NodeSocketColor', 'Edge Tint')         #4
-            ec_group.inputs.new('NodeSocketFloat', 'Custom/Auto')       #5
-            ec_group.inputs.new('NodeSocketFloat', 'Metal/Dielectric')  #6
-            ec_group.inputs[0].default_value = (0.215860, 0.215860, 0.215861, 1)
-            ec_group.inputs[1].default_value = 0.2
-            ec_group.inputs[1].min_value = 0
-            ec_group.inputs[1].max_value = 1
-            ec_group.inputs[2].default_value = 1.45
-            ec_group.inputs[2].min_value = 0
-            ec_group.inputs[2].max_value = 3
-            ec_group.inputs[3].hide_value = True
-            ec_group.inputs[4].default_value = (0.01, 0.01, 0.01, 1)
-            ec_group.inputs[5].default_value = 0
-            ec_group.inputs[5].min_value = 0
-            ec_group.inputs[5].max_value = 1
-            ec_group.inputs[6].default_value = 0
-            ec_group.inputs[6].min_value = 0
-            ec_group.inputs[6].max_value = 1
-        else:
-            ec_group.interface.new_socket(name="Reflectivity", in_out='INPUT', socket_type='NodeSocketColor')
-            ec_group.interface.new_socket(name="Roughness", in_out='INPUT', socket_type='NodeSocketFloat')
-            ec_group.interface.new_socket(name="IOR", in_out='INPUT', socket_type='NodeSocketFloat')
-            ec_group.interface.new_socket(name="Normal", in_out='INPUT', socket_type='NodeSocketVector')
-            ec_group.interface.new_socket(name="Edge Tint", in_out='INPUT', socket_type='NodeSocketColor')
-            ec_group.interface.new_socket(name="Custom/Auto", in_out='INPUT', socket_type='NodeSocketFloat')
-            ec_group.interface.new_socket(name="Metal/Dielectric", in_out='INPUT', socket_type='NodeSocketFloat')
-            ec_group.interface.items_tree[0].default_value = (0.215860, 0.215860, 0.215861, 1)
-            ec_group.interface.items_tree[1].default_value = 0.2
-            ec_group.interface.items_tree[1].min_value = 0
-            ec_group.interface.items_tree[1].max_value = 1
-            ec_group.interface.items_tree[2].default_value = 1.45
-            ec_group.interface.items_tree[2].min_value = 0
-            ec_group.interface.items_tree[2].max_value = 3
-            ec_group.interface.items_tree[3].hide_value = True
-            ec_group.interface.items_tree[4].default_value = (0.01, 0.01, 0.01, 1)
-            ec_group.interface.items_tree[5].default_value = 0
-            ec_group.interface.items_tree[5].min_value = 0
-            ec_group.interface.items_tree[5].max_value = 1
-            ec_group.interface.items_tree[6].default_value = 0
-            ec_group.interface.items_tree[6].min_value = 0
-            ec_group.interface.items_tree[6].max_value = 1
+        reflectivity_socket = ec_group.interface.new_socket(name="Reflectivity", in_out='INPUT', socket_type='NodeSocketColor')
+        reflectivity_socket.default_value = (0.215860, 0.215860, 0.215861, 1)
+
+        roughness_socket = ec_group.interface.new_socket(name="Roughness", in_out='INPUT', socket_type='NodeSocketFloat')
+        roughness_socket.default_value = 0.2
+        roughness_socket.min_value = 0
+        roughness_socket.max_value = 1
+
+        ior_socket = ec_group.interface.new_socket(name="IOR", in_out='INPUT', socket_type='NodeSocketFloat')
+        ior_socket.default_value = 1.45
+        ior_socket.min_value = 0
+        ior_socket.max_value = 3
+
+        normal_socket = ec_group.interface.new_socket(name="Normal", in_out='INPUT', socket_type='NodeSocketVector')
+        normal_socket.hide_value = True
+
+        edge_tint_socket = ec_group.interface.new_socket(name="Edge Tint", in_out='INPUT', socket_type='NodeSocketColor')
+        edge_tint_socket.default_value = (0.01, 0.01, 0.01, 1)
+
+        custom_auto_socket = ec_group.interface.new_socket(name="Custom/Auto", in_out='INPUT', socket_type='NodeSocketFloat')
+        custom_auto_socket.default_value = 0
+        custom_auto_socket.min_value = 0
+        custom_auto_socket.max_value = 1
+
+        metal_dielectric_socket = ec_group.interface.new_socket(name="Metal/Dielectric", in_out='INPUT', socket_type='NodeSocketFloat')
+        metal_dielectric_socket.default_value = 0
+        metal_dielectric_socket.min_value = 0
+        metal_dielectric_socket.max_value = 1
 
         # groupoutput
         group_out = self.make_node(ec_group, 'NodeGroupOutput', 0, 0)
-        if bv < (4, 0, 0):
-            ec_group.outputs.new('NodeSocketColor', 'Color')      #0
-            ec_group.outputs.new('NodeSocketFloat', 'Specular')   #1
-            ec_group.outputs.new('NodeSocketFloat', 'Roughness')  #2
-            ec_group.outputs.new('NodeSocketFloat', 'Clearcoat')  #3
-            ec_group.outputs.new('NodeSocketFloat', 'IOR')        #4
-        else:
-            ec_group.interface.new_socket(name="Color", in_out='OUTPUT', socket_type='NodeSocketColor')
-            ec_group.interface.new_socket(name="Specular", in_out='OUTPUT', socket_type='NodeSocketFloat')
-            ec_group.interface.new_socket(name="Roughness", in_out='OUTPUT', socket_type='NodeSocketFloat')
-            ec_group.interface.new_socket(name="Clearcoat", in_out='OUTPUT', socket_type='NodeSocketFloat')
-            ec_group.interface.new_socket(name="IOR", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        ec_group.interface.new_socket(name="Color", in_out='OUTPUT', socket_type='NodeSocketColor')
+        ec_group.interface.new_socket(name="Specular", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        ec_group.interface.new_socket(name="Roughness", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        ec_group.interface.new_socket(name="Clearcoat", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        ec_group.interface.new_socket(name="IOR", in_out='OUTPUT', socket_type='NodeSocketFloat')
 
         # CLEARCOAT
         m_clearcoat = self.make_math_node(ec_group, 'MULTIPLY', -200, -300)
@@ -237,11 +178,8 @@ class EnergyConservationGroup(bpy.types.Operator):
         m_clearcoat.label = "Clearcoat"
 
         # colormix1
-        if bv < (3, 4, 0):
-            m_colormix = self.make_node(ec_group, 'ShaderNodeMixRGB', -400, 300)
-        else:
-            m_colormix = self.make_node(ec_group, 'ShaderNodeMix', -400, 300)
-            m_colormix.data_type = 'RGBA'
+        m_colormix = self.make_node(ec_group, 'ShaderNodeMix', -400, 300)
+        m_colormix.data_type = 'RGBA'
         m_colormix.label = "Color Mix 1"
 
         # IOR TO SPECULAR
@@ -249,19 +187,13 @@ class EnergyConservationGroup(bpy.types.Operator):
         spec_group.label = "Specular"
 
         # colormix2
-        if bv < (3, 4, 0):
-            m_colormix2 = self.make_node(ec_group, 'ShaderNodeMixRGB', -600, 400)
-        else:
-            m_colormix2 = self.make_node(ec_group, 'ShaderNodeMix', -600, 400)
-            m_colormix2.data_type = 'RGBA'
+        m_colormix2 = self.make_node(ec_group, 'ShaderNodeMix', -600, 400)
+        m_colormix2.data_type = 'RGBA'
         m_colormix2.label = "Color Mix 2"
 
         # colormix3
-        if bv < (3, 4, 0):
-            m_colormix3 = self.make_node(ec_group, 'ShaderNodeMixRGB', -600, 0)
-        else:
-            m_colormix3 = self.make_node(ec_group, 'ShaderNodeMix', -600, 0)
-            m_colormix3.data_type = 'RGBA'
+        m_colormix3 = self.make_node(ec_group, 'ShaderNodeMix', -600, 0)
+        m_colormix3.data_type = 'RGBA'
         m_colormix3.label = "Color Mix 3"
 
         # groupinput2
@@ -279,13 +211,9 @@ class EnergyConservationGroup(bpy.types.Operator):
         m_greaterthan2.label = "Bool 2"
 
         # colormix4
-        if bv < (3, 4, 0):
-            m_colormix4 = self.make_node(ec_group, 'ShaderNodeMixRGB', -800, -300)
-            m_colormix4.inputs[1].default_value = (0.99, 0.99, 0.99, 1)
-        else:
-            m_colormix4 = self.make_node(ec_group, 'ShaderNodeMix', -800, -300)
-            m_colormix4.data_type = 'RGBA'
-            m_colormix4.inputs[6].default_value = (0.99, 0.99, 0.99, 1)
+        m_colormix4 = self.make_node(ec_group, 'ShaderNodeMix', -800, -300)
+        m_colormix4.data_type = 'RGBA'
+        m_colormix4.inputs[6].default_value = (0.99, 0.99, 0.99, 1)
         m_colormix4.label = "Color Mix 4"
 
         # FRESNEL GROUP
@@ -298,7 +226,7 @@ class EnergyConservationGroup(bpy.types.Operator):
 
         # HSV
         m_hsv = self.make_node(ec_group, 'ShaderNodeHueSaturation', -1000, -300)
-        m_hsv.inputs[2].default_value = 0.01
+        m_hsv.inputs['Value'].default_value = 0.01
         m_hsv.label = "HSV"
 
         # bool 3
@@ -317,70 +245,53 @@ class EnergyConservationGroup(bpy.types.Operator):
         links = ec_group.links.new
 
         # connect group in 1
-        links(group_in.outputs[1], group_out.inputs[2])
-        links(group_in.outputs[2], group_out.inputs[4])
-        
+        links(group_in.outputs['Roughness'], group_out.inputs['Roughness'])
+        links(group_in.outputs['IOR'], group_out.inputs['IOR'])
+
         # connect clearcoat
-        links(m_clearcoat.outputs[0], group_out.inputs[3])
+        links(m_clearcoat.outputs['Value'], group_out.inputs['Clearcoat'])
 
         # connect color mix 1
-        if bv < (3, 4, 0):
-            links(group_in3.outputs[0], m_colormix.inputs[1])
-            links(m_colormix.outputs[0], m_colormix.inputs[2])
-            links(m_colormix.outputs[0], group_out.inputs[0])
-        else:
-            links(group_in3.outputs[0], m_colormix.inputs[6])
-            links(m_colormix3.outputs[2], m_colormix.inputs[7])
-            links(m_colormix.outputs[2], group_out.inputs[0])
+        links(group_in3.outputs['Reflectivity'], m_colormix.inputs[6])
+        links(m_colormix3.outputs[2], m_colormix.inputs[7])
+        links(m_colormix.outputs[2], group_out.inputs['Color'])
 
         # connect specular group
-        links(spec_group.outputs[0], group_out.inputs[1])
-        links(spec_group.outputs[0], m_clearcoat.inputs[0])
+        links(spec_group.outputs['Specular'], group_out.inputs['Specular'])
+        links(spec_group.outputs['Specular'], m_clearcoat.inputs[0])
 
         # connect color mix 2
-        links(m_greaterthan.outputs[0], m_colormix2.inputs[0])
-        if bv < (3, 4, 0):
-            links(fres_group.outputs[0], m_colormix2.inputs[2])
-            links(fres_group.outputs[1], m_colormix2.inputs[1])
-            links(m_colormix2.outputs[0], m_colormix.inputs[0])
-        else:
-            links(fres_group.outputs[0], m_colormix2.inputs[7])
-            links(fres_group.outputs[1], m_colormix2.inputs[6])
-            links(m_colormix2.outputs[2], m_colormix.inputs[0])
+        links(m_greaterthan.outputs['Value'], m_colormix2.inputs[0])
+        links(fres_group.outputs['Fresnel'], m_colormix2.inputs[7])
+        links(fres_group.outputs['Fresnel Metal'], m_colormix2.inputs[6])
+        links(m_colormix2.outputs[2], m_colormix.inputs[0])
 
         # connect fresnel group
 
         # connect bool 2 to color mix 3
-        links(m_greaterthan2.outputs[0], m_colormix3.inputs[0])
-        if bv < (3, 4, 0):
-            links(group_in4.outputs[4], m_colormix3.inputs[1])
-            links(m_colormix4.outputs[0], m_colormix3.inputs[2])
-        else:
-            links(group_in4.outputs[4], m_colormix3.inputs[6])
-            links(m_colormix4.outputs[2], m_colormix3.inputs[7])
+        links(m_greaterthan2.outputs['Value'], m_colormix3.inputs[0])
+        links(group_in4.outputs['Edge Tint'], m_colormix3.inputs[6])
+        links(m_colormix4.outputs[2], m_colormix3.inputs[7])
 
         # connect group in 2
-        links(group_in2.outputs[2], spec_group.inputs[0])
+        links(group_in2.outputs['IOR'], spec_group.inputs['IOR'])
 
         # connect group in 3
-        links(group_in3.outputs[1], fres_group.inputs[0])
-        links(group_in3.outputs[2], fres_group.inputs[1])
-        links(group_in3.outputs[3], fres_group.inputs[2])
-        links(group_in3.outputs[6], m_greaterthan.inputs[0])
+        links(group_in3.outputs['Roughness'], fres_group.inputs['Roughness'])
+        links(group_in3.outputs['IOR'], fres_group.inputs['IOR'])
+        links(group_in3.outputs['Normal'], fres_group.inputs['Normal'])
+        links(group_in3.outputs['Metal/Dielectric'], m_greaterthan.inputs[0])
 
         # connect color mix 3
-        links(m_greaterthan3.outputs[0], m_colormix4.inputs[0])
-        if bv < (3, 4, 0):
-            links(m_hsv.outputs[0], m_colormix4.inputs[2])
-        else:
-            links(m_hsv.outputs[0], m_colormix4.inputs[7])
+        links(m_greaterthan3.outputs['Value'], m_colormix4.inputs[0])
+        links(m_hsv.outputs['Color'], m_colormix4.inputs[7])
 
         # connect group in 4
-        links(group_in4.outputs[5], m_greaterthan2.inputs[0])
+        links(group_in4.outputs['Custom/Auto'], m_greaterthan2.inputs[0])
 
         # connect group in 5
-        links(group_in5.outputs[0], m_hsv.inputs[4])
-        links(group_in5.outputs[6], m_greaterthan3.inputs[0])
+        links(group_in5.outputs['Reflectivity'], m_hsv.inputs['Color'])
+        links(group_in5.outputs['Metal/Dielectric'], m_greaterthan3.inputs[0])
         
     def make_node(self, group, arg1, arg2, arg3):
         result = group.nodes.new(arg1)

@@ -1,8 +1,5 @@
 import bpy
 
-bv = bpy.app.version
-
-
 class PearlescentPigmentGroup(bpy.types.Operator):
     """Add/Get Pearlescent Pigment Group Node"""
     bl_label = "Pearlescent Pigment Node Group"
@@ -27,34 +24,23 @@ class PearlescentPigmentGroup(bpy.types.Operator):
 
         # groupinput 1
         group_in = self.make_node(pearlescent_pigment_group, 'NodeGroupInput', -400, -200)
-        if bv < (4, 0, 0):
-            pearlescent_pigment_group.inputs.new('NodeSocketColor', 'Primary Color')    # 0
-            pearlescent_pigment_group.inputs.new('NodeSocketColor', 'Secondary Color')  # 1
-            pearlescent_pigment_group.inputs.new('NodeSocketFloat', 'Blend Factor')            # 2
-            pearlescent_pigment_group.inputs[0].default_value = [0.102242, 0.104616, 0.346704, 1]
-            pearlescent_pigment_group.inputs[2].default_value = [0.8, 0.16, 0.8, 1]
-            pearlescent_pigment_group.inputs[2].min_value = 0.0
-            pearlescent_pigment_group.inputs[2].max_value = 1.0
-        else:
-            pearlescent_pigment_group.interface.new_socket(name="Primary Color", in_out='INPUT', socket_type='NodeSocketColor')
-            pearlescent_pigment_group.interface.new_socket(name="Secondary Color", in_out='INPUT', socket_type='NodeSocketColor')
-            pearlescent_pigment_group.interface.new_socket(name="Blend Factor", in_out='INPUT', socket_type='NodeSocketFloat')
-            pearlescent_pigment_group.interface.items_tree[0].default_value = [0.102242, 0.104616, 0.346704, 1]
-            pearlescent_pigment_group.interface.items_tree[1].default_value = [0.8, 0.16, 0.8, 1]
-            pearlescent_pigment_group.interface.items_tree[2].default_value = 0.22
-            pearlescent_pigment_group.interface.items_tree[2].min_value = 0.0
-            pearlescent_pigment_group.interface.items_tree[2].max_value = 1.0
+        primary_color_socket = pearlescent_pigment_group.interface.new_socket(name="Primary Color", in_out='INPUT', socket_type='NodeSocketColor')
+        primary_color_socket.default_value = [0.102242, 0.104616, 0.346704, 1]
+
+        secondary_color_socket = pearlescent_pigment_group.interface.new_socket(name="Secondary Color", in_out='INPUT', socket_type='NodeSocketColor')
+        secondary_color_socket.default_value = [0.8, 0.16, 0.8, 1]
+
+        blend_factor_socket = pearlescent_pigment_group.interface.new_socket(name="Blend Factor", in_out='INPUT', socket_type='NodeSocketFloat')
+        blend_factor_socket.default_value = 0.22
+        blend_factor_socket.min_value = 0.0
+        blend_factor_socket.max_value = 1.0
 
         # groupinput 2
         group_in_2 = self.make_node(pearlescent_pigment_group, 'NodeGroupInput', -600, 0)
 
         # groupoutput
         group_out = self.make_node(pearlescent_pigment_group, 'NodeGroupOutput', 0, 0)
-        if bv < (4, 0, 0):
-            pearlescent_pigment_group.outputs.new('NodeSocketColor', 'Result')
-
-        else:
-            pearlescent_pigment_group.interface.new_socket(name="Result", in_out='OUTPUT', socket_type='NodeSocketColor')
+        pearlescent_pigment_group.interface.new_socket(name="Result", in_out='OUTPUT', socket_type='NodeSocketColor')
 
         # Mix Node
         n_mix = self.make_node(pearlescent_pigment_group, 'ShaderNodeMix', -200, 0)
@@ -66,8 +52,8 @@ class PearlescentPigmentGroup(bpy.types.Operator):
         # LINKS
         links = pearlescent_pigment_group.links.new
 
-        links(n_mix.outputs[2], group_out.inputs[0])
-        links(n_layer_weight.outputs[1], n_mix.inputs[0])
-        links(group_in_2.outputs[2], n_layer_weight.inputs[0])
-        links(group_in.outputs[0], n_mix.inputs[6])
-        links(group_in.outputs[1], n_mix.inputs[7])
+        links(n_mix.outputs[2], group_out.inputs['Result'])
+        links(n_layer_weight.outputs['Facing'], n_mix.inputs[0])
+        links(group_in_2.outputs['Blend Factor'], n_layer_weight.inputs['Blend'])
+        links(group_in.outputs['Primary Color'], n_mix.inputs[6])
+        links(group_in.outputs['Secondary Color'], n_mix.inputs[7])

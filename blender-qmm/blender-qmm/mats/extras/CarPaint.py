@@ -38,7 +38,7 @@ class QMMCarPaint(bpy.types.Operator):
         m_car_paint = bpy.data.materials.new(name="QMM Car Paint")
         m_car_paint.use_nodes = True
         diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
-        if diffuse_bool == True:
+        if diffuse_bool:
             m_car_paint.diffuse_color = (0.527115, 0.564712, 0.577580, 1)
             m_car_paint.metallic = 1
             m_car_paint.roughness = 0.25
@@ -86,10 +86,10 @@ class QMMCarPaint(bpy.types.Operator):
         # Links
         links = m_car_paint.node_tree.links.new
 
-        links(BSDF.outputs[0], material_output.inputs[0])
-        links(mf_group.outputs[1], n_maprange.inputs[0])
+        links(BSDF.outputs["BSDF"], material_output.inputs["Surface"])
+        links(mf_group.outputs[1], n_maprange.inputs["Value"])
         links(mf_group.outputs[0], BSDF.inputs["Normal"])
-        links(n_maprange.outputs[0], BSDF.inputs["Roughness"])
+        links(n_maprange.outputs["Result"], BSDF.inputs["Roughness"])
 
         # LOAD THE MATERIAL
         bpy.context.object.active_material = m_car_paint

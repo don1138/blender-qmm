@@ -186,7 +186,7 @@ def add_value(nodes, x_pos, y_pos, name, val, width):
     m_val.location = (x_pos, y_pos)
     m_val.name = name
     m_val.label = name
-    m_val.outputs[0].default_value = (val)
+    m_val.outputs["Value"].default_value = val
     m_val.width = width
 
 
@@ -198,12 +198,12 @@ def add_anistrophy_x(nodes, links):
     anisotrophy_x.node_tree = bpy.data.node_groups['Anisotrophy X']
     anisotrophy_x.location = (-1000, -100)
     anisotrophy_x.width = 240
+
     # Bump
-    bpy.ops.node.anisotrophy_x_group_operator()
     m_bump = nodes.new("ShaderNodeBump")
     m_bump.location = (-700, -200)
-    m_bump.inputs[0].default_value = 0.1
-    links(anisotrophy_x.outputs[1], m_bump.inputs[2])
+    m_bump.inputs["Strength"].default_value = 0.1
+    links(anisotrophy_x.outputs[1], m_bump.inputs["Height"])
 
 
 def add_canistrophy(nodes, links):
@@ -214,12 +214,12 @@ def add_canistrophy(nodes, links):
     canisotrophy_group.node_tree = bpy.data.node_groups['Canisotrophy']
     canisotrophy_group.location = (-1000, -200)
     canisotrophy_group.width = 240
+
     # Bump
-    bpy.ops.node.canisotrophy_group_operator()
     m_bump = nodes.new("ShaderNodeBump")
     m_bump.location = (-700, -200)
-    m_bump.inputs[0].default_value = 0.02
-    links(canisotrophy_group.outputs[1], m_bump.inputs[2])
+    m_bump.inputs["Strength"].default_value = 0.02
+    links(canisotrophy_group.outputs[1], m_bump.inputs["Height"])
 
 
 def add_steel_roughness(nodes):

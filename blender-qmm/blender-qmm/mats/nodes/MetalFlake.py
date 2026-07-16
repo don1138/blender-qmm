@@ -1,10 +1,9 @@
 import bpy
 
-bv = bpy.app.version
 
 class MetalFlakeGroup(bpy.types.Operator):
     """Add/Get Metal Flake Group Node"""
-    bl_label  = "Metal Flake Node Group"
+    bl_label = "Metal Flake Node Group"
     bl_idname = 'node.metal_flake_group_operator'
 
     def execute(self, context):
@@ -25,35 +24,22 @@ class MetalFlakeGroup(bpy.types.Operator):
         metal_flake_group = bpy.data.node_groups.new('Metal Flake', 'ShaderNodeTree')
 
         # groupinput 1
-        group_in = self.make_node(metal_flake_group, 'NodeGroupInput', -1200, 0)
-        if bv < (4, 0, 0):
-            metal_flake_group.inputs.new('NodeSocketFloat', 'Scale') # 0
-            metal_flake_group.inputs.new('NodeSocketFloat', 'Strength')  # 1
-            metal_flake_group.inputs[0].default_value = 4096
-            metal_flake_group.inputs[0].min_value = 0.0
-            metal_flake_group.inputs[0].max_value = 10000.0
-            metal_flake_group.inputs[1].default_value = 0.25
-            metal_flake_group.inputs[1].min_value = 0.0
-            metal_flake_group.inputs[1].max_value = 1.0
-        else:
-            metal_flake_group.interface.new_socket(name="Scale", in_out='INPUT', socket_type='NodeSocketFloat')
-            metal_flake_group.interface.new_socket(name="Strength", in_out='INPUT', socket_type='NodeSocketFloat')
-            metal_flake_group.interface.items_tree[0].default_value = 4096
-            metal_flake_group.interface.items_tree[0].min_value = 0.0
-            metal_flake_group.interface.items_tree[0].max_value = 10000.0
-            metal_flake_group.interface.items_tree[1].default_value = 0.25
-            metal_flake_group.interface.items_tree[1].min_value = 0.0
-            metal_flake_group.interface.items_tree[1].max_value = 1.0
+        scale_socket = metal_flake_group.interface.new_socket(name="Scale", in_out='INPUT', socket_type='NodeSocketFloat')
+        scale_socket.default_value = 4096
+        scale_socket.min_value = 0.0
+        scale_socket.max_value = 10000.0
+
+        strength_socket = metal_flake_group.interface.new_socket(name="Strength", in_out='INPUT', socket_type='NodeSocketFloat')
+        strength_socket.default_value = 0.25
+        strength_socket.min_value = 0.0
+        strength_socket.max_value = 1.0
+
+        group_in = self.make_node(metal_flake_group, 'NodeGroupInput', -1000, 100)
 
         # groupoutput
         group_out = self.make_node(metal_flake_group, 'NodeGroupOutput', 0, 0)
-        if bv < (4, 0, 0):
-            metal_flake_group.outputs.new('NodeSocketVector', 'Normal') # 0
-            metal_flake_group.outputs.new('NodeSocketColor', 'Blue Mask') # 1
-
-        else:
-            metal_flake_group.interface.new_socket(name="Normal", in_out='OUTPUT', socket_type='NodeSocketVector')
-            metal_flake_group.interface.new_socket(name="Blue Mask", in_out='OUTPUT', socket_type='NodeSocketColor')
+        metal_flake_group.interface.new_socket(name="Normal", in_out='OUTPUT', socket_type='NodeSocketVector')
+        metal_flake_group.interface.new_socket(name="Blue Mask", in_out='OUTPUT', socket_type='NodeSocketColor')
 
         # Normal Map
         n_map = self.make_node(metal_flake_group, 'ShaderNodeNormalMap', -200, 0)
@@ -74,12 +60,12 @@ class MetalFlakeGroup(bpy.types.Operator):
         # LINKS
         links = metal_flake_group.links.new
 
-        links(n_map.outputs[0], group_out.inputs[0])
-        links(n_combine_color.outputs[0], n_map.inputs[1])
-        links(n_separate_color.outputs[0], n_combine_color.inputs[0])
-        links(n_separate_color.outputs[1], n_combine_color.inputs[1])
-        links(n_separate_color.outputs[2], group_out.inputs[1])
-        links(n_voronoi.outputs[1], n_separate_color.inputs[0])
-        links(n_tex.outputs[3], n_voronoi.inputs[0])
-        links(group_in.outputs[0], n_voronoi.inputs[2])
-        links(group_in.outputs[1], n_map.inputs[0])
+        links(n_map.outputs['Normal'], group_out.inputs['Normal'])
+        links(n_combine_color.outputs['Color'], n_map.inputs['Color'])
+        links(n_separate_color.outputs['Red'], n_combine_color.inputs['Red'])
+        links(n_separate_color.outputs['Green'], n_combine_color.inputs['Green'])
+        links(n_separate_color.outputs['Blue'], group_out.inputs['Blue Mask'])
+        links(n_voronoi.outputs['Color'], n_separate_color.inputs['Color'])
+        links(n_tex.outputs['Object'], n_voronoi.inputs['Vector'])
+        links(group_in.outputs['Scale'], n_voronoi.inputs['Scale'])
+        links(group_in.outputs['Strength'], n_map.inputs['Strength'])

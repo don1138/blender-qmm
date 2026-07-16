@@ -44,7 +44,7 @@ class QMMAsphalt(bpy.types.Operator):
         m_asphalt = bpy.data.materials.new(name="QMM Asphalt")
         m_asphalt.use_nodes = True
         diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
-        if diffuse_bool == True:
+        if diffuse_bool:
             m_asphalt.diffuse_color = (0.02, 0.02, 0.02, 1)
 
         nodes = m_asphalt.node_tree.nodes
@@ -91,7 +91,7 @@ class QMMAsphalt(bpy.types.Operator):
 
         # bump
         m_bump = make_node(nodes, 'ShaderNodeBump', -900, -200)
-        m_bump.inputs[0].default_value = 0.4
+        m_bump.inputs["Strength"].default_value = 0.4
 
         # mixrgbshader
         m_mix = make_node(nodes, 'ShaderNodeMix', -1400, -100)
@@ -114,23 +114,23 @@ class QMMAsphalt(bpy.types.Operator):
         # voronoishader
         m_voronoi = make_node(nodes, 'ShaderNodeTexVoronoi', -2000, 0)
         m_voronoi.feature = 'DISTANCE_TO_EDGE'
-        m_voronoi.inputs[2].default_value = 300.0
+        m_voronoi.inputs["Scale"].default_value = 300.0
 
         # noiseshader
         m_noise = make_node(nodes, 'ShaderNodeTexNoise', -2000, -200)
-        m_noise.inputs[3].default_value = 12.0
-        m_noise.inputs[4].default_value = 0.875
+        m_noise.inputs["Detail"].default_value = 12.0
+        m_noise.inputs["Roughness"].default_value = 0.875
 
         # voronoishader2
         m_voronoi2 = make_node(nodes, 'ShaderNodeTexVoronoi', -1600, -500)
         m_voronoi2.feature = 'DISTANCE_TO_EDGE'
-        m_voronoi2.inputs[2].default_value = 8.0
+        m_voronoi2.inputs["Scale"].default_value = 8.0
 
         # noiseshader2
         m_noise2 = make_node(nodes, 'ShaderNodeTexNoise', -2000, 300)
-        m_noise2.inputs[2].default_value = 3.0
-        m_noise2.inputs[3].default_value = 12.0
-        m_noise2.inputs[4].default_value = 0.875
+        m_noise2.inputs["Scale"].default_value = 3.0
+        m_noise2.inputs["Detail"].default_value = 12.0
+        m_noise2.inputs["Roughness"].default_value = 0.875
 
         # mixrgbshader2
         m_mix2 = make_node(nodes, 'ShaderNodeMix', -1800, -500)
@@ -139,7 +139,7 @@ class QMMAsphalt(bpy.types.Operator):
 
         # noiseshader3
         m_noise3 = make_node(nodes, 'ShaderNodeTexNoise', -2000, -500)
-        m_noise3.inputs[3].default_value = 10.0
+        m_noise3.inputs["Detail"].default_value = 10.0
 
         # mapping
         m_mapping = make_node(nodes, 'ShaderNodeMapping', -2300, -600)
@@ -152,7 +152,7 @@ class QMMAsphalt(bpy.types.Operator):
         # value
         m_val = make_node(nodes, 'ShaderNodeValue', -2500, -800)
         m_val.label = "Fragment Scale"
-        m_val.outputs[0].default_value = 1.0
+        m_val.outputs["Value"].default_value = 1.0
 
         # texturecoordinates
         m_texcoords = make_node(nodes, 'ShaderNodeTexCoord', -2600, -300)
@@ -160,41 +160,46 @@ class QMMAsphalt(bpy.types.Operator):
         # value2
         m_val2 = make_node(nodes, 'ShaderNodeValue', -2500, -100)
         m_val2.label = "Gravel Scale"
-        m_val2.outputs[0].default_value = 1.0
+        m_val2.outputs["Value"].default_value = 1.0
 
         links = m_asphalt.node_tree.links.new
 
-        links(m_mixshader.outputs[0], material_output.inputs[0])
-        links(m_colorramp2.outputs[0], m_mixshader.inputs[0])
-        links(BSDF.outputs[0], m_mixshader.inputs[1])
-        links(BSDF2.outputs[0], m_mixshader.inputs[2])
-        links(m_colorramp.outputs[0], BSDF.inputs["Base Color"])
-        links(m_bump.outputs[0], BSDF.inputs["Normal"])
-        links(m_bump2.outputs[0], m_bump.inputs[3])
-        links(m_colorramp2.outputs[0], m_bump2.inputs[2])
-        links(m_colorramp3.outputs[0], m_mix.inputs[0])
-        links(m_voronoi2.outputs[0], m_colorramp2.inputs[0])
-        links(m_noise2.outputs[0], m_colorramp3.inputs[0])
-        links(m_mapping.outputs[0], m_noise3.inputs[0])
-        links(m_mapping2.outputs[0], m_noise2.inputs[0])
-        links(m_mapping2.outputs[0], m_voronoi.inputs[0])
-        links(m_mapping2.outputs[0], m_noise.inputs[0])
-        links(m_val.outputs[0], m_mapping.inputs[3])
-        links(m_texcoords.outputs[3], m_mapping.inputs[0])
-        links(m_texcoords.outputs[3], m_mapping2.inputs[0])
-        links(m_val2.outputs[0], m_mapping2.inputs[3])
+        links(m_mixshader.outputs["Shader"], material_output.inputs["Surface"])
+        links(m_colorramp2.outputs["Color"], m_mixshader.inputs["Fac"])
+        links(BSDF.outputs["BSDF"], m_mixshader.inputs[1])
+        links(BSDF2.outputs["BSDF"], m_mixshader.inputs[2])
 
-        links(m_mix.outputs[2], m_colorramp.inputs[0])
-        links(m_mix.outputs[2], m_bump.inputs[2])
-        links(m_voronoi.outputs[0], m_mix.inputs[6])
-        links(m_noise.outputs[0], m_mix.inputs[7])
-        links(m_mix2.outputs[2], m_voronoi2.inputs[0])
-        links(m_noise3.outputs[1], m_mix2.inputs[6])
-        links(m_mapping.outputs[0], m_mix2.inputs[7])
+        links(m_colorramp.outputs["Color"], BSDF.inputs["Base Color"])
+        links(m_bump.outputs["Normal"], BSDF.inputs["Normal"])
+        links(m_bump2.outputs["Normal"], m_bump.inputs["Normal"])
+        links(m_colorramp2.outputs["Color"], m_bump2.inputs["Height"])
 
-        links(m_colorramp2.outputs[0], m_lessthan.inputs[0])
-        links(m_lessthan.outputs[0], m_disp.inputs[0])
-        links(m_disp.outputs[0], material_output.inputs[2])
+        links(m_colorramp3.outputs["Color"], m_mix.inputs[0])
+        links(m_voronoi2.outputs["Distance"], m_colorramp2.inputs["Fac"])
+        links(m_noise2.outputs["Fac"], m_colorramp3.inputs["Fac"])
+
+        links(m_mapping.outputs["Vector"], m_noise3.inputs["Vector"])
+        links(m_mapping2.outputs["Vector"], m_noise2.inputs["Vector"])
+        links(m_mapping2.outputs["Vector"], m_voronoi.inputs["Vector"])
+        links(m_mapping2.outputs["Vector"], m_noise.inputs["Vector"])
+
+        links(m_val.outputs["Value"], m_mapping.inputs["Scale"])
+        links(m_texcoords.outputs["Object"], m_mapping.inputs["Vector"])
+        links(m_texcoords.outputs["Object"], m_mapping2.inputs["Vector"])
+        links(m_val2.outputs["Value"], m_mapping2.inputs["Scale"])
+
+        links(m_mix.outputs[2], m_colorramp.inputs["Fac"])
+        links(m_mix.outputs[2], m_bump.inputs["Height"])
+        links(m_voronoi.outputs["Distance"], m_mix.inputs[6])
+        links(m_noise.outputs["Fac"], m_mix.inputs[7])
+
+        links(m_mix2.outputs[2], m_voronoi2.inputs["Vector"])
+        links(m_noise3.outputs["Color"], m_mix2.inputs[6])
+        links(m_mapping.outputs["Vector"], m_mix2.inputs[7])
+
+        links(m_colorramp2.outputs["Color"], m_lessthan.inputs[0])
+        links(m_lessthan.outputs["Value"], m_disp.inputs["Height"])
+        links(m_disp.outputs["Displacement"], material_output.inputs["Displacement"])
 
         bpy.context.object.active_material = m_asphalt
 

@@ -1,8 +1,6 @@
 import bpy
 import time
 
-bv = bpy.app.version
-
 # MESSAGE BOX
 message_text = "This material already exists"
 
@@ -41,7 +39,7 @@ class QMMCinnabar(bpy.types.Operator):
         m_cinnabar = bpy.data.materials.new(name="QMM Cinnabar Lacquer")
         m_cinnabar.use_nodes = True
         diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
-        if diffuse_bool == True:
+        if diffuse_bool:
             m_cinnabar.diffuse_color = (0.768151, 0.054480, 0.034340, 1)
             m_cinnabar.roughness = 0.5
 
@@ -96,7 +94,7 @@ class QMMCinnabar(bpy.types.Operator):
         # Layer Weight
         m_layerweight = nodes.new('ShaderNodeLayerWeight')
         m_layerweight.location = (-800, -100)
-        m_layerweight.inputs[0].default_value = 0.3
+        m_layerweight.inputs["Blend"].default_value = 0.3
 
         nodes = m_cinnabar.node_tree.nodes
 
@@ -113,10 +111,10 @@ class QMMCinnabar(bpy.types.Operator):
         # LINKS
         links = m_cinnabar.node_tree.links.new
 
-        links(m_colorramp.outputs[0], BSDF.inputs["Base Color"])
-        links(m_layerweight.outputs[0], m_colorramp.inputs[0])
+        links(m_colorramp.outputs["Color"], BSDF.inputs["Base Color"])
+        links(m_layerweight.outputs["Fresnel"], m_colorramp.inputs["Fac"])
         links(uneven_roughness_group.outputs[0], BSDF.inputs["Coat Roughness"])
-        
+
         # LOAD THE MATERIAL
         bpy.context.object.active_material = m_cinnabar
 

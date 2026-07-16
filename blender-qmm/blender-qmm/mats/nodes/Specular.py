@@ -1,7 +1,5 @@
 import bpy
 
-bv = bpy.app.version
-
 class SpecularGroup(bpy.types.Operator):
     """Add/Get Specular Group Node"""
     bl_label  = "Specular Node Group"
@@ -28,20 +26,13 @@ class SpecularGroup(bpy.types.Operator):
         # groupinput
         group_in = specular_group.nodes.new('NodeGroupInput')
         group_in.location = (-1000, 0)
-        if bv < (4, 0, 0):
-            specular_group.inputs.new('NodeSocketFloat', 'IOR')
-        else:
-            specular_group.interface.new_socket(name="IOR", in_out='INPUT', socket_type='NodeSocketFloat')
+        specular_group.interface.new_socket(name="IOR", in_out='INPUT', socket_type='NodeSocketFloat')
 
         # groupoutput
         group_out = specular_group.nodes.new('NodeGroupOutput')
         group_out.location = (0, 0)
-        if bv < (4, 0, 0):
-            specular_group.outputs.new('NodeSocketFloat', 'Specular')
-            specular_group.outputs.new('NodeSocketFloat', 'IOR')
-        else:
-            specular_group.interface.new_socket(name="Specular", in_out='OUTPUT', socket_type='NodeSocketFloat')
-            specular_group.interface.new_socket(name="IOR", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        specular_group.interface.new_socket(name="Specular", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        specular_group.interface.new_socket(name="IOR", in_out='OUTPUT', socket_type='NodeSocketFloat')
 
         # IOR TO SPECULAR
         # mathdivide
@@ -73,11 +64,11 @@ class SpecularGroup(bpy.types.Operator):
 
         links = specular_group.links.new
 
-        links(group_in.outputs[0], m_subtract.inputs[0])
-        links(group_in.outputs[0], m_add.inputs[0])
-        links(m_add.outputs[0], m_divide2.inputs[1])
-        links(m_subtract.outputs[0], m_divide2.inputs[0])
-        links(m_divide2.outputs[0], m_power.inputs[0])
-        links(m_power.outputs[0], m_divide.inputs[0])
-        links(m_divide.outputs[0], group_out.inputs[0])
-        links(group_in.outputs[0], group_out.inputs[1])
+        links(group_in.outputs['IOR'], m_subtract.inputs[0])
+        links(group_in.outputs['IOR'], m_add.inputs[0])
+        links(m_add.outputs['Value'], m_divide2.inputs[1])
+        links(m_subtract.outputs['Value'], m_divide2.inputs[0])
+        links(m_divide2.outputs['Value'], m_power.inputs[0])
+        links(m_power.outputs['Value'], m_divide.inputs[0])
+        links(m_divide.outputs['Value'], group_out.inputs['Specular'])
+        links(group_in.outputs['IOR'], group_out.inputs['IOR'])

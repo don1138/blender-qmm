@@ -1,5 +1,5 @@
 import bpy
-import time 
+import time
 
 # MESSAGE BOX
 message_text = "This material already exists"
@@ -15,13 +15,13 @@ def ShowMessageBox(message="", title="", icon='INFO'):
 
 class QMMSilverFresnel(bpy.types.Operator):
     """Add/Apply Silver Material to Selected Object (or Scene)"""
-    bl_label  = "QMM Silver Fresnel Shader"
+    bl_label = "QMM Silver Fresnel Shader"
     bl_idname = 'shader.qmm_silver_operator'
 
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         if m_silver := bpy.data.materials.get("QMM Silver Fresnel"):
-            #ShowMessageBox(message_text, "QMM Silver Fresnel")
+            # ShowMessageBox(message_text, "QMM Silver Fresnel")
             # print(f"QMM Silver Fresnel already exists")
             bpy.context.object.active_material = m_silver
             return {'FINISHED'}
@@ -56,33 +56,29 @@ class QMMSilverFresnel(bpy.types.Operator):
         m_mix = nodes.new('ShaderNodeMixShader')
         m_mix.location = (-200, 0)
 
-        # m_layerweight
-        m_layer_weight = self.make_node(
-            nodes, "ShaderNodeLayerWeight", -400, 200, 0.5
-        )
+        # Layer Weight
+        m_layer_weight = nodes.new('ShaderNodeLayerWeight')
+        m_layer_weight.location = (-400, 200)
+        m_layer_weight.inputs["Blend"].default_value = 0.5
 
-        # glossyshader
-        m_glossy = self.make_node(
-            nodes, "ShaderNodeBsdfGlossy", -
-            400, 0, (0.401978, 0.396755, 0.417885, 1)
-        )
-        m_glossy.inputs[1].default_value = 0.15
+        # Glossy BSDF
+        m_glossy = nodes.new('ShaderNodeBsdfAnisotropic')
+        m_glossy.location = (-400, 0)
+        m_glossy.inputs["Color"].default_value = (0.401978, 0.396755, 0.417885, 1)
+        m_glossy.inputs["Roughness"].default_value = 0.15
 
-        # glossyshader2
-        m_glossy2 = self.make_node(
-            nodes, "ShaderNodeBsdfGlossy", -400, -
-            200, (0.401978, 0.396755, 0.417885, 1)
-        )
-        m_glossy2.inputs[1].default_value = 0.5
+        # Glossy BSDF 2
+        m_glossy2 = nodes.new('ShaderNodeBsdfAnisotropic')
+        m_glossy2.location = (-400, -300)
+        m_glossy2.inputs["Color"].default_value = (0.401978, 0.396755, 0.417885, 1)
+        m_glossy2.inputs["Roughness"].default_value = 0.5
 
         links = m_silver.node_tree.links.new
 
-        links(m_glossy2.outputs[0], m_mix.inputs[2])
-        links(m_glossy.outputs[0], m_mix.inputs[1])
-        links(m_layer_weight.outputs[1], m_mix.inputs[0])
-        links(m_mix.outputs[0], material_output.inputs[0])
-
-        bpy.context.object.active_material = m_silver
+        links(m_glossy2.outputs["BSDF"], m_mix.inputs[2])
+        links(m_glossy.outputs["BSDF"], m_mix.inputs[1])
+        links(m_layer_weight.outputs["Facing"], m_mix.inputs["Fac"])
+        links(m_mix.outputs["Shader"], material_output.inputs["Surface"])
 
         # SilverColorsGroup
         bpy.ops.node.silver_cg_operator()
@@ -91,14 +87,12 @@ class QMMSilverFresnel(bpy.types.Operator):
         silver_colors_group.name = "Silver Colors"
         silver_colors_group.node_tree = bpy.data.node_groups['Silver Colors']
         silver_colors_group.location = (-600, -100)
-        links(silver_colors_group.outputs[0], m_glossy.inputs[0])
-        links(silver_colors_group.outputs[0], m_glossy2.inputs[0])
+
+        links(silver_colors_group.outputs[0], m_glossy.inputs["Color"])
+        links(silver_colors_group.outputs[0], m_glossy2.inputs["Color"])
+
+        # LOAD THE MATERIAL
+        bpy.context.object.active_material = m_silver
 
         end = time.time()
         print(f"QMM Silver Fresnel: {end - start} seconds")
-
-    def make_node(self, nodes, arg1, arg2, arg3, arg4):
-        result = nodes.new(arg1)
-        result.location = arg2, arg3
-        result.inputs[0].default_value = arg4
-        return result
