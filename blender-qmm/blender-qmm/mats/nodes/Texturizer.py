@@ -62,9 +62,9 @@ class TexturizerGroup(bpy.types.Operator):
         # groupoutput
         group_out = self.make_node(texturizer_group, 'NodeGroupOutput', 0, 0)
         texturizer_group.interface.new_socket(name="Color", in_out='OUTPUT', socket_type='NodeSocketColor')
-        texturizer_group.interface.new_socket(name="Rough Ceiling", in_out='OUTPUT', socket_type='NodeSocketFloat')
-        texturizer_group.interface.new_socket(name="Roughness", in_out='OUTPUT', socket_type='NodeSocketFloat')
-        texturizer_group.interface.new_socket(name="Rough Floor", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        texturizer_group.interface.new_socket(name="Roughness - Polished", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        texturizer_group.interface.new_socket(name="Roughness - Contrast", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        texturizer_group.interface.new_socket(name="Roughness - Matte", in_out='OUTPUT', socket_type='NodeSocketFloat')
         texturizer_group.interface.new_socket(name="Height", in_out='OUTPUT', socket_type='NodeSocketFloat')
         texturizer_group.interface.new_socket(name="Normal", in_out='OUTPUT', socket_type='NodeSocketVector')
 
@@ -76,7 +76,7 @@ class TexturizerGroup(bpy.types.Operator):
 
         # maprange-roughceiling
         n_mr_rc = self.make_node(texturizer_group, 'ShaderNodeMapRange', -300, 300)
-        n_mr_rc.label = "Rough Ceiling"
+        n_mr_rc.label = "Roughness - Polished"
         n_mr_rc.inputs[1].default_value = 0.4
         n_mr_rc.inputs[2].default_value = 0.6
 
@@ -88,7 +88,7 @@ class TexturizerGroup(bpy.types.Operator):
 
         # maprange-roughfloor
         n_mr_rf = self.make_node(texturizer_group, 'ShaderNodeMapRange', -300, -200)
-        n_mr_rf.label = "Rough Floor"
+        n_mr_rf.label = "Roughness - Matte"
         n_mr_rf.inputs[1].default_value = 0.6
         n_mr_rf.inputs[2].default_value = 0.8
 
@@ -161,8 +161,8 @@ class TexturizerGroup(bpy.types.Operator):
         links(n_rr12.outputs['Output'], n_rr13.inputs['Input'])
         links(n_rr13.outputs['Output'], n_madd.inputs[0])
         links(n_rr13.outputs['Output'], n_mr_rf.inputs[3])
-        links(n_mr_rc.outputs['Result'], group_out.inputs['Rough Ceiling'])
-        links(n_mr_rf.outputs['Result'], group_out.inputs['Rough Floor'])
+        links(n_mr_rc.outputs['Result'], group_out.inputs['Roughness - Polished'])
+        links(n_mr_rf.outputs['Result'], group_out.inputs['Roughness - Matte'])
         links(n_bump.outputs['Normal'], group_out.inputs['Normal'])
 
         links(group_in.outputs['Color'], n_mix_rgb.inputs[6])
@@ -170,4 +170,4 @@ class TexturizerGroup(bpy.types.Operator):
         links(n_hsl.outputs['Color'], n_mix_rgb.inputs[7])
         links(n_rr12.outputs['Output'], n_mix_rough.inputs[7])
         links(n_mix_rgb.outputs[2], group_out.inputs['Color'])
-        links(n_mix_rough.outputs[2], group_out.inputs['Roughness'])
+        links(n_mix_rough.outputs[2], group_out.inputs['Roughness - Contrast'])
