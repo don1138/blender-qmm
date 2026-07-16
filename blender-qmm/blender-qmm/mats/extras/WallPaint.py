@@ -1,5 +1,5 @@
 import bpy
-import time 
+import time
 
 # MESSAGE BOX
 message_text = "This material already exists"
@@ -9,6 +9,7 @@ def ShowMessageBox(message="", title="", icon='INFO'):
     def draw(self, context):
         self.layout.label(text=message)
     bpy.context.window_manager.popup_menu(draw, title=title, icon=icon)
+
 
 def make_node(nodes, shader, locX, locY):
     result = nodes.new(shader)
@@ -20,13 +21,13 @@ def make_node(nodes, shader, locX, locY):
 
 class QMMWallPaint(bpy.types.Operator):
     """Add/Apply Wall Paint Material to Selected Object (or Scene)"""
-    bl_label  = "QMM Wall Paint Shader"
+    bl_label = "QMM Wall Paint Shader"
     bl_idname = 'shader.qmm_wall_paint_operator'
 
     def execute(self, context):
         # DOES THE MATERIAL ALREADY EXIST?
         if m_wall_paint := bpy.data.materials.get("QMM Wall Paint"):
-            #ShowMessageBox(message_text, "QMM Wall Paint")
+            # ShowMessageBox(message_text, "QMM Wall Paint")
             # print(f"QMM Wall Paint already exists")
             bpy.context.object.active_material = m_wall_paint
             diffuse_bool = bpy.context.scene.diffuse_bool.diffuse_more
@@ -67,17 +68,26 @@ class QMMWallPaint(bpy.types.Operator):
         m_bump.inputs["Strength"].default_value = 0.2
         m_bump.invert = True
 
-        # maprange satin
-        m_maprange = make_node(nodes, 'ShaderNodeMapRange', -700, -200)
-        m_maprange.inputs[1].default_value = 0.3
-        m_maprange.inputs[2].default_value = 0.5
-        m_maprange.inputs[3].default_value = 0.52
-        m_maprange.inputs[4].default_value = 0.7
-        m_maprange.name = "Satin/Semi-gloss"
-        m_maprange.label = "Satin/Semi-gloss"
+        # Finish group
+        finish_tree = bpy.data.node_groups.new("Finish", 'ShaderNodeTree')
 
-        # maprange matte
-        m_maprange_m = make_node(nodes, 'ShaderNodeMapRange', -700, 100)
+        finish_tree.interface.new_socket(name="Value", in_out='INPUT', socket_type='NodeSocketFloat')
+        finish_tree.interface.new_socket(name="Flat/Matte", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        finish_tree.interface.new_socket(name="Satin/Semi-gloss", in_out='OUTPUT', socket_type='NodeSocketFloat')
+        finish_tree.interface.new_socket(name="Glossy", in_out='OUTPUT', socket_type='NodeSocketFloat')
+
+        finish_nodes = finish_tree.nodes
+        finish_links = finish_tree.links.new
+
+        finish_input = finish_nodes.new('NodeGroupInput')
+        finish_input.location = (-600, 0)
+
+        finish_output = finish_nodes.new('NodeGroupOutput')
+        finish_output.location = (0, 0)
+
+        # Flat/Matte
+        m_maprange_m = finish_nodes.new('ShaderNodeMapRange')
+        m_maprange_m.location = (-300, 300)
         m_maprange_m.inputs[1].default_value = 0.6
         m_maprange_m.inputs[2].default_value = 0.7
         m_maprange_m.inputs[3].default_value = 0.52
@@ -85,14 +95,39 @@ class QMMWallPaint(bpy.types.Operator):
         m_maprange_m.name = "Flat/Matte"
         m_maprange_m.label = "Flat/Matte"
 
-        # maprange glossy
-        m_maprange_g = make_node(nodes, 'ShaderNodeMapRange', -700, 400)
+        # Satin/Semi-gloss
+        m_maprange = finish_nodes.new('ShaderNodeMapRange')
+        m_maprange.location = (-300, 0)
+        m_maprange.inputs[1].default_value = 0.3
+        m_maprange.inputs[2].default_value = 0.5
+        m_maprange.inputs[3].default_value = 0.52
+        m_maprange.inputs[4].default_value = 0.7
+        m_maprange.name = "Satin/Semi-gloss"
+        m_maprange.label = "Satin/Semi-gloss"
+
+        # Glossy
+        m_maprange_g = finish_nodes.new('ShaderNodeMapRange')
+        m_maprange_g.location = (-300, -300)
         m_maprange_g.inputs[1].default_value = 0.1
         m_maprange_g.inputs[2].default_value = 0.2
         m_maprange_g.inputs[3].default_value = 0.52
         m_maprange_g.inputs[4].default_value = 0.7
         m_maprange_g.name = "Glossy"
         m_maprange_g.label = "Glossy"
+
+        finish_links(finish_input.outputs["Value"], m_maprange_m.inputs["Value"])
+        finish_links(finish_input.outputs["Value"], m_maprange.inputs["Value"])
+        finish_links(finish_input.outputs["Value"], m_maprange_g.inputs["Value"])
+
+        finish_links(m_maprange_m.outputs["Result"], finish_output.inputs["Flat/Matte"])
+        finish_links(m_maprange.outputs["Result"], finish_output.inputs["Satin/Semi-gloss"])
+        finish_links(m_maprange_g.outputs["Result"], finish_output.inputs["Glossy"])
+
+        m_finish = nodes.new('ShaderNodeGroup')
+        m_finish.name = "Finish"
+        m_finish.label = "Finish"
+        m_finish.node_tree = finish_tree
+        m_finish.location = (-500, 0)
 
         # colorramp2
         m_maprange2 = make_node(nodes, 'ShaderNodeMapRange', -700, -500)
@@ -139,11 +174,9 @@ class QMMWallPaint(bpy.types.Operator):
         links(m_mapping.outputs["Vector"], m_voronoi.inputs["Vector"])
         links(m_mapping.outputs["Vector"], m_noise.inputs["Vector"])
         links(m_voronoi.outputs["Distance"], m_maprange2.inputs["Value"])
-        links(m_noise.outputs["Fac"], m_maprange.inputs["Value"])
-        links(m_noise.outputs["Fac"], m_maprange_g.inputs["Value"])
-        links(m_noise.outputs["Fac"], m_maprange_m.inputs["Value"])
+        links(m_noise.outputs["Fac"], m_finish.inputs["Value"])
         links(m_maprange2.outputs["Result"], m_bump.inputs["Height"])
-        links(m_maprange.outputs["Result"], BSDF.inputs["Roughness"])
+        links(m_finish.outputs["Satin/Semi-gloss"], BSDF.inputs["Roughness"])
         links(m_bump.outputs["Normal"], BSDF.inputs["Normal"])
 
         bpy.context.object.active_material = m_wall_paint
