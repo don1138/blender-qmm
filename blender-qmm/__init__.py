@@ -21,7 +21,7 @@ bl_info = {
     "name": "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
     "author": "Don Schnitzius",
-    "version": (1, 24, 1),
+    "version": (1, 24, 2),
     "blender": (4, 0, 0),
     "location": "3D Viewport > Sidebar > MAT > Quick Metal Materials",
     "warning": "",
@@ -32,9 +32,11 @@ bl_info = {
 
 
 import bpy
-
-
 from .localization import *
+
+
+def version_label():
+    return ".".join(str(part) for part in bl_info["version"])
 
 
 # BOOLEAN FOR PANEL
@@ -54,6 +56,8 @@ class QMMPanel(bpy.types.Panel):
     def draw(self, context):
         layout = self.layout
         diffuse_bool = context.scene.diffuse_bool
+
+        layout.label(text=f"Version {version_label()}")
 
         srow = layout.row()
         scol = srow.column(align=True)
