@@ -1,3 +1,7 @@
+### 1.24.1 <!-- 08/10/26 -->
+
+- Change panel category from "Mat" to "Quick Tools"
+
 ### 1.24.0 <!-- 07/15/26 -->
 
 - Blender 4.5 LTS and 5.2 LTS compatibility updates
