@@ -48,7 +48,7 @@ class QMMPanel(bpy.types.Panel):
     bl_label = 'Quick Metal Materials'
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "MAT"
+    bl_category = "Quick Tools"
     # bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
@@ -72,7 +72,7 @@ class QMMPanelNoble(bpy.types.Panel):
     bl_label = 'Noble Metals'
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "MAT"
+    bl_category = "Quick Tools"
     bl_parent_id = 'QMM_PT_Panel'
     bl_options = {'DEFAULT_CLOSED'}
 
@@ -107,7 +107,7 @@ class QMMPanelBase(bpy.types.Panel):
     bl_label = 'Base Metals'
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "MAT"
+    bl_category = "Quick Tools"
     bl_parent_id = 'QMM_PT_Panel'
     bl_options = {'DEFAULT_CLOSED'}
 
@@ -141,7 +141,7 @@ class QMMPanelAlloy(bpy.types.Panel):
     bl_label = 'Alloys'
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "MAT"
+    bl_category = "Quick Tools"
     bl_parent_id = 'QMM_PT_Panel'
     bl_options = {'DEFAULT_CLOSED'}
 
@@ -167,7 +167,7 @@ class QMMPanelCarbonSteel(bpy.types.Panel):
     bl_label = '    Carbon Steel'
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "MAT"
+    bl_category = "Quick Tools"
     bl_parent_id = 'QMM_PT_Panel_Alloy'
     bl_options = {'DEFAULT_CLOSED'}
 
@@ -187,7 +187,7 @@ class QMMPanelStainlessSteel(bpy.types.Panel):
     bl_label = '    Stainless Steel'
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "MAT"
+    bl_category = "Quick Tools"
     bl_parent_id = 'QMM_PT_Panel_Alloy'
     bl_options = {'DEFAULT_CLOSED'}
 
@@ -210,7 +210,7 @@ class QMMPanelAlloySteel(bpy.types.Panel):
     bl_label = '    Alloy Steel'
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "MAT"
+    bl_category = "Quick Tools"
     bl_parent_id = 'QMM_PT_Panel_Alloy'
     bl_options = {'DEFAULT_CLOSED'}
 
@@ -251,7 +251,7 @@ class QMMPanelSpecialtySteel(bpy.types.Panel):
     bl_label = '    Specialty Steel'
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "MAT"
+    bl_category = "Quick Tools"
     bl_parent_id = 'QMM_PT_Panel_Alloy'
     bl_options = {'DEFAULT_CLOSED'}
 
@@ -289,7 +289,7 @@ class QMMPanelMinor(bpy.types.Panel):
     bl_label = 'Minor Metals'
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "MAT"
+    bl_category = "Quick Tools"
     bl_parent_id = 'QMM_PT_Panel'
     bl_options = {'DEFAULT_CLOSED'}
 
@@ -318,7 +318,7 @@ class QMMPanelExtras(bpy.types.Panel):
     bl_label = 'Extras'
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "MAT"
+    bl_category = "Quick Tools"
     bl_parent_id = 'QMM_PT_Panel'
     bl_options = {'DEFAULT_CLOSED'}
 
