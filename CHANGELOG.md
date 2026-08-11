@@ -1,147 +1,217 @@
-### 1.24.1 <!-- 08/10/26 -->
+# Changelog
 
-- Change panel category from "Mat" to "Quick Tools"
+All notable changes to this project will be documented in this file.
 
-### 1.24.0 <!-- 07/15/26 -->
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-- Blender 4.5 LTS and 5.2 LTS compatibility updates
-  - Remove compatibility code for Blender versions before 4.0
-  - Modernize node-group interface creation
-  - Replace positional standard-node socket indices with named sockets where names are unambiguous
-  - Retain positional indices for sockets with duplicated names
-  - Replace legacy node types with their current equivalents
-- Fix **Texturizer** Rough Ceiling subtraction
-- Remove a duplicate link from **Uneven Roughness**
-- Fix **Cutting Mat** compatibility across Blender 4.5 and 5.2
-- Preserve the UV texture-coordinate connection in **Anisotrophy X**
-- Correct the **Canisotrophy** XY Scale minimum
+## 1.24.1 - 2026-08-10
 
-### 1.23.0 <!-- 07/14/26 -->
+### Changed
 
-- Blender 5.2 compatibility updates
-  - Replace positional **Principled BSDF** socket indices with named sockets
-  - Correct Bump node connections to the **Normal** input
-  - Fix **Cinnabar Lacquer**
-  - Fix **Tinted Plaster**
-  - Fix **Asphalt**
-  - Fix **Asphalt Bleached**
-  - Fix **Car Paint**
-  - Fix **Wall Paint**
-- Update minimum supported Blender version to **4.0.0**
-  
-### 1.22.1 <!-- 12/21/25 -->
+- Changed panel category from **Mat** to **Quick Tools**
 
-- Bugfix: Replace deprecated `ShaderNodeSeparateRGB` with feature-detected `ShaderNodeSeparateColor` and explicit RGB mode for Blender 4.x+ and 5.x compatibility.
-- Bugfix: Unlink `Vector` group input from `ShaderNodeTexNoise` node
+## [1.24.0] - 2026-07-15
 
-### 1.22.0 <!-- 11/21/25 -->
+### Changed
 
-- Move `color` and `node` group scripts into new `mats/color` and `mats/nodes` subfolders
+- Updated compatibility for Blender 4.5 LTS and 5.2 LTS
+  - Removed compatibility code for Blender versions before 4.0
+  - Modernized node-group interface creation
+  - Replaced positional standard-node socket indices with named sockets where names are unambiguous
+  - Retained positional indices for sockets with duplicated names
+  - Replaced legacy node types with their current equivalents
+- Preserved the UV texture-coordinate connection in **Anisotrophy X**
 
-### 1.21.1 <!-- 10/31/25 -->
+### Fixed
 
-- Update `bl_info` metadata:
-  - Change `doc_url` to point to the GitHub QMM wiki instead of the main site.
+- Fixed **Texturizer** Rough Ceiling subtraction
+- Removed a duplicate link from **Uneven Roughness**
+- Fixed **Cutting Mat** compatibility across Blender 4.5 and 5.2
+- Corrected the **Canisotrophy** XY Scale minimum
 
-### 1.21.0 <!-- 10/31/25 -->
+## [1.23.0] - 2026-07-14
 
-- UI localization overhaul
-  - Update supported language list (based on active user base):
-    - Japanese
-    - German
-    - French
-    - Russian
-    - Italian
-    - Brazilian Portuguese
-    - Spanish
-    - Indonesian
-    - Chinese Traditional
-    - Korean
-    - Polish
-    - Turkish
-    - Dutch
-    - Ukrainian
-    - Hungarian
-  - Bugfix: Node selection by translated name (e.g., `nodes.get('Principled BSDF')`) failed in non-English locales. Switch node lookups to `bl_idname` for Material Output, Principled BSDF, Mix Shader, etc.
+### Changed
 
-### 1.20.0 <!-- 07/13/25 -->
+- Updated compatibility for Blender 5.2
+  - Replaced positional **Principled BSDF** socket indices with named sockets
+  - Corrected Bump node connections to the **Normal** input
+- Updated minimum supported Blender version to **4.0.0**
 
-- Tweaks to **Mithryl**
-  - Color tint updated from turquoise to **Cosmic Spectrum Green**
-  - Bugfix: Updated **Principled BSDF** node **Emission** inputs for Blender 4.3 compatibility
+### Fixed
 
-### 1.19.0 <!-- 06/03/25 -->
+- Fixed **Cinnabar Lacquer**
+- Fixed **Tinted Plaster**
+- Fixed **Asphalt**
+- Fixed **Asphalt Bleached**
+- Fixed **Car Paint**
+- Fixed **Wall Paint**
 
-- Add **Uneven Roughness** group to all metals
-- Bugfix: Error unregistering **QMMSettings**
-- Remove **Addon Updater**
+## [1.22.1] - 2025-12-21
 
-### 1.18.0 <!-- 01/07/25 -->
+### Fixed
 
-- Add new material
-  - **QMM Orichalcum**
+- Replaced deprecated `ShaderNodeSeparateRGB` with feature-detected `ShaderNodeSeparateColor` and explicit RGB mode for Blender 4.x and 5.x compatibility
+- Unlinked the `Vector` group input from the `ShaderNodeTexNoise` node
 
-### 1.17.0 <!-- 12/08/24 -->
+## [1.22.0] - 2025-11-21
 
-- Blender 4.3.0 compatibility. Updates to:
+### Changed
+
+- Moved `color` and `node` group scripts into new `mats/color` and `mats/nodes` subfolders
+
+## 1.21.1 - 2025-10-31
+
+### Changed
+
+- Updated `bl_info` metadata
+  - Changed `doc_url` to point to the GitHub QMM wiki instead of the main site
+
+## [1.21.0] - 2025-10-31
+
+### Changed
+
+- Overhauled UI localization
+- Updated supported language list based on active user base:
+  - Japanese
+  - German
+  - French
+  - Russian
+  - Italian
+  - Brazilian Portuguese
+  - Spanish
+  - Indonesian
+  - Chinese Traditional
+  - Korean
+  - Polish
+  - Turkish
+  - Dutch
+  - Ukrainian
+  - Hungarian
+
+### Fixed
+
+- Fixed node selection by translated name in non-English locales
+  - Switched node lookups to `bl_idname` for Material Output, Principled BSDF, Mix Shader, and related nodes
+
+## 1.20.0 - 2025-07-13
+
+### Changed
+
+- Updated **Mithryl**
+  - Changed color tint from turquoise to **Cosmic Spectrum Green**
+
+### Fixed
+
+- Updated **Principled BSDF** node **Emission** inputs for Blender 4.3 compatibility
+
+## [1.19.0] - 2025-06-03
+
+### Added
+
+- Added **Uneven Roughness** group to all metals
+
+### Removed
+
+- Removed **Addon Updater**
+
+### Fixed
+
+- Fixed error unregistering **QMMSettings**
+
+## [1.18.0] - 2025-01-07
+
+### Added
+
+- Added **QMM Orichalcum**
+
+## [1.17.0] - 2024-12-08
+
+### Changed
+
+- Updated Blender 4.3.0 compatibility for:
   - **Glass.py**
   - **Plaster.py**
-- Update output labels on **Steel Roughness** group node. This affects **Steel** material.
+- Updated output labels on **Steel Roughness** group node affecting **Steel**
 
-### 1.16.0 <!-- 11/27/24 -->
+## [1.16.0] - 2024-11-27
 
-- Blender 4.3.0 compatibility. Updates to:
+### Changed
+
+- Updated Blender 4.3.0 compatibility for:
   - **CarPaint.py**
   - **CuttingMat.py**
   - **Cinnabar.py**
 
-### 1.15.0 <!-- 09/12/24 -->
+## 1.15.0 - 2024-09-12
 
-- Adjust `Secondary Color` of **Pearlescent Pigment**
+### Changed
 
-### 1.14.0 <!-- 09/10/24 -->
+- Adjusted `Secondary Color` of **Pearlescent Pigment**
 
-- Adjust and reactivate IOR Values
-- Misc. node cleanup
+## [1.14.0] - 2024-09-10
 
-### 1.13.0 <!-- 08/31/24 -->
+### Changed
 
-- Add new group
-  - **Pearlescent Pigment** group. This affects **Car Paint**.
+- Adjusted and reactivated IOR values
+- Cleaned up miscellaneous nodes
 
-### 1.12.0 <!-- 08/09/24 -->
+## [1.13.0] - 2024-08-31
 
-- Add **Set Viewport Color** checkbox
-  - When selected, this changes the **Viewport Color**, **Metallic** and **Roughness** of the material.
-  - When unselected, this resets them to Blender default.
-  - If a material already exists, clicking its panel button will apply the current **Set Viewport Color** settings.
+### Added
 
-### 1.11.0 <!-- 08/03/24 -->
+- Added **Pearlescent Pigment** group affecting **Car Paint**
 
-- Add `Scale` input to **Texturizer** group
+## [1.12.0] - 2024-08-09
 
-### 1.10.0 <!-- 07/06/24 -->
+### Added
 
-- Consolidate **Steel Roughness** group from 10 outputs to 5, sorted from low (`0.05`) roughness to high (`0.5`)
-- Make **Energy Conservation** group optional for Blender versions 4 and up
-- Code refactoring
+- Added **Set Viewport Color** checkbox
+  - When selected, changes the material's **Viewport Color**, **Metallic**, and **Roughness**
+  - When unselected, resets them to Blender defaults
+  - If a material already exists, clicking its panel button applies the current **Set Viewport Color** settings
 
-### 1.9.1 <!-- 04/25/24 -->
+## [1.11.0] - 2024-08-03
 
-- Add new materials
-  - **QMM High-Alloy Stainless Steel**
-  - **QMM Nickel-Vanadium Steel**
-- Change **QMM Carbon Steel New** `Roughness` range to `0.2 - 0.4`
-- Remove category **More Steel** and move materials into new **Alloys** sub-categories
+### Added
+
+- Added `Scale` input to **Texturizer** group
+
+## [1.10.0] - 2024-07-06
+
+### Changed
+
+- Consolidated **Steel Roughness** group from 10 outputs to 5, sorted from low (`0.05`) roughness to high (`0.5`)
+- Made **Energy Conservation** group optional for Blender 4 and later
+- Refactored code
+
+## 1.9.1 - 2024-04-25
+
+### Added
+
+- Added **QMM High-Alloy Stainless Steel**
+- Added **QMM Nickel-Vanadium Steel**
+- Added **Alloys** subcategories:
   - **Carbon Steel**
   - **Stainless Steel**
   - **Alloy Steel**
   - **Specialty Steel**
 
-### 1.9.0 <!-- 04/20/24 -->
+### Changed
 
-- Add new category **More Steel**
-- Add new materials
+- Changed **QMM Carbon Steel New** `Roughness` range to `0.2 - 0.4`
+- Moved materials from **More Steel** into the new **Alloys** subcategories
+
+### Removed
+
+- Removed **More Steel** category
+
+## [1.9.0] - 2024-04-20
+
+### Added
+
+- Added **More Steel** category
+- Added materials:
   - **QMM Carbon Steel New**
   - **QMM Carbon Steel Weathering**
   - **QMM 304 Common Stainless Steel**
@@ -162,121 +232,158 @@
   - **QMM Galvanized Steel**
   - **QMM Weathering Steel**
   - **QMM Virgin Weathering Steel**
-- Update **Car Paint**
-  - Change `Metal Flake > Scale` to `4096`
-- Disable `This material already exists` alert
 
-### 1.8.2 <!-- 03/29/24 -->
+### Changed
 
-- Update **Metal Flake** group
-  - Add `Blue Mask` output
-  - Change `Scale` to `4096`
+- Updated **Car Paint**
+  - Changed `Metal Flake > Scale` to `4096`
+- Disabled `This material already exists` alert
 
-### 1.8.1 <!-- 03/27/24 -->
+## 1.8.2 - 2024-03-29
 
-- 4.1 Bugfix: Set `socket_type` on Group Nodes
+### Added
 
-### 1.8.0 <!-- 03/14/24 -->
+- Added `Blue Mask` output to **Metal Flake**
 
-- Add new materials
-  - **Car Paint**
-- Add new groups
-  - **Metal Flake** group with `Scale` and `Strength` outputs. This affects **Car Paint**.
-- Tweaks to **Mithryl**
-- Rename **Cinnabar** > **Cinnabar Lacquer**
+### Changed
 
-### 1.7.0 <!-- 01/20/24 -->
+- Changed **Metal Flake** `Scale` to `4096`
 
-- Add new materials
-  - **Cinnabar**
-  - **Mithryl**
-- Add new groups
-  - **Uneven Roughness** group with `Roughness` and `Mask` outputs. This affects **Cinnabar**.
-- Remove materials
-  - **Red Metal**
+## 1.8.1 - 2024-03-27
 
-### 1.6.0 <!-- 10/29/23 -->
+### Fixed
 
-- Blender 4.0 Compatibility Update
+- Added `socket_type` to Group Nodes for Blender 4.1 compatibility
 
-### 1.5.8 <!-- 02/04/23 -->
+## [1.8.0] - 2024-03-14
 
-- Add new material
-  - **Silicon**
-- Add new groups
-  - **Anisotrophy X** group with `To Roughness` and `To Bump` outputs. This affects **Aluminium**.
-  - **Steel Roughness** group with `Roughness` outputs for multiple types of Steel, sorted by most commonly used. This affects **Steel**.
-- Add new category
-  - **Minor Metals**
-  - Re-sort materials
-- Update **Energy Conservation v5** group
-  - Rename **Diffuse (Base)** > **Reflectivity**
-  - Rename **Specular Custom** > **Edge Tint**
-- Update **Reflectivity**, **Edge Tint**, and `Roughness` of metals
-  - Colors calculated using equations from Ole Gulbrandsen's [**Artist Friendly Metallic Fresnel**](https://www.jcgt.org/published/0003/04/03)
-  - Python version: [**reflectivity_edge_tint.py**](https://github.com/don1138/blender-scripts/blob/main/reflectivity_edge_tint.py)
-- Refactor code and rename files
-  - Move classes for **Copper**, **Gold**, **Silver**, **Tin** and **Titanium** into **MakeMetal.py**
-  - Remove suffix **GroupNode** from file names
+### Added
 
-### 1.5.7 <!-- 02/01/23 -->
+- Added **Car Paint**
+- Added **Metal Flake** group with `Scale` and `Strength` outputs affecting **Car Paint**
 
-- Update **Energy Conservation** group to **v5**
-  - Add `Roughness`
-  - Add **Fresnel CCP** group
-- Update `diffuse color`, `specular color`, `roughness`, and `IOR` on most materials
-- Rename **Chrome** to **Chromium**
-- Bugfix
-  - Broken links in **Asphalt** and **Asphalt Bleached**
+### Changed
 
-### 1.5.6 <!-- 01/23/23 -->
+- Updated **Mithryl**
+- Renamed **Cinnabar** to **Cinnabar Lacquer**
 
-- Bugfix
-  - Broken color link in **Texturizer** group
-- Code refactoring
-  - **Red Metal**
-- Spell check
-  - From *Dialectric* to *Dielectric*
+## 1.7.0 - 2024-01-20
 
-### 1.5.5 <!-- 01/10/23 -->
+### Added
 
-- Switch **PrincipledBSDF** light scattering to `MULTI_GGX`
-- Update **Energy Conservation** node group
-  - Calculate **Auto Specular Color** by **Linear Mapping** (`2 * (R, G, B)`) of **Diffuse Color**
-  - Remove **Auto Specular Color** `Saturation` slider.
-    - **Metal** color = **Auto Specular Color**
-    - **Dielectric** color = **Auto Specular Color** with HSV `value` set to `0.01`
-- Update **Color Mix** shader nodes
-  - Add Blender 3.4.0 version test to switch between `ShaderNodeMixRGB` and `ShaderNodeMix`
-  - This affects all materials that use a mix node
+- Added **Cinnabar**
+- Added **Mithryl**
+- Added **Uneven Roughness** group with `Roughness` and `Mask` outputs affecting **Cinnabar**
 
-### 1.5.4 <!-- 12/24/22 -->
+### Removed
 
-- Bugfix: Correct **Energy Conservation** node group connections
+- Removed **Red Metal**
 
-### 1.5.3 <!-- 12/22/22 -->
+## [1.6.0] - 2023-10-29
 
-- Update **Energy Conservation** node group
-  - New option to use an auto-generated specular (AGS) color, which is calculated from the diffuse color
-  - New inputs:
-    - **Custom/Auto switch** toggles between user-defined and AGS color
-    - **Metal/Dielectric switch** toggles HSV value of AGS between metal `(0.99)` and dielectric `(0.01)` settings
-    - **Saturation input** adjusts saturation of AGS
-- Organize layout of RGB nodes inside color node groups
+### Changed
+
+- Added Blender 4.0 compatibility
+
+## [1.5.8] - 2023-02-04
+
+### Added
+
+- Added **Silicon**
+- Added **Anisotrophy X** group with `To Roughness` and `To Bump` outputs affecting **Aluminium**
+- Added **Steel Roughness** group with `Roughness` outputs for multiple types of steel
+- Added **Minor Metals** category
+
+### Changed
+
+- Re-sorted materials
+- Updated **Energy Conservation v5**
+  - Renamed **Diffuse (Base)** to **Reflectivity**
+  - Renamed **Specular Custom** to **Edge Tint**
+- Updated **Reflectivity**, **Edge Tint**, and `Roughness` of metals using equations from Ole Gulbrandsen's [**Artist Friendly Metallic Fresnel**](https://www.jcgt.org/published/0003/04/03)
+- Refactored code and renamed files
+  - Moved classes for **Copper**, **Gold**, **Silver**, **Tin**, and **Titanium** into **MakeMetal.py**
+  - Removed suffix **GroupNode** from file names
+
+## [1.5.7] - 2023-02-01
+
+### Added
+
+- Added `Roughness` to **Energy Conservation v5**
+- Added **Fresnel CCP** group
+
+### Changed
+
+- Updated `diffuse color`, `specular color`, `roughness`, and `IOR` on most materials
+- Renamed **Chrome** to **Chromium**
+
+### Fixed
+
+- Fixed broken links in **Asphalt** and **Asphalt Bleached**
+
+## [1.5.6] - 2023-01-23
+
+### Changed
+
+- Refactored **Red Metal**
+- Corrected spelling from *Dialectric* to *Dielectric*
+
+### Fixed
+
+- Fixed broken color link in **Texturizer** group
+
+## [1.5.5] - 2023-01-10
+
+### Changed
+
+- Switched **Principled BSDF** light scattering to `MULTI_GGX`
+- Updated **Energy Conservation** node group
+  - Calculated **Auto Specular Color** using linear mapping (`2 * (R, G, B)`) of **Diffuse Color**
+  - Removed **Auto Specular Color** `Saturation` slider
+  - Set **Metal** color to **Auto Specular Color**
+  - Set **Dielectric** color to **Auto Specular Color** with HSV `value` set to `0.01`
+- Updated **Color Mix** shader nodes
+  - Added Blender 3.4.0 version test to switch between `ShaderNodeMixRGB` and `ShaderNodeMix`
+  - Affects all materials using a mix node
+
+## [1.5.4] - 2022-12-24
+
+### Fixed
+
+- Corrected **Energy Conservation** node group connections
+
+## [1.5.3] - 2022-12-22
+
+### Added
+
+- Added auto-generated specular color option to **Energy Conservation**
+- Added inputs:
+  - **Custom/Auto switch**
+  - **Metal/Dielectric switch**
+  - **Saturation input**
+
+### Changed
+
+- Updated **Energy Conservation** node group
+- Organized RGB node layouts inside:
   - **Copper Colors**
   - **Gold Colors**
   - **Silver Colors**
   - **Titanium Colors**
-- Code refactoring & cleanup
+- Refactored and cleaned up code
 
-### 1.5.2 <!-- 12/15/22 -->
+## 1.5.2 - 2022-12-15
 
-- Code refactoring
-- PEP8 formatting
+### Changed
 
-### 1.5.1 <!-- 12/14/22 -->
+- Refactored code
+- Applied PEP 8 formatting
 
-- Add names to node groups
+## [1.5.1] - 2022-12-14
+
+### Added
+
+- Added names to node groups:
   - **Copper Colors**
   - **Gold Colors**
   - **Silver Colors**
@@ -284,227 +391,268 @@
   - **Canistrophy**
   - **Energy Conservation**
   - **Texturizer**
-- Add node groups to asset browser file
+- Added node groups to Asset Browser file:
   - **Canistrophy**
   - **Energy Conservation**
   - **Specular**
   - **Texturizer**
-- Rename **QMM Glass Hack** to **QMM Glass**
-- Tweaks to
+
+### Changed
+
+- Renamed **QMM Glass Hack** to **QMM Glass**
+- Updated:
   - **QMM Glass**
   - **QMM Rubber Cutting Mat**
-- Code refactoring
+- Refactored code
 
-### 1.5.0 <!-- 10/17/22 -->
+## [1.5.0] - 2022-10-17
 
-- UI localized/internationalized
-  - **Chinese**
-  - **Danish**
-  - **Dutch**
-  - **Finnish**
-  - **French**
-  - **German**
-  - **Hungarian**
-  - **Indonesian**
-  - **Italian**
-  - **Japanese**
-  - **Polish**
-  - **Portuguese**
-  - **Portuguese (Brazilian)**
-  - **Russian**
-  - **Slovak**
-  - **Spanish**
-  - **Swedish**
-  - **Ukrainian**
-- Add new colors to **Color** group nodes
-  - **Gold Colors**
-    - **Chaos Harvest**
-  - **Titanium Colors**
-    - **Chaos Titanium**
-- Edit **Canistrophy** Group
-  - Add **Master Scale** input
+### Added
 
-### 1.4.9 <!-- 10/16/22 -->
+- Added UI localization for:
+  - Chinese
+  - Danish
+  - Dutch
+  - Finnish
+  - French
+  - German
+  - Hungarian
+  - Indonesian
+  - Italian
+  - Japanese
+  - Polish
+  - Portuguese
+  - Portuguese (Brazilian)
+  - Russian
+  - Slovak
+  - Spanish
+  - Swedish
+  - Ukrainian
+- Added **Chaos Harvest** to **Gold Colors**
+- Added **Chaos Titanium** to **Titanium Colors**
+- Added **Master Scale** input to **Canistrophy**
 
-- Add new material
-  - **Nickel**
-- Update `IOR`
+## [1.4.9] - 2022-10-16
+
+### Added
+
+- Added **Nickel**
+- Added `XYZ` and `XY Only` outputs to **Canistrophy**
+
+### Changed
+
+- Updated `IOR` for:
   - **Gold**
   - **Silver**
-- Edit **Canistrophy** Group
-  - Fix effect to object orientation
-  - Add `XYZ` and `XY Only` output options
-- Rename **Cinnabar** to **Red Metal** since Cinnabar isn't a metal
-- Tweaks to ALL materials except:
+- Updated **Canistrophy** to fix the effect to object orientation
+- Renamed **Cinnabar** to **Red Metal**
+- Updated all materials except:
   - **Glass Hack**
   - **Rubber Cutting Mat**
 
-### 1.4.8 <!-- 10/15/22 -->
+## [1.4.8] - 2022-10-15
 
-- Update `Base Color`
+### Changed
+
+- Updated `Base Color` for:
   - **Copper**
   - **Gold**
   - **Silver**
-- Update `IOR`
-  - **Iron**
-- Update `Base Color` and `IOR`
+- Updated `IOR` for **Iron**
+- Updated `Base Color` and `IOR` for:
   - **Platinum**
   - **Zinc**
-- Bugfix: **Color** group not connecting in Fresnel materials
+
+### Fixed
+
+- Fixed **Color** group connections in Fresnel materials:
   - **Copper (Fresnel)**
   - **Gold (Fresnel)**
   - **Silver (Fresnel)**
 
-### 1.4.7 <!-- 9/27/22 -->
+## [1.4.7] - 2022-09-27
 
-- Add new materials
-  - **Tin**
-  - **Zinc**
-- Add **Displacement** to **Asphalt** and **Asphalt Bleached**
-- Add **Canisotrophy** group with `To Roughness` output. This affects **Tin**.
-- Replace **Specular** group with **Energy Conservation** group (via [**Christopher 3D**](https://www.youtube.com/watch?v=kgORQ5tMe2I))
-  - Inputs
-    - `IOR`
-    - `Diffuse (Base)` Color
-    - `Specular` Color
-  - Outputs
-    - `Color` - **Fresnel** mix of all inputs
-    - `Specular`
-    - `Clearcoat` - `Specular` value x10
-    - `IOR`
-  - This affects ALL materials, both metal and dialectic, except:
-    - **Gold** and **Silver** because: IOR value is too low
-    - **Gold (Fresnel)**, **Silver (Fresnel)**, and **Copper (Fresnel)** because: not compatible with node setup
-    - **Glass Hack** because: not relevant
-- Code cleanup
+### Added
 
-### 1.4.6 <!-- 8/10/22 -->
+- Added **Tin**
+- Added **Zinc**
+- Added **Displacement** to **Asphalt** and **Asphalt Bleached**
+- Added **Canisotrophy** group with `To Roughness` output affecting **Tin**
+- Added **Energy Conservation** group with:
+  - `IOR`
+  - `Diffuse (Base)` Color
+  - `Specular` Color
+- Added outputs:
+  - `Color`
+  - `Specular`
+  - `Clearcoat`
+  - `IOR`
 
-- New color values from [**physicallybased.info**](https://physicallybased.info/)
-  - Set `Base Color` to new values
-    - **Aluminium**
-    - **Copper**
-    - **Gold**
-    - **Iron**
-    - **Lead**
-    - **Mercury**
-    - **Platinum**
-    - **Silver**
-    - **Titanium**
-  - Add new colors to **Color** group nodes
-    - **Copper Colors**
-      - **PBM Copper**
-    - **Gold Colors**
-      - **Harvest Gold**
-      - **PBM Gold**
-    - **Silver Colors**
-      - **PBM Silver**
-  - Sort colors in **Color Groups**
-    - All colors after **Base Name** color sorted from lightest to darkest
-  - Add **Color** group nodes to Asset Browser file
-    - **Colors Copper**
-    - **Colors Gold**
-    - **Colors Silver**
-    - **Colors Titanium**
+### Changed
 
-### 1.4.5 <!-- 7/20/22 -->
-
-- Rename material
-  - **QMM Mercury Liquid** to **QMM Mercury**
-- Update materials
-  - **Cinnabar**
-    - Add **Vermillion** Color Ramp
+- Replaced **Specular** group with **Energy Conservation**
+- Applied **Energy Conservation** to all applicable metal and dielectric materials except:
+  - **Gold**
+  - **Silver**
+  - **Gold (Fresnel)**
+  - **Silver (Fresnel)**
+  - **Copper (Fresnel)**
   - **Glass Hack**
-    - Change `Transparent Shader > Color` to `F3F3FF`
-- Reorder **Noble Metals** submenu
-  - Alphabetize **Palladium** and **Platinum**
-- Bugfix (Bump Node input assignment)
+- Cleaned up code
+
+## [1.4.6] - 2022-08-10
+
+### Added
+
+- Added new color values from [**physicallybased.info**](https://physicallybased.info/)
+- Added **PBM Copper** to **Copper Colors**
+- Added **Harvest Gold** and **PBM Gold** to **Gold Colors**
+- Added **PBM Silver** to **Silver Colors**
+- Added color group nodes to Asset Browser:
+  - **Colors Copper**
+  - **Colors Gold**
+  - **Colors Silver**
+  - **Colors Titanium**
+
+### Changed
+
+- Updated `Base Color` values for:
+  - **Aluminium**
+  - **Copper**
+  - **Gold**
+  - **Iron**
+  - **Lead**
+  - **Mercury**
+  - **Platinum**
+  - **Silver**
+  - **Titanium**
+- Sorted color groups from lightest to darkest after the base color
+
+## [1.4.5] - 2022-07-20
+
+### Changed
+
+- Renamed **QMM Mercury Liquid** to **QMM Mercury**
+- Updated **Cinnabar**
+  - Added **Vermillion** Color Ramp
+- Updated **Glass Hack**
+  - Changed `Transparent Shader > Color` to `F3F3FF`
+- Reordered **Noble Metals** submenu
+  - Alphabetized **Palladium** and **Platinum**
+
+### Fixed
+
+- Fixed Bump Node input assignment for:
   - **Asphalt**
   - **Asphalt Bleached**
   - **Plaster**
 
-### 1.4.4 <!-- 5/05/22 -->
+## [1.4.4] - 2022-05-05
 
-- Add new material
-  - **Cinnabar**
+### Added
 
-### 1.4.3 <!-- 5/01/22 -->
+- Added **Cinnabar**
 
-- Change **Add-On Updater** to manual install
+## [1.4.3] - 2022-05-01
 
-### 1.4.2 <!-- 4/30/22 -->
+### Changed
 
-- Update **Texturizer** node group
-  - Change color/noise color mix from `OVERLAY` to `MULTIPLY`
-  - 1 new input
-    - **Roughness**
-  - 4 new outputs
-    - **Rough Ceiling** - Map Range from min (roughness - 0.1) to max (roughness)
-    - **Roughness** - Noise (green channel) mixed (overlay) with roughness value
-    - **Rough Floor** - Map Range from min (roughness) to max (roughness + 0.1)
-    - **Height**
+- Changed **Add-On Updater** to manual installation
 
-### 1.4.1 <!-- 4/26/22 -->
+## [1.4.2] - 2022-04-30
 
-- Add new material
-  - **Wall Paint**
+### Added
+
+- Added **Roughness** input to **Texturizer**
+- Added outputs:
+  - **Rough Ceiling**
+  - **Roughness**
+  - **Rough Floor**
+  - **Height**
+
+### Changed
+
+- Updated **Texturizer**
+  - Changed color/noise color mix from `OVERLAY` to `MULTIPLY`
+
+## [1.4.1] - 2022-04-26
+
+### Added
+
+- Added **Wall Paint**
+
+### Changed
+
 - Tweaked layout of links in add-on preferences
-- Tried to un-f*ck **Add-On Updater** install. Failed.
+- Attempted to repair **Add-On Updater** installation
 
-### 1.4.0 <!-- 4/22/22 -->
+## [1.4.0] - 2022-04-22
 
-- Add new materials
+### Added
+
+- Added:
   - **Asphalt**
   - **Asphalt Bleached**
   - **Palladium**
   - **Platinum**
   - **Titanium Polished**
-- Remove redundant materials
+
+### Changed
+
+- Renamed:
+  - **Brass Metallic** to **Brass**
+  - **Copper Min** to **Copper**
+  - **Silver Min** to **Silver**
+  - **Titanium** to **Titanium Textured**
+- Updated **Plaster** so its material color can be changed by **PCOY**, **MCMC**, **HG71**, and **F58**
+
+### Removed
+
+- Removed:
   - **Copper Max**
   - **Pale Gold**
   - **Pale Silver**
   - **Silver Max**
-- Rename materials
-  - **Brass Metallic** > **Brass**
-  - **Copper Min** > **Copper**
-  - **Silver Min** > **Silver**
-  - **Titanium** > **Titanium Textured**
-- Revise material
-  - **Plaster** - material color can now be changed by **PCOY**, **MCMC**, **HG71**, and **F58** add-ons.
 
-### 1.3.8 <!-- 4/14/22 -->
+## [1.3.8] - 2022-04-14
 
-![Blender QMM Extended Color Groups](https://github.com/don1138/blender-qmm/blob/main/imx/qmm-color-groups.png)
+### Added
 
-- Add new color to **Copper Color Node** group
-  - **Dontnod Copper** <!-- #FAD0C0 -->
-- Add **Titanium Color Node** group with 7 color choices. This affects **Titanium**. <!-- https://www.color-name.com/search/titanium -->
-  - **Titanium** <!--#C1BAB1 -->
-  - **Pale Titanium** <!--#CEC8C2 -->
-  - **Dark Titanium** <!--#878681 -->
-  - **Metallic Titanium** <!--#7A7772 -->
-  - **Titanium White** <!--#F3F4F7 -->
-  - **Titanium Frost** <!--#B0AFA9 -->
-  - **Titanium Blue** <!--#5B798E -->
-- Add **Texturizer Node** group with `Color` and `Normal` outputs. This affects **Titanium**.
-- Update  `Roughness` values
+- Added **Dontnod Copper** to **Copper Color**
+- Added **Titanium Color** group with:
   - **Titanium**
+  - **Pale Titanium**
+  - **Dark Titanium**
+  - **Metallic Titanium**
+  - **Titanium White**
+  - **Titanium Frost**
+  - **Titanium Blue**
+- Added **Texturizer** node group with `Color` and `Normal` outputs affecting **Titanium**
 
-### 1.3.7 <!-- 4/01/22 -->
+### Changed
 
-- Update IOR values
+- Updated **Titanium** `Roughness`
+
+## [1.3.7] - 2022-04-01
+
+### Changed
+
+- Updated IOR values for:
   - **Aluminium**
   - **Iron**
   - **Titanium**
 
-### 1.3.6 <!-- 3/23/22 -->
+## 1.3.6 - 2022-03-23
 
-- Add new color to **Gold Color Node** group
-  - **Pirate Gold** <!-- #AE8403 -->
+### Added
 
-### 1.3.5 <!-- 3/14/22 -->
+- Added **Pirate Gold** to **Gold Color**
 
-- Update `Roughness` values
+## [1.3.5] - 2022-03-14
+
+### Changed
+
+- Updated `Roughness` values for:
   - **Aluminium**
   - **Brass**
   - **Bronze**
@@ -523,119 +671,167 @@
   - **Steel**
   - **Titanium**
 
-### 1.3.4 <!-- 1/02/22 -->
+## [1.3.4] - 2022-01-02
 
-![Blender QMM Extended Color Groups](https://github.com/don1138/blender-qmm/blob/main/imx/qmm-extended-color-groups.png)
+### Added
 
-- **Bugfix:** Change node group output type from `Float` to `Color`
-- Add **Gold Color** group with 9 color choices. This affects **Gold**, **Pale Gold**, and **Gold (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Gold_(color) -->
-  - **Gold** <!-- #D4AF37 -->
-  - **Pale Gold** <!-- #FFE39D -->
-  - **Golden Gold** <!-- #FFD700 -->
-  - **Old Gold** <!-- #CFB53B -->
-  - **Golden Yellow** <!-- #FFDF00 -->
-  - **Golden Poppy** <!-- #FCC200 -->
-  - **Crayola Gold** <!-- #E6BE8A -->
-  - **Vegas Gold** <!-- #C5B358 -->
-  - **Satin Sheen Gold** <!-- #CBA135 -->
-- Add **Silver Color** group with 10 color choices. This affects **Silver Min**, **Silver Max**, **Pale Silver**, and **Silver (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Silver_(color) -->
-  - **Silver** <!--#AAA9AD -->
-  - **Pale Silver** <!--#FCFAF5 -->
-  - **Basic Silver** <!--#C0C0C0 -->
-  - **Crayola Silver** <!--#C9C0BB -->
-  - **Silver Pink** <!--C4AEAD -->
-  - **Silver Sand** <!--#BFC1C2 -->
-  - **Silver Chalice** <!--#ACACAC -->
-  - **Roman Silver** <!--#838996 -->
-  - **Old Silver** <!--#848482 -->
-  - **Sonic Silver** <!--#757575 -->
+- Added **Gold Color** group with:
+  - **Gold**
+  - **Pale Gold**
+  - **Golden Gold**
+  - **Old Gold**
+  - **Golden Yellow**
+  - **Golden Poppy**
+  - **Crayola Gold**
+  - **Vegas Gold**
+  - **Satin Sheen Gold**
+- Added **Silver Color** group with:
+  - **Silver**
+  - **Pale Silver**
+  - **Basic Silver**
+  - **Crayola Silver**
+  - **Silver Pink**
+  - **Silver Sand**
+  - **Silver Chalice**
+  - **Roman Silver**
+  - **Old Silver**
+  - **Sonic Silver**
 
-### 1.3.3 <!-- 12/30/21 -->
+### Fixed
 
-- **Bugfix: Specular** group was being added twice
-- Add **Copper Color** group with 5 color choices. This affects **Copper Min**, **Copper Max**, and **Copper (Fresnel)**. <!-- https://en.wikipedia.org/wiki/Copper_(color) -->
-  - **Copper** <!-- #B87333 -->
-  - **Pale Copper** <!-- #DA8A67 -->
-  - **Copper Red** <!-- #CB6D51 -->
-  - **Copper Penny** <!-- #AD6F69 -->
-  - **Copper Rose** <!-- #996666 -->
+- Changed node group output type from `Float` to `Color`
 
-### 1.3.2 <!-- 12/29/21 -->
+## [1.3.3] - 2021-12-30
 
-- Combine `IOR/Specular` math nodes into **Specular** group
+### Added
 
-### 1.3.1 <!-- 12/21/21 -->
+- Added **Copper Color** group with:
+  - **Copper**
+  - **Pale Copper**
+  - **Copper Red**
+  - **Copper Penny**
+  - **Copper Rose**
 
-- Move material files into subfolders
+### Fixed
 
-### 1.3.0 <!-- 12/15/21 -->
+- Fixed **Specular** group being added twice
 
-- Blender 3.0 compatibility
-- Update node input IDs to new settings
-- Connect `IOR` value node to **Principled BSDF** `IOR` input
+## [1.3.2] - 2021-12-29
 
-### 1.2.3 <!-- 12/15/21 -->
+### Changed
 
-- Shorten material var names (material_aluminium > m_aluminium)
-- Change `bl_category` from **QMM** to **MAT**
+- Combined `IOR/Specular` math nodes into **Specular** group
 
-### 1.2.2 <!-- 8/12/21 -->
+## [1.3.1] - 2021-12-21
 
-- UILayout tweaks to QMM panel
-- UILayout tweaks to Additional Resources in preferences panel
+### Changed
 
-### 1.2.1 <!-- 7/24/21 -->
+- Moved material files into subfolders
 
-- Add links to Additional Resources to preferences panel
+## [1.3.0] - 2021-12-15
 
-### 1.2.0 <!-- 7/14/21 -->
+### Changed
 
-- Add new materials
+- Added Blender 3.0 compatibility
+- Updated node input IDs
+- Connected `IOR` value node to **Principled BSDF** `IOR` input
+
+## 1.2.3 - 2021-12-15
+
+### Changed
+
+- Shortened material variable names
+  - Example: `material_aluminium` to `m_aluminium`
+- Changed `bl_category` from **QMM** to **MAT**
+
+## [1.2.2] - 2021-08-12
+
+### Changed
+
+- Tweaked UI layout of QMM panel
+- Tweaked UI layout of **Additional Resources** in preferences
+
+## [1.2.1] - 2021-07-24
+
+### Added
+
+- Added **Additional Resources** links to preferences panel
+
+## [1.2.0] - 2021-07-14
+
+### Added
+
+- Added:
   - **Chrome**
   - **Lead**
   - **Lead Rough**
-- Split Base Metals & Alloys into 2 sub-menus
+
+### Changed
+
+- Split **Base Metals & Alloys** into two submenus
 - Set Metallic and Roughness on Viewport Display
-- Misc. Code Cleanup
+- Cleaned up code
 
-### 1.1.1 <!-- 7/8/21 -->
+## [1.1.1] - 2021-07-08
 
-- Add Tooltips to buttons
-- Set IOR value on all Principled BDSF nodes
-- Add "IOR" label to Value node on chain connected to Principled BSDF Specular input
+### Added
 
-### 1.1.0 <!-- 6/17/21 -->
+- Added tooltips to buttons
+- Added `IOR` label to Value node connected to **Principled BSDF** Specular input
 
-- Add new material
-  - **Tinted Plaster**
+### Changed
 
-### 1.0.0
+- Set IOR value on all Principled BSDF nodes
 
-- Add [**CG Cookie's Addon Updater**](https://github.com/CGCookie/blender-addon-updater) system
-- Correct version numbering system
-- Misc. code cleanup
+## 1.1.0 - 2021-06-17
 
-### 0.0.4 <!-- 3/22/21 -->
+### Added
 
-- Add new materials
+- Added **Tinted Plaster**
+
+## [1.0.0]
+
+### Added
+
+- Added [**CG Cookie's Addon Updater**](https://github.com/CGCookie/blender-addon-updater)
+
+### Changed
+
+- Corrected version numbering system
+- Cleaned up code
+
+## [0.0.4] - 2021-03-22
+
+### Added
+
+- Added:
   - **Pale Gold Metallic**
   - **Pale Silver Metallic**
   - **Rubber Cutting Mat**
-- Add `QMM` prefix to classes to resolve naming conflict with other shader addons
 
-### 0.0.3 <!-- 3/21/21 -->
+### Changed
 
-- Move categories into sub-panels
-- Change **Category** to `Material`
-- Change Blender compatibility to 2.83
+- Added `QMM` prefix to classes to resolve naming conflicts with other shader add-ons
 
-### 0.0.2 <!-- 3/10/21 -->
+## [0.0.3] - 2021-03-21
 
-- Add error checking: Does the material already exist?
+### Changed
 
-### 0.0.1 <!-- 3/9/21 -->
+- Moved categories into subpanels
+- Changed **Category** to `Material`
+- Changed Blender compatibility to 2.83
 
-- Create materials
+## [0.0.2] - 2021-03-10
+
+### Added
+
+- Added error checking for existing materials
+
+## 0.0.1 - 2021-03-09
+
+### Added
+
+- Created materials:
   - **Aluminium Metallic**
   - **Brass Metallic**
   - **Bronze Metallic**
@@ -652,3 +848,55 @@
   - **Silver Metallic Max**
   - **Steel Metallic**
   - **Titanium Metallic**
+
+[1.24.0]: https://github.com/don1138/blender-qmm/releases/tag/v1.24.0
+[1.23.0]: https://github.com/don1138/blender-qmm/releases/tag/v1.23.0
+[1.22.1]: https://github.com/don1138/blender-qmm/releases/tag/v1.22.1
+[1.22.0]: https://github.com/don1138/blender-qmm/releases/tag/v1.22.0
+[1.21.0]: https://github.com/don1138/blender-qmm/releases/tag/v1.21.0
+[1.19.0]: https://github.com/don1138/blender-qmm/releases/tag/v1.19.0
+[1.18.0]: https://github.com/don1138/blender-qmm/releases/tag/v1.18.0
+[1.17.0]: https://github.com/don1138/blender-qmm/releases/tag/v1.17.0
+[1.16.0]: https://github.com/don1138/blender-qmm/releases/tag/v1.16.0
+[1.14.0]: https://github.com/don1138/blender-qmm/releases/tag/v1.14.0
+[1.13.0]: https://github.com/don1138/blender-qmm/releases/tag/v1.13.0
+[1.12.0]: https://github.com/don1138/blender-qmm/releases/tag/v1.12.0
+[1.11.0]: https://github.com/don1138/blender-qmm/releases/tag/v1.11.0
+[1.10.0]: https://github.com/don1138/blender-qmm/releases/tag/v1.10.0
+[1.9.0]: https://github.com/don1138/blender-qmm/releases/tag/v1.9.0
+[1.8.0]: https://github.com/don1138/blender-qmm/releases/tag/v1.8.0
+[1.6.0]: https://github.com/don1138/blender-qmm/releases/tag/v1.6.0
+[1.5.8]: https://github.com/don1138/blender-qmm/releases/tag/v1.5.8
+[1.5.7]: https://github.com/don1138/blender-qmm/releases/tag/v1.5.7
+[1.5.6]: https://github.com/don1138/blender-qmm/releases/tag/v1.5.6
+[1.5.5]: https://github.com/don1138/blender-qmm/releases/tag/v1.5.5
+[1.5.4]: https://github.com/don1138/blender-qmm/releases/tag/v1.5.4
+[1.5.3]: https://github.com/don1138/blender-qmm/releases/tag/v1.5.3
+[1.5.1]: https://github.com/don1138/blender-qmm/releases/tag/v1.5.1
+[1.5.0]: https://github.com/don1138/blender-qmm/releases/tag/v1.5.0
+[1.4.9]: https://github.com/don1138/blender-qmm/releases/tag/v1.4.9
+[1.4.8]: https://github.com/don1138/blender-qmm/releases/tag/v1.4.8
+[1.4.7]: https://github.com/don1138/blender-qmm/releases/tag/v1.4.7
+[1.4.6]: https://github.com/don1138/blender-qmm/releases/tag/v1.4.6
+[1.4.5]: https://github.com/don1138/blender-qmm/releases/tag/v1.4.5
+[1.4.4]: https://github.com/don1138/blender-qmm/releases/tag/v1.4.4
+[1.4.3]: https://github.com/don1138/blender-qmm/releases/tag/v1.4.3
+[1.4.2]: https://github.com/don1138/blender-qmm/releases/tag/v1.4.2
+[1.4.1]: https://github.com/don1138/blender-qmm/releases/tag/v1.4.1
+[1.4.0]: https://github.com/don1138/blender-qmm/releases/tag/v1.4.0
+[1.3.8]: https://github.com/don1138/blender-qmm/releases/tag/v1.3.8
+[1.3.7]: https://github.com/don1138/blender-qmm/releases/tag/v1.3.7
+[1.3.5]: https://github.com/don1138/blender-qmm/releases/tag/v1.3.5
+[1.3.4]: https://github.com/don1138/blender-qmm/releases/tag/v1.3.4
+[1.3.3]: https://github.com/don1138/blender-qmm/releases/tag/v1.3.3
+[1.3.2]: https://github.com/don1138/blender-qmm/releases/tag/v1.3.2
+[1.3.1]: https://github.com/don1138/blender-qmm/releases/tag/v1.3.1
+[1.3.0]: https://github.com/don1138/blender-qmm/releases/tag/v1.3.0
+[1.2.2]: https://github.com/don1138/blender-qmm/releases/tag/v1.2.2
+[1.2.1]: https://github.com/don1138/blender-qmm/releases/tag/v1.2.1
+[1.2.0]: https://github.com/don1138/blender-qmm/releases/tag/v1.2.0
+[1.1.1]: https://github.com/don1138/blender-qmm/releases/tag/v1.1.1
+[1.0.0]: https://github.com/don1138/blender-qmm/releases/tag/v1.0.0
+[0.0.4]: https://github.com/don1138/blender-qmm/releases/tag/v0.0.4
+[0.0.3]: https://github.com/don1138/blender-qmm/releases/tag/v0.0.3
+[0.0.2]: https://github.com/don1138/blender-qmm/releases/tag/v0.0.2
