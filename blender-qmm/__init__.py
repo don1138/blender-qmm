@@ -21,7 +21,7 @@ bl_info = {
     "name": "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
     "author": "Don Schnitzius",
-    "version": (1, 24, 2),
+    "version": (1, 24, 3),
     "blender": (4, 0, 0),
     "location": "3D Viewport > Sidebar > MAT > Quick Metal Materials",
     "warning": "",
@@ -47,7 +47,7 @@ class QMMSettings(bpy.types.PropertyGroup):
 # PARENT PANEL
 class QMMPanel(bpy.types.Panel):
     bl_idname = "QMM_PT_Panel"
-    bl_label = 'Quick Metal Materials'
+    bl_label = f"Quick Metal Materials — {version_label()}"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "Quick Tools"
@@ -56,8 +56,6 @@ class QMMPanel(bpy.types.Panel):
     def draw(self, context):
         layout = self.layout
         diffuse_bool = context.scene.diffuse_bool
-
-        layout.label(text=f"Version {version_label()}")
 
         srow = layout.row()
         scol = srow.column(align=True)
