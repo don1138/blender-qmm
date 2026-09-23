@@ -19,11 +19,16 @@ metal_values = [
     {'mercury': ['m_mercury', 'QMM Mercury', (0.783537, 0.775822, 0.775822, 1), 0.025, 0.028, 1.62, (1.500116, 1.375106, 1.247637, 1)]},                              # 13
     {'silicon': ['m_silicon', 'QMM Silicon', (0.345218, 0.3668, 0.43018, 1), 0.08, 0.12, 4.24, (3.630057, 4.022775, 5.870442, 1)]},                                   # 14
     {'copper': ['m_copper', 'QMM Copper', (0.838799, 0.473531, 0.215861, 1), 0.11, 0.16, 2.43, (1.000000, 0.955973, 0.822786, 1)]},                                   # 15
-    {'gold': ['m_gold', 'QMM Gold', (0.94423, 0.776102, 0.372164, 1), 0.17, 0.23, 1.335, (1.040075, 1.111826, 1.486759, 1)]},                                         # 16
+    {'gold': ['m_gold', 'QMM Gold', (0.991102, 0.73791, 0.3564, 1), 0.17, 0.23, 1.335, (1.040075, 1.111826, 1.486759, 1)]},                                           # 16
     {'silver': ['m_silver', 'QMM Silver', (0.962, 0.949468, 0.917246, 1), 0.22, 0.28, 1.082, (1.032801, 1.032482, 1.034567, 1)]},                                     # 17
     {'tin': ['m_tin', 'QMM Tin', (0.988702, 0.988222, 0.986691, 1), 0.16, 0.24, 2.16, (1.051994, 1.053243, 1.058345, 1)]},                                            # 18
     {'titanium': ['m_titanium', 'QMM Titanium Textured', (0.533276, 0.491021, 0.439657, 1), 0.23, 0.38, 2.16, (1.939808, 1.880272, 1.764035, 1)]},                    # 19
     {'orichalcum': ['m_orichalcum', 'QMM Orichalcum', (0.520992, 0.376263, 0.144129, 1), 0.30, 0.50, 1.5, (1, 1, 1, 1)]},                                             # 20
+    {'iridium': ['m_iridium', 'QMM Iridium', (0.746028, 0.729118, 0.701408, 1), 0.10, 0.16, 2.320, (0.824, 0.848, 0.858, 1)]},                                        # 21
+    {'osmium_polished': ['m_osmium_polished', 'QMM Osmium Polished', (0.400249, 0.467302, 0.600250, 1), 0.10, 0.16, 5.854, (0.159, 0.149, 0.364, 1)]},                # 22
+    {'osmium_crystalline': ['m_osmium_crystalline', 'QMM Osmium Crystalline', (0.400249, 0.467302, 0.600250, 1), 0.18, 0.28, 2.677, (0.883, 0.876, 0.882, 1)]},       # 23
+    {'rhodium': ['m_rhodium', 'QMM Rhodium', (0.797258, 0.764496, 0.742956, 1), 0.06, 0.10, 5.854, (0.159, 0.149, 0.364, 1)]},                                        # 24
+    {'tungsten': ['m_tungsten', 'QMM Tungsten', (0.508264, 0.492099, 0.480093, 1), 0.18, 0.28, 3.504, (0.406, 0.408, 0.433, 1)]},                                     # 25
 ]
 
 # MESSAGE BOX
@@ -474,4 +479,54 @@ class QMMSilicon(bpy.types.Operator):
 
     def execute(self, context):
         make_metal(14)
+        return {'FINISHED'}
+
+
+class QMMIridium(bpy.types.Operator):
+    """Add/Apply Iridium Material to Selected Object (or Scene)"""
+    bl_label = "QMM Iridium"
+    bl_idname = 'shader.qmm_iridium_operator'
+
+    def execute(self, context):
+        make_metal(21)
+        return {'FINISHED'}
+
+
+class QMMOsmiumPolished(bpy.types.Operator):
+    """Add/Apply Osmium Polished Material to Selected Object (or Scene)"""
+    bl_label = "QMM Osmium Polished"
+    bl_idname = 'shader.qmm_osmium_polished_operator'
+
+    def execute(self, context):
+        make_metal(22)
+        return {'FINISHED'}
+
+
+class QMMOsmiumCrystalline(bpy.types.Operator):
+    """Add/Apply Osmium Crystalline Material to Selected Object (or Scene)"""
+    bl_label = "QMM Osmium Crystalline"
+    bl_idname = 'shader.qmm_osmium_crystalline_operator'
+
+    def execute(self, context):
+        make_metal(23)
+        return {'FINISHED'}
+
+
+class QMMRhodium(bpy.types.Operator):
+    """Add/Apply Rhodium Material to Selected Object (or Scene)"""
+    bl_label = "QMM Rhodium"
+    bl_idname = 'shader.qmm_rhodium_operator'
+
+    def execute(self, context):
+        make_metal(24)
+        return {'FINISHED'}
+
+
+class QMMTungsten(bpy.types.Operator):
+    """Add/Apply Tungsten Material to Selected Object (or Scene)"""
+    bl_label = "QMM Tungsten"
+    bl_idname = 'shader.qmm_tungsten_operator'
+
+    def execute(self, context):
+        make_metal(25)
         return {'FINISHED'}
