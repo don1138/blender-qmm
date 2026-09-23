@@ -3,6 +3,8 @@ import bpy
 # https://en.wikipedia.org/wiki/Gold_(color)
 
 # HEX TO RGB CALCS
+
+
 def srgb_to_linearrgb(c):
     if c < 0:
         return 0
@@ -10,6 +12,7 @@ def srgb_to_linearrgb(c):
         return c/12.92
     else:
         return ((c+0.055)/1.055)**2.4
+
 
 def hex_to_rgb(h, alpha=1):
     r = (h & 0xff0000) >> 16
@@ -20,7 +23,7 @@ def hex_to_rgb(h, alpha=1):
 
 class GoldColorsGroup(bpy.types.Operator):
     """Add/Get Gold Colors Group Node"""
-    bl_label  = "Gold Colors Node Group"
+    bl_label = "Gold Colors Node Group"
     bl_idname = 'node.gold_cg_operator'
 
     def execute(self, context):
@@ -47,6 +50,7 @@ class GoldColorsGroup(bpy.types.Operator):
         group_out = gold_cg.nodes.new('NodeGroupOutput')
         group_out.location = (0, 0)
         gold_cg.interface.new_socket(name="Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
+        gold_cg.interface.new_socket(name="Spectral Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
         gold_cg.interface.new_socket(name="PBM Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
         gold_cg.interface.new_socket(name="White Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
         gold_cg.interface.new_socket(name="Chaos Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
@@ -60,25 +64,26 @@ class GoldColorsGroup(bpy.types.Operator):
         gold_cg.interface.new_socket(name="Golden Poppy", in_out='OUTPUT', socket_type='NodeSocketColor')
         gold_cg.interface.new_socket(name="Harvest Gold", in_out='OUTPUT', socket_type='NodeSocketColor')
 
-
         # makecolors
         gc_g = self.make_color(gold_cg, "Gold", -400, 600, 0xD4AF37)
-        gc_pbmg = self.make_color(gold_cg, "PBM Gold", -600, 600, 0xF9E4A4)
-        gc_wg = self.make_color(gold_cg, "White Gold", -800, 600, 0xFFE39D)
-        gc_chg = self.make_color(gold_cg, "Chaos Gold", -1000, 600, 0xF3C968)
-        gc_cg = self.make_color(gold_cg, "Crayola Gold", -1200, 400, 0xE6BE8A)
-        gc_vg = self.make_color(gold_cg, "Vegas Gold", -1000, 200, 0xC5B358)
-        gc_og = self.make_color(gold_cg, "Old Gold", -1200, 0, 0xCFB53B)
-        gc_ssg = self.make_color(gold_cg, "Satin Sheen Gold", -1000, -200, 0xCBA135)
-        gc_prtg = self.make_color(gold_cg, "Pirate Gold", -1200, -400, 0xAE8403)
-        gc_gy = self.make_color(gold_cg, "Golden Yellow", -1000, -600, 0xFFDF00)
-        gc_gg = self.make_color(gold_cg, "Golden Gold", -800, -600, 0xFFD700)
-        gc_gp = self.make_color(gold_cg, "Golden Poppy", -600, -600, 0xFCC200)
-        gc_hg = self.make_color(gold_cg, "Harvest Gold", -400, -600, 0xDA9100)
+        gc_sg = self.make_color(gold_cg, "Spectral Gold", -600, 600, 0xFEDFA1)
+        gc_pbmg = self.make_color(gold_cg, "PBM Gold", -800, 600, 0xF9E4A4)
+        gc_wg = self.make_color(gold_cg, "White Gold", -1000, 600, 0xFFE39D)
+        gc_chg = self.make_color(gold_cg, "Chaos Gold", -1000, 400, 0xF3C968)
+        gc_cg = self.make_color(gold_cg, "Crayola Gold", -1000, 200, 0xE6BE8A)
+        gc_vg = self.make_color(gold_cg, "Vegas Gold", -1000, 0, 0xC5B358)
+        gc_og = self.make_color(gold_cg, "Old Gold", -1000, -200, 0xCFB53B)
+        gc_ssg = self.make_color(gold_cg, "Satin Sheen Gold", -1000, -400, 0xCBA135)
+        gc_prtg = self.make_color(gold_cg, "Pirate Gold", -1000, -600, 0xAE8403)
+        gc_gy = self.make_color(gold_cg, "Golden Yellow", -1000, -800, 0xFFDF00)
+        gc_gg = self.make_color(gold_cg, "Golden Gold", -800, -800, 0xFFD700)
+        gc_gp = self.make_color(gold_cg, "Golden Poppy", -600, -800, 0xFCC200)
+        gc_hg = self.make_color(gold_cg, "Harvest Gold", -400, -800, 0xDA9100)
 
         links = gold_cg.links.new
 
         links(gc_g.outputs['Color'], group_out.inputs['Gold'])
+        links(gc_sg.outputs['Color'], group_out.inputs['Spectral Gold'])
         links(gc_pbmg.outputs['Color'], group_out.inputs['PBM Gold'])
         links(gc_wg.outputs['Color'], group_out.inputs['White Gold'])
         links(gc_chg.outputs['Color'], group_out.inputs['Chaos Gold'])
