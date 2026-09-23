@@ -105,11 +105,6 @@ class QMMPanelNoble(bpy.types.Panel):
         row = layout.row()
         row.operator("shader.qmm_silver_m_operator", text='Silver')
 
-        row = layout.row()
-        row.operator("shader.qmm_gold_operator", text='Gold Fresnel')
-        row = layout.row()
-        row.operator("shader.qmm_silver_operator", text='Silver Fresnel')
-
 
 # BASE METALS PANEL
 class QMMPanelBase(bpy.types.Panel):
@@ -129,8 +124,6 @@ class QMMPanelBase(bpy.types.Panel):
 
         row = layout.row()
         row.operator("shader.qmm_copper_m_operator", text='Copper')
-        row = layout.row()
-        row.operator("shader.qmm_copper_operator", text='Copper Fresnel')
 
         row = layout.row()
         row.operator("shader.qmm_iron_operator", text='Iron')
@@ -463,11 +456,9 @@ classes = [
     QMMChromium,
     QMMCinnabar,
     QMMCopper,
-    QMMCopperFresnel,
     QMMCuttingMat,
     QMMGlass,
     QMMGold,
-    QMMGoldFresnel,
     QMMIridium,
     QMMIron,
     QMMLead,
@@ -484,7 +475,6 @@ classes = [
     QMMRhodium,
     QMMSilicon,
     QMMSilver,
-    QMMSilverFresnel,
     QMMSteel,
     QMMTin,
     QMMTitanium,
