@@ -261,6 +261,7 @@ def add_color_group(nodes, c_name, links, ec_group, BSDF):
 
     cg = nodes.new("ShaderNodeGroup")
     cg.name = f"{c_name} Colors"
+    cg.location = (-700, 0)
     cg.node_tree = bpy.data.node_groups[f'{c_name} Colors']
 
     links(cg.outputs[1], BSDF.inputs["Base Color"])
