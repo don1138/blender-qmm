@@ -17,6 +17,36 @@
 # ##### END GPL LICENSE BLOCK #####
 
 
+from .mats.nodes.UnevenRoughness import *
+from .mats.nodes.Texturizer import *
+from .mats.nodes.SteelRoughness import *
+from .mats.nodes.Specular import *
+from .mats.nodes.PearlescentPigment import *
+from .mats.nodes.MetalFlake import *
+from .mats.nodes.OsmiumCrystalline import *
+from .mats.nodes.EnergyConservation import *
+from .mats.nodes.Canisotrophy import *
+from .mats.nodes.AnisotrophyX import *
+from .mats.colors.TitaniumColors import *
+from .mats.colors.SilverColors import *
+from .mats.colors.GoldColors import *
+from .mats.colors.CopperColors import *
+from .mats.fresnel.FresnelSilver import *
+from .mats.fresnel.FresnelGold import *
+from .mats.fresnel.FresnelCopper import *
+from .mats.extras.WallPaint import *
+from .mats.extras.Plaster import *
+from .mats.extras.Mithryl import *
+from .mats.extras.Glass import *
+from .mats.extras.CuttingMat import *
+from .mats.extras.Cinnabar import *
+from .mats.extras.CarPaint import *
+from .mats.extras.AsphaltBleached import *
+from .mats.extras.Asphalt import *
+from .mats.MakeSteel import *
+from .mats.MakeMetal import *
+from .localization import *
+import bpy
 bl_info = {
     "name": "QMM (Quick Metal Materials)",
     "description": "A Collection of Metal Materials",
@@ -31,18 +61,14 @@ bl_info = {
 }
 
 
-import bpy
-from .localization import *
-
-
 def version_label():
     return ".".join(str(part) for part in bl_info["version"])
 
 
 # BOOLEAN FOR PANEL
 class QMMSettings(bpy.types.PropertyGroup):
-    diffuse_more: bpy.props.BoolProperty(name='',default=False)
-    
+    diffuse_more: bpy.props.BoolProperty(name='', default=False)
+
 
 # PARENT PANEL
 class QMMPanel(bpy.types.Panel):
@@ -85,19 +111,19 @@ class QMMPanelNoble(bpy.types.Panel):
         row.operator("shader.qmm_gold_m_operator", text='Gold')
 
         row = layout.row()
+        row.operator("shader.qmm_iridium_operator", text='Iridium')
+
+        row = layout.row()
+        row.operator("shader.qmm_osmium_operator", text='Osmium')
+
+        row = layout.row()
+        row.operator("shader.qmm_osmium_crystalline_operator", text='Osmium Crystalline')
+
+        row = layout.row()
         row.operator("shader.qmm_palladium_operator", text='Palladium')
 
         row = layout.row()
         row.operator("shader.qmm_platinum_operator", text='Platinum')
-
-        row = layout.row()
-        row.operator("shader.qmm_iridium_operator", text='Iridium')
-
-        row = layout.row()
-        row.operator("shader.qmm_osmium_polished_operator", text='Osmium Polished')
-
-        row = layout.row()
-        row.operator("shader.qmm_osmium_crystalline_operator", text='Osmium Crystalline')
 
         row = layout.row()
         row.operator("shader.qmm_rhodium_operator", text='Rhodium')
@@ -405,35 +431,6 @@ class QMM_AddonPreferences(bpy.types.AddonPreferences):
             "wm.url_open", text="Blender Quick Material Colors").url = "https://github.com/don1138/blender-pcoy"
 
 
-from .mats.MakeMetal import *
-from .mats.MakeSteel import *
-from .mats.extras.Asphalt import *
-from .mats.extras.AsphaltBleached import *
-from .mats.extras.CarPaint import *
-from .mats.extras.Cinnabar import *
-from .mats.extras.CuttingMat import *
-from .mats.extras.Glass import *
-from .mats.extras.Mithryl import *
-from .mats.extras.Plaster import *
-from .mats.extras.WallPaint import *
-from .mats.fresnel.FresnelCopper import *
-from .mats.fresnel.FresnelGold import *
-from .mats.fresnel.FresnelSilver import *
-from .mats.colors.CopperColors import *
-from .mats.colors.GoldColors import *
-from .mats.colors.SilverColors import *
-from .mats.colors.TitaniumColors import *
-from .mats.nodes.AnisotrophyX import *
-from .mats.nodes.Canisotrophy import *
-from .mats.nodes.EnergyConservation import *
-from .mats.nodes.MetalFlake import *
-from .mats.nodes.PearlescentPigment import *
-from .mats.nodes.Specular import *
-from .mats.nodes.SteelRoughness import *
-from .mats.nodes.Texturizer import *
-from .mats.nodes.UnevenRoughness import *
-
-
 classes = [
     QMM_AddonPreferences,
     QMMSettings,
@@ -467,8 +464,8 @@ classes = [
     QMMMithryl,
     QMMNickel,
     QMMOrichalcum,
+    QMMOsmium,
     QMMOsmiumCrystalline,
-    QMMOsmiumPolished,
     QMMPalladium,
     QMMPlaster,
     QMMPlatinum,
@@ -508,6 +505,7 @@ classes = [
     CanisotrophyGroup,
     EnergyConservationGroup,
     MetalFlakeGroup,
+    OsmiumCrystallineSurfaceGroup,
     PearlescentPigmentGroup,
     SpecularGroup,
     SteelRoughnessGroup,
@@ -522,22 +520,22 @@ classes = [
 
 def register():
     bpy.app.translations.register(__name__, langs)
-    
+
     # Register all classes
     for cls in classes:
         bpy.utils.register_class(cls)
-    
+
     # Register the PointerProperty on Scene AFTER class registration
     bpy.types.Scene.diffuse_bool = bpy.props.PointerProperty(type=QMMSettings)
 
 
 def unregister():
     bpy.app.translations.unregister(__name__)
-    
+
     # Remove the property first
     if hasattr(bpy.types.Scene, "diffuse_bool"):
         del bpy.types.Scene.diffuse_bool
-    
+
     # Unregister all classes in reverse
     for cls in reversed(classes):
         bpy.utils.unregister_class(cls)

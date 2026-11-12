@@ -25,9 +25,9 @@ metal_values = [
     {'titanium': ['m_titanium', 'QMM Titanium Textured', (0.533276, 0.491021, 0.439657, 1), 0.23, 0.38, 2.16, (1.939808, 1.880272, 1.764035, 1)]},                    # 19
     {'orichalcum': ['m_orichalcum', 'QMM Orichalcum', (0.520992, 0.376263, 0.144129, 1), 0.30, 0.50, 1.5, (1, 1, 1, 1)]},                                             # 20
     {'iridium': ['m_iridium', 'QMM Iridium', (0.746028, 0.729118, 0.701408, 1), 0.10, 0.16, 2.320, (0.824, 0.848, 0.858, 1)]},                                        # 21
-    {'osmium_polished': ['m_osmium_polished', 'QMM Osmium Polished', (0.400249, 0.467302, 0.600250, 1), 0.10, 0.16, 5.854, (0.159, 0.149, 0.364, 1)]},                # 22
-    {'osmium_crystalline': ['m_osmium_crystalline', 'QMM Osmium Crystalline', (0.400249, 0.467302, 0.600250, 1), 0.18, 0.28, 2.677, (0.883, 0.876, 0.882, 1)]},       # 23
-    {'rhodium': ['m_rhodium', 'QMM Rhodium', (0.797258, 0.764496, 0.742956, 1), 0.06, 0.10, 5.854, (0.159, 0.149, 0.364, 1)]},                                        # 24
+    {'osmium': ['m_osmium', 'QMM Osmium', (0.400249, 0.467302, 0.600250, 1), 0.10, 0.16, 5.854, (0.159, 0.149, 0.364, 1)]},                                           # 22
+    {'osmium_crystalline': ['m_osmium_crystalline', 'QMM Osmium Crystalline', (0.400249, 0.467302, 0.600250, 1), 0.12, 0.20, 5.854, (0.159, 0.149, 0.364, 1)]},       # 23
+    {'rhodium': ['m_rhodium', 'QMM Rhodium', (0.797258, 0.764496, 0.742956, 1), 0.06, 0.10, 2.677, (0.883, 0.876, 0.882, 1)]},                                        # 24
     {'tungsten': ['m_tungsten', 'QMM Tungsten', (0.508264, 0.492099, 0.480093, 1), 0.18, 0.28, 3.504, (0.406, 0.408, 0.433, 1)]},                                     # 25
 ]
 
@@ -182,6 +182,10 @@ def make_shader(units):
     if units == 19:
         add_texturizer(nodes, links, ec_group, BSDF)
 
+    # Osmium Crystalline > Add crystalline surface group
+    if units == 23:
+        add_osmium_crystalline_surface(nodes, links, BSDF, ur_group)
+
     # LOAD THE MATERIAL
     bpy.context.object.active_material = unit_value[0]
 
@@ -193,6 +197,17 @@ def add_value(nodes, x_pos, y_pos, name, val, width):
     m_val.label = name
     m_val.outputs["Value"].default_value = val
     m_val.width = width
+
+
+def add_osmium_crystalline_surface(nodes, links, BSDF, ur_group):
+    bpy.ops.node.osmium_crystalline_surface_group_operator()
+    crystal_group = nodes.new("ShaderNodeGroup")
+    crystal_group.name = "Osmium Crystalline Surface"
+    crystal_group.node_tree = bpy.data.node_groups['Osmium Crystalline Surface']
+    crystal_group.location = (-600, -300)
+    crystal_group.width = 240
+    ur_group.location = (-500, 0)
+    links(crystal_group.outputs['Normal'], BSDF.inputs['Normal'])
 
 
 def add_anistrophy_x(nodes, links):
@@ -492,10 +507,10 @@ class QMMIridium(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class QMMOsmiumPolished(bpy.types.Operator):
-    """Add/Apply Osmium Polished Material to Selected Object (or Scene)"""
-    bl_label = "QMM Osmium Polished"
-    bl_idname = 'shader.qmm_osmium_polished_operator'
+class QMMOsmium(bpy.types.Operator):
+    """Add/Apply Osmium Material to Selected Object (or Scene)"""
+    bl_label = "QMM Osmium"
+    bl_idname = 'shader.qmm_osmium_operator'
 
     def execute(self, context):
         make_metal(22)
