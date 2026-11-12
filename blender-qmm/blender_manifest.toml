@@ -1,0 +1,11 @@
+schema_version = "1.0.0"
+id = "quick_metal_materials"
+version = "1.25.0"
+name = "QMM (Quick Metal Materials)"
+tagline = "Adds a Collection of Metal Materials to Blender"
+maintainer = "don1138 <don@sketchbookclub.com>"
+type = "add-on"
+website = "https://github.com/don1138/blender-qmm"
+tags = ["Material"]
+blender_version_min = "4.5.0"
+license = ["SPDX:GPL-3.0-or-later",]

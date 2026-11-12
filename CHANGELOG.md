@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Changed
 
 - Updated **Gold** using spectral optical data
+- Converted QMM to Blender's extension manifest packaging
+- Raised the minimum supported Blender version to **4.5 LTS**
 
 ### Removed
 

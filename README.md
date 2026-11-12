@@ -1,15 +1,22 @@
 # Blender QMM (Quick Metal Materials)
 
-Blender Addon to Add Metal Materials to Your Scene
+Blender extension for adding metal materials to your scene.
 
 ![Blender QMM Screenshot](https://github.com/don1138/blender-qmm/blob/main/imx/blender-qmm.jpg)
 
+## Requirements
+
+- Blender 4.5 LTS or later
+
 ## Installation
 
-- Download the latest ZIP from **Releases**
-- Install  via `Edit > Preferences > Add-ons > Install…`
+1. Download the latest ZIP from **Releases**. Do not extract it.
+2. In Blender, open `Edit > Preferences > Add-ons`.
+3. Open the menu and choose **Install from Disk…**.
+4. Select the downloaded ZIP.
+5. Enable **QMM (Quick Metal Materials)** if necessary.
 
-Once activated, a panel named **Quick Metal Materials** will appear in the **MAT** tab in the 3D viewport sidebar
+The **Quick Metal Materials** panel appears in the **MAT** tab of the 3D Viewport sidebar.
 
 ## Usage
 

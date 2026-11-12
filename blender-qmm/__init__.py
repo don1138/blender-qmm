@@ -52,7 +52,7 @@ bl_info = {
     "description": "A Collection of Metal Materials",
     "author": "Don Schnitzius",
     "version": (1, 25, 0),
-    "blender": (4, 0, 0),
+    "blender": (4, 5, 0),
     "location": "3D Viewport > Sidebar > MAT > Quick Metal Materials",
     "warning": "",
     "doc_url": "https://github.com/don1138/blender-qmm/wiki",
